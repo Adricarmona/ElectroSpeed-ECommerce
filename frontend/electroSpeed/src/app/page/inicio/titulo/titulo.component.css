@@ -1,0 +1,17 @@
+/* centrado y tipografia    */
+.centradoTipografia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+}
+
+/*  Inicio  */
+#inicio {
+    height: 880px;
+    padding-top: 30vh;
+}
+
+#Logotipo_inicio {
+    width: 100vh;
+}

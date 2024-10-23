@@ -1,0 +1,16 @@
+/* centrado y tipografia    */
+.centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1080px;
+}
+
+ul { /*     posicion de cada apartado de lista      */
+    margin-left: 50vh;
+}
+
+p, li { /*      Color blanco en letras          */
+    color: white;
+    font-size: 3.5vh;
+}
