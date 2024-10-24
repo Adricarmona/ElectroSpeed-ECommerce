@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ElectroSpeed_server.props" />
+</Project>
