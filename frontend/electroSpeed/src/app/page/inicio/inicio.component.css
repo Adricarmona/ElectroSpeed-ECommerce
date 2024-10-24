@@ -1,7 +1,7 @@
 /*  El fondo    */
 body {
-    background-image: url(../../../../public/Fondo_inicio.png);
-    background-color: rgb(0, 0, 0);
+    /*background-image: url(../../../../public/inicio/Fondo_inicio.png);
+    background-color: rgb(0, 0, 0);*/
     height: 5400px;
     width: auto;
     margin: 0;

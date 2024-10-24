@@ -6,6 +6,12 @@
     height: 1080px;
 }
 
+/* fondo */
+.fondo {
+    background-image: url(../../../../../public/inicio/FondoCiclista.png);
+    background-size: cover;
+}
+
 ul { /*     posicion de cada apartado de lista      */
     margin-left: 50vh;
 }
