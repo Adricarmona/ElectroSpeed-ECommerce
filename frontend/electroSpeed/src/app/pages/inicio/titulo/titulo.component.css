@@ -6,6 +6,12 @@
     font-family: monospace;
 }
 
+/* fondo */
+.fondo {
+    background-image: url(../../../../../public/inicio/FondoInicioBicis.jpeg);
+    background-size: cover;
+}
+
 /*  Inicio  */
 #inicio {
     height: 880px;
