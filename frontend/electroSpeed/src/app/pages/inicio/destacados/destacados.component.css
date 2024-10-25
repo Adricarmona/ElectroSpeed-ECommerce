@@ -9,9 +9,10 @@
 /* fondo */
 .fondo 
 {
-    background-image: url(../../../../public/inicio/FondoMontaña.png);
+    background-image: url(../../../../../public/inicio/FondoMontaña.png);
     background-size: cover;
     height: 1080px;
+    padding-bottom: 10vh;
 }
 
 /* El texto destacados y las lineas */
@@ -39,9 +40,14 @@ hr
     height: 50vh;
 }
 
-.bicimedio, img , hr
+.bicimedio img
 {
     width: 85vh;
+}
+
+.bicimedio hr {
+    width: 60vh;
+    height: 0.5vh;
 }
 
 .bicilados 

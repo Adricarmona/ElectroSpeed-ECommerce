@@ -1,0 +1,44 @@
+/* centrado y tipografia    */
+.centrado {
+    height: 1080px;
+    padding-top: 30vh;
+    margin-left: 75vh;
+}
+
+/* fondo */
+.fondo {
+    background-image: url(../../../../../public/inicio/FondoMontañaMinimalista.png);
+    background-size: cover;
+}
+
+h1 { 
+    margin: 0;
+    color: white;
+    font: 9em sans-serif;
+    margin-bottom: 20vh;
+}
+
+.reparacionesServicios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:60vh;
+}
+
+#reparaciones {
+    float: right;
+}
+
+hr {
+    transform: rotate(90deg);
+    width: 350vh;
+}
+
+span {
+    font-size: 2em;
+    color: white;
+}
+
+#ventasTexto {
+    margin-left: 5vh;
+}
