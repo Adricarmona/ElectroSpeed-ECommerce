@@ -11,7 +11,7 @@
     background-size: cover;
 }
 
-h1 { /*      el h1          */
+h1 { 
     margin: 0;
     color: white;
     font: 9em sans-serif;
@@ -22,12 +22,16 @@ h1 { /*      el h1          */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 75vh;
+    width:60vh;
+}
+
+#reparaciones {
+    float: right;
 }
 
 hr {
     transform: rotate(90deg);
-    width: 250px;
+    width: 350vh;
 }
 
 span {
