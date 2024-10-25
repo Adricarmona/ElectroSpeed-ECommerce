@@ -9,7 +9,7 @@
 /* fondo */
 .fondo 
 {
-    background-image: url(../../../../public/inicio/FondoMontaña.png);
+    background-image: url(../../../../../public/inicio/FondoMontaña.png);
     background-size: cover;
     height: 1080px;
 }
