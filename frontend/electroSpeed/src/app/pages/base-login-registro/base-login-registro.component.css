@@ -12,21 +12,25 @@ div{
 }
 
 #rectangulo1{
-    width: 40vw;
-    height: 70vh;
+    width: 34vw;
+    height: 71vh;
     background: #7E7E7E;
     border-radius: 109px;
 }
 
 #rectangulo2{
-    width: 38vw;
-    height: 66vh;
+    width: 32vw;
+    height: 67vh;
     background: #CCCCCC;
     border-radius: 109px;
 }
 #rectangulo3{
-    width: 36vw;
-    height: 62vh;
+    display: flex;
+    width: 30vw;
+    height: 63vh;
     background: #FFFFFF;
     border-radius: 109px;
+    align-items: flex-start;
+    align-content: space-around;
+    flex-wrap: wrap;
 }
