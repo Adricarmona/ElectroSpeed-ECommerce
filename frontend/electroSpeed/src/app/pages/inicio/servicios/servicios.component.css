@@ -2,7 +2,8 @@
 .centrado {
     height: 1080px;
     padding-top: 30vh;
-    margin-left: 75vh;
+    margin-left: 60vh;
+    font-family: "Inter";
 }
 
 /* fondo */
@@ -16,29 +17,31 @@ h1 {
     color: white;
     font: 9em sans-serif;
     margin-bottom: 20vh;
+    font-family: "Inter";
+    font-weight: lighter;
+    margin-left: 20vh;
 }
 
 .reparacionesServicios {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:60vh;
+    display: grid;
+    grid-template-columns: 30vh 30vh 30vh;
 }
 
-#reparaciones {
-    float: right;
+.grid 
+{
+    text-align: center;
+
 }
 
-hr {
-    transform: rotate(90deg);
-    width: 350vh;
+.grid img{
+    margin-bottom: 5vh;
 }
 
 span {
-    font-size: 2em;
     color: white;
+    font-size: 2em;
 }
 
-#ventasTexto {
-    margin-left: 5vh;
+.textos {
+    margin: 4vh;
 }
