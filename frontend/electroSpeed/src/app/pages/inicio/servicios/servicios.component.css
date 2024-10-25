@@ -1,15 +1,14 @@
-/* centrado y tipografia    */
-.centrado {
-    height: 1080px;
-    padding-top: 30vh;
-    margin-left: 60vh;
-    font-family: "Inter";
-}
-
 /* fondo */
 .fondo {
     background-image: url(../../../../../public/inicio/FondoMontañaMinimalista.png);
     background-size: cover;
+}
+
+/* centrado y tipografia    */
+.centrado {
+    padding: 30vh 0;
+    margin-left: 60vh;
+    font-family: "Inter";
 }
 
 h1 { 
