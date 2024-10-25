@@ -27,11 +27,8 @@ hr {
 }
 
 .imagenes {
-    margin-top: 10vh;
-    margin-left: 30vh;
-    width: auto;
-}
-
-.imagenes img {
-    margin: 0 4vh;
+    margin-top: 20vh;
+    margin-left: 10%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
