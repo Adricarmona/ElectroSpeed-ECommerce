@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 #iniciosesion{
-    width: 356px;
-    height: 87px;
-    margin-top: 5%;
+    width: 30vw;
+    height: 8vh;
+    margin-top: 15%;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -13,10 +13,22 @@
     color: #000000;
 }
 
+p{
+    margin: 0px;
+}
+
+#formulario{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 10%;
+    gap: 1.5rem;
+}
+
 #cuadrocorreo{
     box-sizing: border-box;
-    width: 500px;
-    height: 61px;
+    width: 24vw;
+    height: 6vh;
     background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 50px;
@@ -24,9 +36,8 @@
 
 #cuadrocontra{
     box-sizing: border-box;
-    width: 500px;
-    height: 61px;
-
+    width: 24vw;
+    height: 6vh;
     background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 50px;
@@ -37,24 +48,38 @@
     align-content: center;
     align-items: center;
     flex-wrap: nowrap;
+     margin-top: 10%; 
 }
 
 #botoninicio{
+    margin-right: 3%;
     box-sizing: border-box;
-    width: 283px;
-    height: 75px;
-
+    width: 12vw;
+    height: 7vh;
     background: #E6A000;
     border: 1px solid #000000;
     border-radius: 50px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 58px;
+    text-align: center;
+    color: #000000;
 }
 
 #botonregistro{
     box-sizing: border-box;
-    width: 283px;
-    height: 75px;
-
+    width: 12vw;
+    height: 7vh;
     background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 50px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 58px;
+    text-align: center;
+    color: #000000;
 }
