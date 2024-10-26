@@ -3,3 +3,14 @@ div {
     margin: 0;
     padding: 0;
 }
+
+
+/*
+    Al bajar de esta altura se quita el componente para que sea recursivo
+*/
+@media screen and (max-width: 1600px) {
+    app-destacados {
+        display: none;
+    }    
+}
+
