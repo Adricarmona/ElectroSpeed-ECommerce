@@ -3,7 +3,7 @@ div{
     display: flex;
     height: 100vh;
     width: 100vw;
-    background-image: url(../../../../public/fondologinregistro.jpg);
+    background-image: url(../../../../public/registroLogin/fondologinregistro.jpg);
     background-size: cover;
     flex-wrap: nowrap;
     align-content: center;

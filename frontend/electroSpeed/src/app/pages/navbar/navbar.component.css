@@ -1,23 +1,14 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
 .navbar {
     display: flex;
-    justify-content: space-between;
+    width: 98vw;
     align-items: center;
     padding: 20px 20px;
+    position: fixed;
+    justify-content: space-between;
 }
 
 .logo img {
     width: 80px;
-    margin-left: 10px;
     transition: transform 0.1s ease;
 }
 
