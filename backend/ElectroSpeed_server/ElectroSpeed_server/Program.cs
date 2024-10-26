@@ -1,5 +1,4 @@
-
-using ElectroSpeed_server.Data;
+using ElectroSpeed_server.Models.Data;
 
 namespace ElectroSpeed_server
 {

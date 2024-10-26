@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\data\\electrospeedcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\data\\electrospeedcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\data\\entities\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\data\\entities\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\data\\electrospeedcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\data\\electrospeedcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,19 +36,19 @@
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
               "RelativeToolTip": "ElectroSpeed_server\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-24T18:07:18.982Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Program.cs",
-              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs*",
-              "RelativeToolTip": "ElectroSpeed_server\\Program.cs*",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
+              "RelativeToolTip": "ElectroSpeed_server\\Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAgwBwAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-24T18:02:07.743Z",
@@ -56,20 +56,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "ElectroSpeedContext.cs",
               "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Data\\ElectroSpeedContext.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Data\\ElectroSpeedContext.cs",
-              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Data\\ElectroSpeedContext.cs*",
-              "RelativeToolTip": "ElectroSpeed_server\\Data\\ElectroSpeedContext.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Data\\ElectroSpeedContext.cs",
+              "RelativeToolTip": "ElectroSpeed_server\\Data\\ElectroSpeedContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-24T17:50:57.994Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Usuarios.cs",
               "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Data\\Entities\\Usuarios.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Data\\Entities\\Usuarios.cs",
