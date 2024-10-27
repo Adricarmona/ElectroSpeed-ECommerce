@@ -3,6 +3,9 @@ using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ElectroSpeed_server.Controllers
 {
@@ -10,6 +13,7 @@ namespace ElectroSpeed_server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly TokenValidationParameters _tokenValidationParameter;
         private ElectroSpeedContext _esContext;
 
         public UserController(ElectroSpeedContext esContext) 
@@ -30,7 +34,23 @@ namespace ElectroSpeed_server.Controllers
             {
                 if (user.Username == model.Username && user.Password == model.Password)
                 {
-                    return Ok(user);
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Claims = new Dictionary<string, object>
+                        {
+                            {ClaimTypes.Role, "cliente"}
+                        },
+                        Expires = DateTime.UtcNow.AddYears(3),
+                        SigningCredentials = new SigningCredentials(
+                             _tokenValidationParameter.IssuerSigningKey,
+                             SecurityAlgorithms.HmacSha256Signature)
+                    };
+
+                    JwtSecurityTokenHandler tokenHadler = new JwtSecurityTokenHandler();
+                    SecurityToken token = tokenHadler.CreateToken(tokenDescriptor);
+                    string stringToken = tokenHadler.WriteToken(token);
+
+                    return Ok(stringToken);
                 }
             }
 

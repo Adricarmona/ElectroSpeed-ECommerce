@@ -1,4 +1,6 @@
 using ElectroSpeed_server.Models.Data;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ElectroSpeed_server
 {
@@ -11,6 +13,20 @@ namespace ElectroSpeed_server
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddAuthentication()
+                .AddJwtBearer(options =>
+                {
+                    String key = "NoeSocioPsoeñ0_";
+
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                    };
+                });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -33,8 +49,8 @@ namespace ElectroSpeed_server
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
