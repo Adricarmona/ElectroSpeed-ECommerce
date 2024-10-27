@@ -32,6 +32,8 @@ namespace ElectroSpeed_server
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ElectroSpeedContext>();
 
+           
+
             var app = builder.Build();
 
             using (IServiceScope scope = app.Services.CreateScope())
@@ -54,7 +56,19 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
+            SeedDataBase(app.Services);
             app.Run();
+        }
+        static async void SeedDataBase(IServiceProvider serviceProvider)
+        {
+            using IServiceScope scope = serviceProvider.CreateScope();
+            using ElectroSpeedContext esContext = scope.ServiceProvider.GetService<ElectroSpeedContext>();
+
+            if (esContext.Database.EnsureCreated())
+            {
+                Seeder seeder = new Seeder(esContext);
+                await seeder.SeedAsync();
+            }
         }
     }
 }

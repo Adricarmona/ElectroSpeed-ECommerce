@@ -26,7 +26,7 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.Usuarios;
         }
 
-        [HttpPost]
+        [HttpPost("/login")]
         public ActionResult<Usuarios> Login([FromBody] LoginRequest model)
         {
             Usuarios[] usuarios = GetUsuarios().ToArray();

@@ -274,3 +274,11 @@ C:\Users\adrian\Documents\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_ser
 C:\Users\adrian\Documents\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\adrian\Documents\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\adrian\Documents\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\hecto\OneDrive\Documentos\GitHub\ElectroSpeed-ECommerce\backend\ElectroSpeed_server\ElectroSpeed_server\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

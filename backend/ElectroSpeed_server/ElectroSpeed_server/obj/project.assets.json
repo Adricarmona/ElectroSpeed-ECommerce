@@ -3144,19 +3144,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adrian\\.nuget\\packages\\": {}
+    "C:\\Users\\hecto\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\ElectroSpeed_server.csproj",
+      "projectUniqueName": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\ElectroSpeed_server.csproj",
       "projectName": "ElectroSpeed_server",
-      "projectPath": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\ElectroSpeed_server.csproj",
-      "packagesPath": "C:\\Users\\adrian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\obj\\",
+      "projectPath": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\ElectroSpeed_server.csproj",
+      "packagesPath": "C:\\Users\\hecto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\adrian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hecto\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

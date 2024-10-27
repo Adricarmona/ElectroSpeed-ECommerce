@@ -11,8 +11,9 @@ namespace ElectroSpeed_server.Models.Data
             _ElectroSpeedContext = electroSpeedContext;
         }
 
-        public async Task SeedAync()
+        public async Task SeedAsync()
         {
+            await SeedUsuariosAsync();
             await _ElectroSpeedContext.SaveChangesAsync();
         }
 
@@ -20,7 +21,7 @@ namespace ElectroSpeed_server.Models.Data
         {
             Usuarios[] usuarios =
                 [
-                            new Usuarios() { Id = 1  ,Name = "Salguero", Password = "Psoe", Username = "Xx_Salguero_xX", Email = "salgueroPutero@gmail.com"}
+                            new Usuarios() {Name = "Salguero", Password = "Psoe", Username = "Xx_Salguero_xX", Email = "salgueroPutero@gmail.com"}
                 ];
 
             await _ElectroSpeedContext.Usuarios.AddRangeAsync(usuarios);
