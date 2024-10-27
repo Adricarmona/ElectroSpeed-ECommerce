@@ -20,9 +20,9 @@ namespace ElectroSpeed_server.Models.Data
         private async Task SeedUsuariosAsync()
         {
             Usuarios[] usuarios =
-                [
+                {
                             new Usuarios() {Name = "Salguero", Password = "Psoe", Username = "Xx_Salguero_xX", Email = "salgueroPutero@gmail.com"}
-                ];
+                };
 
             await _ElectroSpeedContext.Usuarios.AddRangeAsync(usuarios);
         }

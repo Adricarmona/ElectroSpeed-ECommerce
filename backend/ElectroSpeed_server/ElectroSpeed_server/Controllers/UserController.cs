@@ -20,11 +20,13 @@ namespace ElectroSpeed_server.Controllers
         {
             _esContext = esContext;
         }
+
         [HttpGet]
         public IEnumerable<Usuarios> GetUsuarios()
         {
-            return _esContext.Usuarios;
+            return _esContext.Usuarios.ToList();
         }
+
 
         [HttpPost("/login")]
         public ActionResult<Usuarios> Login([FromBody] LoginRequest model)
