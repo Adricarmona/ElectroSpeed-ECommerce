@@ -31,6 +31,6 @@ div{
     background: #FFFFFF;
     border-radius: 109px;
     align-items: flex-start;
-    align-content: space-around;
+    align-content: flex-start;
     flex-wrap: wrap;
 }
