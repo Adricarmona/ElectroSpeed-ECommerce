@@ -20,7 +20,7 @@
     ]
   },
   {
-    "ContainingType": "ElectroSpeed_server.Controllers.UserController",
+    "ContainingType": "ElectroSpeed_server.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "login",
     "HttpMethod": "POST",
