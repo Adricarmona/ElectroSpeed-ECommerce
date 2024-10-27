@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ElectroSpeed_server.Data.Entities.Usuarios, ElectroSpeed_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ElectroSpeed_server.Models.Data.Entities.Usuarios, ElectroSpeed_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -20,16 +20,22 @@
     ]
   },
   {
-    "ContainingType": "ElectroSpeed_server.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
+    "ContainingType": "ElectroSpeed_server.Controllers.UserController",
+    "Method": "Login",
+    "RelativePath": "login",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ElectroSpeed_server.Models.Data.Dto.LoginRequest",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ElectroSpeed_server.WeatherForecast, ElectroSpeed_server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "ElectroSpeed_server.Models.Data.Entities.Usuarios",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -37,7 +43,6 @@
         ],
         "StatusCode": 200
       }
-    ],
-    "EndpointName": "GetWeatherForecast"
+    ]
   }
 ]
