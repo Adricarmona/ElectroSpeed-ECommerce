@@ -1,5 +1,5 @@
-﻿using ElectroSpeed_server.Data;
-using ElectroSpeed_server.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

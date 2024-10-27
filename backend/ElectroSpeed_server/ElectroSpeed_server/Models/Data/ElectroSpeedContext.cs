@@ -1,9 +1,9 @@
-﻿using ElectroSpeed_server.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ElectroSpeed_server.Data
+namespace ElectroSpeed_server.Models.Data
 {
-    public class ElectroSpeedContext: DbContext
+    public class ElectroSpeedContext : DbContext
     {
         private const string DATABASE_PATH = "electrospeed.db";
 
