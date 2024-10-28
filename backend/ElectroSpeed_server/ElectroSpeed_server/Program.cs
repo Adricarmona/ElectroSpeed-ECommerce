@@ -1,3 +1,4 @@
+using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -14,10 +15,12 @@ namespace ElectroSpeed_server
 
             builder.Services.AddControllers();
 
+            builder.Services.AddScoped<UserController>();
+
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
-                    String key = "NoeSocioPsoeñ0_";
+                    String key = "NoeSocioPsoeñ0_asdh'`0iasqjdìasjd0'ìhawsqj0d";
 
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {

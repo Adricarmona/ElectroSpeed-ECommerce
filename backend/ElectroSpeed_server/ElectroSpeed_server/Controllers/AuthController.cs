@@ -15,10 +15,11 @@ namespace ElectroSpeed_server.Controllers
     public class AuthController : ControllerBase
     {
         private readonly TokenValidationParameters _tokenValidationParameter;
-        private UserController _userController;
+        private readonly UserController _userController;
 
-        AuthController(IOptionsMonitor<JwtBearerOptions> jwOptions)
+        public AuthController(UserController userController, IOptionsMonitor<JwtBearerOptions> jwOptions)
         {
+            _userController = userController;
             _tokenValidationParameter = jwOptions.Get(JwtBearerDefaults.AuthenticationScheme).TokenValidationParameters;
         }
 
