@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
               "RelativeToolTip": "ElectroSpeed_server\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAAEIAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAADQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-27T23:18:07.295Z",
               "IsPinned": true,
@@ -52,8 +52,7 @@
               "RelativeToolTip": "ElectroSpeed_server\\Models\\Data\\Entities\\Usuarios.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T11:53:47.939Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-28T11:53:47.939Z"
             },
             {
               "$type": "Document",
