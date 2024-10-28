@@ -4,7 +4,7 @@
   import { AuthService } from '../../../service/auth.service'; // Importa el modelo de usuario
   import { AuthRequest } from '../../../models/auth-request';
   import { Usuarios } from '../../../models/usuarios';
-import { FormsModule } from '@angular/forms';
+  import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +30,9 @@ export class LoginComponent {
       this.jwt = result.accessToken; // Asignamos el accessToken
       this.user = await this.authService.getUser(this.email); // Llama a getUser para obtener datos del usuario
       console.log('Usuario autenticado:', this.user?.name);
-  } else {
-      console.error('Error en la autenticación');
-  }
+    } else {
+        console.error('Error en la autenticación');
+    }
   }
 }
 
