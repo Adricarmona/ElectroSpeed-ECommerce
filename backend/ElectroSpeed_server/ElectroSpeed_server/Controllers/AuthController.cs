@@ -1,7 +1,10 @@
 ﻿using ElectroSpeed_server.Controllers;
+using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
+using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,13 +17,39 @@ namespace ElectroSpeed_server.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly PasswordHelper _passwordHelper;
+        private readonly ElectroSpeedContext _esContext;
         private readonly TokenValidationParameters _tokenValidationParameter;
         private readonly UserController _userController;
 
-        public AuthController(UserController userController, IOptionsMonitor<JwtBearerOptions> jwOptions)
+        public AuthController(ElectroSpeedContext esContext, UserController userController, IOptionsMonitor<JwtBearerOptions> jwOptions)
         {
+            _passwordHelper = new PasswordHelper();
+            _esContext = esContext;
             _userController = userController;
             _tokenValidationParameter = jwOptions.Get(JwtBearerDefaults.AuthenticationScheme).TokenValidationParameters;
+        }
+        [HttpPost("/register")]
+        public ActionResult Register([FromBody] RegisterRequest model)
+        {
+            if (_esContext.Usuarios.Any(usuario => usuario.Username == model.Username))
+            {
+                return BadRequest("El nombre de usuario ya está en uso");
+            }
+
+            Usuarios newUser = new Usuarios
+            {
+                Name = model.Name,
+                Username = model.Username,
+                Email = model.Email,
+                Password = PasswordHelper.Hash(model.Password)
+            };
+
+            _esContext.Usuarios.Add(newUser);
+            _esContext.SaveChanges();
+
+            return Ok("Usuario registrado");
+
         }
 
         [HttpPost("/login")]
@@ -29,7 +58,7 @@ namespace ElectroSpeed_server.Controllers
             Usuarios[] usuarios = _userController.GetUsuarios().ToArray();
             foreach (var user in usuarios)
             {
-                if (user.Username == model.Username && user.Password == model.Password)
+                if (user.Username == model.Username && user.Password == PasswordHelper.Hash(model.Password))
                 {
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
@@ -54,6 +83,7 @@ namespace ElectroSpeed_server.Controllers
 
             return Unauthorized("Email o contraseña incorrecto");
         }
+        
     }
 
 }
