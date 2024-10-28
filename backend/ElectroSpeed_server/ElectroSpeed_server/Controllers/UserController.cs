@@ -1,7 +1,13 @@
-﻿using ElectroSpeed_server.Data;
-using ElectroSpeed_server.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Models.Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ElectroSpeed_server.Controllers
 {
@@ -11,16 +17,15 @@ namespace ElectroSpeed_server.Controllers
     {
         private ElectroSpeedContext _esContext;
 
-        public UserController(ElectroSpeedContext esContext) 
+        public UserController(ElectroSpeedContext esContext)
         {
             _esContext = esContext;
         }
+
         [HttpGet]
         public IEnumerable<Usuarios> GetUsuarios()
         {
-            return _esContext.Usuarios;
+            return _esContext.Usuarios.ToList();
         }
     }
-
-    
 }

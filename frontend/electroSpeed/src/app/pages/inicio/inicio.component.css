@@ -1,9 +1,16 @@
 /*  El fondo    */
-body {
-    background-image: url(../../../../public/Fondo_inicio.png);
-    background-color: rgb(0, 0, 0);
-    height: 5400px;
-    width: auto;
+div {
     margin: 0;
     padding: 0;
 }
+
+
+/*
+    Al bajar de esta altura se quita el componente para que sea recursivo
+*/
+@media screen and (max-width: 1600px) {
+    app-destacados {
+        display: none;
+    }    
+}
+
