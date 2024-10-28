@@ -1,3 +1,9 @@
+/* fuente*/
+@font-face {
+    font-family: inter-standar;
+    src: url(../../../../fonts/Inter-standar.ttf);
+}
+
 .navbar {
     display: flex;
     width: 98vw;
@@ -5,6 +11,7 @@
     padding: 20px 20px;
     position: fixed;
     justify-content: space-between;
+    font-family: Inter-standar;
 }
 
 .logo img {
