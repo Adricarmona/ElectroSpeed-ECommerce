@@ -5,6 +5,7 @@ import { environment } from '../environments/enviroments.developments';
 import { AuthRequest } from '../models/auth-request'; 
 import { AuthResponse } from '../models/auth-response'; 
 import { Usuarios } from '../models/usuarios';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,12 @@ export class AuthService {
 
       const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}login`, authData);
       const result: AuthResponse = await lastValueFrom(request);
-      console.log("token: "+request);
+      console.log("Token recibido: " + result.accessToken);//escribimos el token por consola
+
+      localStorage.setItem('token', result.accessToken);//guardamos el token en el local storage
+
+      const decodedToken = jwtDecode(result.accessToken);//decodificamos el token usando la biblioteca jwtDecode
+      console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
 
       return result;
     } catch (error) {
@@ -31,7 +37,7 @@ export class AuthService {
     }
   }
 
-  async getUser(username: string): Promise<Usuarios | null> {
+   async getUser(username: string): Promise<Usuarios | null> {
     try {
       const request: Observable<Object> = this.http.get(`${this.BASE_URL}User`);
       const dataraw: any = await lastValueFrom(request);
@@ -49,6 +55,13 @@ export class AuthService {
       console.error('Error fetching user:', error);
       return null;
     }
+  } 
+
+  // Método para recuperar el token
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }
+
+
 

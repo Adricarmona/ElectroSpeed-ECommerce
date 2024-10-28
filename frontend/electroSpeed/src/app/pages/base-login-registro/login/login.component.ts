@@ -31,7 +31,7 @@ export class LoginComponent {
 
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
-      this.user = await this.authService.getUser(this.username); // Llama a getUser para obtener datos del usuario
+      //this.user = await this.authService.getUser(this.username); // Llama a getUser para obtener datos del usuario
       console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('Error en la autenticación');

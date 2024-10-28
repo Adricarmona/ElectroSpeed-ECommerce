@@ -76,7 +76,10 @@ namespace ElectroSpeed_server.Controllers
                     SecurityToken token = tokenHadler.CreateToken(tokenDescriptor);
                     string stringToken = tokenHadler.WriteToken(token);
 
-                    return Ok(stringToken);
+                    return Ok(new
+                    {
+                        accessToken = stringToken
+                    });
                 }
             }
 
