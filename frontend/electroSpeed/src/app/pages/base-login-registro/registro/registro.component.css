@@ -23,6 +23,7 @@ p{
     flex-direction: column;
     margin-top: 10%;
     gap: 1.5rem;
+    align-items: center;
 }
 
 #cuadrocorreo{
@@ -43,33 +44,7 @@ p{
     border-radius: 50px;
 }
 
-#botones{
-    display: flex;
-    align-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-     margin-top: 10%; 
-}
-
-#botoninicio{
-    margin-right: 3%;
-    box-sizing: border-box;
-    width: 12vw;
-    height: 7vh;
-    background: #E6A000;
-    border: 1px solid #000000;
-    border-radius: 50px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 58px;
-    text-align: center;
-    color: #000000;
-}
-
 #botonregistro{
-    box-sizing: border-box;
     width: 12vw;
     height: 7vh;
     background: #FFFFFF;

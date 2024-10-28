@@ -3,7 +3,7 @@
         <p>Inicio de Sesión</p>
     </div>
     <form id="formulario" (submit)="submit()">
-        <input type="text" id="cuadrocorreo" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" />
+        <input type="text" id="cuadrocorreo" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" />
         <input type="password" id="cuadrocontra" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" />
         <div id="botones">    
             <button type="submit" id="botoninicio">Iniciar Sesión</button>
@@ -12,11 +12,10 @@
     </form>
 
     @if (jwt) {
-        <h4>El token de acceso es:</h4>
-        <p>{{jwt}}</p>
+        <h4>Sesión iniciada correctamente.</h4>
       }
       @else {
-        <h4>No estás autenticado</h4>
+        <h4>Correo o contraseñas incorrectos.</h4>
       }
 
 </app-base-login-registro>
