@@ -17,11 +17,10 @@ export class AuthService {
 
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
-      console.log("1")
+
       const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}login`, authData);
-      console.log("2")
       const result: AuthResponse = await lastValueFrom(request);
-      console.log("3")
+      console.log("token: "+request);
 
       return result;
     } catch (error) {
@@ -34,7 +33,7 @@ export class AuthService {
 
   async getUser(username: string): Promise<Usuarios | null> {
     try {
-      const request: Observable<Object> = this.http.get(`${this.BASE_URL}/User`);
+      const request: Observable<Object> = this.http.get(`${this.BASE_URL}User`);
       const dataraw: any = await lastValueFrom(request);
 
       const user: Usuarios = {

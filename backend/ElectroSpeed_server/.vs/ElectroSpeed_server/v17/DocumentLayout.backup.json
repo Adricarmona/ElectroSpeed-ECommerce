@@ -1,17 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\",
+  "WorkspaceRootPath": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\adrian\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\noegr\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\models\\data\\entities\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\models\\data\\entities\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\noegr\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\adrian\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\noegr\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\adrian\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\noegr\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,11 +30,11 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
               "RelativeToolTip": "ElectroSpeed_server\\Controllers\\AuthController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAA1wC4AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -40,23 +44,35 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
-              "RelativeDocumentMoniker": "ElectroSpeed_server\\Program.cs",
-              "ToolTip": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
-              "RelativeToolTip": "ElectroSpeed_server\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA5AAAAAAAAAA==",
+              "Title": "Usuarios.cs",
+              "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Models\\Data\\Entities\\Usuarios.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Models\\Data\\Entities\\Usuarios.cs",
+              "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Models\\Data\\Entities\\Usuarios.cs",
+              "RelativeToolTip": "ElectroSpeed_server\\Models\\Data\\Entities\\Usuarios.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T11:25:38.702Z",
+              "WhenOpened": "2024-10-28T11:53:47.939Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Program.cs",
+              "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
+              "RelativeToolTip": "ElectroSpeed_server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T11:25:38.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\adrian\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
               "RelativeToolTip": "ElectroSpeed_server\\Controllers\\UserController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

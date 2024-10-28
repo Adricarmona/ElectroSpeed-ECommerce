@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElectroSpeed_server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5335357110e27451557e9a8301162dfab662ac50")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c212b27282dec8005d41a28ff19c98f72013a12e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElectroSpeed_server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElectroSpeed_server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
