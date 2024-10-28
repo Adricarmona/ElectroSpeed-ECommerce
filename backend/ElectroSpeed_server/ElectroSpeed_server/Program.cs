@@ -35,6 +35,19 @@ namespace ElectroSpeed_server
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ElectroSpeedContext>();
 
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(builder =>
+                    {
+                        builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+                });
+            }
+
            
 
             var app = builder.Build();
@@ -50,6 +63,8 @@ namespace ElectroSpeed_server
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                app.UseCors();
             }
 
             app.UseHttpsRedirection();
