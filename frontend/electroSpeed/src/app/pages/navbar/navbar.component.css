@@ -8,10 +8,13 @@
     display: flex;
     width: 98vw;
     align-items: center;
-    padding: 20px 20px;
+    padding: 5px 20px;
     position: fixed;
     justify-content: space-between;
     font-family: Inter-standar;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(7px);
+    z-index: 1000;
 }
 
 .logo img {
