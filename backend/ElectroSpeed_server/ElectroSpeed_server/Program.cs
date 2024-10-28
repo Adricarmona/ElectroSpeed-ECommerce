@@ -1,4 +1,6 @@
 
+using ElectroSpeed_server.Data;
+
 namespace ElectroSpeed_server
 {
     public class Program
@@ -13,8 +15,15 @@ namespace ElectroSpeed_server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<ElectroSpeedContext>();
 
             var app = builder.Build();
+
+            using (IServiceScope scope = app.Services.CreateScope())
+            {
+                ElectroSpeedContext esContext = scope.ServiceProvider.GetService<ElectroSpeedContext>();
+                esContext.Database.EnsureCreated();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
