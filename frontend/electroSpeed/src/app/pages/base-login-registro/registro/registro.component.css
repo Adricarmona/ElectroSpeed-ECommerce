@@ -23,6 +23,7 @@ p{
     flex-direction: column;
     margin-top: 10%;
     gap: 1.5rem;
+    align-items: center;
 }
 
 #cuadrocorreo{
@@ -43,16 +44,7 @@ p{
     border-radius: 50px;
 }
 
-#botones{
-    display: flex;
-    align-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-     margin-top: 10%; 
-}
-
 #botonregistro{
-    box-sizing: border-box;
     width: 12vw;
     height: 7vh;
     background: #FFFFFF;
