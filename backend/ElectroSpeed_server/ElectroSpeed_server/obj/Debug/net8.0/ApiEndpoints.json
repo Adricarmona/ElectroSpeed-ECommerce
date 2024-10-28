@@ -44,5 +44,21 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ElectroSpeed_server.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ElectroSpeed_server.Models.Data.Dto.RegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
