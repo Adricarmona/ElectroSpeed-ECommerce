@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\",
   "Documents": [
     {
@@ -16,6 +17,28 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\noegr\\documents\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+=======
+  "WorkspaceRootPath": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\models\\data\\dto\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\models\\data\\dto\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|c:\\users\\hecto\\onedrive\\documentos\\github\\electrospeed-ecommerce\\backend\\electrospeed_server\\electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+>>>>>>> desarrollo
       "RelativeMoniker": "D:0:0:{C57E1173-7DFC-4296-84F5-423F091A6715}|ElectroSpeed_server\\ElectroSpeed_server.csproj|solutionrelative:electrospeed_server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,19 +49,26 @@
       "DocumentGroups": [
         {
           "DockedWidth": 286,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "AuthController.cs",
+<<<<<<< HEAD
               "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
+=======
+              "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\AuthController.cs",
+>>>>>>> desarrollo
               "RelativeToolTip": "ElectroSpeed_server\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAA1wC4AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAqwD0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-27T23:18:07.295Z",
+<<<<<<< HEAD
               "IsPinned": true
             },
             {
@@ -52,27 +82,66 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T11:53:47.939Z",
+=======
+              "IsPinned": true,
+>>>>>>> desarrollo
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "PasswordHelper.cs",
+              "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Recursos\\PasswordHelper.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Recursos\\PasswordHelper.cs",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Recursos\\PasswordHelper.cs",
+              "RelativeToolTip": "ElectroSpeed_server\\Recursos\\PasswordHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T16:00:22.852Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Models\\Data\\Dto\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Models\\Data\\Dto\\RegisterRequest.cs",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Models\\Data\\Dto\\RegisterRequest.cs",
+              "RelativeToolTip": "ElectroSpeed_server\\Models\\Data\\Dto\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T11:47:06.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
+<<<<<<< HEAD
               "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Program.cs",
               "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
+=======
+              "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Program.cs",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Program.cs",
+>>>>>>> desarrollo
               "RelativeToolTip": "ElectroSpeed_server\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAAAgwE0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T11:25:38.702Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UserController.cs",
+<<<<<<< HEAD
               "DocumentMoniker": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\noegr\\Documents\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
+=======
+              "DocumentMoniker": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ElectroSpeed_server\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\hecto\\OneDrive\\Documentos\\GitHub\\ElectroSpeed-ECommerce\\backend\\ElectroSpeed_server\\ElectroSpeed_server\\Controllers\\UserController.cs",
+>>>>>>> desarrollo
               "RelativeToolTip": "ElectroSpeed_server\\Controllers\\UserController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
