@@ -3,8 +3,8 @@
         <p>Inicio de Sesión</p>
     </div>
     <form id="formulario" (submit)="submit()">
-        <input type="text" id="cuadrocorreo" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" />
-        <input type="password" id="cuadrocontra" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" />
+        <input type="text" placeholder="Correo electrónico" class="cuadro" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" />
+        <input type="password" placeholder="Contraseña" class="cuadro" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" />
         <div id="botones">    
             <button type="submit" id="botoninicio">Iniciar Sesión</button>
             <button type="button" id="botonregistro">Registrarse</button>
