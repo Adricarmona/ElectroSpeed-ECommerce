@@ -1,3 +1,9 @@
+/* fuente*/
+@font-face {
+    font-family: inter-standar;
+    src: url(../../../../fonts/Inter-standar.ttf);
+}
+
 /*  El fondo    */
 div {
     margin: 0;
