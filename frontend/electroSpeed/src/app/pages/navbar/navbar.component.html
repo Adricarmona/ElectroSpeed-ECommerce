@@ -21,9 +21,24 @@
         </ul>
         <div class="icons">
             <img id="carrito" src="navbar/imagen_carrito.png" />
-            <a href="/login">
-                <img id="perfil" src="navbar/imagen_perfil.png" />
-            </a>
+            <div>
+                <a id="usuario" (click)="desplegable()">
+                    <img id="perfil" src="navbar/imagen_perfil.png" />
+                </a>
+                <div id="desplegableUsuarios">
+                    <a href="/">
+                        @if (false) {
+                            <p>Usuario indicado</p>
+                        }
+                        @else {
+                            <p>Iniciar sesion</p>
+                        }
+                    </a>
+                    @if (false) {
+                        <p>Finalizar sesion</p>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>

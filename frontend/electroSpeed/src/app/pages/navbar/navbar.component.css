@@ -87,3 +87,7 @@
 #carrito:hover, #perfil:hover {
     transform: scale(1.1);
 }
+
+#desplegableUsuarios {
+    display: none;
+}
