@@ -10,5 +10,12 @@
         <button type="submit" id="botonregistro">Registrarse</button>
     </form>
 
+    @if (jwt) {
+        <h4>Usted se ha registrado correctamente.</h4>
+      }
+      @else {
+        <h4>Registro fallido, el usuario ya existe.</h4>
+      }
+
 </app-base-login-registro>
 
