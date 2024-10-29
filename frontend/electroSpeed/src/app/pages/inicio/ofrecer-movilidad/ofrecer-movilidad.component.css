@@ -17,7 +17,7 @@
 /* fondo */
 .fondo {
     background-image: url(../../../../../public/inicio/FondoCiclista.png);
-    background-size: contain;
+    background-size: cover;
 }
 
 ul { /*     posicion de cada apartado de lista      */
