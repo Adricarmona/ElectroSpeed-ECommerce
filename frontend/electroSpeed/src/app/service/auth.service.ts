@@ -38,22 +38,30 @@ export class AuthService {
     }
   }
 
-  async register(registerData: AuthSend) {
-    console.log('Datos a enviar:', registerData);
-    const send: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}register`, registerData);
+  async register(registerData: AuthSend): Promise<AuthResponse | null> {
+    try {
+        console.log('Datos a enviar:', registerData);
+        const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}register`, registerData);
+        const result: AuthResponse = await lastValueFrom(request);
+        console.log("Token recibido: " + result.accessToken);
 
-    // Suscribirse a la respuesta
-    send.subscribe({
-        next: (response) => {
-            console.log('Respuesta del servidor:', response);
-            // Aquí puedes manejar la respuesta, por ejemplo, guardar el token o mostrar un mensaje de éxito.
-        },
-        error: (error) => {
-            console.error('Error al registrar:', error);
-            // Manejar el error, mostrar un mensaje al usuario, etc.
+        localStorage.setItem('token', result.accessToken);
+
+        const decodedToken = jwtDecode(result.accessToken);
+        console.log("Decoded Token:", decodedToken);
+
+        return result;
+    } catch (error: any) {
+        // Si el mensaje es una cadena, validamos directamente su contenido
+        if (error.status === 400 && error.error === "El nombre de usuario ya está en uso") {
+            console.log("El usuario ya existe. Por favor, elige otro nombre de usuario.");
+        } else {
+            console.log("Falla general en el registro");
         }
-    });
+        return null;
+    }
 }
+
 
 /* 
    async getUser(username: string): Promise<Usuarios | null> {

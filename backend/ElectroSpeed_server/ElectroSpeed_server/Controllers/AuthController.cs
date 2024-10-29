@@ -48,7 +48,26 @@ namespace ElectroSpeed_server.Controllers
             _esContext.Usuarios.Add(newUser);
             _esContext.SaveChanges();
 
-            return Ok("Usuario registrado");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Claims = new Dictionary<string, object>
+                        {
+                            {ClaimTypes.Name, model.Username}
+                        },
+                Expires = DateTime.UtcNow.AddYears(3),
+                SigningCredentials = new SigningCredentials(
+                             _tokenValidationParameter.IssuerSigningKey,
+                             SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            JwtSecurityTokenHandler tokenHadler = new JwtSecurityTokenHandler();
+            SecurityToken token = tokenHadler.CreateToken(tokenDescriptor);
+            string stringToken = tokenHadler.WriteToken(token);
+
+                                return Ok(new
+                    {
+                        accessToken = stringToken
+                    });
 
         }
 

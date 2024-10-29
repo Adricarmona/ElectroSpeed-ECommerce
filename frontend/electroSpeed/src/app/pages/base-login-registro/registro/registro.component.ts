@@ -3,6 +3,7 @@ import { BaseLoginRegistroComponent } from '../base-login-registro.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
 import { AuthSend } from '../../../models/auth-send';
+import { Usuarios } from '../../../models/usuarios';
 
 @Component({
   selector: 'app-registro',
@@ -16,6 +17,8 @@ export class RegistroComponent {
   username = "";
   fullName = "";
   password = "";
+  jwt: string = '';
+  user: Usuarios | null = null;
 
   constructor(private authService: AuthService) {}
 
@@ -31,9 +34,15 @@ export class RegistroComponent {
       Username: this.username,
       Email: this.email,  
       Password: this.password 
-    };
-    console.log(registerData)
-    this.authService.register(registerData);
+    };  
+    const result = await this.authService.register(registerData);
+    if (result) { // Verificamos que result no sea nulo
+      this.jwt = result.accessToken; // Asignamos el accessToken
+      //this.user = await this.authService.getUser(this.username); // Llama a getUser para obtener datos del usuario
+      console.log('Usuario autenticado:', this.user?.name);
+    } else {
+        console.error('El usuario ya existe');
+    }
   }
 
 }
