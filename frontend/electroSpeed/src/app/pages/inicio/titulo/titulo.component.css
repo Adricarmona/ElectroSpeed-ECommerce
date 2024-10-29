@@ -1,9 +1,19 @@
+/* fuente*/
+@font-face {
+    font-family: inter-standar;
+    src: url(../../../../../fonts/Inter-standar.ttf);
+}
+@font-face {
+    font-family: inter-tight;
+    src: url(../../../../../fonts/Inter-tight.ttf);
+}
+
 /* centrado y tipografia    */
 .centradoTipografia {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: monospace;
+    font-family: inter-tight;
 }
 
 /* fondo */
@@ -14,10 +24,13 @@
 
 /*  Inicio  */
 #inicio {
-    height: 880px;
+    height: 580px;
     padding-top: 30vh;
 }
 
 #Logotipo_inicio {
-    width: 100vh;
+    width: 120vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
