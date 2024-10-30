@@ -88,6 +88,25 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  setToken(token: string) {
+    if (token != "") {
+      localStorage.setItem('token',token)
+    } else {
+      localStorage.setItem('token', "")
+    }
+  }
+
+  getNameUserToken() {
+    const token = this.getToken()
+    if (token != null) {
+      const tokenDecodificado: any = jwtDecode(token)
+      const nombre = tokenDecodificado.unique_name
+      return nombre
+    }
+    return "error"
+  }
+
 }
 
 

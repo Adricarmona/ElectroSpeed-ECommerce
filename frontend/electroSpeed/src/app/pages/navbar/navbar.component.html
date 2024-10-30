@@ -26,9 +26,9 @@
                     <img id="perfil" src="navbar/imagen_perfil.png" />
                 </a>
                 <div id="desplegableUsuarios">
-                    @if (false) {
-                        <p>Usuario indicado</p>
-                        <p>Finalizar sesion</p>
+                    @if (usuarioToken()) {
+                        <p id="nombreUsuario" (click)="nombreToken()">Usuario indicado</p>
+                        <a (click)="vaciarToken()">Finalizar sesion</a>
                     }
                     @else {
                         <a href="/logreg">
