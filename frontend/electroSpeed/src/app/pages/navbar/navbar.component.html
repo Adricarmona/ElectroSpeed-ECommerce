@@ -14,17 +14,29 @@
             </li>
             <li>
                 <a>
-                    <img src="navbar/imagen_sobrenosotros.png" alt="icono sobre nosotros"
-                        class="icono-boton-sobrenosotros" />
+                    <img src="navbar/imagen_sobrenosotros.png" alt="icono sobre nosotros" class="icono-boton-sobrenosotros" />
                     Sobre Nosotros
                 </a>
             </li>
         </ul>
         <div class="icons">
             <img id="carrito" src="navbar/imagen_carrito.png" />
-            <a href="/login">
-                <img id="perfil" src="navbar/imagen_perfil.png" />
-            </a>
+            <div>
+                <a id="usuario" (click)="desplegable()">
+                    <img id="perfil" src="navbar/imagen_perfil.png" />
+                </a>
+                <div id="desplegableUsuarios">
+                    @if (usuarioToken()) {
+                        <p id="nombreUsuario" [innerText]="nombreToken()"></p>
+                        <a (click)="vaciarToken()">Finalizar sesion</a>
+                    }
+                    @else {
+                        <a href="/logreg">
+                            <p>Iniciar sesion</p>
+                        </a>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>

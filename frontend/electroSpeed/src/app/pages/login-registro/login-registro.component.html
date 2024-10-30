@@ -1,0 +1,39 @@
+<div id="body">
+    <div class="main">  	
+        <input type="checkbox" id="chk" aria-hidden="true">
+    
+            <div class="signup">
+                <form (submit)="submitRegistro()">
+                    <label for="chk" aria-hidden="true">Registrarse</label>
+                    <input type="text" name="txt" placeholder="Nombre de usuario" required="" [(ngModel)]="usernameR" [ngModelOptions]="{standalone: true}"/>
+                    <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailR" [ngModelOptions]="{standalone: true}"/>
+                    <input type="text" name="broj" placeholder="Nombre completo" required="" [(ngModel)]="fullNameR" [ngModelOptions]="{standalone: true}"/>
+                    <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordR" [ngModelOptions]="{standalone: true}"/>
+                    <input type="checkbox" name="checkbox" placeholder="Recuerdame" required="" [(ngModel)]="rememberR" [ngModelOptions]="{standalone: true}">
+                    <button type="submit">Registrarse</button>
+                    @if (jwt) {
+                        <h4>Usted se ha registrado correctamente.</h4>
+                      }
+                      @else {
+                        <h4>Registro fallido, el usuario ya existe.</h4>
+                      }
+                </form>
+            </div>
+    
+            <div class="login">
+                <form (submit)="submitLogin()">
+                    <label for="chk" aria-hidden="true">Iniciar Sesión</label>
+                    <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailLog" [ngModelOptions]="{standalone: true}"/>
+                    <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordLog" [ngModelOptions]="{standalone: true}"/>
+                    <input type="checkbox" name="checkbox" placeholder="Recuerdame" required="" [(ngModel)]="rememberR" [ngModelOptions]="{standalone: true}">
+                    <button type="submit">Iniciar Sesión</button>
+                    @if (jwt) {
+                        <h4>Sesión iniciada correctamente</h4>
+                      }
+                      @else {
+                        <h4>El usuario no existe</h4>
+                      }
+                </form>
+            </div>
+    </div>    
+</div>

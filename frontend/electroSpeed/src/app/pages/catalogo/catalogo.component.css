@@ -1,0 +1,18 @@
+#fondo {
+    background-image: url(../../../../public/catalogo/fondoCatalogo.png);
+    height: 1080px;
+}
+
+#espacio {
+    height: 15vh;
+}
+
+#buscadorFiltro {
+    display: flex;
+    height: 5vh;
+    justify-content: right;
+}
+
+#buscadorFiltro img, #buscadorFiltro input {
+    margin-right: 2.5vh;
+}

@@ -1,9 +1,17 @@
+/* fuente*/
+@font-face {
+    font-family: inter-tight;
+    src: url(../../../../../fonts/Inter-tight.ttf);
+}
+
 /* centrado y tipografia    */
 .centrado {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1080px;
+    height: 900px;
+    width: 100%;
+    font-family: inter-tight;
 }
 
 /* fondo */

@@ -4,8 +4,9 @@ import { lastValueFrom, Observable } from 'rxjs';
 import { environment } from '../environments/enviroments.developments';
 import { AuthRequest } from '../models/auth-request'; 
 import { AuthResponse } from '../models/auth-response'; 
-import { Usuarios } from '../models/usuarios';
 import { jwtDecode } from 'jwt-decode';
+import { AuthSend } from '../models/auth-send';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,6 @@ export class AuthService {
       const result: AuthResponse = await lastValueFrom(request);
       console.log("Token recibido: " + result.accessToken);//escribimos el token por consola
 
-      localStorage.setItem('token', result.accessToken);//guardamos el token en el local storage
-
       const decodedToken = jwtDecode(result.accessToken);//decodificamos el token usando la biblioteca jwtDecode
       console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
 
@@ -37,30 +36,66 @@ export class AuthService {
     }
   }
 
-   async getUser(username: string): Promise<Usuarios | null> {
+  async register(registerData: AuthSend): Promise<AuthResponse | null> {
     try {
-      const request: Observable<Object> = this.http.get(`${this.BASE_URL}User`);
-      const dataraw: any = await lastValueFrom(request);
+        console.log('Datos a enviar:', registerData);
+        const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}register`, registerData);
+        const result: AuthResponse = await lastValueFrom(request);
+        console.log("Token recibido: " + result.accessToken);
 
-      const user: Usuarios = {
-        id: dataraw.id,
-        name: dataraw.name,
-        username: dataraw.username,
-        email: dataraw.email,
-        picture: dataraw.picture
-      };
+        const decodedToken = jwtDecode(result.accessToken);
+        console.log("Decoded Token:", decodedToken);
 
-      return user;
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      return null;
+        return result;
+    } catch (error: any) {
+        // Si el mensaje es una cadena, validamos directamente su contenido
+        if (error.status === 400 && error.error === "El nombre de usuario ya está en uso") {
+            console.log("El usuario ya existe. Por favor, elige otro nombre de usuario.");
+        } else {
+            console.log("Falla general en el registro");
+        }
+        return null;
     }
-  } 
+}
+
 
   // Método para recuperar el token
   getToken(): string | null {
-    return localStorage.getItem('token');
+
+    if (localStorage.getItem('token') != "") {
+      return localStorage.getItem('token')
+    } else if (sessionStorage.getItem('token') != "") {
+      return sessionStorage.getItem('token')
+    }
+    return null;
   }
+
+  setTokenLocal(token: string) {
+    if (token != "") {
+      localStorage.setItem('token',token)
+    } else {
+      localStorage.setItem('token', "")
+    }
+  }
+
+  setTokenSesion(token: string) {
+    if (token != "") {
+      sessionStorage.setItem('token',token)
+    } else {
+      sessionStorage.setItem('token', "")
+    }
+  }
+
+  getNameUserToken() {
+    const token = this.getToken()
+    if (token != null) {
+      const tokenDecodificado: any = jwtDecode(token)
+      const nombre = tokenDecodificado.unique_name
+      return nombre
+    }
+    return "error"
+  }
+
 }
 
 

@@ -1,10 +1,20 @@
+/* fuente*/
+@font-face {
+    font-family: inter-standar;
+    src: url(../../../../fonts/Inter-standar.ttf);
+}
+
 .navbar {
     display: flex;
     width: 98vw;
     align-items: center;
-    padding: 20px 20px;
+    padding: 5px 20px;
     position: fixed;
     justify-content: space-between;
+    font-family: Inter-standar;
+    background-color: rgba(255, 255, 255, 0.39);
+    backdrop-filter: blur(7px);
+    z-index: 1000;
 }
 
 .logo img {
@@ -71,9 +81,13 @@
 }
 
 #carrito, #perfil {
-    transition: transform 0.3s ease;
+    /*transition: transform 0.3s ease;*/
 }
 
 #carrito:hover, #perfil:hover {
     transform: scale(1.1);
+}
+
+#desplegableUsuarios {
+    display: none;
 }
