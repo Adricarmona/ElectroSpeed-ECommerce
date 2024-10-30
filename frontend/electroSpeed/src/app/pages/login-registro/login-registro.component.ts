@@ -13,18 +13,37 @@ import { AuthRequest } from '../../models/auth-request';
   styleUrl: './login-registro.component.css'
 })
 export class LoginRegistroComponent {
+  
 
   emailR = "";
   usernameR = "";
   fullNameR = "";
   passwordR = "";
+
   emailLog = "";
   passwordLog = "";
-  rememberR: boolean = false;
   jwt: string = '';
+
+  remember: boolean = false;
   user: Usuarios | null = null;
 
   constructor(private authService: AuthService) {}
+
+  
+
+  ngAfterViewInit(): void {
+    const triggerElements = document.querySelectorAll('.trigger');
+    const modalWrapper = document.querySelector('.modal-wrapper');
+    const pageWrapper = document.querySelector('.page-wrapper');
+
+    triggerElements.forEach(trigger => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        modalWrapper?.classList.toggle('open');
+        pageWrapper?.classList.toggle('blur-it');
+      });
+    });
+  }
 
   async submitLogin() {
 
@@ -36,7 +55,7 @@ export class LoginRegistroComponent {
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
       
-      if (this.rememberR) {
+      if (this.remember) {
         localStorage.setItem('token', this.jwt);
       } else {
         sessionStorage.setItem('token', this.jwt);
@@ -65,7 +84,7 @@ export class LoginRegistroComponent {
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
 
-      if (this.rememberR) {
+      if (this.remember) {
         localStorage.setItem('token', this.jwt);
       } else {
         sessionStorage.setItem('token', this.jwt);
