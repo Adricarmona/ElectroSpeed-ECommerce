@@ -24,8 +24,6 @@ export class AuthService {
       const result: AuthResponse = await lastValueFrom(request);
       console.log("Token recibido: " + result.accessToken);//escribimos el token por consola
 
-      localStorage.setItem('token', result.accessToken);//guardamos el token en el local storage
-
       const decodedToken = jwtDecode(result.accessToken);//decodificamos el token usando la biblioteca jwtDecode
       console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
 
@@ -45,8 +43,6 @@ export class AuthService {
         const result: AuthResponse = await lastValueFrom(request);
         console.log("Token recibido: " + result.accessToken);
 
-        localStorage.setItem('token', result.accessToken);
-
         const decodedToken = jwtDecode(result.accessToken);
         console.log("Decoded Token:", decodedToken);
 
@@ -63,37 +59,30 @@ export class AuthService {
 }
 
 
-/* 
-   async getUser(username: string): Promise<Usuarios | null> {
-    try {
-      const request: Observable<Object> = this.http.get(`${this.BASE_URL}User`);
-      const dataraw: any = await lastValueFrom(request);
-
-      const user: Usuarios = {
-        id: dataraw.id,
-        name: dataraw.name,
-        username: dataraw.username,
-        email: dataraw.email,
-        picture: dataraw.picture
-      };
-
-      return user;
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      return null;
-    }
-  }  */
-
   // Método para recuperar el token
   getToken(): string | null {
-    return localStorage.getItem('token');
+
+    if (localStorage.getItem('token') != "") {
+      return localStorage.getItem('token')
+    } else if (sessionStorage.getItem('token') != "") {
+      return sessionStorage.getItem('token')
+    }
+    return null;
   }
 
-  setToken(token: string) {
+  setTokenLocal(token: string) {
     if (token != "") {
       localStorage.setItem('token',token)
     } else {
       localStorage.setItem('token', "")
+    }
+  }
+
+  setTokenSesion(token: string) {
+    if (token != "") {
+      sessionStorage.setItem('token',token)
+    } else {
+      sessionStorage.setItem('token', "")
     }
   }
 

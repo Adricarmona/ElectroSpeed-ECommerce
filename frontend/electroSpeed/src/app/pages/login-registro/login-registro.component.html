@@ -9,6 +9,7 @@
                     <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailR" [ngModelOptions]="{standalone: true}"/>
                     <input type="text" name="broj" placeholder="Nombre completo" required="" [(ngModel)]="fullNameR" [ngModelOptions]="{standalone: true}"/>
                     <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordR" [ngModelOptions]="{standalone: true}"/>
+                    <input type="checkbox" name="checkbox" placeholder="Recuerdame" required="" [(ngModel)]="rememberR" [ngModelOptions]="{standalone: true}">
                     <button type="submit">Registrarse</button>
                     @if (jwt) {
                         <h4>Usted se ha registrado correctamente.</h4>
@@ -24,6 +25,7 @@
                     <label for="chk" aria-hidden="true">Iniciar Sesión</label>
                     <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailLog" [ngModelOptions]="{standalone: true}"/>
                     <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordLog" [ngModelOptions]="{standalone: true}"/>
+                    <input type="checkbox" name="checkbox" placeholder="Recuerdame" required="" [(ngModel)]="rememberR" [ngModelOptions]="{standalone: true}">
                     <button type="submit">Iniciar Sesión</button>
                     @if (jwt) {
                         <h4>Sesión iniciada correctamente</h4>
