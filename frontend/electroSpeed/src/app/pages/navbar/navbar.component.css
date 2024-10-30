@@ -12,7 +12,7 @@
     position: fixed;
     justify-content: space-between;
     font-family: Inter-standar;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.39);
     backdrop-filter: blur(7px);
     z-index: 1000;
 }
@@ -81,7 +81,7 @@
 }
 
 #carrito, #perfil {
-    transition: transform 0.3s ease;
+    /*transition: transform 0.3s ease;*/
 }
 
 #carrito:hover, #perfil:hover {
