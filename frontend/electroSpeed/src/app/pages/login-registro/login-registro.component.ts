@@ -20,6 +20,7 @@ export class LoginRegistroComponent {
   passwordR = "";
   emailLog = "";
   passwordLog = "";
+  rememberR: boolean = false;
   jwt: string = '';
   user: Usuarios | null = null;
 
@@ -34,7 +35,13 @@ export class LoginRegistroComponent {
 
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
-      //this.user = await this.authService.getUser(this.username); // Llama a getUser para obtener datos del usuario
+      
+      if (this.rememberR) {
+        localStorage.setItem('token', this.jwt);
+      } else {
+        sessionStorage.setItem('token', this.jwt);
+      }
+
       console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('Error en la autenticación');
@@ -57,7 +64,13 @@ export class LoginRegistroComponent {
     const result = await this.authService.register(registerData);
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
-      //this.user = await this.authService.getUser(this.username); // Llama a getUser para obtener datos del usuario
+
+      if (this.rememberR) {
+        localStorage.setItem('token', this.jwt);
+      } else {
+        sessionStorage.setItem('token', this.jwt);
+      }
+
       console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('El usuario ya existe');
