@@ -27,7 +27,7 @@
                 </a>
                 <div id="desplegableUsuarios">
                     @if (usuarioToken()) {
-                        <p id="nombreUsuario" (click)="nombreToken()">Usuario indicado</p>
+                        <p id="nombreUsuario" [innerText]="nombreToken()"></p>
                         <a (click)="vaciarToken()">Finalizar sesion</a>
                     }
                     @else {
