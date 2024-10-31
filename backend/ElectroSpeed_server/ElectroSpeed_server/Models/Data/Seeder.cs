@@ -21,7 +21,7 @@ namespace ElectroSpeed_server.Models.Data
         {
             Usuarios[] usuarios =
                 {
-                            new Usuarios() {Name = "Salguero", Password = "Psoe", Username = "Xx_Salguero_xX", Email = "salgueroPutero@gmail.com"}
+                            new Usuarios() {Name = "Salguero", Password = "Psoe", Email = "salgueroPutero@gmail.com"}
                 };
 
             await _ElectroSpeedContext.Usuarios.AddRangeAsync(usuarios);
