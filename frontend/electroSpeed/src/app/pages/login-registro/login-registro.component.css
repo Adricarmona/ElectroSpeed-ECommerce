@@ -337,4 +337,42 @@ button:hover{
     'GRAD' 0,
     'opsz' 24
   }
-  
+  .checkbox-wrapper-37 input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-wrapper-37 .terms-label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-wrapper-37 .terms-label .label-text {
+    margin-left: 10px;
+  }
+
+  .checkbox-wrapper-37 .checkbox-svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .checkbox-wrapper-37 .checkbox-box {
+    fill: #fff;
+    stroke: #333333;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    transition: stroke-dashoffset 0.6s ease-in;
+  }
+
+  .checkbox-wrapper-37 .checkbox-tick {
+    stroke: #333333;
+    stroke-dasharray: 172;
+    stroke-dashoffset: 172;
+    transition: stroke-dashoffset 0.6s ease-in;
+  }
+
+  .checkbox-wrapper-37 input[type="checkbox"]:checked + .terms-label .checkbox-box,
+  .checkbox-wrapper-37 input[type="checkbox"]:checked + .terms-label .checkbox-tick {
+    stroke-dashoffset: 0;
+  }
+

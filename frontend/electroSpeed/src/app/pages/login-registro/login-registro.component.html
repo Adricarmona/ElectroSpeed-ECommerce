@@ -9,12 +9,32 @@
                     <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailR" [ngModelOptions]="{standalone: true}"/>
                     <input type="text" name="broj" placeholder="Nombre completo" required="" [(ngModel)]="fullNameR" [ngModelOptions]="{standalone: true}"/>
                     <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordR" [ngModelOptions]="{standalone: true}"/>
-                    <div class="checkbox-wrapper-46">
-                      <input class="inp-cbx" type="checkbox" required="" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
-                      <label class="cbx" for="cbx-46"><span>
-                        <svg width="12px" height="10px" viewbox="0 0 12 10">
-                          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                        </svg></span><span id="rememberme">Recuerdame</span>
+                    <div class="checkbox-wrapper-37">
+                      <input type="checkbox" name="checkbox" id="terms-checkbox-37" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
+                      <label for="terms-checkbox-37" class="terms-label" style="margin-top: 10px; margin-bottom: 0px;">
+                        <svg
+                          class="checkbox-svg"
+                          viewBox="0 0 200 200"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <mask id="path-1-inside-1_476_5-37" fill="white">
+                            <rect width="200" height="200" />
+                          </mask>
+                          <rect
+                            width="200"
+                            height="200"
+                            class="checkbox-box"
+                            stroke-width="40"
+                            mask="url(#path-1-inside-1_476_5-37)"
+                          />
+                          <path
+                            class="checkbox-tick"
+                            d="M52 111.018L76.9867 136L149 64"
+                            stroke-width="15"
+                          />
+                        </svg>
+                        <span class="label-text">Recuerdame</span>
                       </label>
                     </div>
                       <button  (click)="submitRegistro()" class="btn trigger">Registrarse</button>
@@ -28,12 +48,32 @@
                   <label _ngcontent-ng-c4071791759="" id="generalLabel" for="chk" aria-hidden="true" style="margin-top: 30px; color:#515a5a;">Iniciar Sesión</label>
                     <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailLog" [ngModelOptions]="{standalone: true}"/>
                     <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordLog" [ngModelOptions]="{standalone: true}"/>
-                    <div class="checkbox-wrapper-46">
-                      <input class="inp-cbx"  type="checkbox" required="" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
-                      <label class="cbx" for="cbx-46"><span>
-                        <svg width="12px" height="10px" viewbox="0 0 12 10">
-                          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                        </svg></span><span>Recuerdame</span>
+                    <div class="checkbox-wrapper-37">
+                      <input type="checkbox" name="checkbox" id="terms-checkbox-37" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
+                      <label for="terms-checkbox-37" class="terms-label" style="margin-top: 10px; margin-bottom: 0px;">
+                        <svg
+                          class="checkbox-svg"
+                          viewBox="0 0 200 200"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <mask id="path-1-inside-1_476_5-37" fill="white">
+                            <rect width="200" height="200" />
+                          </mask>
+                          <rect
+                            width="200"
+                            height="200"
+                            class="checkbox-box"
+                            stroke-width="40"
+                            mask="url(#path-1-inside-1_476_5-37)"
+                          />
+                          <path
+                            class="checkbox-tick"
+                            d="M52 111.018L76.9867 136L149 64"
+                            stroke-width="15"
+                          />
+                        </svg>
+                        <span class="label-text">Recuerdame</span>
                       </label>
                     </div>
                       <button (click)="submitLogin()" class="btn trigger">Iniciar Sesión</button>
@@ -67,4 +107,3 @@
       </div>
     </div> 
 </div>
-
