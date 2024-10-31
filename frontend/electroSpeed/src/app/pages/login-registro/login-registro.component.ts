@@ -32,6 +32,7 @@ export class LoginRegistroComponent {
   
 
   ngAfterViewInit(): void {
+
     const triggerElements = document.querySelectorAll('.trigger');
     const modalWrapper = document.querySelector('.modal-wrapper');
     const pageWrapper = document.querySelector('.page-wrapper');
@@ -47,8 +48,6 @@ export class LoginRegistroComponent {
 
   async submitLogin() {
 
-    console.log(this.emailLog);
-    console.log(this.passwordLog);
     const authData: AuthRequest = { username: this.emailLog, password: this.passwordLog };
     const result = await this.authService.login(authData); // Llama al método login
 
@@ -61,7 +60,6 @@ export class LoginRegistroComponent {
         sessionStorage.setItem('token', this.jwt);
       }
 
-      console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('Error en la autenticación');
     }
@@ -69,10 +67,7 @@ export class LoginRegistroComponent {
 
 
   async submitRegistro(){
-    console.log(this.emailR);
-    console.log(this.usernameR);
-    console.log(this.fullNameR);
-    console.log(this.passwordR);
+
     const registerData: AuthSend = 
     {  
       Name : this.fullNameR,
@@ -90,7 +85,6 @@ export class LoginRegistroComponent {
         sessionStorage.setItem('token', this.jwt);
       }
 
-      console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('El usuario ya existe');
     }
