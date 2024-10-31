@@ -3,51 +3,55 @@
         <input type="checkbox" id="chk" aria-hidden="true">
     
             <div class="signup">
-                <form>
-                    <label id="generalLabel" for="chk" aria-hidden="true">Registrarse</label>
-                    <input type="text" name="txt" placeholder="Nombre de usuario" required="" [(ngModel)]="usernameR" [ngModelOptions]="{standalone: true}"/>
-                    <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailR" [ngModelOptions]="{standalone: true}"/>
-                    <input type="text" name="broj" placeholder="Nombre completo" required="" [(ngModel)]="fullNameR" [ngModelOptions]="{standalone: true}"/>
-                    <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordR" [ngModelOptions]="{standalone: true}"/>
-                    <div class="checkbox-wrapper-37">
-                      <input type="checkbox" name="checkbox" id="terms-checkbox-37" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
-                      <label for="terms-checkbox-37" class="terms-label" style="margin-top: 10px; margin-bottom: 0px;">
-                        <svg
-                          class="checkbox-svg"
-                          viewBox="0 0 200 200"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <mask id="path-1-inside-1_476_5-37" fill="white">
-                            <rect width="200" height="200" />
-                          </mask>
-                          <rect
-                            width="200"
-                            height="200"
-                            class="checkbox-box"
-                            stroke-width="40"
-                            mask="url(#path-1-inside-1_476_5-37)"
-                          />
-                          <path
-                            class="checkbox-tick"
-                            d="M52 111.018L76.9867 136L149 64"
-                            stroke-width="15"
-                          />
-                        </svg>
-                        <span class="label-text">Recuerdame</span>
-                      </label>
-                    </div>
-                      <button  (click)="submitRegistro()" class="btn trigger">Registrarse</button>
-                    
-                </form>
+              <form [formGroup]="myForm" novalidate>
+                <!-- <label _ngcontent-ng-c4055141374="" style="margin-bottom: 20px;"></label> -->
+                <label _ngcontent-ng-c4071791759="" id="generalLabel" for="chk" aria-hidden="true" >Iniciar Sesión</label>
+                  
+                <input type="email" placeholder="Correo electrónico" formControlName="emailLog" required />
+                <input type="password" placeholder="Contraseña" formControlName="passwordLog" required /> 
+                
+                <div class="checkbox-wrapper-37">
+                    <input type="checkbox" name="checkbox" id="terms-checkbox-37" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
+                    <label for="terms-checkbox-37" class="terms-label" style="margin-top: 10px; margin-bottom: 0px;">
+                      <svg
+                        class="checkbox-svg"
+                        viewBox="0 0 200 200"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <mask id="path-1-inside-1_476_5-37" fill="white">
+                          <rect width="200" height="200" />
+                        </mask>
+                        <rect
+                          width="200"
+                          height="200"
+                          class="checkbox-box"
+                          stroke-width="40"
+                          mask="url(#path-1-inside-1_476_5-37)"
+                        />
+                        <path
+                          class="checkbox-tick"
+                          d="M52 111.018L76.9867 136L149 64"
+                          stroke-width="15"
+                        />
+                      </svg>
+                      <span class="label-text">Recuerdame</span>
+                    </label>
+                  </div>
+                    <button (click)="submitLogin()" class="btn trigger">Iniciar Sesión</button>
+              </form>
             </div>
     
             <div class="login">
-                <form>
-                  <label _ngcontent-ng-c4055141374="" style="margin-bottom: 20px;"></label>
-                  <label _ngcontent-ng-c4071791759="" id="generalLabel" for="chk" aria-hidden="true" style="margin-top: 30px; color:#515a5a;">Iniciar Sesión</label>
-                    <input type="email" name="email" placeholder="Correo electrónico" required="" [(ngModel)]="emailLog" [ngModelOptions]="{standalone: true}"/>
-                    <input type="password" name="pswd" placeholder="Contraseña" required="" [(ngModel)]="passwordLog" [ngModelOptions]="{standalone: true}"/>
+              <!-- Registro -->
+              <form [formGroup]="myForm" novalidate>
+                    <label _ngcontent-ng-c4055141374="" style="margin-bottom: 0px;"></label>
+                    <label id="generalLabel" for="chk" aria-hidden="true" style="margin-bottom: 20px; color: rgb(99, 98, 98);" >Registrarse</label>
+                    <input type="text" placeholder="Nombre Completo" formControlName="fullNameR" required />
+                    <input type="email" placeholder="Correo electrónico" formControlName="emailR" required />
+                    <input type="password" placeholder="Contraseña" formControlName="passwordR" required />
+                    <input type="password" placeholder="Repetir contraseña" formControlName="passwordRepR" required />
+                    <input type="text" placeholder="Dirección" formControlName="direccionR" required /> 
                     <div class="checkbox-wrapper-37">
                       <input type="checkbox" name="checkbox" id="terms-checkbox-37" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
                       <label for="terms-checkbox-37" class="terms-label" style="margin-top: 10px; margin-bottom: 0px;">
@@ -76,7 +80,7 @@
                         <span class="label-text">Recuerdame</span>
                       </label>
                     </div>
-                      <button (click)="submitLogin()" class="btn trigger">Iniciar Sesión</button>
+                    <button  (click)="submitRegistro()" class="btn trigger">Registrarse</button>   
                 </form>
             </div>
     </div> 
@@ -93,11 +97,15 @@
         <div class="content">
             <div class="good-job">
               <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-              @if (jwt) {
+              @if (jwt && passwordConfirmation) {
                 <h1>Operación completada</h1>
               }
               @else {
-                <h1>Error al realizar la operación</h1>
+                @if(!passwordConfirmation){
+                  <h1>Las contraseñas no coinciden</h1>
+                }@else {
+                  <h1>Error al realizar la operación</h1>
+                }
               }  
             </div>
         </div>
