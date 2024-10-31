@@ -32,17 +32,17 @@ namespace ElectroSpeed_server.Controllers
         [HttpPost("/register")]
         public ActionResult Register([FromBody] RegisterRequest model)
         {
-            if (_esContext.Usuarios.Any(usuario => usuario.Username == model.Username))
+            if (_esContext.Usuarios.Any(usuario => usuario.Email == model.Email))
             {
-                return BadRequest("El nombre de usuario ya está en uso");
+                return BadRequest("El email ya está en uso");
             }
 
             Usuarios newUser = new Usuarios
             {
                 Name = model.Name,
-                Username = model.Username,
                 Email = model.Email,
-                Password = PasswordHelper.Hash(model.Password)
+                Password = PasswordHelper.Hash(model.Password),
+                Direccion = model.Direccion
             };
 
             _esContext.Usuarios.Add(newUser);
@@ -52,7 +52,7 @@ namespace ElectroSpeed_server.Controllers
             {
                 Claims = new Dictionary<string, object>
                         {
-                            {ClaimTypes.Name, model.Username}
+                            {ClaimTypes.Name, model.Name}
                         },
                 Expires = DateTime.UtcNow.AddYears(3),
                 SigningCredentials = new SigningCredentials(
@@ -77,13 +77,13 @@ namespace ElectroSpeed_server.Controllers
             Usuarios[] usuarios = _userController.GetUsuarios().ToArray();
             foreach (var user in usuarios)
             {
-                if (user.Username == model.Username && user.Password == PasswordHelper.Hash(model.Password))
+                if (user.Email == model.Email && user.Password == PasswordHelper.Hash(model.Password))
                 {
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
                         Claims = new Dictionary<string, object>
                         {
-                            {ClaimTypes.Name, model.Username}
+                            {ClaimTypes.Name, model.Email}
                         },
                         Expires = DateTime.UtcNow.AddYears(3),
                         SigningCredentials = new SigningCredentials(
