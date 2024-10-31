@@ -8,6 +8,7 @@ namespace ElectroSpeed_server.Models.Data
         private const string DATABASE_PATH = "electrospeed.db";
 
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Bicicletas> Bicicletas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

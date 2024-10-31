@@ -1,0 +1,35 @@
+#fondo {
+    background-image: url(../../../../public/catalogo/fondoCatalogo.png);
+    height: 1080px;
+    background-attachment: fixed;
+}
+
+#espacio {
+    height: 15vh;
+}
+
+#buscadorFiltro {
+    display: flex;
+    height: 5vh;
+    justify-content: right;
+}
+
+#buscadorFiltro img, #buscadorFiltro input {
+    margin-right: 2.5vh;
+}
+
+.catalogo{
+    display: grid;
+    grid-template-columns: repeat(autofill, minmax(200px, 1fr));
+    background-color: white;
+    width: fit-content;
+}
+
+.parteArriba{
+    display: flex;
+
+}
+
+h3{
+    margin-right: 20px;
+}

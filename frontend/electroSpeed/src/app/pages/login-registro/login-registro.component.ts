@@ -39,6 +39,7 @@ export class LoginRegistroComponent implements OnInit {
   
 
   ngAfterViewInit(): void {
+
     const triggerElements = document.querySelectorAll('.trigger');
     const modalWrapper = document.querySelector('.modal-wrapper');
     const pageWrapper = document.querySelector('.page-wrapper');
@@ -73,7 +74,6 @@ export class LoginRegistroComponent implements OnInit {
         sessionStorage.setItem('token', this.jwt);
       }
 
-      console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('Error en la autenticación');
     }
@@ -104,7 +104,6 @@ export class LoginRegistroComponent implements OnInit {
         sessionStorage.setItem('token', this.jwt);
       }
 
-      console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('El usuario ya existe');
     }
