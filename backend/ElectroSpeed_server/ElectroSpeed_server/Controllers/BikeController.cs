@@ -3,6 +3,7 @@ using ElectroSpeed_server.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Recursos;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ElectroSpeed_server.Controllers
@@ -21,23 +22,23 @@ namespace ElectroSpeed_server.Controllers
         [HttpPost("/filtroBicis")]
         public IEnumerable<Bicicletas> FiltroBicis([FromBody] FiltroBicis model)
         {
-            FiltroRecurso filtro = new FiltroRecurso();
-            return filtro.Search(model.consulta, GetBicicletas());
+            FiltroRecurso filtro = new FiltroRecurso(_esContext);
+
+            return filtro.Search(model.Consulta, filtro.Order(model));
         }
 
         [HttpPost("/anadirBici")]
-        public ActionResult anadirBicis([FromBody] BicicletasAnadir model)
+        public ActionResult AnadirBicis([FromBody] BicicletasAnadir model)
         {
             if (_esContext.Bicicletas.Any(Bicicletas => model.Id == Bicicletas.Id))
             {
                 return BadRequest("Bici ya en la base de datos");
             }
 
-            Bicicletas bicicleta = new Bicicletas
+            Bicicletas bicicleta = new()
             {
                 Id = model.Id,
-                Marca = model.Marca,
-                Modelo = model.Modelo,
+                MarcaModelo = model.MarcaModelo,
                 Descripcion = model.Descripcion,
                 Precio = model.Precio,
                 Stock = model.Stock,
@@ -53,7 +54,7 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IEnumerable<Bicicletas> GetBicicletas()
         {
-            return _esContext.Bicicletas.ToList();
+            return [.. _esContext.Bicicletas];
         }
 
     }

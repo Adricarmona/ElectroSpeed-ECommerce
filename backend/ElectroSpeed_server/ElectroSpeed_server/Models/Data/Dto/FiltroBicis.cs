@@ -2,10 +2,13 @@
 {
     public class FiltroBicis
     {
-        public string consulta { get; set; }
-        public enum Criterio { Nombre, Precio }
-        public enum Orden { Asc, Desc}
-        public int cantidadPagina { get; set; }
-        public int paginaActual { get; set; }
+        public string Consulta { get; set; }
+        public Criterio Criterio { get; set; }
+        public Orden Orden { get; set; }
+        public int CantidadPagina { get; set; }
+        public int PaginaActual { get; set; }
+
     }
+    public enum Criterio { Marca, Precio }
+    public enum Orden { Asc, Desc }
 }
