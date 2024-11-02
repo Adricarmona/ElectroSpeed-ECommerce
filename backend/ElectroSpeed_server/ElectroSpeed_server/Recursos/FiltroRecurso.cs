@@ -16,7 +16,7 @@ namespace ElectroSpeed_server.Recursos
             _stringSimilarityComparer = new JaroWinkler();
         }
 
-        public IEnumerable<Bicicletas> Search(string query, Bicicletas bicis)
+        public IEnumerable<Bicicletas> Search(string query, IEnumerable<Bicicletas> bicis)
         {
             IEnumerable<Bicicletas> result;
 
@@ -31,12 +31,12 @@ namespace ElectroSpeed_server.Recursos
                 // Limpiamos la query y la separamos por espacios
                 string[] queryKeys = GetKeys(ClearText(query));
                 // Aquí guardaremos los items que coincidan
-                List<string> matches = new List<string>();
+                List<Bicicletas> matches = new List<Bicicletas>();
 
-                foreach (string item in ITEMS)
+                foreach (Bicicletas item in bicis)
                 {
                     // Limpiamos el item y lo separamos por espacios
-                    string[] itemKeys = GetKeys(ClearText(item));
+                    string[] itemKeys = GetKeys(ClearText(item.Modelo));
 
                     // Si coincide alguna de las palabras de item con las de query
                     // entonces añadimos item a la lista de coincidencias
@@ -48,8 +48,8 @@ namespace ElectroSpeed_server.Recursos
 
                 result = matches;
             }
-
             return result;
+            
         }
 
         private bool IsMatch(string[] queryKeys, string[] itemKeys)
