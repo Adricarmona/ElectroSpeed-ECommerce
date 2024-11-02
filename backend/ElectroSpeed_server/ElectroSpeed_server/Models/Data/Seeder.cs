@@ -4,27 +4,27 @@ namespace ElectroSpeed_server.Models.Data
 {
     public class Seeder
     {
-        private readonly ElectroSpeedContext _ElectroSpeedContext;
+        private readonly ElectroSpeedContext _electroSpeedContext;
 
         public Seeder(ElectroSpeedContext electroSpeedContext)
         {
-            _ElectroSpeedContext = electroSpeedContext;
+            _electroSpeedContext = electroSpeedContext;
         }
 
         public async Task SeedAsync()
         {
             await SeedBicicletasAsync();
-            await _ElectroSpeedContext.SaveChangesAsync();
+            await _electroSpeedContext.SaveChangesAsync();
         }
 
         private async Task SeedBicicletasAsync()
         {
-            Bicicletas[] bicicleta =
-            {
-                new Bicicletas() { Id = 1, Marca = "Marca1", Modelo = "Modelo1", Descripcion = "Descripcion1", Stock = 10 , Precio = 1000}
-            };
+            Bicicletas[] bicicletas =
+            [
+                new Bicicletas() { MarcaModelo = "Marca1", Descripcion = "Descripcion1", Stock = 10, Precio = 1000 }
+            ];
 
-            await _ElectroSpeedContext.Bicicletas.AddRangeAsync(bicicleta);
+            await _electroSpeedContext.Bicicletas.AddRangeAsync(bicicletas);
         }
     }
 }

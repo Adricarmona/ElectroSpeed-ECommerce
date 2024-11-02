@@ -16,6 +16,7 @@ namespace ElectroSpeed_server
             builder.Services.AddControllers();
 
             builder.Services.AddScoped<UserController>();
+            builder.Services.AddScoped<BikeController>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
@@ -54,7 +55,7 @@ namespace ElectroSpeed_server
 
             using (IServiceScope scope = app.Services.CreateScope())
             {
-                ElectroSpeedContext esContext = scope.ServiceProvider.GetService<ElectroSpeedContext>();
+                ElectroSpeedContext esContext = scope.ServiceProvider.GetRequiredService<ElectroSpeedContext>();
                 esContext.Database.EnsureCreated();
             }
 
@@ -74,13 +75,13 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            SeedDataBase(app.Services);
+            SeedDataBase(app.Services).Wait();
             app.Run();
         }
-        static async void SeedDataBase(IServiceProvider serviceProvider)
+        static async Task SeedDataBase(IServiceProvider serviceProvider)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            using ElectroSpeedContext esContext = scope.ServiceProvider.GetService<ElectroSpeedContext>();
+            using ElectroSpeedContext esContext = scope.ServiceProvider.GetRequiredService<ElectroSpeedContext>();
 
             if (esContext.Database.EnsureCreated())
             {

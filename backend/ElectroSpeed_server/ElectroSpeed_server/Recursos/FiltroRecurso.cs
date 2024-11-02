@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using F23.StringSimilarity;
 using F23.StringSimilarity.Interfaces;
@@ -17,36 +18,40 @@ namespace ElectroSpeed_server.Recursos
         public FiltroRecurso(ElectroSpeedContext electroSpeedContext)
         {
             _stringSimilarityComparer = new JaroWinkler();
-            electroSpeedContext = _electroSpeedContext;
+            _electroSpeedContext = electroSpeedContext;
         }
 
 
-        public IEnumerable<Bicicletas> Order(Enum criterio, Enum orden, IEnumerable<Bicicletas> bicis)
+        public IEnumerable<Bicicletas> Order(FiltroBicis model)
         {
-            switch (criterio)
+
+            switch (model.Criterio)
             {
-                case Criterio.Modelo:
-                    // Ordenar bicicletas por nombre
-                    switch (orden)
+                case Criterio.Marca:
+                    // Ordenar bicicletas por marca
+
+                    switch (model.Orden)
                     {
                         case Orden.Asc:
-                            // Ordenar bicicletas por nombre ascendente
+                            // Ordenar bicicletas por marca ascendente alfabeticamente
                             var marcasOrdenadosAsc = _electroSpeedContext.Bicicletas
-                                    .OrderBy(b => b.Marca)
+                                    .OrderBy(b => b.MarcaModelo)
                                     .ToList();
                             return marcasOrdenadosAsc;
+
                         case Orden.Desc:
-                            // Ordenar bicicletas por nombre descendiente
+                            // Ordenar bicicletas por marca descendiente alfabeticamente
                             var marcasOrdenadosDesc = _electroSpeedContext.Bicicletas
-                                     .OrderByDescending(b => b.Marca)
+                                     .OrderByDescending(b => b.MarcaModelo)
                                      .ToList();
                             return marcasOrdenadosDesc;
                     }
-
                     break;
+
                 case Criterio.Precio:
                     // Ordenar bicicletas por precio
-                    switch (orden)
+
+                    switch (model.Orden)
                     {
                         case Orden.Asc:
                             // Ordenar bicicletas por precio ascendente
@@ -54,6 +59,7 @@ namespace ElectroSpeed_server.Recursos
                                 .OrderBy(b => b.Precio)
                                 .ToList();
                             return preciosOrdenadosAsc;
+
                         case Orden.Desc:
                             // Ordenar bicicletas por precio descendente
                             var preciosOrdenadosDesc = _electroSpeedContext.Bicicletas
@@ -87,7 +93,7 @@ namespace ElectroSpeed_server.Recursos
                 foreach (Bicicletas item in bicis)
                 {
                     // Limpiamos el item y lo separamos por espacios
-                    string[] itemKeys = GetKeys(ClearText(item.Modelo));
+                    string[] itemKeys = GetKeys(ClearText(item.MarcaModelo));
 
                     // Si coincide alguna de las palabras de item con las de query
                     // entonces añadimos item a la lista de coincidencias
