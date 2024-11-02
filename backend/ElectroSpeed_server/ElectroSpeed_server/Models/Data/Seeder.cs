@@ -13,18 +13,18 @@ namespace ElectroSpeed_server.Models.Data
 
         public async Task SeedAsync()
         {
-            await SeedUsuariosAsync();
+            await SeedBicicletasAsync();
             await _ElectroSpeedContext.SaveChangesAsync();
         }
 
-        private async Task SeedUsuariosAsync()
+        private async Task SeedBicicletasAsync()
         {
-            Usuarios[] usuarios =
-                {
-                            new Usuarios() {Name = "Salguero", Password = "Psoe", Email = "salgueroPutero@gmail.com"}
-                };
+            Bicicletas[] bicicleta =
+            {
+                new Bicicletas() { Id = 1, Marca = "Marca1", Modelo = "Modelo1", Descripcion = "Descripcion1", Stock = 10 , Precio = 1000}
+            };
 
-            await _ElectroSpeedContext.Usuarios.AddRangeAsync(usuarios);
+            await _ElectroSpeedContext.Bicicletas.AddRangeAsync(bicicleta);
         }
     }
 }

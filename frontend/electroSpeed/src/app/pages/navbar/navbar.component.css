@@ -1,3 +1,4 @@
+
 /* fuente*/
 @font-face {
     font-family: inter-standar;
@@ -88,6 +89,11 @@
     transform: scale(1.1);
 }
 
-#desplegableUsuarios {
-    display: none;
+#usuarioIniciado #nombreUsuario{
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    cursor: pointer;
 }

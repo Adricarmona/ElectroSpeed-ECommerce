@@ -17,19 +17,19 @@ export class NavbarComponent {
   /* cogemos el token para ver si existe o quien es */
  usuarioToken() {
     const token = this.authService.getToken()
-    console.log(token)
     return token
  }
  
  vaciarToken() {
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
+    location.reload()
  }
 
  nombreToken() {
   const nombreNavBar = document.getElementById("nombreUsuario")
   if (nombreNavBar) {
-    nombreNavBar.innerText = "Hola "+this.authService.getNameUserToken()
+    nombreNavBar.innerText = this.authService.getNameUserToken()
   }
  }
 

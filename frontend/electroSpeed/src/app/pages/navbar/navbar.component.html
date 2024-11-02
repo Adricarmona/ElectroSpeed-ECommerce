@@ -19,23 +19,22 @@
                 </a>
             </li>
         </ul>
+        @if (usuarioToken()) {
+            <span id="usuarioIniciado">Usuario Iniciado: <h3 id="nombreUsuario" [innerText]="nombreToken()"></h3></span>
+        }
         <div class="icons">
             <img id="carrito" src="navbar/imagen_carrito.png" />
             <div>
-                <a id="usuario" (click)="desplegable()">
-                    <img id="perfil" src="navbar/imagen_perfil.png" />
-                </a>
-                <div id="desplegableUsuarios">
-                    @if (usuarioToken()) {
-                        <p id="nombreUsuario" [innerText]="nombreToken()"></p>
-                        <a (click)="vaciarToken()">Finalizar sesion</a>
-                    }
-                    @else {
-                        <a href="/logreg">
-                            <p>Iniciar sesion</p>
-                        </a>
-                    }
-                </div>
+                @if (usuarioToken()) {
+                    <a id="usuario" (click)="vaciarToken()">
+                        <img id="perfil" src="navbar/imagen_deslogueado.png" alt="">
+                    </a>
+                }
+                @else {
+                    <a id="usuario" href="/logreg">
+                        <img id="perfil" src="navbar/imagen_perfil.png" />
+                    </a>
+                }
             </div>
         </div>
     </div>

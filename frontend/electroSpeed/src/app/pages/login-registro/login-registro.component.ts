@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { AuthSend } from '../../models/auth-send';
 import { Usuarios } from '../../models/usuarios';
@@ -8,30 +8,38 @@ import { AuthRequest } from '../../models/auth-request';
 @Component({
   selector: 'app-login-registro',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule ],
   templateUrl: './login-registro.component.html',
   styleUrl: './login-registro.component.css'
 })
-export class LoginRegistroComponent {
-  
+export class LoginRegistroComponent implements OnInit {
 
-  emailR = "";
-  usernameR = "";
-  fullNameR = "";
-  passwordR = "";
+  myForm: FormGroup;
+  constructor(private authService: AuthService, public fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      emailR: ['', [Validators.required, Validators.email]],
+      direccionR: ['', [Validators.required]],
+      fullNameR: ['', [Validators.required]],
+      passwordR: ['', [Validators.required]],
+      passwordRepR: ['', [Validators.required]],
+      emailLog: ['', [Validators.required, Validators.email]],
+      passwordLog: ['', [Validators.required]]
+    });
+  }
+ 
+  ngOnInit() {}
 
-  emailLog = "";
-  passwordLog = "";
+
   jwt: string = '';
+  passwordConfirmation: boolean = true;
 
   remember: boolean = false;
   user: Usuarios | null = null;
 
-  constructor(private authService: AuthService) {}
-
   
 
   ngAfterViewInit(): void {
+
     const triggerElements = document.querySelectorAll('.trigger');
     const modalWrapper = document.querySelector('.modal-wrapper');
     const pageWrapper = document.querySelector('.page-wrapper');
@@ -47,9 +55,14 @@ export class LoginRegistroComponent {
 
   async submitLogin() {
 
-    console.log(this.emailLog);
-    console.log(this.passwordLog);
-    const authData: AuthRequest = { username: this.emailLog, password: this.passwordLog };
+    console.log(this.myForm.get('emailLog')?.value);
+    console.log(this.myForm.get('passwordLog')?.value);
+    
+    const authData: AuthRequest = { 
+      email: this.myForm.get('emailLog')?.value, 
+      password: this.myForm.get('passwordLog')?.value 
+    };
+
     const result = await this.authService.login(authData); // Llama al método login
 
     if (result) { // Verificamos que result no sea nulo
@@ -61,7 +74,6 @@ export class LoginRegistroComponent {
         sessionStorage.setItem('token', this.jwt);
       }
 
-      console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('Error en la autenticación');
     }
@@ -69,16 +81,18 @@ export class LoginRegistroComponent {
 
 
   async submitRegistro(){
-    console.log(this.emailR);
-    console.log(this.usernameR);
-    console.log(this.fullNameR);
-    console.log(this.passwordR);
+
+    if(this.myForm.get('passwordR')?.value != this.myForm.get('passwordRepR')?.value){
+      this.passwordConfirmation = false;
+      return;
+    }
+
     const registerData: AuthSend = 
     {  
-      Name : this.fullNameR,
-      Username: this.usernameR,
-      Email: this.emailR,  
-      Password: this.passwordR 
+      Name : this.myForm.get('fullNameR')?.value,
+      Direccion: this.myForm.get('direccionR')?.value,
+      Email: this.myForm.get('emailR')?.value,  
+      Password: this.myForm.get('passwordR')?.value 
     };  
     const result = await this.authService.register(registerData);
     if (result) { // Verificamos que result no sea nulo
@@ -90,7 +104,6 @@ export class LoginRegistroComponent {
         sessionStorage.setItem('token', this.jwt);
       }
 
-      console.log('Usuario autenticado:', this.user?.name);
     } else {
         console.error('El usuario ya existe');
     }

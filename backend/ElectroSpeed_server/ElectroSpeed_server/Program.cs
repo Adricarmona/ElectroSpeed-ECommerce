@@ -20,7 +20,7 @@ namespace ElectroSpeed_server
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
-                    String key = "NoeSocioPsoeñ0_asdh'`0iasqjdìasjd0'ìhawsqj0d";
+                    String key = "NoeSocioPsoeñ0_asdh'0iasqjdìasjd0'ìhawsqj0d";
 
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
@@ -48,7 +48,7 @@ namespace ElectroSpeed_server
                 });
             }
 
-           
+
 
             var app = builder.Build();
 
