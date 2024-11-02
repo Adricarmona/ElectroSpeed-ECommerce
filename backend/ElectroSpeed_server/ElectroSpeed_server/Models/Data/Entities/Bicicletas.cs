@@ -15,8 +15,8 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public string [] UrlImg { get; set; }
         /*public int ReseniasId { get; set; }
 
-        [ForeignKey(nameof(ReseniasId))]
-        public Resenias Resenias { get; set; }*/
+[ForeignKey(nameof(ReseniasId))]
+public Resenias Resenias { get; set; }*/
 
     }
 }
