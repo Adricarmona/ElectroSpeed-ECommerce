@@ -1,8 +1,10 @@
-﻿using ElectroSpeed_server.Models.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Entities;
 using F23.StringSimilarity;
 using F23.StringSimilarity.Interfaces;
 using System.Globalization;
 using System.Text;
+using static ElectroSpeed_server.Models.Data.Dto.FiltroBicis;
 
 namespace ElectroSpeed_server.Recursos
 {
@@ -10,10 +12,59 @@ namespace ElectroSpeed_server.Recursos
     {
         private const double THRESHOLD = 0.75;
         private readonly INormalizedStringSimilarity _stringSimilarityComparer;
+        private readonly ElectroSpeedContext _electroSpeedContext;
 
-        public FiltroRecurso()
+        public FiltroRecurso(ElectroSpeedContext electroSpeedContext)
         {
             _stringSimilarityComparer = new JaroWinkler();
+            electroSpeedContext = _electroSpeedContext;
+        }
+
+
+        public IEnumerable<Bicicletas> Order(Enum criterio, Enum orden, IEnumerable<Bicicletas> bicis)
+        {
+            switch (criterio)
+            {
+                case Criterio.Modelo:
+                    // Ordenar bicicletas por nombre
+                    switch (orden)
+                    {
+                        case Orden.Asc:
+                            // Ordenar bicicletas por nombre ascendente
+                            var marcasOrdenadosAsc = _electroSpeedContext.Bicicletas
+                                    .OrderBy(b => b.Marca)
+                                    .ToList();
+                            return marcasOrdenadosAsc;
+                        case Orden.Desc:
+                            // Ordenar bicicletas por nombre descendiente
+                            var marcasOrdenadosDesc = _electroSpeedContext.Bicicletas
+                                     .OrderByDescending(b => b.Marca)
+                                     .ToList();
+                            return marcasOrdenadosDesc;
+                    }
+
+                    break;
+                case Criterio.Precio:
+                    // Ordenar bicicletas por precio
+                    switch (orden)
+                    {
+                        case Orden.Asc:
+                            // Ordenar bicicletas por precio ascendente
+                            var preciosOrdenadosAsc = _electroSpeedContext.Bicicletas
+                                .OrderBy(b => b.Precio)
+                                .ToList();
+                            return preciosOrdenadosAsc;
+                        case Orden.Desc:
+                            // Ordenar bicicletas por precio descendente
+                            var preciosOrdenadosDesc = _electroSpeedContext.Bicicletas
+                                .OrderByDescending(b => b.Precio)
+                                .ToList();
+                            return preciosOrdenadosDesc;
+                    }
+
+                    break;
+            }
+            return null;
         }
 
         public IEnumerable<Bicicletas> Search(string query, IEnumerable<Bicicletas> bicis)
