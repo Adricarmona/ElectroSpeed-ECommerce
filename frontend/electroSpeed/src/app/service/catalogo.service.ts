@@ -12,7 +12,7 @@ export class CatalogoService {
 
   constructor(private http: HttpClient) { }
 
-  async showBikes(formaDeVer: Filtro){
+  /*async showBikes(formaDeVer: Filtro){
     try{
 
       const request
@@ -21,5 +21,5 @@ export class CatalogoService {
   } catch(error){
     console.error("Error al usar el filtro: ", error);
     return null;
-  }
+  }*/
 }

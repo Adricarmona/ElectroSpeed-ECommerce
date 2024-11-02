@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CatalogoService } from '../../service/catalogo.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './catalogo.component.css'
 })
 export class CatalogoComponent {
-  
+  isDropdownVisible = false;
+
+  constructor(private catalogoService: CatalogoService) {}
+
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+
 }
