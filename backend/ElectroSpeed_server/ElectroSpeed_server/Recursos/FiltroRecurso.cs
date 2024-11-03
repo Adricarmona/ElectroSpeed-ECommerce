@@ -3,6 +3,7 @@ using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using F23.StringSimilarity;
 using F23.StringSimilarity.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System.Globalization;
 using System.Text;
 using static ElectroSpeed_server.Models.Data.Dto.FiltroBicis;
@@ -22,7 +23,35 @@ namespace ElectroSpeed_server.Recursos
         }
 
 
-        public IEnumerable<Bicicletas> Order(FiltroBicis model)
+        public IEnumerable<Bicicletas> Pages(FiltroBicis model, IEnumerable<Bicicletas> bicis)
+        {
+            if (model.CantidadPagina == 0 || model.PaginaActual == 0)
+            {
+                return null;
+            }
+            List<Bicicletas> biciPagina = new List<Bicicletas>();
+            for (int i = 1; i <= model.CantidadPagina; i++) // pasea por cada pagina
+            {
+                if(model.PaginaActual == i) // si es la pagina que buscamos
+                {
+                    for (int j = 1; j <= 10; j++) // le da una iteracion de los productos de esta pagina
+                    {
+                        try
+                        {
+                            biciPagina.Add(bicis.ElementAt((j-1)+(10*(i-1)))); // coges los producstos 
+                        }
+                        catch
+                        {
+                            // no existe producto en esta posicion, no se que poner .... viva el betis
+                        }
+                        
+                    }
+                }
+            }
+            return biciPagina;
+        }
+
+        public IEnumerable<Bicicletas> Order(FiltroBicis model, IEnumerable<Bicicletas> bicis)
         {
 
             switch (model.Criterio)
@@ -34,14 +63,14 @@ namespace ElectroSpeed_server.Recursos
                     {
                         case Orden.Asc:
                             // Ordenar bicicletas por marca ascendente alfabeticamente
-                            var marcasOrdenadosAsc = _electroSpeedContext.Bicicletas
+                            var marcasOrdenadosAsc = bicis
                                     .OrderBy(b => b.MarcaModelo)
                                     .ToList();
                             return marcasOrdenadosAsc;
 
                         case Orden.Desc:
                             // Ordenar bicicletas por marca descendiente alfabeticamente
-                            var marcasOrdenadosDesc = _electroSpeedContext.Bicicletas
+                            var marcasOrdenadosDesc = bicis
                                      .OrderByDescending(b => b.MarcaModelo)
                                      .ToList();
                             return marcasOrdenadosDesc;
@@ -55,14 +84,14 @@ namespace ElectroSpeed_server.Recursos
                     {
                         case Orden.Asc:
                             // Ordenar bicicletas por precio ascendente
-                            var preciosOrdenadosAsc = _electroSpeedContext.Bicicletas
+                            var preciosOrdenadosAsc = bicis
                                 .OrderBy(b => b.Precio)
                                 .ToList();
                             return preciosOrdenadosAsc;
 
                         case Orden.Desc:
                             // Ordenar bicicletas por precio descendente
-                            var preciosOrdenadosDesc = _electroSpeedContext.Bicicletas
+                            var preciosOrdenadosDesc = bicis
                                 .OrderByDescending(b => b.Precio)
                                 .ToList();
                             return preciosOrdenadosDesc;
