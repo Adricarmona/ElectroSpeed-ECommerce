@@ -24,7 +24,7 @@ namespace ElectroSpeed_server.Recursos
         }
 
 
-        public IEnumerable<Bicicletas> Pages(FiltroBicis model, IEnumerable<Bicicletas> bicis)
+        public BicisPaginas Pages(FiltroBicis model, IEnumerable<Bicicletas> bicis)
         {
             if (model.CantidadProductos == 0 || model.PaginaActual == 0)
             {
@@ -32,7 +32,7 @@ namespace ElectroSpeed_server.Recursos
             }
             List<Bicicletas> biciPagina = new List<Bicicletas>();
            
-            int totalPaginas = bicis.Count() / model.CantidadProductos;
+            int totalPaginas = (int)Math.Ceiling(bicis.Count() / (decimal)model.CantidadProductos);
             for (int i = 0; i < totalPaginas; i++)
             {
                 if (i == model.PaginaActual - 1 )
@@ -51,7 +51,13 @@ namespace ElectroSpeed_server.Recursos
                 }
             }
 
-            return biciPagina;
+            BicisPaginas bicisPaginas = new BicisPaginas() 
+            { 
+                Bicletas = biciPagina, 
+                paginasTotales = totalPaginas
+            };
+
+            return bicisPaginas;
         }
 
         public IEnumerable<Bicicletas> Order(FiltroBicis model, IEnumerable<Bicicletas> bicis)
