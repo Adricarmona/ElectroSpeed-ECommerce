@@ -7,7 +7,7 @@ namespace ElectroSpeed_server
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -53,11 +53,6 @@ namespace ElectroSpeed_server
 
             var app = builder.Build();
 
-            using (IServiceScope scope = app.Services.CreateScope())
-            {
-                ElectroSpeedContext esContext = scope.ServiceProvider.GetRequiredService<ElectroSpeedContext>();
-                esContext.Database.EnsureCreated();
-            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -75,9 +70,10 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            SeedDataBase(app.Services).Wait();
+            await SeedDataBase(app.Services);
             app.Run();
         }
+
         static async Task SeedDataBase(IServiceProvider serviceProvider)
         {
             using IServiceScope scope = serviceProvider.CreateScope();

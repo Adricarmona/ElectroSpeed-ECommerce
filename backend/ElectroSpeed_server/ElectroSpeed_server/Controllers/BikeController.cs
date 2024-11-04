@@ -42,7 +42,7 @@ namespace ElectroSpeed_server.Controllers
                 Descripcion = model.Descripcion,
                 Precio = model.Precio,
                 Stock = model.Stock,
-                UrlImg = new string[] {model.Foto},
+                UrlImg = model.Foto,
             };
 
             _esContext.Bicicletas.Add(bicicleta);
