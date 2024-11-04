@@ -4,6 +4,7 @@ using ElectroSpeed_server.Models.Data.Entities;
 using F23.StringSimilarity;
 using F23.StringSimilarity.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.Razor.Infrastructure;
 using System.Globalization;
 using System.Text;
 using static ElectroSpeed_server.Models.Data.Dto.FiltroBicis;
@@ -25,29 +26,31 @@ namespace ElectroSpeed_server.Recursos
 
         public IEnumerable<Bicicletas> Pages(FiltroBicis model, IEnumerable<Bicicletas> bicis)
         {
-            if (model.CantidadPagina == 0 || model.PaginaActual == 0)
+            if (model.CantidadProductos == 0 || model.PaginaActual == 0)
             {
                 return null;
             }
             List<Bicicletas> biciPagina = new List<Bicicletas>();
-            for (int i = 1; i <= model.CantidadPagina; i++) // pasea por cada pagina
+           
+            int totalPaginas = bicis.Count() / model.CantidadProductos;
+            for (int i = 0; i < totalPaginas; i++)
             {
-                if(model.PaginaActual == i) // si es la pagina que buscamos
+                if (i == model.PaginaActual - 1 )
                 {
-                    for (int j = 1; j <= 10; j++) // le da una iteracion de los productos de esta pagina
+                    for (int j = 0; j < model.CantidadProductos; j++)
                     {
                         try
                         {
-                            biciPagina.Add(bicis.ElementAt((j-1)+(10*(i-1)))); // coges los producstos 
-                        }
-                        catch
+                            biciPagina.Add(bicis.ElementAt(j + (i * model.CantidadProductos)));
+                        } 
+                        catch 
                         {
-                            // no existe producto en esta posicion, no se que poner .... viva el betis
+                            // aqui implicaria que no hay procutos, viva el betis   
                         }
-                        
                     }
                 }
             }
+
             return biciPagina;
         }
 

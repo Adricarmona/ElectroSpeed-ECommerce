@@ -5,7 +5,7 @@
         public string Consulta { get; set; }
         public Criterio Criterio { get; set; }
         public Orden Orden { get; set; }
-        public int CantidadPagina { get; set; }
+        public int CantidadProductos { get; set; }
         public int PaginaActual { get; set; }
 
     }
