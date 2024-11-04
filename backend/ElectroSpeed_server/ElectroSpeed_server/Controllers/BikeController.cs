@@ -23,15 +23,9 @@ namespace ElectroSpeed_server.Controllers
         public BicisPaginas FiltroBicis([FromBody] FiltroBicis model)
         {
             FiltroRecurso filtro = new FiltroRecurso(_esContext);
-            /// Le pasamos el filtro de buscar por nombre con todas las bicicletas, luego por el de ordenacion y para terminar lo metemos en el de paginacion
-            
-            IEnumerable<Bicicletas> bicis = filtro.Pages(model, filtro.Order(model, filtro.Search(model.Consulta, GetBicicletas())));
-            
-            BicisPaginas bicisPaginas = new BicisPaginas();
-            bicisPaginas.Bicletas = bicis;
-            bicisPaginas.paginasTotales = 2;
-            
-            return bicisPaginas;
+
+            /// Le pasamos el filtro de buscar por nombre con todas las bicicletas, luego por el de ordenacion y para terminar lo metemos en el de paginacion           
+            return filtro.Pages(model, filtro.Order(model, filtro.Search(model.Consulta, GetBicicletas())));
         }
 
         [HttpPost("/anadirBici")]
