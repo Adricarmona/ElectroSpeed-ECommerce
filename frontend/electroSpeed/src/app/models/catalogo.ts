@@ -1,7 +1,6 @@
 export interface Bicicletas{
     id: number,
-    marca: string,
-    modelo: string,
+    marcaModelo: string, 
     descripcion: string,
     precio: number,
     stock: number 

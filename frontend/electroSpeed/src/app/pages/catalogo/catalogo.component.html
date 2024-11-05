@@ -1,12 +1,24 @@
 <div id="fondo">
     <div id="espacio"></div>
-    <form action="submit">
+    <form (submit)="submitFiltro()">
         <div id="buscadorFiltro">
             <div class="filtro">
-                <img id="fotoFiltro" src="catalogo/filtro.png" alt="icono de flitro" (click)="toggleDropdown()">
+                <img id="fotoFiltro" src="catalogo/filtro.png" alt="icono de filtro" (click)="toggleDropdown()">
                 <div id="tiposFiltro" [class.show]="isDropdownVisible">
-                    <a id="criterio">asojdias</a>
-                    <a id="ascDesc">aijsdbuasd</a>
+                    <a>Filtro:</a>
+                    <div id="categoria">
+                        
+                        <select>
+                            <option>holaaaaaaaa</option>
+                            <option>hola</option>
+                        </select>
+                    </div>
+                    <div id="forma">
+                        <select>
+                            <option>holaaaaaaj</option>
+                            <option>hola</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <input type="search" name="filtroCatalogo" id="filtroCatalogo">
@@ -26,5 +38,4 @@
             </div>
         </div>
     </div>
-
 </div>
