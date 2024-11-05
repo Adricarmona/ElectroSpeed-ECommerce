@@ -7,16 +7,15 @@
                 <div id="tiposFiltro" [class.show]="isDropdownVisible">
                     <a>Filtro:</a>
                     <div id="categoria">
-                        
-                        <select>
-                            <option>holaaaaaaaa</option>
-                            <option>hola</option>
+                        <select id="categoriaSelect">
+                            <option value="nombre" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}">Nombre</option>
+                            <option value="precio" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}">Precio</option>
                         </select>
                     </div>
                     <div id="forma">
                         <select>
-                            <option>holaaaaaaj</option>
-                            <option>hola</option>
+                            <option value="desc" [(ngModel)]="desc" [ngModelOptions]="{standalone: true}">Descendente</option>
+                            <option value="asc" [(ngModel)]="asc" [ngModelOptions]="{standalone: true}">Ascendente</option>
                         </select>
                     </div>
                 </div>
