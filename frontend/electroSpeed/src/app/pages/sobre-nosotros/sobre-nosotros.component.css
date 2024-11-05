@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.team-image {
+    margin-bottom: 30px;
+}
+
+.team-image img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+.member-info h2 {
+    font-size: 1.6em;
+    color: #e0e0e0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.member-info p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #b0b0b0;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.company-mission {
+    margin-top: 40px;
+}
+
+.company-mission p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #b0b0b0;
+    margin-bottom: 20px;
+    text-align: justify;
+    font-style: bold;
+}
+
+/* contacto */
+.contact-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+.map-placeholder {
+    width: 200px;
+    height: 150px;
+    background-color: #ccc;
+    color: #333;
+    font-weight: bold;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.contact-info {
+    color: #ffffff;
+    max-width: 400px;
+    margin-left: 20px;
+}
+
+.contact-info h3, .contact-info h4 {
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #b0b0b0;
+}
