@@ -1,51 +1,24 @@
 <div id="fondo">
     <div id="espacio"></div>
-    <form (submit)="submitFiltro()" >
+    <form (submit)="submitFiltro()">
         <div id="buscadorFiltro">
             <div class="filtro">
                 <img id="fotoFiltro" src="catalogo/filtro.png" alt="icono de filtro" (click)="toggleDropdown()">
                 <div id="tiposFiltro" [class.show]="isDropdownVisible">
-                    <a>Filtrar por:</a>
-                    <input type="checkbox" 
-                           class="inp-cbx" 
-                           id="nombre" 
-                           [name]="groupName"
-                           [checked]="selectedIndex === 0" 
-                           (click)="onCheckboxClickName(0)" 
-                           [(ngModel)]="nombre" 
-                           [ngModelOptions]="{standalone: true}">
-                    <label for="nombre">Nombre</label>
-
-                    <input type="checkbox" 
-                           class="inp-cbx" 
-                           id="precio" 
-                           [name]="groupName"
-                           [checked]="selectedIndex === 1" 
-                           (click)="onCheckboxClickName(1)" 
-                           [(ngModel)]="precio" 
-                           [ngModelOptions]="{standalone: true}">
-                    <label for="precio">Precio</label>
-                    <br>
-
-                    <input type="checkbox" 
-                           class="inp-cbx" 
-                           id="ascendente" 
-                           [name]="groupPrice"
-                           [checked]="selectedIndex1 === 0" 
-                           (click)="onCheckboxClickPrice(0)" 
-                           [(ngModel)]="asc" 
-                           [ngModelOptions]="{standalone: true}">
-                    <label for="ascendente">Ascendente</label>
-
-                    <input type="checkbox" 
-                           class="inp-cbx" 
-                           id="descendente" 
-                           [name]="groupPrice"
-                           [checked]="selectedIndex1 === 1" 
-                           (click)="onCheckboxClickPrice(1)" 
-                           [(ngModel)]="desc" 
-                           [ngModelOptions]="{standalone: true}">
-                    <label for="descendente">Descendente</label>
+                    <a>Filtro:</a>
+                    <div id="categoria">
+                        
+                        <select>
+                            <option>holaaaaaaaa</option>
+                            <option>hola</option>
+                        </select>
+                    </div>
+                    <div id="forma">
+                        <select>
+                            <option>holaaaaaaj</option>
+                            <option>hola</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <input type="search" name="filtroCatalogo" id="filtroCatalogo">
