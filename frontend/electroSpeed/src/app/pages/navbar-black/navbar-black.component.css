@@ -81,10 +81,6 @@
     margin-right: 30px;
 }
 
-#carrito, #perfil {
-    /*transition: transform 0.3s ease;*/
-}
-
 #carrito:hover, #perfil:hover {
     transform: scale(1.1);
 }
