@@ -2,6 +2,8 @@
     background-image: url(../../../../public/catalogo/fondoCatalogo.png);
     height: 1080px;
     background-attachment: fixed;
+    background-size: cover;
+    background-position: center 0;
 }
 
 #espacio {
@@ -20,8 +22,12 @@
 }
 
 .catalogo {
-    display: grid;
-    grid-template-columns: repeat(autofill, minmax(200px, 1fr));
+    background-image: url(../../../../public/catalogo/fondoCatalogo.png);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center 0;
+    display: flex;
+    flex-wrap: wrap;
     background-color: white;
     width: fit-content;
 }
