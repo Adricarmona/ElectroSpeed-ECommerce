@@ -38,7 +38,7 @@ export class CatalogoComponent implements OnInit {
 
   async submitFiltro() {
 
-    if (this.cantidadProductos > 26) {
+    if (this.cantidadProductos > 99) {
       
     } else{
       const filtro: Filtro =
