@@ -28,6 +28,26 @@ export class CatalogoComponent implements OnInit {
   constructor(private catalogoService: CatalogoService) {}
 
   ngOnInit(): void {
+
+
+    const filtroSesion = sessionStorage.getItem("filtro");
+
+
+    if (filtroSesion) {
+      const jsonFiltro: Filtro = JSON.parse(filtroSesion)
+      console.log("Consulta: "+jsonFiltro.consulta)
+      console.log("Critero: "+jsonFiltro.criterio)
+      console.log("Orden: "+jsonFiltro.orden)
+      console.log("Cantidad Productos: "+jsonFiltro.cantidadProductos)
+      console.log("Pagina actual: "+jsonFiltro.paginaActual)
+
+      jsonFiltro.consulta = jsonFiltro.consulta
+      jsonFiltro.cantidadProductos = jsonFiltro.cantidadProductos
+      jsonFiltro.orden = jsonFiltro.orden
+      jsonFiltro.cantidadProductos = jsonFiltro.cantidadProductos
+      jsonFiltro.paginaActual = jsonFiltro.paginaActual
+    }
+
     this.submitFiltro();
   }
 
@@ -36,7 +56,8 @@ export class CatalogoComponent implements OnInit {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-  async submitFiltro() {
+  async submitFiltro() 
+  {
 
     const filtro: Filtro =
     {
@@ -45,23 +66,8 @@ export class CatalogoComponent implements OnInit {
         orden: (this.orden == "asc") ?  0 : 1, // 0 es ascendente y 1 descendente
         cantidadProductos: this.cantidadProductos,
         paginaActual: this.paginaActual
-    }
-
-  /*
-    const filtroSesion = sessionStorage.getItem("filtro")
-    if (filtroSesion) {
-      const jsonFiltro: Filtro = JSON.parse(filtroSesion)
-      console.log(jsonFiltro.consulta)
-
-      filtro.consulta = jsonFiltro.consulta
-      filtro.cantidadProductos = jsonFiltro.cantidadProductos
-      filtro.orden = jsonFiltro.orden
-      filtro.cantidadProductos = jsonFiltro.cantidadProductos
-      filtro.paginaActual = jsonFiltro.paginaActual
-    } else {
-      sessionStorage.setItem("filtro", JSON.stringify(filtro))
-    }
-  */
+    } 
+    sessionStorage.setItem("filtro", JSON.stringify(filtro))
 
     const bicisFiltradas = await this.catalogoService.showBikes(filtro)
 
@@ -88,10 +94,8 @@ export class CatalogoComponent implements OnInit {
   }
 
   goToPage(page: number): void {
-    if (page >= 1 && page <= this.paginasTotales) {
-      this.paginaActual = page;
-      this.submitFiltro();
-    }
+    this.paginaActual = page;
+    this.submitFiltro();  
   } 
     
 
