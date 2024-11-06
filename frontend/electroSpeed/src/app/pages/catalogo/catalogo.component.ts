@@ -24,6 +24,7 @@ export class CatalogoComponent implements OnInit {
   biciFiltradasTotales: Bicicletas[] = [];
   paginasTotales: number = 0;
 
+
   constructor(private catalogoService: CatalogoService) {}
 
   ngOnInit(): void {
@@ -46,16 +47,28 @@ export class CatalogoComponent implements OnInit {
         paginaActual: this.paginaActual
     }
 
+  /*
+    const filtroSesion = sessionStorage.getItem("filtro")
+    if (filtroSesion) {
+      const jsonFiltro: Filtro = JSON.parse(filtroSesion)
+      console.log(jsonFiltro.consulta)
+
+      filtro.consulta = jsonFiltro.consulta
+      filtro.cantidadProductos = jsonFiltro.cantidadProductos
+      filtro.orden = jsonFiltro.orden
+      filtro.cantidadProductos = jsonFiltro.cantidadProductos
+      filtro.paginaActual = jsonFiltro.paginaActual
+    } else {
+      sessionStorage.setItem("filtro", JSON.stringify(filtro))
+    }
+  */
+
     const bicisFiltradas = await this.catalogoService.showBikes(filtro)
 
     if (bicisFiltradas != null) {
       this.biciFiltradasTotales = bicisFiltradas.bicicletas;
       this.paginasTotales = bicisFiltradas.paginasTotales;
     }
-
-    this.biciFiltradasTotales.forEach(bici => {
-      console.log(bici)
-    });
 
   }
 
