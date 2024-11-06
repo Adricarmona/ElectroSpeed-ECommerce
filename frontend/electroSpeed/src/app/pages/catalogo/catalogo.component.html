@@ -38,8 +38,8 @@
                         <h3>{{item.precio}}€</h3>
                     </div>
                     <div class="parteAbajo">
-                        <h3>{{item.stock}}+" "+{{item.id}}</h3>
-                        <h3>{{item.descripcion}}</h3>
+                        <h3>stock:{{item.stock}}</h3>
+                        <h3>id:{{item.id}}</h3>
                     </div>
                 </div>
             }
@@ -50,7 +50,7 @@
         <div class="paginacion">
             <button (click)="goPrevious()" [disabled]="paginaActual === 1" class="button-85" role="button">Página anterior</button>
 
-            <span id="paginaActual">Página actual: {{ paginaActual }}</span>
+            <span id="paginaActual">Página: {{ paginaActual }} de {{paginasTotales}}</span>
             <button (click)="goNext()" [disabled]="paginaActual === paginasTotales" class="button-85" role="button">Página siguiente</button>
         </div>   
         <br>
