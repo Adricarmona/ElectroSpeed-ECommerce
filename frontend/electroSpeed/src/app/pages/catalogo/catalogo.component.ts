@@ -29,23 +29,16 @@ export class CatalogoComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     const filtroSesion = sessionStorage.getItem("filtro");
-
 
     if (filtroSesion) {
       const jsonFiltro: Filtro = JSON.parse(filtroSesion)
-      console.log("Consulta: "+jsonFiltro.consulta)
-      console.log("Critero: "+jsonFiltro.criterio)
-      console.log("Orden: "+jsonFiltro.orden)
-      console.log("Cantidad Productos: "+jsonFiltro.cantidadProductos)
-      console.log("Pagina actual: "+jsonFiltro.paginaActual)
 
-      jsonFiltro.consulta = jsonFiltro.consulta
-      jsonFiltro.cantidadProductos = jsonFiltro.cantidadProductos
-      jsonFiltro.orden = jsonFiltro.orden
-      jsonFiltro.cantidadProductos = jsonFiltro.cantidadProductos
-      jsonFiltro.paginaActual = jsonFiltro.paginaActual
+      this.consulta = jsonFiltro.consulta
+      this.critero = (jsonFiltro.criterio == 0) ? "nombre" : "precio" 
+      this.orden = (jsonFiltro.orden == 0) ? "asc" : "desc" 
+      this.cantidadProductos = jsonFiltro.cantidadProductos
+      this.paginaActual = jsonFiltro.paginaActual
     }
 
     this.submitFiltro();
@@ -59,6 +52,18 @@ export class CatalogoComponent implements OnInit {
   async submitFiltro() 
   {
 
+
+    const bicisFiltradas = await this.catalogoService.showBikes(this.cogerFormulario())
+
+    if (bicisFiltradas != null) {
+      this.biciFiltradasTotales = bicisFiltradas.bicicletas;
+      this.paginasTotales = bicisFiltradas.paginasTotales;
+    }
+
+  }
+
+  cogerFormulario()
+  {
     const filtro: Filtro =
     {
         consulta: this.consulta,
@@ -69,13 +74,7 @@ export class CatalogoComponent implements OnInit {
     } 
     sessionStorage.setItem("filtro", JSON.stringify(filtro))
 
-    const bicisFiltradas = await this.catalogoService.showBikes(filtro)
-
-    if (bicisFiltradas != null) {
-      this.biciFiltradasTotales = bicisFiltradas.bicicletas;
-      this.paginasTotales = bicisFiltradas.paginasTotales;
-    }
-
+    return filtro
   }
 
 
