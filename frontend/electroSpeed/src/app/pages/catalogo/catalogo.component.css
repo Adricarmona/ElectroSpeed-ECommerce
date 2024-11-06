@@ -179,3 +179,7 @@ h3 {
     display: flex;
 }
 
+.lupa{
+  cursor: pointer;
+}
+

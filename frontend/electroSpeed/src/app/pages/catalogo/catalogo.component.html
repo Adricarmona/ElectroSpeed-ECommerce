@@ -18,10 +18,11 @@
                             <option value="desc">Descendente</option>
                         </select>
                     </div>
+                    <input type="number" value="10" name="numeroProductos" id="numeroProductos" [(ngModel)]="cantidadProductos" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
-            <input type="search" name="filtroCatalogo" id="filtroCatalogo" [(ngModel)]="consulta">
-            <img src="catalogo/lupa.png" alt="">
+            <input type="search" name="filtroCatalogo" id="filtroCatalogo" [(ngModel)]="consulta" [ngModelOptions]="{standalone: true}">
+            <img src="catalogo/lupa.png" class="lupa" (click)="submitFiltro()">
         </div>
     </form>
     <br>
