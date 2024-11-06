@@ -1,7 +1,7 @@
 export interface Filtro {
     consulta: string,
-    criterio: string,
-    orden: string,
-    cantidadPagina: number,
+    criterio: number,
+    orden: number,
+    cantidadProductos: number,
     paginaActual: number
 }

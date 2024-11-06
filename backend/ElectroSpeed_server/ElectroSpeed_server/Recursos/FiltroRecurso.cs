@@ -53,7 +53,7 @@ namespace ElectroSpeed_server.Recursos
 
             BicisPaginas bicisPaginas = new BicisPaginas() 
             { 
-                Bicletas = biciPagina, 
+                Bicicletas = biciPagina, 
                 paginasTotales = totalPaginas
             };
 

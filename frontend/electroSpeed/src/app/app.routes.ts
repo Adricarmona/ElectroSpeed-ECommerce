@@ -7,4 +7,5 @@ export const routes: Routes = [
     {path: '', component: InicioComponent},
     {path: 'logreg', component: LoginRegistroComponent},
     {path: 'catalogo', component: CatalogoComponent},
+    {path: 'catalogo/:id', component: CatalogoComponent},
 ];
