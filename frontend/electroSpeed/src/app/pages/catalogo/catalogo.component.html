@@ -7,34 +7,48 @@
                 <div id="tiposFiltro" [class.show]="isDropdownVisible">
                     <a>Filtro:</a>
                     <div id="categoria">
-                        <select id="categoriaSelect">
-                            <option value="nombre" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}">Nombre</option>
-                            <option value="precio" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}">Precio</option>
+                        <select id="categoriaSelect" [(ngModel)]="critero" [ngModelOptions]="{standalone: true}">
+                            <option value="nombre">Nombre</option>
+                            <option value="precio">Precio</option>
                         </select>
                     </div>
                     <div id="forma">
-                        <select>
-                            <option value="desc" [(ngModel)]="desc" [ngModelOptions]="{standalone: true}">Descendente</option>
-                            <option value="asc" [(ngModel)]="asc" [ngModelOptions]="{standalone: true}">Ascendente</option>
+                        <select [(ngModel)]="orden" [ngModelOptions]="{standalone: true}">
+                            <option value="asc">Ascendente</option>
+                            <option value="desc">Descendente</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <input type="search" name="filtroCatalogo" id="filtroCatalogo">
+            <input type="search" name="filtroCatalogo" id="filtroCatalogo" [(ngModel)]="consulta">
             <img src="catalogo/lupa.png" alt="">
         </div>
     </form>
     <div class="catalogo">
-        <div class="bici">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMitILXLp51LgHm6swwdnQFy5xYFk99xC5Rw&s">
-            <div class="parteArriba">
-                <h3>Bici potentorra</h3>
-                <h3>20378423748233 €</h3>
+        @for (item of biciFiltradasTotales; track $index) 
+        {
+            <div class="bici">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMitILXLp51LgHm6swwdnQFy5xYFk99xC5Rw&s">
+                <div class="parteArriba">
+                    <h3>{{item.marcaModelo}}</h3>
+                    <h3>{{item.precio}}€</h3>
+                </div>
+                <div class="parteAbajo">
+                    <h3>{{item.stock}}+" "+{{item.id}}</h3>
+                    <h3>{{item.descripcion}}</h3>
+                </div>
             </div>
-            <div class="parteAbajo">
-                <h3>Stock va aqui</h3>
-                <h3>Valoraciones</h3>
-            </div>
+        }
+
+        <div>
+            <a>Pagina atras</a>
+            <br>
+            <span>Pagina actual: {{paginaActual}}</span>
+            <br>
+            <span>Paginas totales: {{paginasTotales}}</span>
+            <br>
+            <a>Pagina alante</a>
         </div>
+
     </div>
 </div>
