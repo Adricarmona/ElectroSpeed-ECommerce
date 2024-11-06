@@ -11,34 +11,34 @@ import { AuthService } from '../../service/auth.service'
   styleUrl: './navbar-white.component.css'
 })
 export class NavbarWhiteComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   /* cogemos el token para ver si existe o quien es */
- usuarioToken() {
+  usuarioToken() {
     const token = this.authService.getToken()
     return token
- }
- 
- vaciarToken() {
+  }
+
+  vaciarToken() {
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
     location.reload()
- }
-
- nombreToken() {
-  const nombreNavBar = document.getElementById("nombreUsuario")
-  if (nombreNavBar) {
-    nombreNavBar.innerText = this.authService.getNameUserToken()
   }
- }
 
-  desplegable(){
+  nombreToken() {
+    const nombreNavBar = document.getElementById("nombreUsuario")
+    if (nombreNavBar) {
+      nombreNavBar.innerText = this.authService.getNameUserToken()
+    }
+  }
+
+  desplegable() {
     const desplegable = document.getElementById("desplegableUsuarios")
     if (desplegable != null) {
       const displayStyle = window.getComputedStyle(desplegable).display;
       if (displayStyle == "none") {
         desplegable.style.display = "block"
-      } else if(displayStyle == "block") {
+      } else if (displayStyle == "block") {
         desplegable.style.display = "none"
       }
     }
