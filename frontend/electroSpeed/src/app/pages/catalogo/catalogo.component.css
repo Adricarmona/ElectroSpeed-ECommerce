@@ -123,6 +123,8 @@
 */
 
 .bici{
+    max-height: 55vh;
+
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 50px;
@@ -141,6 +143,11 @@
     --shadow-color: rgba(0, 72, 255, 0.5);
     }
 
+}
+
+.bici img {
+  max-width: 35vh;
+  max-height: 35vh;
 }
 
 .parteArriba {
