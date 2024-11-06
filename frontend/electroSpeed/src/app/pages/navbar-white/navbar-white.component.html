@@ -19,6 +19,9 @@
                 </a>
             </li>
         </ul>
+        @if (usuarioToken()) {
+            <span id="usuarioIniciado">Usuario Iniciado: <h3 id="nombreUsuario" [innerText]="nombreToken()"></h3></span>
+        }
         <div class="icons">
             <img id="carrito" src="navbar/imagen_carrito_blanco.png" />
             <a href="/logreg">
