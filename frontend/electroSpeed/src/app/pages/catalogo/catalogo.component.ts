@@ -54,4 +54,29 @@ export class CatalogoComponent implements OnInit {
       this.paginasTotales = bicisFiltradas.paginasTotales;
     }
   }
+
+
+  goPrevious(): void {
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
+      this.submitFiltro();
+    }
+  }
+
+  goNext(): void {
+    if (this.paginaActual < this.paginasTotales) {
+      this.paginaActual++;
+      this.submitFiltro();
+    }
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.paginasTotales) {
+      this.paginaActual = page;
+      this.submitFiltro();
+    }
+  } 
+    
+
+
 }

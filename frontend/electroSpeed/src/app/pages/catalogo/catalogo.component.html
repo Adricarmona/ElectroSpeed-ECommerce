@@ -24,31 +24,35 @@
             <img src="catalogo/lupa.png" alt="">
         </div>
     </form>
-    <div class="catalogo">
-        @for (item of biciFiltradasTotales; track $index) 
-        {
-            <div class="bici">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMitILXLp51LgHm6swwdnQFy5xYFk99xC5Rw&s">
-                <div class="parteArriba">
-                    <h3>{{item.marcaModelo}}</h3>
-                    <h3>{{item.precio}}€</h3>
+    <br>
+    <br>
+    <br>
+    <div class="containerCatalogo">
+        <div class="catalogo">
+            @for (item of biciFiltradasTotales; track $index) 
+            {
+                <div class="bici">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMitILXLp51LgHm6swwdnQFy5xYFk99xC5Rw&s">
+                    <div class="parteArriba">
+                        <h3>{{item.marcaModelo}}</h3>
+                        <h3>{{item.precio}}€</h3>
+                    </div>
+                    <div class="parteAbajo">
+                        <h3>{{item.stock}}+" "+{{item.id}}</h3>
+                        <h3>{{item.descripcion}}</h3>
+                    </div>
                 </div>
-                <div class="parteAbajo">
-                    <h3>{{item.stock}}+" "+{{item.id}}</h3>
-                    <h3>{{item.descripcion}}</h3>
-                </div>
-            </div>
-        }
+            }
+        </div>  
+        <br>
+        <br>
+        <br>
+        <div class="paginacion">
+            <button (click)="goPrevious()" [disabled]="paginaActual === 1" class="button-85" role="button">Página anterior</button>
 
-        <div>
-            <a>Pagina atras</a>
-            <br>
-            <span>Pagina actual: {{paginaActual}}</span>
-            <br>
-            <span>Paginas totales: {{paginasTotales}}</span>
-            <br>
-            <a>Pagina alante</a>
-        </div>
-
+            <span id="paginaActual">Página actual: {{ paginaActual }}</span>
+            <button (click)="goNext()" [disabled]="paginaActual === paginasTotales" class="button-85" role="button">Página siguiente</button>
+        </div>   
+        <br>
     </div>
 </div>
