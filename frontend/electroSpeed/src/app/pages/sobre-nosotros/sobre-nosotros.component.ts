@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { NavbarWhiteComponent } from '../navbar-white/navbar-white.component';
 
 @Component({
   selector: 'app-sobre-nosotros',
   standalone: true,
-  imports: [],
+  imports: [NavbarWhiteComponent],
   templateUrl: './sobre-nosotros.component.html',
   styleUrl: './sobre-nosotros.component.css'
 })
