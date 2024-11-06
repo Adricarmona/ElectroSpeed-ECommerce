@@ -38,8 +38,21 @@ export class CatalogoComponent implements OnInit {
 
   async submitFiltro() {
 
-    if (this.cantidadProductos > 99) {
-      
+    if (this.cantidadProductos > 26) {
+      const filtro: Filtro =
+      {
+          consulta: this.consulta,
+          criterio: (this.critero == "nombre") ?  0 : 1, // 0 es nombre y 1 precio
+          orden: (this.orden == "asc") ?  0 : 1, // 0 es ascendente y 1 descendente
+          cantidadProductos: 26,
+          paginaActual: 1
+      }
+        const bicisFiltradas = await this.catalogoService.showBikes(filtro)
+  
+      if (bicisFiltradas != null) {
+        this.biciFiltradasTotales = bicisFiltradas.bicicletas;
+        this.paginasTotales = bicisFiltradas.paginasTotales;
+      }
     } else{
       const filtro: Filtro =
     {
