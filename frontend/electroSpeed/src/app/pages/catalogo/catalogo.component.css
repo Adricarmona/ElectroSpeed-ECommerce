@@ -36,6 +36,10 @@
 *       CADA BICICLETA
 */
 
+.bici{
+    background-color: white;
+}
+
 .parteArriba {
     display: flex;
 
