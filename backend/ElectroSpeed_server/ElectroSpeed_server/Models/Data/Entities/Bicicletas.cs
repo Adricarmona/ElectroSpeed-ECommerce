@@ -11,7 +11,9 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public string Descripcion { get; set; }
         public int Stock { get; set; }
         public int Precio { get; set; }
-        public string [] UrlImg { get; set; }
+        public string UrlImg { get; set; }
+
+
         /*public int ReseniasId { get; set; }
 
 [ForeignKey(nameof(ReseniasId))]

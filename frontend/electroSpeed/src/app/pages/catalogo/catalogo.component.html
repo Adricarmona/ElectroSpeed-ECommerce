@@ -1,22 +1,68 @@
 <div id="fondo">
     <div id="espacio"></div>
-    <div id="buscadorFiltro">
-        <img src="catalogo/filtro.png" alt="icono de flitro">
-        <input type="search" name="filtroCatalogo" id="filtroCatalogo">
-        <img src="catalogo/lupa.png" alt="">
-    </div>
+    <form (submit)="submitFiltro()" >
+        <div id="buscadorFiltro">
+            <div class="filtro">
+                <img id="fotoFiltro" src="catalogo/filtro.png" alt="icono de filtro" (click)="toggleDropdown()">
+                <div id="tiposFiltro" [class.show]="isDropdownVisible">
+                    <a>Filtrar por:</a>
+                    <input type="checkbox" 
+                           class="inp-cbx" 
+                           id="nombre" 
+                           [name]="groupName"
+                           [checked]="selectedIndex === 0" 
+                           (click)="onCheckboxClickName(0)" 
+                           [(ngModel)]="nombre" 
+                           [ngModelOptions]="{standalone: true}">
+                    <label for="nombre">Nombre</label>
+
+                    <input type="checkbox" 
+                           class="inp-cbx" 
+                           id="precio" 
+                           [name]="groupName"
+                           [checked]="selectedIndex === 1" 
+                           (click)="onCheckboxClickName(1)" 
+                           [(ngModel)]="precio" 
+                           [ngModelOptions]="{standalone: true}">
+                    <label for="precio">Precio</label>
+                    <br>
+
+                    <input type="checkbox" 
+                           class="inp-cbx" 
+                           id="ascendente" 
+                           [name]="groupPrice"
+                           [checked]="selectedIndex1 === 0" 
+                           (click)="onCheckboxClickPrice(0)" 
+                           [(ngModel)]="asc" 
+                           [ngModelOptions]="{standalone: true}">
+                    <label for="ascendente">Ascendente</label>
+
+                    <input type="checkbox" 
+                           class="inp-cbx" 
+                           id="descendente" 
+                           [name]="groupPrice"
+                           [checked]="selectedIndex1 === 1" 
+                           (click)="onCheckboxClickPrice(1)" 
+                           [(ngModel)]="desc" 
+                           [ngModelOptions]="{standalone: true}">
+                    <label for="descendente">Descendente</label>
+                </div>
+            </div>
+            <input type="search" name="filtroCatalogo" id="filtroCatalogo">
+            <img src="catalogo/lupa.png" alt="">
+        </div>
+    </form>
     <div class="catalogo">
         <div class="bici">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMitILXLp51LgHm6swwdnQFy5xYFk99xC5Rw&s">
             <div class="parteArriba">
-                <h3>Bici potentorra</h3> 
+                <h3>Bici potentorra</h3>
                 <h3>20378423748233 €</h3>
             </div>
             <div class="parteAbajo">
-                
+                <h3>Stock va aqui</h3>
+                <h3>Valoraciones</h3>
             </div>
         </div>
     </div>
-    
 </div>
-
