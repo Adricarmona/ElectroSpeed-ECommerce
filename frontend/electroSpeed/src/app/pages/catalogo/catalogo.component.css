@@ -20,15 +20,22 @@
 }
 
 .catalogo {
-    display: grid;
-    grid-template-columns: repeat(autofill, minmax(200px, 1fr));
-    background-color: white;
-    width: fit-content;
+    display: flex;
+/*     background-color: white;
+ */    width: fit-content;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 /* 
 *       CADA BICICLETA
 */
+
+.bici{
+    background-color: white;
+}
 
 .parteArriba {
     display: flex;
