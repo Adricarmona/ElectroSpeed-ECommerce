@@ -38,7 +38,10 @@ export class CatalogoComponent implements OnInit {
 
   async submitFiltro() {
 
-    const filtro: Filtro =
+    if (this.cantidadProductos > 26) {
+      
+    } else{
+      const filtro: Filtro =
     {
         consulta: this.consulta,
         criterio: (this.critero == "nombre") ?  0 : 1, // 0 es nombre y 1 precio
@@ -46,6 +49,16 @@ export class CatalogoComponent implements OnInit {
         cantidadProductos: this.cantidadProductos,
         paginaActual: this.paginaActual
     }
+      const bicisFiltradas = await this.catalogoService.showBikes(filtro)
+
+    if (bicisFiltradas != null) {
+      this.biciFiltradasTotales = bicisFiltradas.bicicletas;
+      this.paginasTotales = bicisFiltradas.paginasTotales;
+    }
+    }
+
+    
+
 
   /*
     const filtroSesion = sessionStorage.getItem("filtro")
@@ -63,12 +76,7 @@ export class CatalogoComponent implements OnInit {
     }
   */
 
-    const bicisFiltradas = await this.catalogoService.showBikes(filtro)
-
-    if (bicisFiltradas != null) {
-      this.biciFiltradasTotales = bicisFiltradas.bicicletas;
-      this.paginasTotales = bicisFiltradas.paginasTotales;
-    }
+    
 
   }
 
@@ -88,10 +96,8 @@ export class CatalogoComponent implements OnInit {
   }
 
   goToPage(page: number): void {
-    if (page >= 1 && page <= this.paginasTotales) {
       this.paginaActual = page;
       this.submitFiltro();
-    }
   } 
     
 
