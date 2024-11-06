@@ -1,0 +1,59 @@
+<div id="fondo">
+    <div id="espacio"></div>
+    <form (submit)="submitFiltro()">
+        <div id="buscadorFiltro">
+            <div class="filtro">
+                <img id="fotoFiltro" src="catalogo/filtro.png" alt="icono de filtro" (click)="toggleDropdown()">
+                <div id="tiposFiltro" [class.show]="isDropdownVisible">
+                    <a>Filtro:</a>
+                    <div id="categoria">
+                        <select id="categoriaSelect" [(ngModel)]="critero" [ngModelOptions]="{standalone: true}">
+                            <option value="nombre">Nombre</option>
+                            <option value="precio">Precio</option>
+                        </select>
+                    </div>
+                    <div id="forma">
+                        <select [(ngModel)]="orden" [ngModelOptions]="{standalone: true}">
+                            <option value="asc">Ascendente</option>
+                            <option value="desc">Descendente</option>
+                        </select>
+                    </div>
+                    <input type="number" value="10" name="numeroProductos" id="numeroProductos" [(ngModel)]="cantidadProductos" [ngModelOptions]="{standalone: true}">
+                </div>
+            </div>
+            <input type="search" name="filtroCatalogo" id="filtroCatalogo" [(ngModel)]="consulta" [ngModelOptions]="{standalone: true}">
+            <img src="catalogo/lupa.png" class="lupa" (click)="goToPage(1)">
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+    <div class="containerCatalogo">
+        <div class="catalogo">
+            @for (item of biciFiltradasTotales; track $index) 
+            {
+                <div class="bici">
+                    <img src="{{item.urlImg}}">
+                    <div class="parteArriba">
+                        <h3>{{item.marcaModelo}}</h3>
+                        <h3>{{item.precio}}€</h3>
+                    </div>
+                    <div class="parteAbajo">
+                        <h3>stock:{{item.stock}}</h3>
+                        <h3>id:{{item.id}}</h3>
+                    </div>
+                </div>
+            }
+        </div>  
+        <br>
+        <br>
+        <br>
+        <div class="paginacion">
+            <button (click)="goPrevious()" [disabled]="paginaActual === 1" class="button-85" role="button">Página anterior</button>
+
+            <span id="paginaActual">Página: {{ paginaActual }} de {{paginasTotales}}</span>
+            <button (click)="goNext()" [disabled]="paginaActual === paginasTotales" class="button-85" role="button">Página siguiente</button>
+        </div>   
+        <br>
+    </div>
+</div>

@@ -7,7 +7,7 @@ namespace ElectroSpeed_server
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +16,12 @@ namespace ElectroSpeed_server
             builder.Services.AddControllers();
 
             builder.Services.AddScoped<UserController>();
+            builder.Services.AddScoped<BikeController>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
-                    String key = "NoeSocioPsoeñ0_asdh'`0iasqjdìasjd0'ìhawsqj0d";
+                    String key = "NoeSocioPsoeñ0_asdh'0iasqjdìasjd0'ìhawsqj0d";
 
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
@@ -48,15 +49,10 @@ namespace ElectroSpeed_server
                 });
             }
 
-           
+
 
             var app = builder.Build();
 
-            using (IServiceScope scope = app.Services.CreateScope())
-            {
-                ElectroSpeedContext esContext = scope.ServiceProvider.GetService<ElectroSpeedContext>();
-                esContext.Database.EnsureCreated();
-            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -74,13 +70,14 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            SeedDataBase(app.Services);
+            await SeedDataBase(app.Services);
             app.Run();
         }
-        static async void SeedDataBase(IServiceProvider serviceProvider)
+
+        static async Task SeedDataBase(IServiceProvider serviceProvider)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            using ElectroSpeedContext esContext = scope.ServiceProvider.GetService<ElectroSpeedContext>();
+            using ElectroSpeedContext esContext = scope.ServiceProvider.GetRequiredService<ElectroSpeedContext>();
 
             if (esContext.Database.EnsureCreated())
             {

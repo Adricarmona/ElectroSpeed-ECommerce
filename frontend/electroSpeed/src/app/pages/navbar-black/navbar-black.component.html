@@ -7,7 +7,7 @@
     <div class="nav-actions">
         <ul class="nav-buttons">
             <li>
-                <a href="#">
+                <a href="catalogo">
                     <img src="navbar/imagen_productos.png" alt="icono productos" class="icono-boton-productos" />
                     Productos
                 </a>
@@ -19,11 +19,23 @@
                 </a>
             </li>
         </ul>
+        @if (usuarioToken()) {
+            <span id="usuarioIniciado">Usuario Iniciado: <h3 id="nombreUsuario" [innerText]="nombreToken()"></h3></span>
+        }
         <div class="icons">
             <img id="carrito" src="navbar/imagen_carrito.png" />
-            <a href="/login">
-                <img id="perfil" src="navbar/imagen_perfil.png" />
-            </a>
+            <div>
+                @if (usuarioToken()) {
+                    <a id="usuario" (click)="vaciarToken()">
+                        <img id="perfil" src="navbar/imagen_deslogueado.png" alt="">
+                    </a>
+                }
+                @else {
+                    <a id="usuario" href="/logreg">
+                        <img id="perfil" src="navbar/imagen_perfil.png" />
+                    </a>
+                }
+            </div>
         </div>
     </div>
 </div>

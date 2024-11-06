@@ -2,5 +2,6 @@
 {
     public class CarritoCompra
     {
+        public int Id { get; set; }
     }
 }
