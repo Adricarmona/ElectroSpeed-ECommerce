@@ -53,10 +53,6 @@ export class CatalogoComponent implements OnInit {
       this.paginasTotales = bicisFiltradas.paginasTotales;
     }
 
-    this.biciFiltradasTotales.forEach(bici => {
-      console.log(bici)
-    });
-
   }
 
 
