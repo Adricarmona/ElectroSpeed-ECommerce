@@ -48,11 +48,15 @@ export class CatalogoComponent implements OnInit {
 
     const bicisFiltradas = await this.catalogoService.showBikes(filtro)
 
-
     if (bicisFiltradas != null) {
       this.biciFiltradasTotales = bicisFiltradas.bicicletas;
       this.paginasTotales = bicisFiltradas.paginasTotales;
     }
+
+    this.biciFiltradasTotales.forEach(bici => {
+      console.log(bici)
+    });
+
   }
 
 
