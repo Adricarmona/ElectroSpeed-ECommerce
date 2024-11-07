@@ -28,6 +28,19 @@ export class CatalogoComponent implements OnInit {
   constructor(private catalogoService: CatalogoService) {}
 
   ngOnInit(): void {
+
+    const filtroSesion = sessionStorage.getItem("filtro");
+
+    if (filtroSesion) {
+      const jsonFiltro: Filtro = JSON.parse(filtroSesion)
+
+      this.consulta = jsonFiltro.consulta
+      this.critero = (jsonFiltro.criterio == 0) ? "nombre" : "precio" 
+      this.orden = (jsonFiltro.orden == 0) ? "asc" : "desc" 
+      this.cantidadProductos = jsonFiltro.cantidadProductos
+      this.paginaActual = jsonFiltro.paginaActual
+    }
+
     this.submitFiltro();
   }
 
@@ -36,61 +49,32 @@ export class CatalogoComponent implements OnInit {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-  async submitFiltro() {
+  async submitFiltro() 
+  {
 
-    if (this.cantidadProductos > 26) {
-      const filtro: Filtro =
-      {
-          consulta: this.consulta,
-          criterio: (this.critero == "nombre") ?  0 : 1, // 0 es nombre y 1 precio
-          orden: (this.orden == "asc") ?  0 : 1, // 0 es ascendente y 1 descendente
-          cantidadProductos: 26,
-          paginaActual: 1
-      }
-        const bicisFiltradas = await this.catalogoService.showBikes(filtro)
-  
-      if (bicisFiltradas != null) {
-        this.biciFiltradasTotales = bicisFiltradas.bicicletas;
-        this.paginasTotales = bicisFiltradas.paginasTotales;
-      }
-    } else{
-      const filtro: Filtro =
+
+    const bicisFiltradas = await this.catalogoService.showBikes(this.cogerFormulario())
+
+    if (bicisFiltradas != null) {
+      this.biciFiltradasTotales = bicisFiltradas.bicicletas;
+      this.paginasTotales = bicisFiltradas.paginasTotales;
+    }
+
+  }
+
+  cogerFormulario()
+  {
+    const filtro: Filtro =
     {
         consulta: this.consulta,
         criterio: (this.critero == "nombre") ?  0 : 1, // 0 es nombre y 1 precio
         orden: (this.orden == "asc") ?  0 : 1, // 0 es ascendente y 1 descendente
         cantidadProductos: this.cantidadProductos,
         paginaActual: this.paginaActual
-    }
-      const bicisFiltradas = await this.catalogoService.showBikes(filtro)
+    } 
+    sessionStorage.setItem("filtro", JSON.stringify(filtro))
 
-    if (bicisFiltradas != null) {
-      this.biciFiltradasTotales = bicisFiltradas.bicicletas;
-      this.paginasTotales = bicisFiltradas.paginasTotales;
-    }
-    }
-
-    
-
-
-  /*
-    const filtroSesion = sessionStorage.getItem("filtro")
-    if (filtroSesion) {
-      const jsonFiltro: Filtro = JSON.parse(filtroSesion)
-      console.log(jsonFiltro.consulta)
-
-      filtro.consulta = jsonFiltro.consulta
-      filtro.cantidadProductos = jsonFiltro.cantidadProductos
-      filtro.orden = jsonFiltro.orden
-      filtro.cantidadProductos = jsonFiltro.cantidadProductos
-      filtro.paginaActual = jsonFiltro.paginaActual
-    } else {
-      sessionStorage.setItem("filtro", JSON.stringify(filtro))
-    }
-  */
-
-    
-
+    return filtro
   }
 
 
@@ -109,8 +93,8 @@ export class CatalogoComponent implements OnInit {
   }
 
   goToPage(page: number): void {
-      this.paginaActual = page;
-      this.submitFiltro();
+    this.paginaActual = page;
+    this.submitFiltro();  
   } 
     
 

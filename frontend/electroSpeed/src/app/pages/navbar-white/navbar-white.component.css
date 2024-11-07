@@ -87,3 +87,10 @@
 #carrito:hover, #perfil:hover {
     transform: scale(1.1);
 }
+
+#usuarioIniciado #nombreUsuario, span{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
