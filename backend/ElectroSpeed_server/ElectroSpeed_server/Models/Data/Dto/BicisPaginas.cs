@@ -5,6 +5,6 @@ namespace ElectroSpeed_server.Models.Data.Dto
     public class BicisPaginas
     {
         public int paginasTotales { get; set; }
-        public IEnumerable<Bicicletas> Bicicletas { get; set; }
+        public IList<Bicicletas> Bicicletas { get; set; }
     }
 }

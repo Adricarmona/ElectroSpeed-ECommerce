@@ -24,7 +24,7 @@ namespace ElectroSpeed_server.Recursos
         }
 
 
-        public BicisPaginas Pages(FiltroBicis model, IEnumerable<Bicicletas> bicis)
+        public BicisPaginas Pages(FiltroBicis model, IList<Bicicletas> bicis)
         {
             if (model.CantidadProductos == 0 || model.PaginaActual == 0)
             {
@@ -41,11 +41,11 @@ namespace ElectroSpeed_server.Recursos
                     {
                         try
                         {
-                            biciPagina.Add(bicis.ElementAt(j + (i * model.CantidadProductos)));
+                            biciPagina.Add(bicis[j + (i * model.CantidadProductos)]);
                         } 
                         catch 
                         {
-                            // aqui implicaria que no hay procutos, viva el betis   
+                            // aqui implicaria que no hay productos, viva el betis   
                         }
                     }
                 }
@@ -60,7 +60,7 @@ namespace ElectroSpeed_server.Recursos
             return bicisPaginas;
         }
 
-        public IEnumerable<Bicicletas> Order(FiltroBicis model, IEnumerable<Bicicletas> bicis)
+        public IList<Bicicletas> Order(FiltroBicis model, IList<Bicicletas> bicis)
         {
 
             switch (model.Criterio)
@@ -111,9 +111,9 @@ namespace ElectroSpeed_server.Recursos
             return null;
         }
 
-        public IEnumerable<Bicicletas> Search(string query, IEnumerable<Bicicletas> bicis)
+        public IList<Bicicletas> Search(string query, IList<Bicicletas> bicis)
         {
-            IEnumerable<Bicicletas> result;
+            IList<Bicicletas> result;
 
             // Si la consulta está vacía o solo tiene espacios en blanco, devolvemos todos los items
             if (string.IsNullOrWhiteSpace(query))
