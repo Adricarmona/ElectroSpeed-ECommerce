@@ -24,8 +24,12 @@ namespace ElectroSpeed_server.Controllers
         {
             FiltroRecurso filtro = new FiltroRecurso(_esContext);
 
+            IList<Bicicletas> busqueda = filtro.Search(model.Consulta, GetBicicletas());
+            busqueda = filtro.Order(model, busqueda);
+            BicisPaginas paginasFiltradas = filtro.Pages(model, busqueda);
+
             /// Le pasamos el filtro de buscar por nombre con todas las bicicletas, luego por el de ordenacion y para terminar lo metemos en el de paginacion           
-            return filtro.Pages(model, filtro.Order(model, filtro.Search(model.Consulta, GetBicicletas())));
+            return paginasFiltradas;
         }
 
         [HttpPost("/anadirBici")]
@@ -53,7 +57,7 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Bicicletas> GetBicicletas()
+        public IList<Bicicletas> GetBicicletas()
         {
             return [.. _esContext.Bicicletas];
         }
