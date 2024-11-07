@@ -97,6 +97,11 @@ export class CatalogoComponent implements OnInit {
     this.submitFiltro();  
   } 
     
+  createRange(cont: any){
+    // return new Array(number);
+    return new Array(cont).fill(0)
+      .map((n, index) => index + 1);
+  }
 
 
 }
