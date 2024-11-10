@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Filtro } from '../models/filtro';
 import { lastValueFrom, Observable } from 'rxjs';
 import { BiciPagina } from '../models/bici-pagina';
+import { Bicicletas } from '../models/catalogo';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,17 @@ export class CatalogoService {
     return null;
     }
   }
-}
 
-///https://localhost:7189/filtroBicis
+
+  async showOneBike(id: String){
+    try {
+      const request: Observable<Bicicletas> = this.http.get<Bicicletas>(`${this.BASE_URL}bici/${id}`);
+      const result: Bicicletas = await lastValueFrom(request);
+
+      return result
+    } catch (error) {
+      console.error("Error al buscar la bici: ",error)
+      return null
+    }
+  }
+}

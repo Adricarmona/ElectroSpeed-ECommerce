@@ -5,10 +5,19 @@
                 <img src="inicio/bh.jpg" alt="">
             </div>
             <div class="datos">
-                <h1>Modelo bicicleta - Marca bicicleta</h1>
+                <h1>{{nombreModelo}}</h1>
                 <h5>Codigo: {{codigoIdentificador}}</h5>
-                <p>Descripcion: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  </p>
-                <h3>Precio: “precio”€  stock ✔️</h3>
+                <p>Descripcion: {{descripcionBici}}</p>
+                <h3>Precio: {{precioBici | precios}}€  stock:
+                    @if (stockBici > 0) 
+                    {
+                        ✔️
+                    }
+                    @else 
+                    {
+                        ❌
+                    } 
+                </h3>
                 <div class="botones">
                     <button id="anadirCarrito">Añadir al carrito</button>
                     <button id="comprar">Comprar</button>
