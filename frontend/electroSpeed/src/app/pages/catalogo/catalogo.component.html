@@ -37,7 +37,7 @@
         <div class="catalogo">
             @for (item of biciFiltradasTotales; track $index) 
             {
-                <a href='detalle/id'>
+                <a href="detalle/{{item.id}}">
                     <div class="bici">
                         <img src="{{item.urlImg}}">
                         <div class="parteArriba">
