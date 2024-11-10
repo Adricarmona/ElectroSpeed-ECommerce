@@ -19,6 +19,7 @@ export class AuthService {
 
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
+      console.log("hola")
 
       const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}login`, authData);
       const result: AuthResponse = await lastValueFrom(request);

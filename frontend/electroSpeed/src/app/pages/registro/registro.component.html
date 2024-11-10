@@ -1,0 +1,51 @@
+<div class="contenido">
+    <div class="wrapper">
+        <form (submit)="submit()" [formGroup]="myForm" action="">
+            <h1>Registrarse</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Nombre Completo" formControlName="fullName" required />
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="email" placeholder="Correo electrónico" formControlName="email" required />
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="input-box">
+                <input ttype="password" placeholder="Contraseña" formControlName="password" required />
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Repetir contraseña" formControlName="passwordRep" required />
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Dirección" formControlName="direccion" required />
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>Recuerdame</label>
+            </div>
+    
+            <button type="submit" class="btn">Registrarse</button>
+    
+            <div class="register-link">
+                <p>¿Ya tienes una cuenta? 
+                    <a href="/log">¡Inicia sesión!</a></p>
+            </div>
+            <div class="register-link">
+                <p>
+                    @if (jwt && passwordConfirmation) {
+                        Registro completado
+                      }
+                      @else {
+                        @if(!passwordConfirmation){
+                          Las contraseñas no coinciden
+                        }@else {
+                          No se ha registrado
+                        }
+                      }  
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
