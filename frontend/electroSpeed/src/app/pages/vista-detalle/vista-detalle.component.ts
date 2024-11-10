@@ -36,6 +36,14 @@ export class VistaDetalleComponent {
     const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
     if (bicicleta == null) {
       //this.rickRoll() // rick roll si no existe
+    } 
+    else 
+    {
+      this.nombreModelo = bicicleta.marcaModelo
+      this.descripcionBici = bicicleta.descripcion
+      this.precioBici = bicicleta.precio
+      this.stockBici = bicicleta.stock
+      this.fotoBici = bicicleta.urlImg
     }
 
 
