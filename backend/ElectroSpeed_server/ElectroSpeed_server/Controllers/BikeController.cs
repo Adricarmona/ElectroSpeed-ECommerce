@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Recursos;
 using Microsoft.EntityFrameworkCore;
+using ElectroSpeed_server.Models.Data.Repositories;
 
 
 namespace ElectroSpeed_server.Controllers
@@ -13,10 +14,12 @@ namespace ElectroSpeed_server.Controllers
     public class BikeController : ControllerBase
     {
         private ElectroSpeedContext _esContext;
+        private esRepository<Bicicletas> _esRepository;
 
-        public BikeController(ElectroSpeedContext esContext)
+        public BikeController(ElectroSpeedContext esContext, esRepository<Bicicletas> esRepository)
         {
             _esContext = esContext;
+            _esRepository = esRepository;
         }
 
         [HttpPost("/filtroBicis")]
