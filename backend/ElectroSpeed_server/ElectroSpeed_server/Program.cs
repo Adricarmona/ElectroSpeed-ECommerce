@@ -17,6 +17,7 @@ namespace ElectroSpeed_server
 
             builder.Services.AddScoped<UserController>();
             builder.Services.AddScoped<BikeController>();
+            builder.Services.AddScoped<ShoppingCartController>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
