@@ -24,7 +24,7 @@ namespace ElectroSpeed_server.Controllers
         {
             FiltroRecurso filtro = new FiltroRecurso(_esContext);
 
-            IList<Bicicletas> busqueda = filtro.Search(model.Consulta, GetBicicletas());
+            IList<Bicicletas> busqueda = filtro.Search(model.Consulta, _esContext.Bicicletas.ToList());
             busqueda = filtro.Order(model, busqueda);
             BicisPaginas paginasFiltradas = filtro.Pages(model, busqueda);
 
@@ -59,7 +59,7 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IList<Bicicletas> GetBicicletas()
         {
-            return [.. _esContext.Bicicletas];
+            return _esContext.Bicicletas.ToList();
         }
 
     }

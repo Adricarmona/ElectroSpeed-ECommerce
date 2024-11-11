@@ -12,7 +12,7 @@ namespace ElectroSpeed_server.Controllers
 
         public ShoppingCartController(ElectroSpeedContext escontext)
         {
-            _esContext = esContext;
+            _esContext = escontext;
         }
     }
 }

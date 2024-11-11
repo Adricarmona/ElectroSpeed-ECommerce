@@ -37,17 +37,19 @@
         <div class="catalogo">
             @for (item of biciFiltradasTotales; track $index) 
             {
-                <div class="bici">
-                    <img src="{{item.urlImg}}">
-                    <div class="parteArriba">
-                        <h3>{{item.marcaModelo}}</h3>
-                        <h3>{{item.precio}}€</h3>
+                <a href="detalle/{{item.id}}">
+                    <div class="bici">
+                        <img src="{{item.urlImg}}">
+                        <div class="parteArriba">
+                            <h3>{{item.marcaModelo}}</h3>
+                            <h3>{{item.precio}}€</h3>
+                        </div>
+                        <div class="parteAbajo">
+                            <h3>stock:{{item.stock}}</h3>
+                            <h3>id:{{item.id}}</h3>
+                        </div>
                     </div>
-                    <div class="parteAbajo">
-                        <h3>stock:{{item.stock}}</h3>
-                        <h3>id:{{item.id}}</h3>
-                    </div>
-                </div>
+                </a>
             }
         </div>  
         <br>
