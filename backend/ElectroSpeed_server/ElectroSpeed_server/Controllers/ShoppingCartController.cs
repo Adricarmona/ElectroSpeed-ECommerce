@@ -10,9 +10,9 @@ namespace ElectroSpeed_server.Controllers
     {
         private ElectroSpeedContext _esContext;
 
-        public ShoppingCartController(ElectroSpeedContext escontext)
+        public ShoppingCartController(ElectroSpeedContext esContext)
         {
-            _esContext = esContext;
+            _esContext = esContext; 
         }
     }
 }

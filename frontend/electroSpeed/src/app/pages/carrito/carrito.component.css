@@ -1,0 +1,7 @@
+.fondo {
+    background-image: url(../../../../public/carrito/pexels-jahangeer-bm-1619299-scaled.jpg);
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center 0;
+}
