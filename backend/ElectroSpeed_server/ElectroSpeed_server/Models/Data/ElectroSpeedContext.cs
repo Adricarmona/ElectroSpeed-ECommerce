@@ -9,7 +9,7 @@ namespace ElectroSpeed_server.Models.Data
 
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Bicicletas> Bicicletas { get; set; }
-
+        public DbSet<Resenias> Resenias { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
