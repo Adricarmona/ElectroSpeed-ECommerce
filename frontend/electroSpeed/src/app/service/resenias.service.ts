@@ -16,17 +16,17 @@ export class ReseniasService {
     //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
     //          const result: BiciPagina = await lastValueFrom(request);
 
-    /*
+    
     const resenia: Resenias = 
     {
       id: id,
       texto: "texto",
-      resultado: 0,
-      fechaResenia: 
+      resultado: 3,
+      fechaResenia: new Date,
       idUsuario: 1,
     }
 
-    return resenia*/
+    return resenia
   }
 
 }

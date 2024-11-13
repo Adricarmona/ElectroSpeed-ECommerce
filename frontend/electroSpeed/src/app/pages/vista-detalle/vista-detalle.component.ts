@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogoService } from '../../service/catalogo.service';
 import { PreciosPipe } from '../../pipes/precios.pipe';
+import { ReseniasService } from '../../service/resenias.service';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -12,7 +13,7 @@ import { PreciosPipe } from '../../pipes/precios.pipe';
 })
 export class VistaDetalleComponent {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService) {}
 
   codigoIdentificador: string = "";
 
@@ -22,6 +23,12 @@ export class VistaDetalleComponent {
   stockBici: number = 0;
   fotoBici: string = "";
 
+  // resenias
+  idResenia: number = 0;
+  textoResenia: string = "";
+  resultadoResenia: number = 0;
+  resultadoReseniaArray: string[] = [];
+  fechaResenia: Date = new Date;
   
 
   async ngOnInit() {
@@ -46,6 +53,19 @@ export class VistaDetalleComponent {
       this.fotoBici = bicicleta.urlImg
     }
 
+    const resenias = this.resenia.devolverResenia(0);
+    this.idResenia = resenias.id;
+    this.textoResenia = resenias.texto;
+    this.resultadoResenia = resenias.resultado;
+    this.fechaResenia = resenias.fechaResenia;
+
+    for (let index = 0; index < this.resultadoResenia; index++) {
+      this.resultadoReseniaArray.push("detalle/full.png");
+    }
+
+    for (let index = 0; index < 5-this.resultadoResenia; index++) {
+      this.resultadoReseniaArray.push("detalle/empty.png");
+    }
 
   }
 
