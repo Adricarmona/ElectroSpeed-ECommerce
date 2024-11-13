@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CatalogoService } from '../../service/catalogo.service';
 import { PreciosPipe } from '../../pipes/precios.pipe';
 import { ReseniasService } from '../../service/resenias.service';
+import { Resenias } from '../../models/resenias';
+import { Usuarios } from '../../models/usuarios';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -24,12 +26,8 @@ export class VistaDetalleComponent {
   fotoBici: string = "";
 
   // resenias
-  idResenia: number = 0;
-  textoResenia: string = "";
-  resultadoResenia: number = 0;
-  resultadoReseniaArray: string[] = [];
-  fechaResenia: Date = new Date;
-  
+  resenias: Resenias[] = [];
+  usuarios: Usuarios[] = [];  
 
   async ngOnInit() {
 
@@ -53,23 +51,28 @@ export class VistaDetalleComponent {
       this.fotoBici = bicicleta.urlImg
     }
 
-    const resenias = this.resenia.devolverResenia(0);
-    this.idResenia = resenias.id;
-    this.textoResenia = resenias.texto;
-    this.resultadoResenia = resenias.resultado;
-    this.fechaResenia = resenias.fechaResenia;
+    this.resenias = this.resenia.devolverResenia(0);
+    this.usuarios = this.resenia.devolverUsuario(0);
 
-    for (let index = 0; index < this.resultadoResenia; index++) {
-      this.resultadoReseniaArray.push("detalle/full.png");
-    }
-
-    for (let index = 0; index < 5-this.resultadoResenia; index++) {
-      this.resultadoReseniaArray.push("detalle/empty.png");
-    }
-
+    
   }
 
   rickRoll() {
     window.location.href = 'https://youtu.be/dQw4w9WgXcQ';
+  }
+
+  arrayResultados(resultado: number) {
+    const resultadoReseniaArray: string[] = [];
+    for (let index = 0; index < resultado; index++) {
+      resultadoReseniaArray.push("detalle/full.png");
+    }
+
+    for (let index = 0; resultado + index < 5; index++) {
+      resultadoReseniaArray.push("detalle/empty.png");
+    }
+
+    console.log(resultadoReseniaArray)
+
+    return resultadoReseniaArray
   }
 }

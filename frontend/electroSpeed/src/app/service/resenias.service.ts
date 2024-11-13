@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/enviroments.developments';
 import { Resenias } from '../models/resenias';
+import { Usuarios } from '../models/usuarios';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,82 @@ export class ReseniasService {
     //          const result: BiciPagina = await lastValueFrom(request);
 
     
-    const resenia: Resenias = 
+    const resenias: Resenias[] = [];
+    resenias.push(
     {
       id: id,
       texto: "texto",
       resultado: 3,
       fechaResenia: new Date,
       idUsuario: 1,
-    }
+    },
+    {
+      id: id+1,
+      texto: "texto1",
+      resultado: 2,
+      fechaResenia: new Date,
+      idUsuario: 2,
+    },
+    {
+      id: id+2,
+      texto: "texto2",
+      resultado: 4,
+      fechaResenia: new Date,
+      idUsuario: 3,
+    },
+    {
+      id: id+3,
+      texto: "La zowii en la casaa",
+      resultado: 3,
+      fechaResenia: new Date,
+      idUsuario: 0,
+    },
+  )
 
-    return resenia
+  console.log(resenias)
+
+    return resenias
+  }
+
+  devolverUsuario(id:  number){
+    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
+    //          const result: BiciPagina = await lastValueFrom(request);
+
+    
+    const usuarios: Usuarios[] = [];
+    usuarios.push(
+    {
+      id: id,
+      name: "noe",
+      email: "noe@electrospeed.es",
+      username: "noexxnoe",
+      picture: "detalle/noe.png",
+    },
+    {
+      id: id+1,
+      name: "noe",
+      email: "noe@electrospeed.es",
+      username: "noexxnoe",
+      picture: "detalle/noe.png",
+    },
+    {
+      id: id+2,
+      name: "noe",
+      email: "noe@electrospeed.es",
+      username: "noexxnoe",
+      picture: "detalle/noe.png",
+    },
+    {
+      id: id+3,
+      name: "noe",
+      email: "noe@electrospeed.es",
+      username: "noexxnoe",
+      picture: "detalle/noe.png",
+    },
+  )
+
+
+    return usuarios
   }
 
 }

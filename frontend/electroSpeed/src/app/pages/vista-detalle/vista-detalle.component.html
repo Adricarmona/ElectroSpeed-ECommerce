@@ -37,71 +37,29 @@
                 <h4> 4/5 </h4>
             </div>
             <div class="arribaDerecha">
-                <h5 id="cantidadReseñas">Cantidad reseñas: "n"</h5>
+                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente, pon la tuya! </h5>
             </div>
         </div>
         <div class="reseñasAbajo">
-            <!--    las targetas    -->
-            <div class="tarjetasReseñas">
-                <div class="tarjetaReseñaArriba">
-                    <div class="puntuacionReseñas">
-                        <img src={{resultadoReseniaArray[0]}} alt="detalle/full.png">
-                        <img src={{resultadoReseniaArray[1]}} alt="detalle/full.png">
-                        <img src={{resultadoReseniaArray[2]}} alt="detalle/full.png">
-                        <img src={{resultadoReseniaArray[3]}} alt="detalle/full.png">
-                        <img src={{resultadoReseniaArray[4]}} alt="detalle/full.png">
+            <!--    las tarjetas    -->
+                @for (item of resenias; track $index) {
+                    <div class="tarjetasReseñas">
+                        <div class="tarjetaReseñaArriba">
+                            <div class="puntuacionReseñas">
+                                @for (engranaje of arrayResultados(item.resultado); track $index) {
+                                    <img [src]="engranaje" >
+                                }
+                            </div>
+                            <span>
+                                <img src="detalle/noe.png" alt="detalle/noe.png">
+                                Usuario
+                            </span>
+                        </div>
+                        <div class="tarjetaReseñaAbajo">
+                            <p>{{item.texto}}</p>
+                        </div>
                     </div>
-                    
-                    <span>
-                        <img src="detalle/noe.png" alt="detalle/noe.png">
-                        Usuario
-                    </span>
-                </div>
-                <div class="tarjetaReseñaAbajo">
-                    <p>{{textoResenia}}</p>
-                </div>
-            </div>
-
-            <div class="tarjetasReseñas">
-                <div class="tarjetaReseñaArriba">
-                    <div class="puntuacionReseñas">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/empty.png" alt="detalle/empty.png">
-                    </div>
-                    
-                    <span>
-                        <img src="detalle/noe.png" alt="detalle/noe.png">
-                        Usuario
-                    </span>
-                </div>
-                <div class="tarjetaReseñaAbajo">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem  tortor, congue ut odio et, accumsan luctus dolor. Donec lacinia  facilisis neque, vitae consectetur odio imperdiet ac. Praesent accumsan  libero eget finibus hendrerit. </p>
-                </div>
-            </div>
-
-            <div class="tarjetasReseñas">
-                <div class="tarjetaReseñaArriba">
-                    <div class="puntuacionReseñas">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/empty.png" alt="detalle/empty.png">
-                    </div>
-                    
-                    <span>
-                        <img src="detalle/noe.png" alt="detalle/noe.png">
-                        Usuario
-                    </span>
-                </div>
-                <div class="tarjetaReseñaAbajo">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem  tortor, congue ut odio et, accumsan luctus dolor. Donec lacinia  facilisis neque, vitae consectetur odio imperdiet ac. Praesent accumsan  libero eget finibus hendrerit. </p>
-                </div>
-            </div>
-
+                }
         </div>
     </div>
 </div>

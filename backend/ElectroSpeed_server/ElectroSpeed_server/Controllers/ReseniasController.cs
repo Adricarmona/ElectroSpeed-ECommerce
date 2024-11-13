@@ -15,11 +15,11 @@ namespace ElectroSpeed_server.Controllers
         {
             _esContext = esContext;
         }
-
+/*
         [HttpGet]
         public IList<Resenias> ReseniasId(int id)
         {
-            return RecursosResenias.
-        }
+            return RecursosResenias
+        }*/
     }
 }
