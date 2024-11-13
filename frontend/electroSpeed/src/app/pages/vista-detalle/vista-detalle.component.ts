@@ -5,6 +5,7 @@ import { PreciosPipe } from '../../pipes/precios.pipe';
 import { ReseniasService } from '../../service/resenias.service';
 import { Resenias } from '../../models/resenias';
 import { Usuarios } from '../../models/usuarios';
+import { Bicicletas } from '../../models/catalogo';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -37,7 +38,9 @@ export class VistaDetalleComponent {
     /*
     *   traemos los datos de la bici con el id dado
     */
-    const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
+    //const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
+    const bicicletas: Bicicletas[] = (await this.catalogoService.todasLasBicis()) ?? [];
+    const bicicleta = bicicletas[0]
     if (bicicleta == null) {
       //this.rickRoll() // rick roll si no existe
     } 

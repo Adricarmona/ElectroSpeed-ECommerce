@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PreciosPipe implements PipeTransform {
 
   transform(value: number): string { // el toFixed redondea a 2 decimales
-    return (value/100).toFixed(2).replace('.', ',');
+    return (value).toFixed(2).replace('.', ',');
   }
 
 }
