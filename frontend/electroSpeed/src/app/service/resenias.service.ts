@@ -50,8 +50,6 @@ export class ReseniasService {
     },
   )
 
-  console.log(resenias)
-
     return resenias
   }
 
@@ -60,40 +58,23 @@ export class ReseniasService {
     //          const result: BiciPagina = await lastValueFrom(request);
 
     
-    const usuarios: Usuarios[] = [];
-    usuarios.push(
+    const usuarios: Usuarios =
     {
       id: id,
       name: "noe",
       email: "noe@electrospeed.es",
       username: "noexxnoe",
       picture: "detalle/noe.png",
-    },
-    {
-      id: id+1,
-      name: "noe",
-      email: "noe@electrospeed.es",
-      username: "noexxnoe",
-      picture: "detalle/noe.png",
-    },
-    {
-      id: id+2,
-      name: "noe",
-      email: "noe@electrospeed.es",
-      username: "noexxnoe",
-      picture: "detalle/noe.png",
-    },
-    {
-      id: id+3,
-      name: "noe",
-      email: "noe@electrospeed.es",
-      username: "noexxnoe",
-      picture: "detalle/noe.png",
-    },
-  )
+    }
 
 
     return usuarios
   }
 
+  devolverMediaResenias(){
+    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
+    //          const result: BiciPagina = await lastValueFrom(request);
+
+    return 4
+  }
 }

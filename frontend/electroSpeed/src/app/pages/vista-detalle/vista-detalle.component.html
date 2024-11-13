@@ -28,11 +28,10 @@
             <div class="arribaIzquierda">
                 <h4>Media de las reseñas: </h4>
                 <div id="puntuacion">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/empty.png" alt="detalle/empty.png">
+                    @for (engranaje of arrayResultados(devolverMediaResenias()); track $index) {
+                        <img [src]="engranaje" alt="detalle/full.png">
+
+                    }
                 </div>
                 <h4> 4/5 </h4>
             </div>
@@ -51,8 +50,8 @@
                                 }
                             </div>
                             <span>
-                                <img src="detalle/noe.png" alt="detalle/noe.png">
-                                Usuario
+                                <img src={{devolverUsuario(0).picture}} alt="detalle/noe.png">
+                                <span>{{devolverUsuario(0).name}}</span>
                             </span>
                         </div>
                         <div class="tarjetaReseñaAbajo">

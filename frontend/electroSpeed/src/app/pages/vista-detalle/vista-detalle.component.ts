@@ -27,7 +27,6 @@ export class VistaDetalleComponent {
 
   // resenias
   resenias: Resenias[] = [];
-  usuarios: Usuarios[] = [];  
 
   async ngOnInit() {
 
@@ -52,8 +51,6 @@ export class VistaDetalleComponent {
     }
 
     this.resenias = this.resenia.devolverResenia(0);
-    this.usuarios = this.resenia.devolverUsuario(0);
-
     
   }
 
@@ -71,8 +68,14 @@ export class VistaDetalleComponent {
       resultadoReseniaArray.push("detalle/empty.png");
     }
 
-    console.log(resultadoReseniaArray)
-
     return resultadoReseniaArray
+  }
+
+  devolverUsuario(id: number) {
+    return this.resenia.devolverUsuario(id)
+  }
+
+  devolverMediaResenias(): number {
+    return this.resenia.devolverMediaResenias()
   }
 }
