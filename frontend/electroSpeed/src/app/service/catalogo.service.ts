@@ -30,7 +30,7 @@ export class CatalogoService {
   }
 
 
-  async showOneBike(id: String){
+  async showOneBike(id: number){
     try {
       const request: Observable<Bicicletas> = this.http.get<Bicicletas>(`${this.BASE_URL}bici/${id}`);
       const result: Bicicletas = await lastValueFrom(request);

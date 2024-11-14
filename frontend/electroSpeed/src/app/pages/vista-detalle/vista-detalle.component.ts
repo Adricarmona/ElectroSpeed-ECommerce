@@ -81,4 +81,13 @@ export class VistaDetalleComponent {
   devolverMediaResenias(): number {
     return this.resenia.devolverMediaResenias()
   }
+
+  anadirCarrito(){
+    if(localStorage.getItem("idbici")){
+      localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
+    } else {
+      localStorage.setItem("idbici", this.codigoIdentificador)
+    }
+    
+  }
 }
