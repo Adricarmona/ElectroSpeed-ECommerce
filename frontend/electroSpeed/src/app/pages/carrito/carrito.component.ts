@@ -19,6 +19,7 @@ export class CarritoComponent {
   nombreModelo: string = 'Modelo bicicleta - Marca bicicleta';
   precioBici: number = 1;
   fotoBici: string = '';
+  idUser: number = 0;
 
   async ngOnInit() {
     const iddata = localStorage.getItem('idbici');
@@ -26,8 +27,13 @@ export class CarritoComponent {
     const tokenDataLocal = localStorage.getItem('token');
     if (iddata || tokenDataSession || tokenDataLocal) {
       const ids = iddata ? iddata.split(',').map((id) => JSON.parse(id)) : [];
-      const idSession = JSON.parse(tokenDataSession!);
-      const idLocal = JSON.parse(tokenDataLocal!);
+      if (tokenDataLocal) {
+        this.idUser = Number(tokenDataLocal!);
+      } else {
+        this.idUser = Number(tokenDataSession!);
+      }
+
+      const carrito = await this.carritoService.getIdCarrito(this.idUser);
 
       this.codigoIdentificador = ids;
 
