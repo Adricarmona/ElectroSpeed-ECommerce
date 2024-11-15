@@ -6,6 +6,7 @@ import { ReseniasService } from '../../service/resenias.service';
 import { Resenias } from '../../models/resenias';
 import { Usuarios } from '../../models/usuarios';
 import { Bicicletas } from '../../models/catalogo';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -16,7 +17,7 @@ import { Bicicletas } from '../../models/catalogo';
 })
 export class VistaDetalleComponent {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService) {}
 
   codigoIdentificador: string = "";
 
@@ -89,5 +90,17 @@ export class VistaDetalleComponent {
       localStorage.setItem("idbici", this.codigoIdentificador)
     }
     
+  }
+
+  usuarioToken() {
+    const token = this.authService.getToken()
+    return token
+  }
+
+  verResenias(){
+    const ponerResenias = document.getElementById("escribirReseñaForm")
+    if (ponerResenias) {
+      ponerResenias.style.display = "flex";
+    }
   }
 }

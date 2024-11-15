@@ -20,9 +20,19 @@
                 </h3>
                 <div class="botones">
                     <button id="anadirCarrito" (click)="anadirCarrito()">Añadir al carrito</button>
-                    <button id="comprar">Comprar</button>
+                    <!--<button id="comprar">Comprar</button>-->
+                    @if (usuarioToken()) {
+                        <button id="resenias" (click)="verResenias()">Añadir Reseña</button>
+                    } 
                 </div>
             </div>
+        </div>
+        <div id="escribirReseña">
+            <form id="escribirReseñaForm" action="">
+                <h5>reseña a enviar: </h5>
+                <input type="text" name="texto" id="textoFormResenias">
+                <input type="submit" value="enviar reseña">
+            </form>
         </div>
         <div class="reseñasArriba">
             <div class="arribaIzquierda">
@@ -30,13 +40,12 @@
                 <div id="puntuacion">
                     @for (engranaje of arrayResultados(devolverMediaResenias()); track $index) {
                         <img [src]="engranaje" alt="detalle/full.png">
-
                     }
                 </div>
                 <h4> 4/5 </h4>
             </div>
             <div class="arribaDerecha">
-                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente, pon la tuya! </h5>
+                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente! </h5>
             </div>
         </div>
         <div class="reseñasAbajo">
@@ -50,8 +59,8 @@
                                 }
                             </div>
                             <span>
-                                <img src={{devolverUsuario(0).picture}} alt="detalle/noe.png">
-                                <span>{{devolverUsuario(0).name}}</span>
+                                <img src={{devolverUsuario(1).picture}} alt="detalle/noe.png">
+                                <span>{{devolverUsuario(1).name}}</span>
                             </span>
                         </div>
                         <div class="tarjetaReseñaAbajo">
