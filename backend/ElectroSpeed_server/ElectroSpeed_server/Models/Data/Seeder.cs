@@ -17,6 +17,8 @@ namespace ElectroSpeed_server.Models.Data
             await SeedBicicletasAsync();
             await SeedUsuariosAsync();
             await _electroSpeedContext.SaveChangesAsync();
+            await SeedReseniasAsync();
+            await _electroSpeedContext.SaveChangesAsync();
         }
 
         private async Task SeedUsuariosAsync()
@@ -72,5 +74,18 @@ namespace ElectroSpeed_server.Models.Data
 
             await _electroSpeedContext.Bicicletas.AddRangeAsync(bicicletas);
         }
+        private async Task SeedReseniasAsync()
+        {
+            Resenias[] resenia =
+            {
+                new Resenias() { textoDeResenia = "1", resultadoResenia = 2, UsuarioId = 1, BicicletaId = 1 },
+                new Resenias() { textoDeResenia = "2", resultadoResenia = 5, UsuarioId = 2, BicicletaId = 1 },
+                new Resenias() { textoDeResenia = "3", resultadoResenia = 3, UsuarioId = 3, BicicletaId = 2 },
+                new Resenias() { textoDeResenia = "4", resultadoResenia = 2, UsuarioId = 4, BicicletaId = 2 }
+            };
+
+            await _electroSpeedContext.Resenias.AddRangeAsync(resenia);
+        }
     }
 }
+

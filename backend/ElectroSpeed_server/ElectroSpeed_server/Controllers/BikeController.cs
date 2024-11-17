@@ -14,12 +14,10 @@ namespace ElectroSpeed_server.Controllers
     public class BikeController : ControllerBase
     {
         private ElectroSpeedContext _esContext;
-        private esRepository<Bicicletas> _esRepository;
 
-        public BikeController(ElectroSpeedContext esContext, esRepository<Bicicletas> esRepository)
+        public BikeController(ElectroSpeedContext esContext)
         {
             _esContext = esContext;
-            _esRepository = esRepository;
         }
 
         [HttpPost("/filtroBicis")]

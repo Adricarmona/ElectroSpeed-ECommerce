@@ -23,6 +23,8 @@ namespace ElectroSpeed_server.Models.Data.Repositories
             return asNoTracking ? entities.AsNoTracking() : entities;
         }
 
+
+        //Enviar bicicleta por id
         public async Task<TEntity> GetByIdAsync(object id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
