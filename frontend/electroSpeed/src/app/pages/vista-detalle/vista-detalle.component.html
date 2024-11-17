@@ -19,7 +19,7 @@
                     } 
                 </h3>
                 <div class="botones">
-                    <button id="anadirCarrito">Añadir al carrito</button>
+                    <button id="anadirCarrito" (click)="anadirCarrito()">Añadir al carrito</button>
                     <button id="comprar">Comprar</button>
                 </div>
             </div>
@@ -28,80 +28,37 @@
             <div class="arribaIzquierda">
                 <h4>Media de las reseñas: </h4>
                 <div id="puntuacion">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/full.png" alt="detalle/full.png">
-                    <img src="detalle/empty.png" alt="detalle/empty.png">
+                    @for (engranaje of arrayResultados(devolverMediaResenias()); track $index) {
+                        <img [src]="engranaje" alt="detalle/full.png">
+
+                    }
                 </div>
                 <h4> 4/5 </h4>
             </div>
             <div class="arribaDerecha">
-                <h5 id="cantidadReseñas">Cantidad reseñas: "n"</h5>
+                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente, pon la tuya! </h5>
             </div>
         </div>
         <div class="reseñasAbajo">
-            <!--    las targetas    -->
-            <div class="tarjetasReseñas">
-                <div class="tarjetaReseñaArriba">
-                    <div class="puntuacionReseñas">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/empty.png" alt="detalle/empty.png">
+            <!--    las tarjetas    -->
+                @for (item of resenias; track $index) {
+                    <div class="tarjetasReseñas">
+                        <div class="tarjetaReseñaArriba">
+                            <div class="puntuacionReseñas">
+                                @for (engranaje of arrayResultados(item.resultado); track $index) {
+                                    <img [src]="engranaje" >
+                                }
+                            </div>
+                            <span>
+                                <img src={{devolverUsuario(0).picture}} alt="detalle/noe.png">
+                                <span>{{devolverUsuario(0).name}}</span>
+                            </span>
+                        </div>
+                        <div class="tarjetaReseñaAbajo">
+                            <p>{{item.texto}}</p>
+                        </div>
                     </div>
-                    
-                    <span>
-                        <img src="detalle/noe.png" alt="detalle/noe.png">
-                        Usuario
-                    </span>
-                </div>
-                <div class="tarjetaReseñaAbajo">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem  tortor, congue ut odio et, accumsan luctus dolor. Donec lacinia  facilisis neque, vitae consectetur odio imperdiet ac. Praesent accumsan  libero eget finibus hendrerit. </p>
-                </div>
-            </div>
-
-            <div class="tarjetasReseñas">
-                <div class="tarjetaReseñaArriba">
-                    <div class="puntuacionReseñas">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/empty.png" alt="detalle/empty.png">
-                    </div>
-                    
-                    <span>
-                        <img src="detalle/noe.png" alt="detalle/noe.png">
-                        Usuario
-                    </span>
-                </div>
-                <div class="tarjetaReseñaAbajo">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem  tortor, congue ut odio et, accumsan luctus dolor. Donec lacinia  facilisis neque, vitae consectetur odio imperdiet ac. Praesent accumsan  libero eget finibus hendrerit. </p>
-                </div>
-            </div>
-
-            <div class="tarjetasReseñas">
-                <div class="tarjetaReseñaArriba">
-                    <div class="puntuacionReseñas">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/full.png" alt="detalle/full.png">
-                        <img src="detalle/empty.png" alt="detalle/empty.png">
-                    </div>
-                    
-                    <span>
-                        <img src="detalle/noe.png" alt="detalle/noe.png">
-                        Usuario
-                    </span>
-                </div>
-                <div class="tarjetaReseñaAbajo">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem  tortor, congue ut odio et, accumsan luctus dolor. Donec lacinia  facilisis neque, vitae consectetur odio imperdiet ac. Praesent accumsan  libero eget finibus hendrerit. </p>
-                </div>
-            </div>
-
+                }
         </div>
     </div>
 </div>

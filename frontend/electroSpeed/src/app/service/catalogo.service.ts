@@ -30,7 +30,7 @@ export class CatalogoService {
   }
 
 
-  async showOneBike(id: String){
+  async showOneBike(id: number){
     try {
       const request: Observable<Bicicletas> = this.http.get<Bicicletas>(`${this.BASE_URL}bici/${id}`);
       const result: Bicicletas = await lastValueFrom(request);
@@ -41,4 +41,18 @@ export class CatalogoService {
       return null
     }
   }
+
+  async todasLasBicis(): Promise<Bicicletas[] | null> {
+    try {
+        // Cambia el tipo de solicitud para obtener un array de `Bicicletas` en lugar de un solo objeto.
+        const request: Observable<Bicicletas[]> = this.http.get<Bicicletas[]>(`${this.BASE_URL}api/Bike`);
+        const result: Bicicletas[] = await lastValueFrom(request);
+
+        return result; // Devolverá un array, ya sea vacío o con elementos.
+    } catch (error) {
+        console.error("Error al buscar la bici: ", error);
+        return null; // Devuelve `null` en caso de error.
+    }
+}
+
 }

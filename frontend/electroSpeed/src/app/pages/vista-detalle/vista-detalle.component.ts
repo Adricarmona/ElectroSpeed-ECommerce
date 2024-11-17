@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogoService } from '../../service/catalogo.service';
 import { PreciosPipe } from '../../pipes/precios.pipe';
+import { ReseniasService } from '../../service/resenias.service';
+import { Resenias } from '../../models/resenias';
+import { Usuarios } from '../../models/usuarios';
+import { Bicicletas } from '../../models/catalogo';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -12,7 +16,7 @@ import { PreciosPipe } from '../../pipes/precios.pipe';
 })
 export class VistaDetalleComponent {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService) {}
 
   codigoIdentificador: string = "";
 
@@ -22,7 +26,8 @@ export class VistaDetalleComponent {
   stockBici: number = 0;
   fotoBici: string = "";
 
-  
+  // resenias
+  resenias: Resenias[] = [];
 
   async ngOnInit() {
 
@@ -33,7 +38,9 @@ export class VistaDetalleComponent {
     /*
     *   traemos los datos de la bici con el id dado
     */
-    const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
+    //const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
+    const bicicletas: Bicicletas[] = (await this.catalogoService.todasLasBicis()) ?? [];
+    const bicicleta = bicicletas[0]
     if (bicicleta == null) {
       //this.rickRoll() // rick roll si no existe
     } 
@@ -46,10 +53,41 @@ export class VistaDetalleComponent {
       this.fotoBici = bicicleta.urlImg
     }
 
-
+    this.resenias = this.resenia.devolverResenia(0);
+    
   }
 
   rickRoll() {
     window.location.href = 'https://youtu.be/dQw4w9WgXcQ';
+  }
+
+  arrayResultados(resultado: number) {
+    const resultadoReseniaArray: string[] = [];
+    for (let index = 0; index < resultado; index++) {
+      resultadoReseniaArray.push("detalle/full.png");
+    }
+
+    for (let index = 0; resultado + index < 5; index++) {
+      resultadoReseniaArray.push("detalle/empty.png");
+    }
+
+    return resultadoReseniaArray
+  }
+
+  devolverUsuario(id: number) {
+    return this.resenia.devolverUsuario(id)
+  }
+
+  devolverMediaResenias(): number {
+    return this.resenia.devolverMediaResenias()
+  }
+
+  anadirCarrito(){
+    if(localStorage.getItem("idbici")){
+      localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
+    } else {
+      localStorage.setItem("idbici", this.codigoIdentificador)
+    }
+    
   }
 }
