@@ -38,7 +38,7 @@
             <div class="arribaIzquierda">
                 <h4>Media de las reseñas: </h4>
                 <div id="puntuacion">
-                    @for (engranaje of arrayResultados(devolverMediaResenias()); track $index) {
+                    @for (engranaje of arrayResultados(this.mediaResenia); track $index) {
                         <img [src]="engranaje" alt="detalle/full.png">
                     }
                 </div>
