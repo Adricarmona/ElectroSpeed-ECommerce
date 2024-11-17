@@ -69,7 +69,6 @@ export class VistaDetalleComponent {
   */
   arrayResultados(resultado: number) {
     const resultadoReseniaArray: string[] = [];
-    console.log(resultado)
     for (let index = 0; index < resultado; index++) {
       resultadoReseniaArray.push("detalle/full.png");
     }
