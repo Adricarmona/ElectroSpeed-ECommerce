@@ -7,6 +7,9 @@ import { Resenias } from '../../models/resenias';
 import { Usuarios } from '../../models/usuarios';
 import { Bicicletas } from '../../models/catalogo';
 import { AuthService } from '../../service/auth.service';
+import { CommonModule } from '@angular/common';
+import { Validators } from '@angular/forms';
+import { ReseniasYUsuario } from '../../models/resenias-yusuario';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -29,7 +32,7 @@ export class VistaDetalleComponent {
   mediaResenia: number = 0;
 
   // resenias
-  resenias: Resenias[] = [];
+  resenias: ReseniasYUsuario[] = [];
 
   // enviar resenias
   textoResenia: string = "";
@@ -75,7 +78,7 @@ export class VistaDetalleComponent {
       resultadoReseniaArray.push("detalle/full.png");
     }
 
-    for (let index = resultado; index < 4; index++) {
+    for (let index = resultado; index <= 4; index++) {
       resultadoReseniaArray.push("detalle/empty.png");
     }
 
@@ -97,8 +100,8 @@ export class VistaDetalleComponent {
   /*
   *   USUARIOS
   */
-  devolverUsuario(id: number) {
-    return this.resenia.devolverUsuario(id)
+  async devolverUsuarioNombre(id: number) {
+    return (await this.resenia.devolverUsuario(id)).name
   }
 
   usuarioToken() {
@@ -123,13 +126,17 @@ export class VistaDetalleComponent {
   }
 
   async devolverTodasResenias() {
-    //const reseniaTmp: Resenias
-/*     this.resenia.devolverResenia(parseInt(this.codigoIdentificador)).then(value =>
-      this.resenias.push(value) */
+    const reseniasAhora: Resenias[] = await this.resenia.devolverResenia(this.codigoIdentificador);
 
-      this.resenias.push(await this.resenia.devolverResenia(this.codigoIdentificador))
-      console.log("caca"+this.resenias)
+    for(const element of reseniasAhora){
+      const nombreUsuario = await this.devolverUsuarioNombre(element.id)
 
-    
+      const ReseniasYUsuario : ReseniasYUsuario = {
+        resenias: element,
+        usuario: nombreUsuario
+      }
+
+      this.resenias.push(ReseniasYUsuario)
+    }
   }
 }

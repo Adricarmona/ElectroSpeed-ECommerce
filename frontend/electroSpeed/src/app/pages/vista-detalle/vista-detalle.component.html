@@ -54,17 +54,17 @@
                     <div class="tarjetasReseñas">
                         <div class="tarjetaReseñaArriba">
                             <div class="puntuacionReseñas">
-                                @for (engranaje of arrayResultados(item.resultado); track $index) {
+                                @for (engranaje of arrayResultados(item.resenias.resultadoResenia); track $index) {
                                     <img [src]="engranaje" >
                                 }
                             </div>
                             <span>
-                                <img src={{devolverUsuario(1).picture}} alt="detalle/noe.png">
-                                <span>{{devolverUsuario(1).name}}</span>
+                                <img id="iconoUsuario" src="iconoUsuario.webp" alt="detalle/noe.png">
+                                <span>{{item.usuario}}</span>
                             </span>
                         </div>
                         <div class="tarjetaReseñaAbajo">
-                            <p>{{item.texto}}</p>
+                            <p>{{item.resenias.textoDeResenia}}</p>
                         </div>
                     </div>
                 }

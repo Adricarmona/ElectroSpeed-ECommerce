@@ -14,66 +14,18 @@ export class ReseniasService {
 
   constructor(private http: HttpClient) { }
 
-  async devolverResenia(id:  string){
-      const request: Observable<Resenias> = this.http.get<Resenias>(`${this.BASE_URL}api/Resenias?id=${id}`);
-      const result: Resenias = await lastValueFrom(request);
+  async devolverResenia(id:  string): Promise<Resenias[]>{
+    const request: Observable<Resenias[]> = this.http.get<Resenias[]>(`${this.BASE_URL}idBici?id=${id}`);
+    const result: Resenias[] = await lastValueFrom(request);
 
-      console.log(result)
     return result
-    /*
-    const resenias: Resenias[] = [];
-    resenias.push(
-    {
-      id: id,
-      texto: "texto",
-      resultado: 3,
-      fechaResenia: new Date,
-      idUsuario: 1,
-    },
-    {
-      id: id+1,
-      texto: "texto1",
-      resultado: 2,
-      fechaResenia: new Date,
-      idUsuario: 2,
-    },
-    {
-      id: id+2,
-      texto: "texto2",
-      resultado: 4,
-      fechaResenia: new Date,
-      idUsuario: 3,
-    },
-    {
-      id: id+3,
-      texto: "La zowii en la casaa",
-      resultado: 3,
-      fechaResenia: new Date,
-      idUsuario: 0,
-    },
-  )
-
-    return resenias
-
-    */
   }
 
-  devolverUsuario(id:  number){
-    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
-    //          const result: BiciPagina = await lastValueFrom(request);
+  async devolverUsuario(id:  number) :Promise<Usuarios>{
+    const request: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioId?id=${id}`);
+    const result: Usuarios = await lastValueFrom(request);
 
-    
-    const usuarios: Usuarios =
-    {
-      id: id,
-      name: "noe",
-      email: "noe@electrospeed.es",
-      username: "noexxnoe",
-      picture: "detalle/noe.png",
-    }
-
-
-    return usuarios
+    return result
   }
 
   async devolverMediaResenias(id: string){

@@ -27,5 +27,11 @@ namespace ElectroSpeed_server.Controllers
         {
             return _esContext.Usuarios.ToList();
         }
+
+        [HttpGet("/usuarioId")]
+        public Usuarios Uuarios(int id)
+        {
+            return _esContext.Usuarios.FirstOrDefault(r => r.Id == id);
+        }
     }
 }
