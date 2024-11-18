@@ -71,6 +71,8 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
+            app.UseStaticFiles(); // para que pueda verse las fotos
+
             await SeedDataBase(app.Services);
             app.Run();
         }
