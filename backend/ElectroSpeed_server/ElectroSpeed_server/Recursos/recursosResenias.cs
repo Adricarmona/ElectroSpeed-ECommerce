@@ -22,9 +22,16 @@ namespace ElectroSpeed_server.Recursos
         {
             var reseñas = ReseniasId(id);
 
-            var media = reseñas.Average(r => r.resultadoResenia);
-
-            return media;
+            if (reseñas == null)
+            {
+                var media = 0;
+                return media;
+            }
+            else
+            {
+                var media = reseñas.Average(r => r.resultadoResenia);
+                return media;
+            }
         }
 
     }
