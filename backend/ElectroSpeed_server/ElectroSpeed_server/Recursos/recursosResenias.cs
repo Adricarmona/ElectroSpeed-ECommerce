@@ -22,10 +22,9 @@ namespace ElectroSpeed_server.Recursos
         {
             var reseñas = ReseniasId(id);
 
-            if (reseñas == null)
+            if (reseñas == null || !reseñas.Any())
             {
-                var media = 0;
-                return media;
+                return 0;
             }
             else
             {
