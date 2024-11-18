@@ -43,7 +43,7 @@ namespace ElectroSpeed_server.Controllers
             return resenias.MediaResenia(id);
         }
 
-        [HttpPost("/IA añadir")]
+        [HttpPost("/IAanadir")]
         public ActionResult Predict([FromBody] adicionResenia model)
         {
             ModelInput input = new ModelInput

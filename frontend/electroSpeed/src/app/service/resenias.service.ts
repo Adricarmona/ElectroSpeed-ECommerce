@@ -4,6 +4,7 @@ import { environment } from '../environments/enviroments.developments';
 import { Resenias } from '../models/resenias';
 import { Usuarios } from '../models/usuarios';
 import { lastValueFrom, Observable } from 'rxjs';
+import { AnadirResenias } from '../models/anadir-resenias';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,14 @@ export class ReseniasService {
     const result: number = await lastValueFrom(request);
 
     return result
+  }
+
+  async enviarResenas(enviar :AnadirResenias) {
+    try {
+      this.http.post(`${this.BASE_URL}IAanadir`,enviar)
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 }
