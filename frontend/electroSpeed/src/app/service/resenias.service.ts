@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/enviroments.developments';
 import { Resenias } from '../models/resenias';
 import { Usuarios } from '../models/usuarios';
+import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class ReseniasService {
   constructor(private http: HttpClient) { }
 
   devolverResenia(id:  number){
-    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
-    //          const result: BiciPagina = await lastValueFrom(request);
+    //  const request: Observable<number> = this.http.get<number>(`${this.BASE_URL}mediaResenia?id=${id}`);
+    //  const result: BiciPagina = await lastValueFrom(request);
 
     
     const resenias: Resenias[] = [];
@@ -71,10 +72,10 @@ export class ReseniasService {
     return usuarios
   }
 
-  devolverMediaResenias(){
-    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
-    //          const result: BiciPagina = await lastValueFrom(request);
+  async devolverMediaResenias(id: string){
+    const request: Observable<number> = this.http.get<number>(`${this.BASE_URL}mediaResenia?id=${id}`);
+    const result: number = await lastValueFrom(request);
 
-    return 4
+    return result
   }
 }

@@ -6,6 +6,7 @@ import { ReseniasService } from '../../service/resenias.service';
 import { Resenias } from '../../models/resenias';
 import { Usuarios } from '../../models/usuarios';
 import { Bicicletas } from '../../models/catalogo';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -16,7 +17,7 @@ import { Bicicletas } from '../../models/catalogo';
 })
 export class VistaDetalleComponent {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService) {}
 
   codigoIdentificador: string = "";
 
@@ -25,6 +26,7 @@ export class VistaDetalleComponent {
   precioBici: number = 1;
   stockBici: number = 0;
   fotoBici: string = "";
+  mediaResenia: number = 0;
 
   // resenias
   resenias: Resenias[] = [];
@@ -38,11 +40,9 @@ export class VistaDetalleComponent {
     /*
     *   traemos los datos de la bici con el id dado
     */
-    //const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
-    const bicicletas: Bicicletas[] = (await this.catalogoService.todasLasBicis()) ?? [];
-    const bicicleta = bicicletas[0]
+    const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
     if (bicicleta == null) {
-      //this.rickRoll() // rick roll si no existe
+      this.rickRoll() // rick roll si no existe
     } 
     else 
     {
@@ -53,7 +53,9 @@ export class VistaDetalleComponent {
       this.fotoBici = bicicleta.urlImg
     }
 
-    this.resenias = this.resenia.devolverResenia(0);
+    this.devolverMediaResenias()
+
+    this.resenias = this.resenia.devolverResenia(parseInt(this.codigoIdentificador));
     
   }
 
@@ -61,27 +63,26 @@ export class VistaDetalleComponent {
     window.location.href = 'https://youtu.be/dQw4w9WgXcQ';
   }
 
+
+  /*
+  *   UNA FUNCION QUE HACE LA CANTIDAD DE PIEZAS EN UN ARRAY QUE INDICA UN NUMERO
+  */
   arrayResultados(resultado: number) {
     const resultadoReseniaArray: string[] = [];
     for (let index = 0; index < resultado; index++) {
       resultadoReseniaArray.push("detalle/full.png");
     }
 
-    for (let index = 0; resultado + index < 5; index++) {
+    for (let index = resultado; index < 4; index++) {
       resultadoReseniaArray.push("detalle/empty.png");
     }
 
     return resultadoReseniaArray
   }
 
-  devolverUsuario(id: number) {
-    return this.resenia.devolverUsuario(id)
-  }
-
-  devolverMediaResenias(): number {
-    return this.resenia.devolverMediaResenias()
-  }
-
+  /*
+  *     CARRITO 
+  */
   anadirCarrito(){
     if(localStorage.getItem("idbici")){
       localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
@@ -89,5 +90,33 @@ export class VistaDetalleComponent {
       localStorage.setItem("idbici", this.codigoIdentificador)
     }
     
+  }
+
+  /*
+  *   USUARIOS
+  */
+  devolverUsuario(id: number) {
+    return this.resenia.devolverUsuario(id)
+  }
+
+  usuarioToken() {
+    const token = this.authService.getToken()
+    return token
+  }
+
+  /*
+  *   RESEÑAS
+  */
+  verResenias(){
+    const ponerResenias = document.getElementById("escribirReseñaForm")
+    if (ponerResenias) {
+      ponerResenias.style.display = "flex";
+    }
+  }
+
+  devolverMediaResenias() {
+    this.resenia.devolverMediaResenias(this.codigoIdentificador).then(value => 
+      this.mediaResenia = value
+    )
   }
 }
