@@ -20,12 +20,20 @@ namespace ElectroSpeed_server.Controllers
             _model = model;
         }
 
-        /*[HttpGet]
-        public IList<Resenias> ReseniasId(int id)
+        [HttpGet("/idBici")]
+        public IList<Resenias> ReseniasIdBici(int id)
         {
             RecursosResenias resenias = new(_esContext);
 
-            return resenias.ReseniasId(id);
+            return resenias.ReseniasIdBici(id);
+        }
+
+        [HttpGet("/idUsuario")]
+        public IList<Resenias> ReseniasIdUsuario(int id)
+        {
+            RecursosResenias resenias = new(_esContext);
+
+            return resenias.ReseniasIdUsuario(id);
         }
 
         [HttpGet("/bicicleta")]
@@ -41,16 +49,28 @@ namespace ElectroSpeed_server.Controllers
             return resenias.MediaResenia(id);
         }
 
-        [HttpPost("/IA")]
-        public ModelOutput Predict(string text)
+        [HttpPost("/IA añadir")]
+        public ActionResult Predict([FromBody] adicionResenia model)
         {
             ModelInput input = new ModelInput
             {
-                Text = text
+                Text = model.texto
             };
             ModelOutput output = _model.Predict(input);
 
-            return output;
+            Resenias resenia = new()
+            {
+                Id = model.Id,
+                textoDeResenia = model.texto,
+                resultadoResenia = (int)output.PredictedLabel,
+                UsuarioId = model.UsuarioId,
+                BicicletaId = model.BicicletaId
+            };
+
+            _esContext.Resenias.Add(resenia);
+            _esContext.SaveChanges();
+
+            return Ok("Subida correctamente");
         }
 
     }
