@@ -14,11 +14,13 @@ export class ReseniasService {
 
   constructor(private http: HttpClient) { }
 
-  devolverResenia(id:  number){
-    //  const request: Observable<number> = this.http.get<number>(`${this.BASE_URL}mediaResenia?id=${id}`);
-    //  const result: BiciPagina = await lastValueFrom(request);
+  async devolverResenia(id:  string){
+      const request: Observable<Resenias> = this.http.get<Resenias>(`${this.BASE_URL}api/Resenias?id=${id}`);
+      const result: Resenias = await lastValueFrom(request);
 
-    
+      console.log(result)
+    return result
+    /*
     const resenias: Resenias[] = [];
     resenias.push(
     {
@@ -52,6 +54,8 @@ export class ReseniasService {
   )
 
     return resenias
+
+    */
   }
 
   devolverUsuario(id:  number){

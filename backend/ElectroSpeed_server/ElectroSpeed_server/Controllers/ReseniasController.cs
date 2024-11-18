@@ -28,12 +28,6 @@ namespace ElectroSpeed_server.Controllers
             return resenias.ReseniasId(id);
         }
 
-        [HttpGet("/bicicleta")]
-        public Bicicletas Bicicleta(int id)
-        {
-            return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
-        }
-
         [HttpGet("/mediaResenia")]
         public double MediaResenia(int id)
         {

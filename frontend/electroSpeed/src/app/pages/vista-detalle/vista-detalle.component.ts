@@ -31,6 +31,9 @@ export class VistaDetalleComponent {
   // resenias
   resenias: Resenias[] = [];
 
+  // enviar resenias
+  textoResenia: string = "";
+
   async ngOnInit() {
 
     this.route.params.subscribe(params => {
@@ -54,8 +57,7 @@ export class VistaDetalleComponent {
     }
 
     this.devolverMediaResenias()
-
-    this.resenias = this.resenia.devolverResenia(parseInt(this.codigoIdentificador));
+    this.devolverTodasResenias()
     
   }
 
@@ -118,5 +120,16 @@ export class VistaDetalleComponent {
     this.resenia.devolverMediaResenias(this.codigoIdentificador).then(value => 
       this.mediaResenia = value
     )
+  }
+
+  async devolverTodasResenias() {
+    //const reseniaTmp: Resenias
+/*     this.resenia.devolverResenia(parseInt(this.codigoIdentificador)).then(value =>
+      this.resenias.push(value) */
+
+      this.resenias.push(await this.resenia.devolverResenia(this.codigoIdentificador))
+      console.log("caca"+this.resenias)
+
+    
   }
 }
