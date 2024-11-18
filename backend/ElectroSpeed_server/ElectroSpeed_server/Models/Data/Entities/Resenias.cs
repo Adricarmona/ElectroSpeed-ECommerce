@@ -11,7 +11,12 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public int resultadoResenia { get; set; }
         public int UsuarioId { get; set; }
 
+        public int BicicletaId { get; set; }
+
         [ForeignKey(nameof(UsuarioId))]
         public Usuarios Usuarios { get; set; }
+
+        [ForeignKey(nameof(BicicletaId))]
+        public Bicicletas Bicicleta { get; set; }
     }
 }

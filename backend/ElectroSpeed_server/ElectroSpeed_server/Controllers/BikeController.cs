@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Recursos;
 using Microsoft.EntityFrameworkCore;
+using ElectroSpeed_server.Models.Data.Repositories;
 
 
 namespace ElectroSpeed_server.Controllers

@@ -1,5 +1,6 @@
 ﻿using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ElectroSpeed_server.Recursos
 {
@@ -12,16 +13,19 @@ namespace ElectroSpeed_server.Recursos
             _electroSpeedContext = electroSpeedContext;
         }
 
-        public IList<Resenias> cogerResenias(int id)
+        public IList<Resenias> ReseniasId(int id)
         {
-            IList<Resenias> reseniasTotales = new List<Resenias>();
-
-            foreach (Resenias item in _electroSpeedContext.Resenias.ToList())
-            {
-                reseniasTotales.Add(item);
-            }
-            
-            return reseniasTotales;
+            return _electroSpeedContext.Resenias.Where(r => r.BicicletaId == id).ToList();
         }
+
+        public double MediaResenia(int id)
+        {
+            var reseñas = ReseniasId(id);
+
+            var media = reseñas.Average(r => r.resultadoResenia);
+
+            return media;
+        }
+
     }
 }
