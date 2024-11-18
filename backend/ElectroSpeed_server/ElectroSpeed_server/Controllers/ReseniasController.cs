@@ -20,7 +20,7 @@ namespace ElectroSpeed_server.Controllers
             _model = model;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public IList<Resenias> ReseniasId(int id)
         {
             RecursosResenias resenias = new(_esContext);
