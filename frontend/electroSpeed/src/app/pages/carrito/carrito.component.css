@@ -20,11 +20,45 @@
     gap: 10px; 
 }
 .zonaProductos{
+    display: grid;
     background-color: white;
+    margin-left: 70px;
+    min-width: 800px;
+    margin-right: 50px;
+    border-radius: 20px;
 }
 .pago{
+    display: grid;
     background-color: white;
+    max-width: 450px;
+    min-height: 120px;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    
 }
 .recomendaciones{
+    display: grid;
     background-color: white;
+    max-width: 450px;
+    min-height: 120px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+.precio{
+    margin-bottom: -15px;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+.pagoTarjeta{
+    border-radius: 5px;
+    background-color: orange;
+}
+.pagoEthereum{
+    border-radius: 5px;
+    background-color: chocolate;
 }
