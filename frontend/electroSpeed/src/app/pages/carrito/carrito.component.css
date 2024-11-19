@@ -24,6 +24,7 @@
     background-color: white;
     margin-left: 70px;
     min-width: 800px;
+    max-width: 800px;
     margin-right: 50px;
     border-radius: 20px;
 }
@@ -61,4 +62,20 @@
 .pagoEthereum{
     border-radius: 5px;
     background-color: chocolate;
+}
+.bici{
+    display: flex;
+}
+.fotoBici{
+    height: 150px;
+    width: 150px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.datos{
+    display: flex;
+    margin-top: 50px;
+}
+.nombreBici{
+    margin-right: 20px;
 }

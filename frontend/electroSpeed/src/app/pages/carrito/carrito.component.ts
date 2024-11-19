@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CatalogoService } from '../../service/catalogo.service';
 import { CarritoService } from '../../service/carrito.service';
+import { Bicicletas } from '../../models/catalogo';
 
 @Component({
   selector: 'app-carrito',
@@ -20,6 +21,7 @@ export class CarritoComponent {
   precioBici: number = 1;
   fotoBici: string = '';
   idUser: number = 0;
+  bicicletaCarrito : Bicicletas[] = []
 
   async ngOnInit() {
     const iddata = localStorage.getItem('idbici');
@@ -40,9 +42,7 @@ export class CarritoComponent {
       for (const id of this.codigoIdentificador) {
         const bicicleta = await this.catalogoService.showOneBike(id);
         if (bicicleta) {
-          this.nombreModelo = bicicleta.marcaModelo;
-          this.precioBici = bicicleta.precio;
-          this.fotoBici = bicicleta.urlImg;
+          this.bicicletaCarrito.push(bicicleta);
         } else {
           console.log(`No se encontró bicicleta con ID ${id}`);
         }

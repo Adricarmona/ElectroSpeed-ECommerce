@@ -2,6 +2,16 @@
     <div id="espacio"></div>
     <div class="todo">
         <div class="zonaProductos">
+            @for (items of bicicletaCarrito; track $index) {
+                <div class="bici">
+                    <img class="fotoBici" src="{{items.urlImg}}">
+                    <div class="datos">
+                        <h4 class="nombreBici">{{items.marcaModelo}}</h4> 
+                        <h4>Precio: {{items.precio}}€</h4>
+                    </div>
+                    
+                </div>
+            }
             <div class="productos">
             </div>
         </div>
