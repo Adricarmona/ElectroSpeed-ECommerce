@@ -15,8 +15,8 @@ namespace ElectroSpeed_server.Controllers
         {
             _esContext = esContext;
         }
-        
-        // Obtiene los prodductos del carrito del usuario
+
+        // Obtiene los productos del carrito del usuario
         [HttpGet("{userId?}")]
         public async Task<ActionResult> GetCart(int? userId)
         {
@@ -47,7 +47,58 @@ namespace ElectroSpeed_server.Controllers
             return Ok(response);
         }
 
-        // Cambiar la cantidad del producto en el carrito
+        // Añadir un producto al carrito
+        [HttpPost("addToCart")]
+        public async Task<ActionResult> AddToCart(int userId, int productoId, int cantidad)
+        {
+            // busca el producto en la base de datos
+            var producto = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == productoId);
+            if (producto == null)
+            {
+                return NotFound("el producto no existe");
+            }
+
+            // co si hay stock
+            if (cantidad > producto.Stock)
+            {
+                return BadRequest($"no hay suficiente stock, el stock es: {producto.Stock}");
+            }
+
+            // mira si el producto ya esta en el carrito
+            var itemCarrito = await _esContext.CarritoCompra
+                .FirstOrDefaultAsync(c => c.UsuariosId == userId && c.BicicletasId == productoId);
+
+            if (itemCarrito != null)
+            {
+                // si ya esta en el carro, actualiza cantidad
+                if (itemCarrito.Bicletas.Stock < cantidad)
+                {
+                    return BadRequest($"Se pasa del stock disponible");
+                }
+
+                itemCarrito.Bicletas.Stock -= cantidad;
+            }
+            else
+            {
+                // si no está, lo añade
+                var nuevoItem = new CarritoCompra
+                {
+                    BicicletasId = productoId,
+                    UsuariosId = userId,
+                };
+
+                _esContext.CarritoCompra.Add(nuevoItem);
+            }
+
+            // actualiza el stock del pruducto
+            producto.Stock -= cantidad;
+
+            await _esContext.SaveChangesAsync();
+
+            return Ok("producto añadido al carrito");
+        }
+
+        // cambiar cantidad del producto
         [HttpPut("updateQuantity")]
         public async Task<ActionResult> UpdateQuantity(int carritoId, int nuevaCantidad)
         {
@@ -60,18 +111,27 @@ namespace ElectroSpeed_server.Controllers
                 return NotFound("no se encuentra ese producto en el carrito");
             }
 
+            // verifica stock
             if (nuevaCantidad > item.Bicletas.Stock)
             {
-                return BadRequest($"No hay stock. Hay {item.Bicletas.Stock} unidades disponibles");
+                return BadRequest($"no hay suficiente stock, el stock es: {item.Bicletas.Stock}");
             }
 
-            item.Bicletas.Stock -= (nuevaCantidad - item.Bicletas.Stock);
+            if (nuevaCantidad < 1)
+            {
+                return BadRequest("el minimo es 1");
+            }
+
+            // calcula diferencia de cantidad y actualiza stock
+            var diferencia = nuevaCantidad - item.Bicletas.Stock;
+            item.Bicletas.Stock -= diferencia;
+
             await _esContext.SaveChangesAsync();
 
-            return Ok("Cantidad actualizada");
+            return Ok("cantidad actualizada");
         }
 
-        // Quitar producto del carrito
+        // eliminar del carrito
         [HttpDelete("{carritoId}")]
         public async Task<ActionResult> DeleteItem(int carritoId)
         {
@@ -88,7 +148,7 @@ namespace ElectroSpeed_server.Controllers
             return Ok("eliminado del carrito");
         }
 
-        // Reserva del stock y redirigir al pago
+        // reserva del stock y redirijir pago
         [HttpPost("checkout")]
         public async Task<ActionResult> Checkout(int? userId, string metodoPago)
         {
@@ -114,7 +174,7 @@ namespace ElectroSpeed_server.Controllers
 
             await _esContext.SaveChangesAsync();
 
-            // Redirigir al metodo de pago con parametros
+            // redirigir al pago con parametros
             return Redirect($"/checkout?metodoPago={metodoPago}");
         }
     }
