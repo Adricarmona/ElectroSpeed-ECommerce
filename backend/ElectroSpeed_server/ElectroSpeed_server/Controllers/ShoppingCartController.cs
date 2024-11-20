@@ -2,6 +2,7 @@
 using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace ElectroSpeed_server.Controllers
 {
@@ -69,6 +70,21 @@ namespace ElectroSpeed_server.Controllers
             await _esContext.SaveChangesAsync();
 
             return Ok("Cantidad actualizada");
+        }
+
+        // añadir productos
+        [HttpPut("addProduct")]
+        public async Task<ActionResult> addProduct(int carritoId, int idBicicleta)
+        {
+            CarritoCompra carritoActual  = _esContext.CarritoCompra.FirstOrDefault(r => r.Id == carritoId);
+
+            if (carritoActual == null) {
+                return NotFound("no encontrado");
+            }
+
+            carritoActual.BicicletasId = idBicicleta;
+
+            return Ok("aaa");
         }
 
         // Quitar producto del carrito

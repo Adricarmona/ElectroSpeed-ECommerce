@@ -12,6 +12,7 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public string Direccion { get; set; }
 
         public ICollection<Resenias> Resenias { get; set; }
+        public ICollection<CarritoCompra> carritos { get; set; }
 
 
         public static implicit operator Usuarios(int v)
