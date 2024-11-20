@@ -17,59 +17,18 @@ namespace ElectroSpeed_server.Controllers
             _esContext = esContext;
         }
 
-        // Obtiene los prodductos del carrito del usuario
-        [HttpGet("{userId?}")]
-        public async Task<ActionResult> GetCart(int? userId)
-        {
-            var carrito = userId == null
-                ? await _esContext.CarritoCompra
-                    .Include(c => c.Bicletas)
-                    .Where(c => c.UsuariosId == null)
-                    .ToListAsync()
-                : await _esContext.CarritoCompra
-                    .Include(c => c.Bicletas)
-                    .Where(c => c.UsuariosId == userId)
-                    .ToListAsync();
-
-            if (!carrito.Any())
-            {
-                return NotFound("carito vacio");
-            }
-
-            var response = carrito.Select(item => new
-            {
-                item.Id,
-                Producto = item.Bicletas.MarcaModelo,
-                Imagen = item.Bicletas.UrlImg,
-                Precio = item.Bicletas.Precio,
-                Cantidad = item.Bicletas.Stock > 0 ? item.Bicletas.Stock : 0
-            });
-
-            return Ok(response);
+        // mirar carrito
+        [HttpGet("idDelCarrito")]
+        public CarritoCompra GetCarrito(int idCarrito)
+        { 
+            return _esContext.CarritoCompra.FirstOrDefault(r => r.Id == idCarrito);
         }
 
-        // Cambiar la cantidad del producto en el carrito
-        [HttpPut("updateQuantity")]
-        public async Task<ActionResult> UpdateQuantity(int carritoId, int nuevaCantidad)
+        // mirar carrito por id de usuario
+        [HttpGet("idDelUsuario")]
+        public CarritoCompra GetCarritoPorUsuario(int idUsuario)
         {
-            var item = await _esContext.CarritoCompra
-                .Include(c => c.Bicletas)
-                .FirstOrDefaultAsync(c => c.Id == carritoId);
-
-            if (item == null)
-            {
-                return NotFound("no se encuentra ese producto en el carrito");
-            }
-
-            if (nuevaCantidad > item.Bicletas.Stock)
-            {
-                return BadRequest($"No hay stock. Hay {item.Bicletas.Stock} unidades disponibles");
-            }
-
-            item.Bicletas.Stock -= (nuevaCantidad - item.Bicletas.Stock);
-            await _esContext.SaveChangesAsync();
-
-            return Ok("Cantidad actualizada");
+            return _esContext.CarritoCompra.FirstOrDefault(r => r.UsuariosId == idUsuario);
         }
 
         // añadir productos
@@ -105,6 +64,7 @@ namespace ElectroSpeed_server.Controllers
         }
 
         // Reserva del stock y redirigir al pago
+        /*
         [HttpPost("checkout")]
         public async Task<ActionResult> Checkout(int? userId, string metodoPago)
         {
@@ -133,5 +93,6 @@ namespace ElectroSpeed_server.Controllers
             // Redirigir al metodo de pago con parametros
             return Redirect($"/checkout?metodoPago={metodoPago}");
         }
+        */
     }
 }
