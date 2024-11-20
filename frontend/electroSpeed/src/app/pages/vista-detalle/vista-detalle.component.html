@@ -28,9 +28,9 @@
             </div>
         </div>
         <div id="escribirReseña">
-            <form id="escribirReseñaForm" action="">
+            <form id="escribirReseñaForm" (submit)="enviarResenias()">
                 <h5>reseña a enviar: </h5>
-                <input type="text" name="texto" id="textoFormResenias">
+                <input type="text" name="textoResenia" id="textoFormResenias" [(ngModel)]="textoResenia" [ngModelOptions]="{standalone: true}">
                 <input type="submit" value="enviar reseña">
             </form>
         </div>

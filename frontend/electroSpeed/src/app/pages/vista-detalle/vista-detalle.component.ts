@@ -1,24 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogoService } from '../../service/catalogo.service';
 import { PreciosPipe } from '../../pipes/precios.pipe';
 import { ReseniasService } from '../../service/resenias.service';
 import { Resenias } from '../../models/resenias';
-import { Usuarios } from '../../models/usuarios';
-import { Bicicletas } from '../../models/catalogo';
 import { AuthService } from '../../service/auth.service';
-import { CommonModule } from '@angular/common';
-import { Validators } from '@angular/forms';
 import { ReseniasYUsuario } from '../../models/resenias-yusuario';
+import { FormsModule } from '@angular/forms';
+import { AnadirResenias } from '../../models/anadir-resenias';
 
 @Component({
   selector: 'app-vista-detalle',
   standalone: true,
-  imports: [PreciosPipe],
+  imports: [PreciosPipe, FormsModule],
   templateUrl: './vista-detalle.component.html',
   styleUrl: './vista-detalle.component.css'
 })
-export class VistaDetalleComponent {
+export class VistaDetalleComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService) {}
 
@@ -129,7 +127,7 @@ export class VistaDetalleComponent {
     const reseniasAhora: Resenias[] = await this.resenia.devolverResenia(this.codigoIdentificador);
 
     for(const element of reseniasAhora){
-      const nombreUsuario = await this.devolverUsuarioNombre(element.id)
+      const nombreUsuario = await this.devolverUsuarioNombre(element.usuarioId)
 
       const ReseniasYUsuario : ReseniasYUsuario = {
         resenias: element,
@@ -138,5 +136,19 @@ export class VistaDetalleComponent {
 
       this.resenias.push(ReseniasYUsuario)
     }
+  }
+
+  /*
+  *   ENVIAR RESENIAS
+  */
+  async enviarResenias(){
+    const reseniasEnviar : AnadirResenias = {
+      texto: this.textoResenia,
+      usuarioId: await this.resenia.devolverIdUsuario(this.authService.getNameUserToken()),
+      bicicletaId: parseInt(this.codigoIdentificador)
+    }
+    
+    this.resenia.enviarResenas(reseniasEnviar)
+    location.reload()
   }
 }

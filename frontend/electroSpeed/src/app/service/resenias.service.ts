@@ -38,10 +38,18 @@ export class ReseniasService {
 
   async enviarResenas(enviar :AnadirResenias) {
     try {
-      this.http.post(`${this.BASE_URL}IAanadir`,enviar)
+      const respuesta = this.http.post(`${this.BASE_URL}IAanadir`, enviar,{ responseType: 'text' })
+      const result = await lastValueFrom(respuesta)
     } catch (error) {
       console.log(error)
     }
     
+  }
+
+  async devolverIdUsuario(correo: string){
+    const request: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+    const result: Usuarios = await lastValueFrom(request);
+
+    return result.id
   }
 }
