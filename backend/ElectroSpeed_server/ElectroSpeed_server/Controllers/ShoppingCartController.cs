@@ -16,20 +16,6 @@ namespace ElectroSpeed_server.Controllers
             _esContext = esContext;
         }
 
-        // Obtiene los productos del carrito del usuario
-        [HttpGet("{userId?}")]
-        public async Task<ActionResult> GetCart(int? userId)
-        {
-            var carrito = userId == null
-                ? await _esContext.CarritoCompra
-                    .Include(c => c.Bicletas)
-                    .Where(c => c.UsuariosId == null)
-                    .ToListAsync()
-                : await _esContext.CarritoCompra
-                    .Include(c => c.Bicletas)
-                    .Where(c => c.UsuariosId == userId)
-                    .ToListAsync();
-
         // mirar carrito
         [HttpGet("idDelCarrito")]
         public CarritoCompra GetCarrito(int idCarrito)
@@ -167,6 +153,5 @@ namespace ElectroSpeed_server.Controllers
             // redirigir al pago con parametros
             return Redirect($"/checkout?metodoPago={metodoPago}");
         }
-        */
     }
 }
