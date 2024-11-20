@@ -1,7 +1,7 @@
 .fondo {
     background-image: url(../../../../public/carrito/pexels-jahangeer-bm-1619299-scaled.jpg);
-    height: 100vh;
     background-attachment: fixed;
+    min-height: 100vh;
     background-size: cover;
     background-position: center 0;
 }
@@ -18,13 +18,16 @@
     display: grid;
     grid-template-rows: auto auto; 
     gap: 10px; 
+    justify-content: right;
+    width: fit-content;
 }
+
 .zonaProductos{
     display: grid;
     background-color: white;
     margin-left: 70px;
-    min-width: 800px;
-    max-width: 800px;
+    min-width: 1300px;
+    max-width: 2000px;
     margin-right: 50px;
     border-radius: 20px;
 }
@@ -78,4 +81,10 @@
 }
 .nombreBici{
     margin-right: 20px;
+}
+.quitarBici{
+    width: 100px;
+    height: 50px;
+    margin-top: 40px;
+    margin-left: 20px;
 }
