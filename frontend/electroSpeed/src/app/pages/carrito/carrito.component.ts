@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CatalogoService } from '../../service/catalogo.service';
 import { CarritoService } from '../../service/carrito.service';
+import { Bicicletas } from '../../models/catalogo';
 
 @Component({
   selector: 'app-carrito',
@@ -14,19 +15,21 @@ export class CarritoComponent {
     private catalogoService: CatalogoService,
     private carritoService: CarritoService
   ) {}
+  
   codigoIdentificador: string[] = [];
-
   nombreModelo: string = 'Modelo bicicleta - Marca bicicleta';
   precioBici: number = 1;
   fotoBici: string = '';
   idUser: number = 0;
+  bicicletaCarrito: Bicicletas[] = [];
 
   async ngOnInit() {
     const iddata = localStorage.getItem('idbici');
     const tokenDataSession = sessionStorage.getItem('token');
     const tokenDataLocal = localStorage.getItem('token');
     if (iddata || tokenDataSession || tokenDataLocal) {
-      const ids = iddata ? iddata.split(',').map((id) => JSON.parse(id)) : [];
+      const ids = iddata ? iddata.split(',').map((id) => id.trim()) : [];
+
       if (tokenDataLocal) {
         this.idUser = Number(tokenDataLocal!);
       } else {
@@ -40,13 +43,23 @@ export class CarritoComponent {
       for (const id of this.codigoIdentificador) {
         const bicicleta = await this.catalogoService.showOneBike(id);
         if (bicicleta) {
-          this.nombreModelo = bicicleta.marcaModelo;
-          this.precioBici = bicicleta.precio;
-          this.fotoBici = bicicleta.urlImg;
+          this.bicicletaCarrito.push(bicicleta);
         } else {
           console.log(`No se encontró bicicleta con ID ${id}`);
         }
       }
     }
   }
+
+  calcularTotal(): number {
+    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio, 0);
+  }
+
+  eliminarBici(id: number){
+    const idsUpdated = this.bicicletaCarrito.map((bici) => bici.id)
+    localStorage.setItem('idbici', JSON.stringify(idsUpdated));
+    this.bicicletaCarrito.splice(id, 1);
+  }
 }
+
+
