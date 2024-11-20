@@ -5,4 +5,5 @@ export interface Bicicletas{
     precio: number,
     stock: number 
     urlImg: string,
+    cantidad: number
 }
