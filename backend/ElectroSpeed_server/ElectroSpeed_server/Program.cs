@@ -1,5 +1,7 @@
 using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
+using Microsoft.Extensions.ML;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -50,6 +52,7 @@ namespace ElectroSpeed_server
                 });
             }
 
+            builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
 
 
             var app = builder.Build();
@@ -70,6 +73,8 @@ namespace ElectroSpeed_server
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.UseStaticFiles(); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);
             app.Run();

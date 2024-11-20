@@ -83,7 +83,7 @@ namespace ElectroSpeed_server.Controllers
                     {
                         Claims = new Dictionary<string, object>
                         {
-                            {ClaimTypes.Name, model.Email}
+                            {ClaimTypes.Email, model.Email}
                         },
                         Expires = DateTime.UtcNow.AddYears(3),
                         SigningCredentials = new SigningCredentials(

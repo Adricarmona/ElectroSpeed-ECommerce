@@ -30,21 +30,11 @@ namespace ElectroSpeed_server.Controllers
                     .Where(c => c.UsuariosId == userId)
                     .ToListAsync();
 
-            if (!carrito.Any())
-            {
-                return NotFound("carito vacio");
-            }
-
-            var response = carrito.Select(item => new
-            {
-                item.Id,
-                Producto = item.Bicletas.MarcaModelo,
-                Imagen = item.Bicletas.UrlImg,
-                Precio = item.Bicletas.Precio,
-                Cantidad = item.Bicletas.Stock > 0 ? item.Bicletas.Stock : 0
-            });
-
-            return Ok(response);
+        // mirar carrito
+        [HttpGet("idDelCarrito")]
+        public CarritoCompra GetCarrito(int idCarrito)
+        { 
+            return _esContext.CarritoCompra.FirstOrDefault(r => r.Id == idCarrito);
         }
 
         // Añadir un producto al carrito
@@ -177,5 +167,6 @@ namespace ElectroSpeed_server.Controllers
             // redirigir al pago con parametros
             return Redirect($"/checkout?metodoPago={metodoPago}");
         }
+        */
     }
 }

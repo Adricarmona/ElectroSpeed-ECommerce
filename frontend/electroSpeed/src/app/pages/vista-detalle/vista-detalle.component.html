@@ -2,7 +2,7 @@
     <div id="base">
         <div class="grid">
             <div class="fotos">
-                <img src="inicio/bh.jpg" alt="">
+                <img src="{{fotoBici}}" alt="">
             </div>
             <div class="datos">
                 <h1>{{nombreModelo}}</h1>
@@ -20,23 +20,32 @@
                 </h3>
                 <div class="botones">
                     <button id="anadirCarrito" (click)="anadirCarrito()">Añadir al carrito</button>
-                    <button id="comprar">Comprar</button>
+                    <!--<button id="comprar">Comprar</button>-->
+                    @if (usuarioToken()) {
+                        <button id="resenias" (click)="verResenias()">Añadir Reseña</button>
+                    } 
                 </div>
             </div>
+        </div>
+        <div id="escribirReseña">
+            <form id="escribirReseñaForm" (submit)="enviarResenias()">
+                <h5>reseña a enviar: </h5>
+                <input type="text" name="textoResenia" id="textoFormResenias" [(ngModel)]="textoResenia" [ngModelOptions]="{standalone: true}">
+                <input type="submit" value="enviar reseña">
+            </form>
         </div>
         <div class="reseñasArriba">
             <div class="arribaIzquierda">
                 <h4>Media de las reseñas: </h4>
                 <div id="puntuacion">
-                    @for (engranaje of arrayResultados(devolverMediaResenias()); track $index) {
+                    @for (engranaje of arrayResultados(this.mediaResenia); track $index) {
                         <img [src]="engranaje" alt="detalle/full.png">
-
                     }
                 </div>
                 <h4> 4/5 </h4>
             </div>
             <div class="arribaDerecha">
-                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente, pon la tuya! </h5>
+                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente! </h5>
             </div>
         </div>
         <div class="reseñasAbajo">
@@ -45,17 +54,17 @@
                     <div class="tarjetasReseñas">
                         <div class="tarjetaReseñaArriba">
                             <div class="puntuacionReseñas">
-                                @for (engranaje of arrayResultados(item.resultado); track $index) {
+                                @for (engranaje of arrayResultados(item.resenias.resultadoResenia); track $index) {
                                     <img [src]="engranaje" >
                                 }
                             </div>
                             <span>
-                                <img src={{devolverUsuario(0).picture}} alt="detalle/noe.png">
-                                <span>{{devolverUsuario(0).name}}</span>
+                                <img id="iconoUsuario" src="iconoUsuario.webp" alt="detalle/noe.png">
+                                <span>{{item.usuario}}</span>
                             </span>
                         </div>
                         <div class="tarjetaReseñaAbajo">
-                            <p>{{item.texto}}</p>
+                            <p>{{item.resenias.textoDeResenia}}</p>
                         </div>
                     </div>
                 }

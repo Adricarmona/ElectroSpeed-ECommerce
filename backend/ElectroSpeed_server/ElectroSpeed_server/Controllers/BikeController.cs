@@ -63,5 +63,11 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.Bicicletas.ToList();
         }
 
+        [HttpGet("/bicicleta")]
+        public Bicicletas Bicicleta(int id)
+        {
+            return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
+        }
+
     }
 }

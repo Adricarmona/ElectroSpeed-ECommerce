@@ -1,7 +1,8 @@
 export interface Resenias {
     id :number,
-    texto :string,
-    resultado :number,
+    textoDeResenia :string,
+    resultadoResenia :number,
+    usuarioId :number,
+    bicicletaId :number,
     fechaResenia :Date,
-    idUsuario :number
 }

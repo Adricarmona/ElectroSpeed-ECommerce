@@ -13,18 +13,29 @@ namespace ElectroSpeed_server.Recursos
             _electroSpeedContext = electroSpeedContext;
         }
 
-        public IList<Resenias> ReseniasId(int id)
+        public IList<Resenias> ReseniasIdBici(int id)
         {
             return _electroSpeedContext.Resenias.Where(r => r.BicicletaId == id).ToList();
         }
 
+        public IList<Resenias> ReseniasIdUsuario(int id)
+        {
+            return _electroSpeedContext.Resenias.Where(r => r.UsuarioId == id).ToList();
+        }
+
         public double MediaResenia(int id)
         {
-            var reseñas = ReseniasId(id);
+            var reseñas = ReseniasIdBici(id);
 
-            var media = reseñas.Average(r => r.resultadoResenia);
-
-            return media;
+            if (reseñas == null || !reseñas.Any())
+            {
+                return 0;
+            }
+            else
+            {
+                var media = reseñas.Average(r => r.resultadoResenia);
+                return media;
+            }
         }
 
     }
