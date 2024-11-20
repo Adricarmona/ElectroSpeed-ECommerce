@@ -18,6 +18,7 @@ namespace ElectroSpeed_server.Models.Data
             await SeedUsuariosAsync();
             await _electroSpeedContext.SaveChangesAsync();
             await SeedReseniasAsync();
+            await SeedCarritoCompraAsync();
             await _electroSpeedContext.SaveChangesAsync();
         }
 
@@ -85,6 +86,18 @@ namespace ElectroSpeed_server.Models.Data
             };
 
             await _electroSpeedContext.Resenias.AddRangeAsync(resenia);
+        }
+
+        private async Task SeedCarritoCompraAsync()
+        {
+            CarritoCompra[] carrito =
+            {
+                new CarritoCompra() { BicicletasId = 1, UsuariosId = 1 },
+                new CarritoCompra() { BicicletasId = 2, UsuariosId = 2 },
+                new CarritoCompra() { BicicletasId = 3, UsuariosId = 3 },
+            };
+
+            await _electroSpeedContext.CarritoCompra.AddRangeAsync(carrito);
         }
     }
 }

@@ -4,6 +4,8 @@ namespace ElectroSpeed_server.Models.Data.Entities
 {
     public class CarritoCompra
     {
+        internal string id;
+
         public int Id { get; set; }
         public int BicicletasId { get; set; }
         public int? UsuariosId { get; set; }
