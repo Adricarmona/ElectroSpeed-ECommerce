@@ -62,7 +62,7 @@ namespace ElectroSpeed_server.Controllers
             {
                 Id = model.Id,
                 textoDeResenia = model.texto,
-                resultadoResenia = (int)output.PredictedLabel,
+                resultadoResenia = output.PredictedLabel+2,
                 UsuarioId = model.UsuarioId,
                 BicicletaId = model.BicicletaId
             };
