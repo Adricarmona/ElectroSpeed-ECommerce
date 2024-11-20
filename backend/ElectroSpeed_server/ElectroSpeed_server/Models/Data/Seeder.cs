@@ -92,9 +92,9 @@ namespace ElectroSpeed_server.Models.Data
         {
             CarritoCompra[] carrito =
             {
-                new CarritoCompra() { BicicletasId = 1, UsuariosId = 1 },
-                new CarritoCompra() { BicicletasId = 2, UsuariosId = 2 },
-                new CarritoCompra() { BicicletasId = 3, UsuariosId = 3 },
+                new CarritoCompra() { BicicletasId = [1, 9, 3], UsuariosId = 1 },
+                new CarritoCompra() { BicicletasId = [1], UsuariosId = 2 },
+                new CarritoCompra() { BicicletasId = [1], UsuariosId = 3 },
             };
 
             await _electroSpeedContext.CarritoCompra.AddRangeAsync(carrito);
