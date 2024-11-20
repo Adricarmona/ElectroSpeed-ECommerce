@@ -15,7 +15,7 @@ namespace ElectroSpeed_server.Controllers
         {
             _esContext = esContext;
         }
-
+        
         // Obtiene los prodductos del carrito del usuario
         [HttpGet("{userId?}")]
         public async Task<ActionResult> GetCart(int? userId)
