@@ -23,7 +23,7 @@ namespace ElectroSpeed_server.Recursos
             return _electroSpeedContext.Resenias.Where(r => r.UsuarioId == id).ToList();
         }
 
-        public double MediaResenia(int id)
+        public int MediaResenia(int id)
         {
             var reseñas = ReseniasIdBici(id);
 
@@ -33,7 +33,7 @@ namespace ElectroSpeed_server.Recursos
             }
             else
             {
-                var media = reseñas.Average(r => r.resultadoResenia);
+                var media = (int)reseñas.Average(r => r.resultadoResenia);
                 return media;
             }
         }
