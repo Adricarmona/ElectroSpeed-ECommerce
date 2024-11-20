@@ -144,7 +144,7 @@ export class VistaDetalleComponent implements OnInit {
   async enviarResenias(){
     const reseniasEnviar : AnadirResenias = {
       texto: this.textoResenia,
-      usuarioId: await this.resenia.devolverIdUsuario(this.authService.getNameUserToken()),
+      usuarioId: await this.resenia.devolverIdUsuario(this.authService.getEmailUserToken()),
       bicicletaId: parseInt(this.codigoIdentificador)
     }
     

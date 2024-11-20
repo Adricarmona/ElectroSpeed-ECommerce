@@ -26,7 +26,7 @@ export class NavbarComponent {
   nombreToken() {
     const nombreNavBar = document.getElementById("nombreUsuario")
     if (nombreNavBar) {
-      nombreNavBar.innerText = this.authService.getNameUserToken()
+      nombreNavBar.innerText = this.authService.getEmailUserToken()
     }
   }
 

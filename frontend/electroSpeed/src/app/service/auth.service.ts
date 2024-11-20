@@ -85,12 +85,12 @@ export class AuthService {
     }
   }
 
-  getNameUserToken() {
+  getEmailUserToken() {
     const token = this.getToken()
     if (token != null) {
       const tokenDecodificado: any = jwtDecode(token)
-      const nombre = tokenDecodificado.unique_name
-      return nombre
+      const email = tokenDecodificado.email
+      return email
     }
     return "error"
   }
