@@ -36,12 +36,6 @@ namespace ElectroSpeed_server.Controllers
             return resenias.ReseniasIdUsuario(id);
         }
 
-        [HttpGet("/bicicleta")]
-        public Bicicletas Bicicleta(int id)
-        {
-            return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
-        }
-
         [HttpGet("/mediaResenia")]
         public double MediaResenia(int id)
         {
@@ -49,7 +43,7 @@ namespace ElectroSpeed_server.Controllers
             return resenias.MediaResenia(id);
         }
 
-        [HttpPost("/IA añadir")]
+        [HttpPost("/IAanadir")]
         public ActionResult Predict([FromBody] adicionResenia model)
         {
             ModelInput input = new ModelInput

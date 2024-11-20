@@ -32,9 +32,27 @@
     display: flex;
 }
 
-#comprar {
+#resenias {
+    margin-left: 2vh;
     background-color: orange;
 }
+
+/*-------------- el form de las reseñas -----------*/
+#escribirReseñaForm {
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#escribirReseña {
+    margin: 5vh;
+}
+
+#textoFormResenias {
+    margin: 0 2vh;
+}
+
 
 /* --------- Las reseñas --------- */
 
@@ -81,4 +99,8 @@
 .tarjetaReseñaAbajo p{
     text-align: center;
     font-size: small;
+}
+
+#iconoUsuario {
+    width: 5vh;
 }

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/enviroments.developments';
 import { Resenias } from '../models/resenias';
 import { Usuarios } from '../models/usuarios';
+import { lastValueFrom, Observable } from 'rxjs';
+import { AnadirResenias } from '../models/anadir-resenias';
 
 @Injectable({
   providedIn: 'root'
@@ -13,68 +15,41 @@ export class ReseniasService {
 
   constructor(private http: HttpClient) { }
 
-  devolverResenia(id:  number){
-    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
-    //          const result: BiciPagina = await lastValueFrom(request);
+  async devolverResenia(id:  string): Promise<Resenias[]>{
+    const request: Observable<Resenias[]> = this.http.get<Resenias[]>(`${this.BASE_URL}idBici?id=${id}`);
+    const result: Resenias[] = await lastValueFrom(request);
 
-    
-    const resenias: Resenias[] = [];
-    resenias.push(
-    {
-      id: id,
-      texto: "texto",
-      resultado: 3,
-      fechaResenia: new Date,
-      idUsuario: 1,
-    },
-    {
-      id: id+1,
-      texto: "texto1",
-      resultado: 2,
-      fechaResenia: new Date,
-      idUsuario: 2,
-    },
-    {
-      id: id+2,
-      texto: "texto2",
-      resultado: 4,
-      fechaResenia: new Date,
-      idUsuario: 3,
-    },
-    {
-      id: id+3,
-      texto: "La zowii en la casaa",
-      resultado: 3,
-      fechaResenia: new Date,
-      idUsuario: 0,
-    },
-  )
-
-    return resenias
+    return result
   }
 
-  devolverUsuario(id:  number){
-    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
-    //          const result: BiciPagina = await lastValueFrom(request);
+  async devolverUsuario(id:  number) :Promise<Usuarios>{
+    const request: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioId?id=${id}`);
+    const result: Usuarios = await lastValueFrom(request);
 
-    
-    const usuarios: Usuarios =
-    {
-      id: id,
-      name: "noe",
-      email: "noe@electrospeed.es",
-      username: "noexxnoe",
-      picture: "detalle/noe.png",
+    return result
+  }
+
+  async devolverMediaResenias(id: string){
+    const request: Observable<number> = this.http.get<number>(`${this.BASE_URL}mediaResenia?id=${id}`);
+    const result: number = await lastValueFrom(request);
+
+    return result
+  }
+
+  async enviarResenas(enviar :AnadirResenias) {
+    try {
+      const respuesta = this.http.post(`${this.BASE_URL}IAanadir`, enviar,{ responseType: 'text' })
+      const result = await lastValueFrom(respuesta)
+    } catch (error) {
+      console.log(error)
     }
-
-
-    return usuarios
+    
   }
 
-  devolverMediaResenias(){
-    //          const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
-    //          const result: BiciPagina = await lastValueFrom(request);
+  async devolverIdUsuario(correo: string){
+    const request: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+    const result: Usuarios = await lastValueFrom(request);
 
-    return 4
+    return result.id
   }
 }
