@@ -64,7 +64,7 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpGet("/bicicleta")]
-        public Bicicletas Bicicleta(int id)
+        public Bicicletas getBicicleta(int id)
         {
             return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
         }
