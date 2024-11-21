@@ -21,7 +21,9 @@ export class CarritoComponent {
   precioBici: number = 1;
   fotoBici: string = '';
   idUser: number = 0;
+  cantidad: number = 0;
   bicicletaCarrito: Bicicletas[] = [];
+  bicicletaCarrito2: Bicicletas[] = [];
 
   async ngOnInit() {
     const iddata = localStorage.getItem('idbici');
@@ -43,6 +45,10 @@ export class CarritoComponent {
       for (const id of this.codigoIdentificador) {
         const bicicleta = await this.catalogoService.showOneBike(id);
         if (bicicleta) {
+          if (this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)) {
+
+          } 
+          this.bicicletaCarrito = this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)
           this.bicicletaCarrito.push(bicicleta);
         } else {
           console.log(`No se encontró bicicleta con ID ${id}`);
@@ -52,13 +58,13 @@ export class CarritoComponent {
   }
 
   calcularTotal(): number {
-    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio, 0);
+    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
   }
 
   eliminarBici(id: number){
+    this.bicicletaCarrito = this.bicicletaCarrito.filter(bicicleta => bicicleta.id !== id);
     const idsUpdated = this.bicicletaCarrito.map((bici) => bici.id)
     localStorage.setItem('idbici', JSON.stringify(idsUpdated));
-    this.bicicletaCarrito.splice(id, 1);
   }
 }
 
