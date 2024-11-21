@@ -31,6 +31,13 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefault(r => r.Id == idCarrito);
         }
 
+        // mirar carrito
+        [HttpGet("idDelUsuario")]
+        public CarritoCompra GetIdCarrito(int idUsuario)
+        {
+            return _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefault(r => r.UsuarioId == idUsuario);
+        }
+
         // añadir productos
         [HttpPut("addProduct")]
         public async Task<ActionResult> addProduct(int carritoId, int idBicicleta)

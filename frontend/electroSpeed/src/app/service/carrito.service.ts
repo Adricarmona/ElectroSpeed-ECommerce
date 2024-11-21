@@ -13,16 +13,25 @@ export class CarritoService {
 
   constructor(private http: HttpClient) { }
 
-  async getIdCarrito(idUsuario: number){
-    try{
-      const request: Observable<Carrito> = this.http.get<Carrito>(`${this.BASE_URL}carrito/${idUsuario}`);
+  async getIdCarrito(idUsuario: number) {
+    try {
+      const request: Observable<Carrito> = this.http.get<Carrito>(`${this.BASE_URL}ShoppingCart/idDelUsuario?idUsuario=${idUsuario}`);
       const result: Carrito = await lastValueFrom(request);
       return result
-    }catch(error){
-      console.error("Error por bobo: ",error)
+    } catch (error) {
+      console.error("Error por bobo: ", error)
       return null
     }
+  }
 
-
+  async eliminarBiciCarrito(idBici: number, idCarrito: number){
+    try {
+      const request: Observable<Carrito> = this.http.get<Carrito>(`${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId${idBici}`);
+      const result: Carrito = await lastValueFrom(request);
+      return result
+    } catch (error) {
+      console.error("Error por bobo2: ", error)
+      return null
+    }
   }
 }
