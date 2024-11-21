@@ -17,6 +17,13 @@ namespace ElectroSpeed_server.Controllers
             _esContext = esContext;
         }
 
+        // mirar todos carritos
+        [HttpGet("carritos")]
+        public List<CarritoCompra> GetAllCarrito()
+        {
+            return _esContext.CarritoCompra.ToList();
+        }
+
         // mirar carrito
         [HttpGet("idDelCarrito")]
         public CarritoCompra GetCarrito(int idCarrito)
@@ -35,13 +42,23 @@ namespace ElectroSpeed_server.Controllers
         [HttpPut("addProduct")]
         public async Task<ActionResult> addProduct(int carritoId, int idBicicleta)
         {
-            CarritoCompra carritoActual  = _esContext.CarritoCompra.FirstOrDefault(r => r.Id == carritoId);
+            var carritoActual = await _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefaultAsync(c => c.Id == carritoId);
 
             if (carritoActual == null) {
                 return NotFound("no encontrado");
             }
 
-            return Ok("aaa");
+            var bicicleta = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == idBicicleta);
+
+            if (bicicleta == null)
+            {
+                return NotFound("Bicicleta no encontrada.");
+            }
+
+            carritoActual.Bicicletas.Add(bicicleta);
+            await _esContext.SaveChangesAsync();
+
+            return Ok("bicicleta añadida al carrito");
         }
 
         // Quitar producto del carrito
