@@ -3,6 +3,7 @@ using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using Microsoft.Extensions.ML;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Text;
 
 namespace ElectroSpeed_server
@@ -54,6 +55,7 @@ namespace ElectroSpeed_server
 
             builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
 
+            StripeConfiguration.ApiKey = "sk_test_51QJzl7Ahkg3lZ5a8PCchRIbU3HEwCtpPyBX5Ujzlv4LhxLnSHHcU11p0z04qfW938ZyBhUa09fjndKIaMZh8jPOj002lSeNugg";
 
             var app = builder.Build();
 
