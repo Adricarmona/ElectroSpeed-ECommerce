@@ -58,9 +58,10 @@ namespace ElectroSpeed_server.Controllers
             {
                 if (item.idCarrito == carritoId)
                 {
-                    if (item.bicicletas.Id == idBicicleta && encontrada == false)
+                    if (item.IdBici == idBicicleta && encontrada == false)
                     {
                         item.cantidad++;
+                        encontrada = true;
                     }
                 }
             }
