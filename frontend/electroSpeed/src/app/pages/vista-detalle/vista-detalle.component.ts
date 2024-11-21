@@ -87,12 +87,15 @@ export class VistaDetalleComponent implements OnInit {
   *     CARRITO 
   */
   anadirCarrito(){
-    if(localStorage.getItem("idbici")){
-      localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
+    if (this.usuarioToken()) {
+      console.log("enviar a la base de datos")
     } else {
-      localStorage.setItem("idbici", this.codigoIdentificador)
+      if(localStorage.getItem("idbici")){
+        localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
+      } else {
+        localStorage.setItem("idbici", this.codigoIdentificador)
+      }
     }
-    
   }
 
   /*
@@ -144,7 +147,7 @@ export class VistaDetalleComponent implements OnInit {
   async enviarResenias(){
     const reseniasEnviar : AnadirResenias = {
       texto: this.textoResenia,
-      usuarioId: await this.resenia.devolverIdUsuario(this.authService.getNameUserToken()),
+      usuarioId: await this.resenia.devolverIdUsuario(this.authService.getEmailUserToken()),
       bicicletaId: parseInt(this.codigoIdentificador)
     }
     

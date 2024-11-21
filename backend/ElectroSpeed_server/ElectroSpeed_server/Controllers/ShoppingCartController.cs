@@ -2,6 +2,7 @@
 using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace ElectroSpeed_server.Controllers
 {
@@ -16,106 +17,66 @@ namespace ElectroSpeed_server.Controllers
             _esContext = esContext;
         }
 
-        // Obtiene los prodductos del carrito del usuario
-        [HttpGet("{userId?}")]
-        public async Task<ActionResult> GetCart(int? userId)
+        // mirar todos carritos
+        [HttpGet("carritos")]
+        public List<CarritoCompra> GetAllCarrito()
         {
-            var carrito = userId == null
-                ? await _esContext.CarritoCompra
-                    .Include(c => c.Bicletas)
-                    .Where(c => c.UsuariosId == null)
-                    .ToListAsync()
-                : await _esContext.CarritoCompra
-                    .Include(c => c.Bicletas)
-                    .Where(c => c.UsuariosId == userId)
-                    .ToListAsync();
-
-            if (!carrito.Any())
-            {
-                return NotFound("carito vacio");
-            }
-
-            var response = carrito.Select(item => new
-            {
-                item.Id,
-                Producto = item.Bicletas.MarcaModelo,
-                Imagen = item.Bicletas.UrlImg,
-                Precio = item.Bicletas.Precio,
-                Cantidad = item.Bicletas.Stock > 0 ? item.Bicletas.Stock : 0
-            });
-
-            return Ok(response);
+            return _esContext.CarritoCompra.Include(c => c.Bicicletas).ToList();
         }
 
-        // Cambiar la cantidad del producto en el carrito
-        [HttpPut("updateQuantity")]
-        public async Task<ActionResult> UpdateQuantity(int carritoId, int nuevaCantidad)
+        // mirar carrito
+        [HttpGet("idDelCarrito")]
+        public CarritoCompra GetCarrito(int idCarrito)
+        { 
+            return _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefault(r => r.Id == idCarrito);
+        }
+
+        // añadir productos
+        [HttpPut("addProduct")]
+        public async Task<ActionResult> addProduct(int carritoId, int idBicicleta)
         {
-            var item = await _esContext.CarritoCompra
-                .Include(c => c.Bicletas)
-                .FirstOrDefaultAsync(c => c.Id == carritoId);
+            CarritoCompra carritoActual = await _esContext.CarritoCompra.FirstOrDefaultAsync(c => c.Id == carritoId);
 
-            if (item == null)
+            if (carritoActual == null) 
             {
-                return NotFound("no se encuentra ese producto en el carrito");
+                return NotFound("no encontrado");
             }
 
-            if (nuevaCantidad > item.Bicletas.Stock)
+            Bicicletas bicicleta = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == idBicicleta);
+
+            if (bicicleta == null)
             {
-                return BadRequest($"No hay stock. Hay {item.Bicletas.Stock} unidades disponibles");
+                return NotFound("Bicicleta no encontrada.");
             }
 
-            item.Bicletas.Stock -= (nuevaCantidad - item.Bicletas.Stock);
-            await _esContext.SaveChangesAsync();
+            carritoActual.Bicicletas.Add(bicicleta);
+            _esContext.SaveChanges();
 
-            return Ok("Cantidad actualizada");
+            return Ok("bicicleta añadida al carrito");
         }
 
         // Quitar producto del carrito
         [HttpDelete("{carritoId}")]
-        public async Task<ActionResult> DeleteItem(int carritoId)
+        public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
         {
-            var item = await _esContext.CarritoCompra.FindAsync(carritoId);
+            var carrito = GetCarrito(carritoId);
 
-            if (item == null)
+            if (carrito == null)
             {
-                return NotFound("no se encuentra ese producto en el carrito");
+                return NotFound("no se encuentra ese carrito");
             }
 
-            _esContext.CarritoCompra.Remove(item);
+            Bicicletas bicicleta = carrito.Bicicletas.FirstOrDefault(b => b.Id == bicicletaId);
+
+            if (bicicleta == null)
+            {
+                return NotFound("no se encuentra esa bici");
+            }
+
+            carrito.Bicicletas.Remove(bicicleta);
             await _esContext.SaveChangesAsync();
 
             return Ok("eliminado del carrito");
-        }
-
-        // Reserva del stock y redirigir al pago
-        [HttpPost("checkout")]
-        public async Task<ActionResult> Checkout(int? userId, string metodoPago)
-        {
-            var carrito = await _esContext.CarritoCompra
-                .Include(c => c.Bicletas)
-                .Where(c => c.UsuariosId == userId)
-                .ToListAsync();
-
-            if (!carrito.Any())
-            {
-                return BadRequest("carrito vacio");
-            }
-
-            foreach (var item in carrito)
-            {
-                if (item.Bicletas.Stock < 1)
-                {
-                    return BadRequest($"{item.Bicletas.MarcaModelo} no tiene stock");
-                }
-
-                item.Bicletas.Stock--;
-            }
-
-            await _esContext.SaveChangesAsync();
-
-            // Redirigir al metodo de pago con parametros
-            return Redirect($"/checkout?metodoPago={metodoPago}");
         }
     }
 }

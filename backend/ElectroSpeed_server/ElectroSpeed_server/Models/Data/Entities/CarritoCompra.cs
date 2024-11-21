@@ -1,17 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectroSpeed_server.Models.Data.Entities
 {
+    [PrimaryKey(nameof(Id))]
     public class CarritoCompra
     {
         public int Id { get; set; }
-        public int BicicletasId { get; set; }
-        public int? UsuariosId { get; set; }
+        public IList<Bicicletas> Bicicletas { get; set; } = new List<Bicicletas>();
 
-        [ForeignKey(nameof(BicicletasId))]
-        public Bicicletas Bicletas { get; set; }
+        public int UsuarioId { get; set; }
 
-        [ForeignKey(nameof(UsuariosId))]
-        public Usuarios Usuarios { get; set; }
+        [ForeignKey(nameof(UsuarioId))]
+        public Usuarios Usuario { get; set; }
+
     }
 }

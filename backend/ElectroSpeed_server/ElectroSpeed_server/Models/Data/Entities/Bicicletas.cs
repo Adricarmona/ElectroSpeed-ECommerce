@@ -16,9 +16,10 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         public ICollection<Resenias> Resenias { get; set; }
 
-        public static implicit operator Bicicletas(int v)
-        {
-            throw new NotImplementedException();
-        }
+        public int? CarritoCompraId { get; set; }
+
+        [ForeignKey(nameof(CarritoCompraId))]
+        public CarritoCompra CarritoCompra { get; set; }
+
     }
 }

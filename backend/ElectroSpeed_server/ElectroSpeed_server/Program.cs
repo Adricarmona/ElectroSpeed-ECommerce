@@ -5,6 +5,7 @@ using Microsoft.Extensions.ML;
 using Microsoft.IdentityModel.Tokens;
 using Stripe;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace ElectroSpeed_server
 {
@@ -16,7 +17,10 @@ namespace ElectroSpeed_server
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
 
             builder.Services.AddScoped<UserController>();
             builder.Services.AddScoped<BikeController>();
