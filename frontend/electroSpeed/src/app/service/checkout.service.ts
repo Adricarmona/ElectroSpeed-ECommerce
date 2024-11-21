@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Result } from '../models/result';
 import { CheckoutSessionStatus } from '../models/checkout-session-status';
-import { ApiService } from './api-service';
 import { Product } from '../models/Product';
 import { CheckoutSession } from '../models/checkout.session';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/enviroments.developments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
 
-  constructor(private api: ApiService) { }
+  private BASE_URL = `${environment.apiUrl}`
+  constructor(private http: HttpClient) { }
 
-  getAllProducts(): Promise<Result<Product[]>> {
-    return this.api.get<Product[]>('checkout/products');
-  }
-
-  getHostedCheckout(): Promise<Result<CheckoutSession>> {
-    return this.api.get<CheckoutSession>('checkout/hosted');
+  async getAllProducts(authData: AuthRequest): Promise<AuthResponse | null> {
+    return this.http.post<>(`${this.BASE_URL}login`, );
   }
 
   getEmbededCheckout(): Promise<Result<CheckoutSession>> {

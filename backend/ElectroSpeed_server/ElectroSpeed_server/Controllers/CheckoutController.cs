@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ElectroSpeed_server.Models.Data;
+using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 
 namespace ElectroSpeed_server.Controllers
 {
     public class CheckoutController
     {
+        private readonly ElectroSpeedContext _esContext;
+
+        public CheckoutController(ElectroSpeedContext esContext)
+        {
+            _esContext = esContext;
+        }
+
         [HttpGet("embedded")]
         public async Task<ActionResult> EmbededCheckout()
         {

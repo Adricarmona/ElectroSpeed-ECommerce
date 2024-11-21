@@ -60,15 +60,6 @@ export class StripeComponent implements OnInit, OnDestroy {
     }
   }
 
-  async hostedCheckout() {
-    const request = await this.service.getHostedCheckout();
-
-    if (request.success) {
-      // Abrimos la url de la session de stripe sin crear una nueva pestaña en el navegador 
-      window.open(request.data.sessionUrl, '_self');
-    }
-  }
-
   async embeddedCheckout() {
     const request = await this.service.getEmbededCheckout();
 
