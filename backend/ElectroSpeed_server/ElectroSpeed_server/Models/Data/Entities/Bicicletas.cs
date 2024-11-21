@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ElectroSpeed_server.Models.Data.Dto;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectroSpeed_server.Models.Data.Entities
@@ -16,10 +17,8 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         public ICollection<Resenias> Resenias { get; set; }
 
-        public int? CarritoCompraId { get; set; }
+        public IList<BicisCantidad> BicisCantidadId { get; set; }
 
-        [ForeignKey(nameof(CarritoCompraId))]
-        public CarritoCompra CarritoCompra { get; set; }
 
     }
 }
