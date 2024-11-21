@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/enviroments.developments';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
+import { Bicicletas } from '../models/catalogo';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CarritoService {
 
   async getIdCarrito(idUsuario: number) {
     try {
-      const request: Observable<Carrito> = this.http.get<Carrito>(`${this.BASE_URL}ShoppingCart/idDelUsuario?idUsuario=${idUsuario}`);
+      const request: Observable<Carrito> = this.http.post<Carrito>(`${this.BASE_URL}ShoppingCart/idDelUsuario?idUsuario=${idUsuario}`, idUsuario);
       const result: Carrito = await lastValueFrom(request);
       return result
     } catch (error) {
@@ -24,9 +25,13 @@ export class CarritoService {
     }
   }
 
+  async bicisAlCarrito(Bici: Bicicletas){
+
+  }
+
   async eliminarBiciCarrito(idBici: number, idCarrito: number){
     try {
-      const request: Observable<Carrito> = this.http.get<Carrito>(`${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId${idBici}`);
+      const request: Observable<Carrito> = this.http.post<Carrito>(`${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId${idBici}`, idBici);
       const result: Carrito = await lastValueFrom(request);
       return result
     } catch (error) {

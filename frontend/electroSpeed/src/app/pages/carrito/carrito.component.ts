@@ -83,7 +83,7 @@ export class CarritoComponent {
   }
 
   calcularTotal(): number {
-    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
+    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio, 0);
   }
 
   eliminarBici(id: number){
