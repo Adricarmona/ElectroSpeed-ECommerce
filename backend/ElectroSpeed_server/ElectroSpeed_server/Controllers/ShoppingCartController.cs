@@ -28,9 +28,9 @@ namespace ElectroSpeed_server.Controllers
 
         // mirar carrito
         [HttpGet("idDelCarrito")]
-        public CarritoCompra GetCarrito(int idCarrito)
+        public CarritoCompra GetCarrito(int idusuario)
         { 
-            return _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.Id == idCarrito);
+            return _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == idusuario);
         }
 
         // añadir productos
@@ -81,31 +81,45 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("bicicleta añadida al carrito");
         }
+        
+        // Quitar producto del carrito
+        [HttpDelete("{carritoId}")]
+        public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
+        {
+            var carrito = GetCarrito(carritoId);
+
+            if (carrito == null)
+            {
+                return NotFound("no se encuentra ese carrito");
+            }
+
+            IList<BicisCantidad> bicisCantidad = carrito.BicisCantidad;
+
+            BicisCantidad bicisTMP = new BicisCantidad();
+            Boolean eliminar = false;
+            foreach (var item in bicisCantidad)
+            {
+                if(item.IdBici == bicicletaId && eliminar == false)
+                { 
+                    if (item.cantidad > 1)
+                    {
+                        item.cantidad--;
+                    } else
+                    {
+                        bicisTMP = item;
+                        eliminar = true;
+                        
+                    }
+                }
+            }
+
+            carrito.BicisCantidad.Remove(bicisTMP);
+
+            await _esContext.SaveChangesAsync();
+
+            return Ok("eliminado del carrito");
+        }
         /*
-             // Quitar producto del carrito
-             [HttpDelete("{carritoId}")]
-             public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
-             {
-                 var carrito = GetCarrito(carritoId);
-
-                 if (carrito == null)
-                 {
-                     return NotFound("no se encuentra ese carrito");
-                 }
-
-                 Bicicletas bicicleta = carrito.Bicicletas.FirstOrDefault(b => b.Id == bicicletaId);
-
-                 if (bicicleta == null)
-                 {
-                     return NotFound("no se encuentra esa bici");
-                 }
-
-                 carrito.Bicicletas.Remove(bicicleta);
-                 await _esContext.SaveChangesAsync();
-
-                 return Ok("eliminado del carrito");
-             }
-
         // dar la cantidad de los carritos
         [HttpGet("cantidadBicis")]
         public IList<BicisCantidad> GetCarritoCantidad(int idCarrito)
