@@ -1,10 +1,11 @@
 ﻿using ElectroSpeed_server.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
+using Stripe.Forwarding;
 
 namespace ElectroSpeed_server.Controllers
 {
-    public class CheckoutController
+    public class CheckoutController : Controller
     {
         private readonly ElectroSpeedContext _esContext;
 
@@ -16,7 +17,7 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("embedded")]
         public async Task<ActionResult> EmbededCheckout()
         {
-            ProductDto product = GetProducts()[0];
+            //ProductDto product = GetProducts()[0];
 
             SessionCreateOptions options = new SessionCreateOptions
             {
@@ -30,19 +31,18 @@ namespace ElectroSpeed_server.Controllers
                     PriceData = new SessionLineItemPriceDataOptions()
                     {
                         Currency = "eur",
-                        UnitAmount = (long)(product.Price * 100),
+                        UnitAmount = (long)(1 * 100),//(product.Price * 100),
                         ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
-                            Name = product.Name,
-                            Description = product.Description,
-                            Images = [product.ImageUrl]
+                            Name = "nombre",//product.Name,
+                            Description = "descripcion",//product.Description,
+                            Images = ["1","2"]//[product.ImageUrl]
                         }
                     },
                     Quantity = 1,
                 },
             },
                 CustomerEmail = "correo_cliente@correo.es",
-                ReturnUrl = _settings.ClientBaseUrl + "/checkout?session_id={CHECKOUT_SESSION_ID}",
             };
 
             SessionService service = new SessionService();
@@ -50,5 +50,27 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok(new { clientSecret = session.ClientSecret });
         }
+
+        [HttpGet("status/{sessionId}")]
+        public async Task<ActionResult> SessionStatus(string sessionId)
+        {
+            SessionService sessionService = new SessionService();
+            Session session = await sessionService.GetAsync(sessionId);
+
+            return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
+        }
+
+        //private ProductDto[] GetProducts()
+        //{
+        //    return [
+        //        new ProductDto
+        //   {
+        //       Name = "Rana epiléptica",
+        //       Description = "¡Presentamos la Rana Epiléptica! El DJ del estanque que transforma cualquier charca en una fiesta con sus saltos y croac descontrolados. ¡Lleva la diversión anfibia a otro nivel!",
+        //       Price = 100,
+        //      ImageUrl = Request.GetAbsoluteUrl("products/frog.gif")
+        //  }
+        //  ];
+        // }
     }
 }
