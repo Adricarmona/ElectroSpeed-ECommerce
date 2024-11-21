@@ -21,34 +21,28 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("carritos")]
         public List<CarritoCompra> GetAllCarrito()
         {
-            return _esContext.CarritoCompra.ToList();
+            return _esContext.CarritoCompra.Include(c => c.Bicicletas).ToList();
         }
 
         // mirar carrito
         [HttpGet("idDelCarrito")]
         public CarritoCompra GetCarrito(int idCarrito)
         { 
-            return _esContext.CarritoCompra.FirstOrDefault(r => r.Id == idCarrito);
-        }
-
-        // mirar carrito por id de usuario
-        [HttpGet("idDelUsuario")]
-        public CarritoCompra GetCarritoPorUsuario(int idUsuario)
-        {
-            return _esContext.CarritoCompra.FirstOrDefault(r => r.UsuarioId == idUsuario);
+            return _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefault(r => r.Id == idCarrito);
         }
 
         // añadir productos
         [HttpPut("addProduct")]
         public async Task<ActionResult> addProduct(int carritoId, int idBicicleta)
         {
-            var carritoActual = await _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefaultAsync(c => c.Id == carritoId);
+            CarritoCompra carritoActual = await _esContext.CarritoCompra.FirstOrDefaultAsync(c => c.Id == carritoId);
 
-            if (carritoActual == null) {
+            if (carritoActual == null) 
+            {
                 return NotFound("no encontrado");
             }
 
-            var bicicleta = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == idBicicleta);
+            Bicicletas bicicleta = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == idBicicleta);
 
             if (bicicleta == null)
             {
@@ -56,58 +50,33 @@ namespace ElectroSpeed_server.Controllers
             }
 
             carritoActual.Bicicletas.Add(bicicleta);
-            await _esContext.SaveChangesAsync();
+            _esContext.SaveChanges();
 
             return Ok("bicicleta añadida al carrito");
         }
 
         // Quitar producto del carrito
         [HttpDelete("{carritoId}")]
-        public async Task<ActionResult> DeleteItem(int carritoId)
+        public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
         {
-            var item = await _esContext.CarritoCompra.FindAsync(carritoId);
+            var carrito = GetCarrito(carritoId);
 
-            if (item == null)
+            if (carrito == null)
             {
-                return NotFound("no se encuentra ese producto en el carrito");
+                return NotFound("no se encuentra ese carrito");
             }
 
-            _esContext.CarritoCompra.Remove(item);
+            Bicicletas bicicleta = carrito.Bicicletas.FirstOrDefault(b => b.Id == bicicletaId);
+
+            if (bicicleta == null)
+            {
+                return NotFound("no se encuentra esa bici");
+            }
+
+            carrito.Bicicletas.Remove(bicicleta);
             await _esContext.SaveChangesAsync();
 
             return Ok("eliminado del carrito");
         }
-
-        // Reserva del stock y redirigir al pago
-        /*
-        [HttpPost("checkout")]
-        public async Task<ActionResult> Checkout(int? userId, string metodoPago)
-        {
-            var carrito = await _esContext.CarritoCompra
-                .Include(c => c.Bicletas)
-                .Where(c => c.UsuariosId == userId)
-                .ToListAsync();
-
-            if (!carrito.Any())
-            {
-                return BadRequest("carrito vacio");
-            }
-
-            foreach (var item in carrito)
-            {
-                if (item.Bicletas.Stock < 1)
-                {
-                    return BadRequest($"{item.Bicletas.MarcaModelo} no tiene stock");
-                }
-
-                item.Bicletas.Stock--;
-            }
-
-            await _esContext.SaveChangesAsync();
-
-            // Redirigir al metodo de pago con parametros
-            return Redirect($"/checkout?metodoPago={metodoPago}");
-        }
-        */
     }
 }

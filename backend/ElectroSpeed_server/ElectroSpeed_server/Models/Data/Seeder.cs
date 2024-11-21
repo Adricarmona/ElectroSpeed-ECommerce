@@ -91,21 +91,86 @@ namespace ElectroSpeed_server.Models.Data
 
         private async Task SeedCarritoCompraAsync()
         {
-            var usuarios = await _electroSpeedContext.Usuarios.ToListAsync();
-            var bicicletas = await _electroSpeedContext.Bicicletas.ToListAsync();
-
-            CarritoCompra[] carrito = usuarios.Select(usuario => new CarritoCompra()
+            CarritoCompra[] carritos =
             {
-                UsuarioId = usuario.Id,  
-                Bicicletas = new List<Bicicletas>
+                new CarritoCompra
                 {
-                    bicicletas.FirstOrDefault(b => b.Id == 1), 
-                    bicicletas.FirstOrDefault(b => b.Id == 2)  
+                    UsuarioId = 1,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(1), 
+                        await _electroSpeedContext.Bicicletas.FindAsync(2)  
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 2,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(3),
+                        await _electroSpeedContext.Bicicletas.FindAsync(4)
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 3,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(5),
+                        await _electroSpeedContext.Bicicletas.FindAsync(6)
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 4,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(7),
+                        await _electroSpeedContext.Bicicletas.FindAsync(8)
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 5,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(1),
+                        await _electroSpeedContext.Bicicletas.FindAsync(3)
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 6,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(2),
+                        await _electroSpeedContext.Bicicletas.FindAsync(4)
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 7,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(5),
+                        await _electroSpeedContext.Bicicletas.FindAsync(7)
+                    }
+                },
+                new CarritoCompra
+                {
+                    UsuarioId = 8,
+                    Bicicletas = new List<Bicicletas>
+                    {
+                        await _electroSpeedContext.Bicicletas.FindAsync(6),
+                        await _electroSpeedContext.Bicicletas.FindAsync(8)
+                    }
                 }
-            }).ToArray();
+            };
 
-            await _electroSpeedContext.CarritoCompra.AddRangeAsync(carrito);
+            await _electroSpeedContext.CarritoCompra.AddRangeAsync(carritos);
         }
+
+
 
     }
 }

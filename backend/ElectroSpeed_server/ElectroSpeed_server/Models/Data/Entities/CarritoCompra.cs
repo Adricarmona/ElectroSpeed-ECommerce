@@ -7,7 +7,7 @@ namespace ElectroSpeed_server.Models.Data.Entities
     public class CarritoCompra
     {
         public int Id { get; set; }
-        public ICollection<Bicicletas> Bicicletas { get; set; } = new List<Bicicletas>();
+        public IList<Bicicletas> Bicicletas { get; set; } = new List<Bicicletas>();
 
         public int UsuarioId { get; set; }
 

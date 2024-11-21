@@ -4,6 +4,7 @@ using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,19 +26,19 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IEnumerable<Usuarios> GetUsuarios()
         {
-            return _esContext.Usuarios.ToList();
+            return _esContext.Usuarios.Include(c => c.carritos).ToList();
         }
 
         [HttpGet("/usuarioId")]
         public Usuarios Uuarios(int id)
         {
-            return _esContext.Usuarios.FirstOrDefault(r => r.Id == id);
+            return _esContext.Usuarios.Include(c => c.carritos).FirstOrDefault(r => r.Id == id);
         }
 
         [HttpGet("/usuarioEmail")]
         public Usuarios UsuariosEmail(string email)
         {
-            return _esContext.Usuarios.FirstOrDefault(r => r.Email == email);
+            return _esContext.Usuarios.Include(c => c.carritos).FirstOrDefault(r => r.Email == email);
         }
     }
 }
