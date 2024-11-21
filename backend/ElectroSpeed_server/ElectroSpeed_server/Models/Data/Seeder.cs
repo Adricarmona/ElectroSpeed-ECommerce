@@ -1,5 +1,6 @@
 ﻿using ElectroSpeed_server.Models.Data.Entities;
 using ElectroSpeed_server.Recursos;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElectroSpeed_server.Models.Data
 {
@@ -90,15 +91,22 @@ namespace ElectroSpeed_server.Models.Data
 
         private async Task SeedCarritoCompraAsync()
         {
-            CarritoCompra[] carrito =
+            var usuarios = await _electroSpeedContext.Usuarios.ToListAsync();
+            var bicicletas = await _electroSpeedContext.Bicicletas.ToListAsync();
+
+            CarritoCompra[] carrito = usuarios.Select(usuario => new CarritoCompra()
             {
-                new CarritoCompra() { BicicletasId = [1, 9, 3], UsuariosId = 1 },
-                new CarritoCompra() { BicicletasId = [1], UsuariosId = 2 },
-                new CarritoCompra() { BicicletasId = [1], UsuariosId = 3 },
-            };
+                UsuarioId = usuario.Id,  
+                Bicicletas = new List<Bicicletas>
+                {
+                    bicicletas.FirstOrDefault(b => b.Id == 1), 
+                    bicicletas.FirstOrDefault(b => b.Id == 2)  
+                }
+            }).ToArray();
 
             await _electroSpeedContext.CarritoCompra.AddRangeAsync(carrito);
         }
+
     }
 }
 

@@ -13,12 +13,5 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         public ICollection<Resenias> Resenias { get; set; }
         public ICollection<CarritoCompra> carritos { get; set; }
-
-       // public ICollection<CarritoCompra> Carrito { get; set; }
-
-        public static implicit operator Usuarios(int v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

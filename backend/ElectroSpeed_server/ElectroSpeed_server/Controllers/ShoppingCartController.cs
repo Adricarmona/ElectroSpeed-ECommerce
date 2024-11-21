@@ -28,7 +28,7 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("idDelUsuario")]
         public CarritoCompra GetCarritoPorUsuario(int idUsuario)
         {
-            return _esContext.CarritoCompra.FirstOrDefault(r => r.UsuariosId == idUsuario);
+            return _esContext.CarritoCompra.FirstOrDefault(r => r.UsuarioId == idUsuario);
         }
 
         // añadir productos
@@ -40,8 +40,6 @@ namespace ElectroSpeed_server.Controllers
             if (carritoActual == null) {
                 return NotFound("no encontrado");
             }
-
-            carritoActual.BicicletasId = idBicicleta;
 
             return Ok("aaa");
         }
