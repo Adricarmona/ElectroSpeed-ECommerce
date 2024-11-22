@@ -162,7 +162,16 @@ export class VistaDetalleComponent implements OnInit {
     
     this.resenia.enviarResenas(reseniasEnviar)
     
-    this.enrutador.navigate(['catalogo'])
+    //this.enrutador.navigate(['catalogo'])
     //location.reload()
+
+    setTimeout(() => this.devolverReseniasAlRecargar(), 500);
+
+  }
+
+  devolverReseniasAlRecargar(){
+    this.resenias = []
+    this.devolverMediaResenias()
+    this.devolverTodasResenias()
   }
 }
