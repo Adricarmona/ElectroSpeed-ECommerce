@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CatalogoService } from '../../service/catalogo.service';
 import { CarritoService } from '../../service/carrito.service';
 import { Bicicletas } from '../../models/catalogo';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-carrito',
@@ -13,7 +14,8 @@ import { Bicicletas } from '../../models/catalogo';
 export class CarritoComponent {
   constructor(
     private catalogoService: CatalogoService,
-    private carritoService: CarritoService
+    private carritoService: CarritoService,
+    private auth: AuthService
   ) {}
   
   codigoIdentificador: string[] = [];
@@ -30,14 +32,11 @@ export class CarritoComponent {
     if (iddata || tokenDataSession || tokenDataLocal) {
       const ids = iddata ? iddata.split(',').map((id) => id.trim()) : [];
 
-      if (tokenDataLocal) {
-        this.idUser = Number(tokenDataLocal!);
-      } else {
-        this.idUser = Number(tokenDataSession!);
-      }
+      this.idUser = await (await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id
 
+      console.log(this.idUser)
       const carrito = await this.carritoService.getIdCarrito(this.idUser);
-
+      console.log(carrito)
       this.codigoIdentificador = ids;
 
       for (const id of this.codigoIdentificador) {

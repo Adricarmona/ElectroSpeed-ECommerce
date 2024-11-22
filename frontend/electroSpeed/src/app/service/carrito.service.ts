@@ -16,8 +16,8 @@ export class CarritoService {
 
   async getIdCarrito(idUsuario: number){
     try{
-      const request: Observable<Carrito> = this.http.get<Carrito>(`${this.BASE_URL}carrito/${idUsuario}`);
-      const result: Carrito = await lastValueFrom(request);
+      const request: Observable<CarritoEntero> = this.http.get<CarritoEntero>(`${this.BASE_URL}ShoppingCart?idusuario=${idUsuario}`);
+      const result: CarritoEntero = await lastValueFrom(request);
       return result
     }catch(error){
       console.error("Error por bobo: ",error)
