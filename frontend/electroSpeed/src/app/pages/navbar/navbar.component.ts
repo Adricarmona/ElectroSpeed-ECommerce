@@ -12,7 +12,12 @@ import { Usuarios } from '../../models/usuarios';
 export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) { }
   
-  usuario: Usuarios;
+  usuario: Usuarios = {
+    id: 0,
+    name: "",
+    email: "",
+    username: ""
+  };
 
   async ngOnInit(): Promise<void> {
     this.usuario = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
