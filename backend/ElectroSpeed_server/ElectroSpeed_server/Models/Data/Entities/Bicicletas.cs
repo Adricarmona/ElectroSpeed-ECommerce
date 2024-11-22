@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ElectroSpeed_server.Models.Data.Dto;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectroSpeed_server.Models.Data.Entities
@@ -16,12 +17,8 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         public ICollection<Resenias> Resenias { get; set; }
 
-       // public ICollection<CarritoCompra> Carrito { get; set; }
+        public IList<BicisCantidad> BicisCantidadId { get; set; }
 
 
-        public static implicit operator Bicicletas(int v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
