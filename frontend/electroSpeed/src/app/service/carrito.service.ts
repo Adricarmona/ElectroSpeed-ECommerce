@@ -27,7 +27,13 @@ export class CarritoService {
 
   async enviarCarrito(idBici: number, idCarrito: number) {
     try {
-      this.http.put(`${this.BASE_URL}ShoppingCart/addProduct?carritoId=${idCarrito}&idBicicleta=${idBici}`,{});
+      this.http.put(
+        `${this.BASE_URL}ShoppingCart/addProduct?carritoId=${idCarrito}&idBicicleta=${idBici}`, 
+        {}, 
+        { responseType: 'text' }
+      ).subscribe({
+        error: err => console.error("Error al agregar al carrito:", err)
+      });
     } catch (error) {
       console.log("error al enviar al carrito")
     }
