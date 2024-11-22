@@ -4,6 +4,7 @@ import { environment } from '../environments/enviroments.developments';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
 import { CarritoEntero } from '../models/carrito-entero';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class CarritoService {
 
   private BASE_URL = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private auth: AuthService
+  ) { }
 
   async getIdCarrito(idUsuario: number){
     try{
@@ -62,5 +65,18 @@ export class CarritoService {
       console.log("que no se borra ompare")
       return null
     }
+  }
+
+  async pasarCarritoLocalABBDD(){
+    const idBicisLocal = localStorage.getItem('idbici')
+    const ids = idBicisLocal ? idBicisLocal.split(',').map((id) => id.trim()) : [];
+
+    const carrito: CarritoEntero = await this.devolverCarritoPorUsuario((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
+
+    ids.forEach(idBicis => {
+      this.enviarCarrito(parseInt(idBicis),carrito.id)
+    });
+    
+    localStorage.removeItem('idbici')
   }
 }
