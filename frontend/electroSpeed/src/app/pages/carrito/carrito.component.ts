@@ -25,8 +25,10 @@ export class CarritoComponent {
   nombreModelo: string = 'Modelo bicicleta - Marca bicicleta';
   precioBici: number = 1;
   fotoBici: string = '';
-  idUser: number = 0;
+  idUser: number;
+  idBicicleta: number;
   cantidad: number = 0;
+  idCarrito: number = 0;
   bicicletaCarrito: Bicicletas[] = [];
   bicicletaCarrito2: BicisCantidad[] = [];
 
@@ -65,6 +67,8 @@ export class CarritoComponent {
       for (const id2 of this.bicicletaCarrito2) {
         const bicicleta = await this.catalogoService.showOneBike(id2.idBici.toString());
         if (bicicleta) {
+          bicicleta.cantidad = id2.cantidad
+          this.idCarrito = id2.idCarrito
           if (this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)) {
 
           } 
@@ -79,16 +83,17 @@ export class CarritoComponent {
   }
 
   calcularTotal(): number {
-    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio, 0);
+    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
   }
 
   eliminarBici(id: number){
     this.bicicletaCarrito = this.bicicletaCarrito.filter(bicicleta => bicicleta.id !== id);
     const idsUpdated = this.bicicletaCarrito.map((bici) => bici.id)
-    if (localStorage.getItem('idbici')) {
-      localStorage.setItem('idbici', JSON.stringify(idsUpdated));
+    if (localStorage.getItem('token') !== null || sessionStorage.getItem('token') !== null) {
+      console.log(this.idCarrito)
+      this.carritoService.borrarBiciCarrito(this.idCarrito, id)
     }else{
-
+      localStorage.setItem('idbici', JSON.stringify(idsUpdated));
     }
     
   }

@@ -50,4 +50,17 @@ export class CarritoService {
       return null
     }
   }
+
+  async borrarBiciCarrito(idCarrito: number, idBici: number){
+    try{
+      this.http.delete(`${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId=${idBici}`)
+      .subscribe({
+        next: (response) => console.log('Deleted successfully:', response),
+        error: (error) => console.error('Error occurred:', error),
+      })
+    } catch{
+      console.log("que no se borra ompare")
+      return null
+    }
+  }
 }
