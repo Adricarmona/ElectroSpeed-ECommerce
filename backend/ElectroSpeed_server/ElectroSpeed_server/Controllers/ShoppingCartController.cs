@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace ElectroSpeed_server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ShoppingCartController : ControllerBase
     {
@@ -27,8 +27,8 @@ namespace ElectroSpeed_server.Controllers
         }
 
         // mirar carrito
-        [HttpGet("idDelCarrito")]
-        public CarritoCompra GetCarrito(int idusuario)
+        [HttpGet]
+        public CarritoCompra GetCarritoUserId(int idusuario)
         { 
             return _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == idusuario);
         }
@@ -86,7 +86,7 @@ namespace ElectroSpeed_server.Controllers
         [HttpDelete("{carritoId}")]
         public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
         {
-            var carrito = GetCarrito(carritoId);
+            var carrito = GetCarritoUserId(carritoId);
 
             if (carrito == null)
             {

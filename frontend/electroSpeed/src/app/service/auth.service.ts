@@ -6,6 +6,7 @@ import { AuthRequest } from '../models/auth-request';
 import { AuthResponse } from '../models/auth-response'; 
 import { jwtDecode } from 'jwt-decode';
 import { AuthSend } from '../models/auth-send';
+import { Usuarios } from '../models/usuarios';
 
 
 @Injectable({
@@ -93,6 +94,13 @@ export class AuthService {
       return email
     }
     return "error"
+  }
+
+  async getIdUserEmail(correo :string) {
+    const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+    const request: Usuarios = await lastValueFrom(resultado)
+    console.log(request)
+    return request
   }
 
 }

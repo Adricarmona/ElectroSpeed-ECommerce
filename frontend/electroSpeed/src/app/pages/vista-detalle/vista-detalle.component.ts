@@ -8,6 +8,9 @@ import { AuthService } from '../../service/auth.service';
 import { ReseniasYUsuario } from '../../models/resenias-yusuario';
 import { FormsModule } from '@angular/forms';
 import { AnadirResenias } from '../../models/anadir-resenias';
+import { CarritoService } from '../../service/carrito.service';
+import { Usuarios } from '../../models/usuarios';
+import { CarritoEntero } from '../../models/carrito-entero';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -18,7 +21,7 @@ import { AnadirResenias } from '../../models/anadir-resenias';
 })
 export class VistaDetalleComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService) {}
 
   codigoIdentificador: string = "";
 
@@ -86,9 +89,15 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *     CARRITO 
   */
-  anadirCarrito(){
+  async anadirCarrito(){
     if (this.usuarioToken()) {
-      console.log("enviar a la base de datos")
+
+      const Usuario: Usuarios = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
+
+      const carritoUsuarioActual: CarritoEntero = await this.carrito.devolverCarritoPorUsuario(Usuario.id)
+
+      this.carrito.enviarCarrito(parseInt(this.codigoIdentificador), carritoUsuarioActual.id)
+
     } else {
       if(localStorage.getItem("idbici")){
         localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
