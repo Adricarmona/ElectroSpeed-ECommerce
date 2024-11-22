@@ -27,9 +27,7 @@ export class CarritoService {
 
   async enviarCarrito(idBici: number, idCarrito: number) {
     try {
-      const resultado = this.http.put(`${this.BASE_URL}ShoppingCart/addProduct?carritoId=${idCarrito}&idBicicleta=${idBici}`,{});
-      const request = await lastValueFrom(resultado)
-      console.log(request)
+      this.http.put(`${this.BASE_URL}ShoppingCart/addProduct?carritoId=${idCarrito}&idBicicleta=${idBici}`,{});
     } catch (error) {
       console.log("error al enviar al carrito")
     }

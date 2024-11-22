@@ -99,7 +99,6 @@ export class AuthService {
   async getIdUserEmail(correo :string) {
     const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
     const request: Usuarios = await lastValueFrom(resultado)
-    console.log(request)
     return request
   }
 

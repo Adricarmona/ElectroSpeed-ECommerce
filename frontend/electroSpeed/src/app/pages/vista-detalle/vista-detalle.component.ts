@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogoService } from '../../service/catalogo.service';
 import { PreciosPipe } from '../../pipes/precios.pipe';
 import { ReseniasService } from '../../service/resenias.service';
@@ -21,7 +21,7 @@ import { CarritoEntero } from '../../models/carrito-entero';
 })
 export class VistaDetalleComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService, private enrutador: Router) {}
 
   codigoIdentificador: string = "";
 
@@ -79,7 +79,7 @@ export class VistaDetalleComponent implements OnInit {
       resultadoReseniaArray.push("detalle/full.png");
     }
 
-    for (let index = resultado; index <= 4; index++) {
+    for (let index = resultado; index < 3; index++) {
       resultadoReseniaArray.push("detalle/empty.png");
     }
 
@@ -161,6 +161,8 @@ export class VistaDetalleComponent implements OnInit {
     }
     
     this.resenia.enviarResenas(reseniasEnviar)
-    location.reload()
+    
+    this.enrutador.navigate(['catalogo'])
+    //location.reload()
   }
 }
