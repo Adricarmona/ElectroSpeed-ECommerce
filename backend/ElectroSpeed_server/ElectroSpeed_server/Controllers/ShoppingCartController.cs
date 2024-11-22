@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace ElectroSpeed_server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ShoppingCartController : ControllerBase
     {
@@ -27,10 +27,10 @@ namespace ElectroSpeed_server.Controllers
         }
 
         // mirar carrito
-        [HttpGet("idDelCarrito")]
-        public CarritoCompra GetCarrito(int idCarrito)
+        [HttpGet]
+        public CarritoCompra GetCarritoUserId(int idusuario)
         { 
-            return _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.Id == idCarrito);
+            return _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == idusuario);
         }
 
         // mirar carrito
@@ -65,9 +65,10 @@ namespace ElectroSpeed_server.Controllers
             {
                 if (item.idCarrito == carritoId)
                 {
-                    if (item.bicicletas.Id == idBicicleta && encontrada == false)
+                    if (item.IdBici == idBicicleta && encontrada == false)
                     {
                         item.cantidad++;
+                        encontrada = true;
                     }
                 }
             }
@@ -87,31 +88,45 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("bicicleta añadida al carrito");
         }
+        
+        // Quitar producto del carrito
+        [HttpDelete("{carritoId}")]
+        public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
+        {
+            var carrito = GetCarritoUserId(carritoId);
+
+            if (carrito == null)
+            {
+                return NotFound("no se encuentra ese carrito");
+            }
+
+            IList<BicisCantidad> bicisCantidad = carrito.BicisCantidad;
+
+            BicisCantidad bicisTMP = new BicisCantidad();
+            Boolean eliminar = false;
+            foreach (var item in bicisCantidad)
+            {
+                if(item.IdBici == bicicletaId && eliminar == false)
+                { 
+                    if (item.cantidad > 1)
+                    {
+                        item.cantidad--;
+                    } else
+                    {
+                        bicisTMP = item;
+                        eliminar = true;
+                        
+                    }
+                }
+            }
+
+            carrito.BicisCantidad.Remove(bicisTMP);
+
+            await _esContext.SaveChangesAsync();
+
+            return Ok("eliminado del carrito");
+        }
         /*
-             // Quitar producto del carrito
-             [HttpDelete("{carritoId}")]
-             public async Task<ActionResult> DeleteItem(int carritoId, int bicicletaId)
-             {
-                 var carrito = GetCarrito(carritoId);
-
-                 if (carrito == null)
-                 {
-                     return NotFound("no se encuentra ese carrito");
-                 }
-
-                 Bicicletas bicicleta = carrito.Bicicletas.FirstOrDefault(b => b.Id == bicicletaId);
-
-                 if (bicicleta == null)
-                 {
-                     return NotFound("no se encuentra esa bici");
-                 }
-
-                 carrito.Bicicletas.Remove(bicicleta);
-                 await _esContext.SaveChangesAsync();
-
-                 return Ok("eliminado del carrito");
-             }
-
         // dar la cantidad de los carritos
         [HttpGet("cantidadBicis")]
         public IList<BicisCantidad> GetCarritoCantidad(int idCarrito)

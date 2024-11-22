@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/enviroments.developments';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
-import { Bicicletas } from '../models/catalogo';
+import { CarritoEntero } from '../models/carrito-entero';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,10 @@ export class CarritoService {
 
   constructor(private http: HttpClient) { }
 
-  async getIdCarrito(idUsuario: number) {
-    try {
-      const request: Observable<Carrito> = this.http.post<Carrito>(`${this.BASE_URL}ShoppingCart/idDelUsuario?idUsuario=${idUsuario}`, idUsuario);
-      const result: Carrito = await lastValueFrom(request);
+  async getIdCarrito(idUsuario: number){
+    try{
+      const request: Observable<CarritoEntero> = this.http.get<CarritoEntero>(`${this.BASE_URL}ShoppingCart?idusuario=${idUsuario}`);
+      const result: CarritoEntero = await lastValueFrom(request);
       return result
     } catch (error) {
       console.error("Error por bobo: ", error)
@@ -25,17 +25,22 @@ export class CarritoService {
     }
   }
 
-  async bicisAlCarrito(Bici: Bicicletas){
+  async enviarCarrito(idBici: number, idCarrito: number) {
+    try {
+      this.http.put(`${this.BASE_URL}ShoppingCart/addProduct?carritoId=${idCarrito}&idBicicleta=${idBici}`,{});
+    } catch (error) {
+      console.log("error al enviar al carrito")
+    }
 
   }
 
-  async eliminarBiciCarrito(idBici: number, idCarrito: number){
+  async devolverCarritoPorUsuario(id: number): Promise<CarritoEntero> {
     try {
-      const request: Observable<Carrito> = this.http.post<Carrito>(`${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId${idBici}`, idBici);
-      const result: Carrito = await lastValueFrom(request);
-      return result
-    } catch (error) {
-      console.error("Error por bobo2: ", error)
+      const resultado: Observable<CarritoEntero> = this.http.get<CarritoEntero>(`${this.BASE_URL}ShoppingCart?idusuario=${id}`);
+      const request: CarritoEntero = await lastValueFrom(resultado)
+      return request
+    } catch {
+      console.log("error")
       return null
     }
   }
