@@ -3,6 +3,8 @@ import { CatalogoService } from '../../service/catalogo.service';
 import { CarritoService } from '../../service/carrito.service';
 import { Bicicletas } from '../../models/catalogo';
 import { AuthService } from '../../service/auth.service';
+import { CarritoEntero } from '../../models/carrito-entero';
+import { BicisCantidad } from '../../models/bicis-cantidad';
 
 @Component({
   selector: 'app-carrito',
@@ -26,7 +28,7 @@ export class CarritoComponent {
   idUser: number = 0;
   cantidad: number = 0;
   bicicletaCarrito: Bicicletas[] = [];
-  bicicletaCarrito2: Bicicletas[] = [];
+  bicicletaCarrito2: BicisCantidad[] = [];
 
   async ngOnInit() {
     const iddata = localStorage.getItem('idbici');
@@ -39,14 +41,9 @@ export class CarritoComponent {
 
       console.log(this.idUser)
       const carrito = await this.carritoService.getIdCarrito(this.idUser);
+      this.bicicletaCarrito2 = carrito.bicisCantidad;
       console.log(carrito)
       this.codigoIdentificador = ids;
-      if (carrito) {
-        this.bicicletaCarrito2 = carrito.idBici
-        this.bicicletaCarrito2.forEach(item => {
-          this.codigoIdentificadorLogueado = [1, 2, 3, 4]
-        });
-      }
 
       //no esta logueado
 
@@ -65,8 +62,8 @@ export class CarritoComponent {
 
       //esta logueado
 
-      for (const id2 of this.codigoIdentificadorLogueado) {
-        const bicicleta = await this.catalogoService.showOneBike(id2.toString());
+      for (const id2 of this.bicicletaCarrito2) {
+        const bicicleta = await this.catalogoService.showOneBike(id2.idBici.toString());
         if (bicicleta) {
           if (this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)) {
 
