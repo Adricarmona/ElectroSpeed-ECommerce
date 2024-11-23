@@ -29,49 +29,46 @@ export class CarritoComponent {
   idBicicleta: number;
   cantidad: number = 0;
   idCarrito: number = 0;
-  bicicletaCarrito: Bicicletas[] = [];
-  bicicletaCarrito2: BicisCantidad[] = [];
+  bicicletas: Bicicletas[] = [];
+  bicicletaCarrito: BicisCantidad[] = [];
   carro : CarritoEntero
 
   async ngOnInit() {
-    const iddata = localStorage.getItem('idbici');
-    const tokenDataSession = sessionStorage.getItem('token');
-    const tokenDataLocal = localStorage.getItem('token');
-    if (iddata || tokenDataSession || tokenDataLocal) {
-      const ids = iddata ? iddata.split(',').map((id) => id.trim()) : [];
-
+    
+    // si no existe el usuario coge las bicis del local storage
+    if (!this.auth.getToken()) {
+      this.cogerBicisLocalStorage()
+    } else {
+      // coge el id del usuario y con el id de usuario lo guarda en bicicleta carito 2
       this.idUser = await (await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id
-
-      console.log(this.idUser)
-      const carrito = await this.carritoService.getIdCarrito(this.idUser);
-      this.bicicletaCarrito2 = carrito.bicisCantidad;
-      console.log(carrito)
-      this.codigoIdentificador = ids;
-
-      //no esta logueado
-
-      for (const id of this.codigoIdentificador) {
-        const bicicleta = await this.catalogoService.showOneBike(id);
-        if (bicicleta) {
-          if (this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)) {
-
-          }
-          this.bicicletaCarrito = this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)
-          this.bicicletaCarrito.push(bicicleta);
-        } else {
-          console.log(`No se encontró bicicleta con ID ${id}`);
-        }
-      }
-
-      //esta logueado
+      this.bicicletaCarrito = (await this.carritoService.getIdCarrito(this.idUser)).bicisCantidad;
+    }
 
       this.imprimirBici();
+  }
 
+  async cogerBicisLocalStorage(){
+    // coge las bicis del local storage
+    const iddata = localStorage.getItem('idbici');
+
+    // divide las bicis de el localstorage
+    this.codigoIdentificador = iddata ? iddata.split(',').map((id) => id.trim()) : [];
+
+    // se mete en un for each para coger las bicis y meterlas en bicicletaCarrito
+    // que es la variable donde estan todas las bicis del carrito 
+    for (const id of this.codigoIdentificador) {
+      const bicicleta = await this.catalogoService.showOneBike(id);
+      if (bicicleta) {
+        this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id == bicicleta.id)
+        this.bicicletas.push(bicicleta);
+      } else {
+        console.log(`No se encontró bicicleta con ID ${id}`);
+      }
     }
   }
 
   calcularTotal(): number {
-    return this.bicicletaCarrito.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
+    return this.bicicletas.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
   }
 
   async eliminarBici(id: number) {
@@ -79,23 +76,22 @@ export class CarritoComponent {
         if (localStorage.getItem('token') !== null || sessionStorage.getItem('token') !== null) {
             // Llamar al servicio para eliminar la bicicleta en el servidor
             await this.carritoService.borrarBiciCarrito(this.idCarrito, id);
-            console.log(`Bicicleta con ID ${id} eliminada del servidor.`);
 
             // Recargar el carrito actualizado desde el servidor
             this.carro = await this.carritoService.devolverCarritoPorUsuario(this.idUser);
-            this.bicicletaCarrito2 = this.carro.bicisCantidad;
+            this.bicicletaCarrito = this.carro.bicisCantidad;
 
             // Actualizar la lista de bicicletas locales
-            this.bicicletaCarrito = [];
+            this.bicicletas = [];
             this.imprimirBici();
 
-            console.log('Carrito actualizado:', this.bicicletaCarrito);
+            console.log('Carrito actualizado:', this.bicicletas);
         } else {
             // Lógica para usuarios no logueados
-            this.bicicletaCarrito = this.bicicletaCarrito.filter(bicicleta => bicicleta.id !== id);
-            const idsUpdated = this.bicicletaCarrito.map((bici) => bici.id);
+            this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id !== id);
+            const idsUpdated = this.bicicletas.map((bici) => bici.id);
             localStorage.setItem('idbici', JSON.stringify(idsUpdated));
-            console.log(`Bicicleta con ID ${id} eliminada localmente.`);
+            this.bicicletas = [];
         }
     } catch (error) {
         console.error(`Error al eliminar la bicicleta con ID ${id}:`, error);
@@ -105,25 +101,25 @@ export class CarritoComponent {
 
 
   async imprimirBici(){
-    for (const id2 of this.bicicletaCarrito2) {
+    for (const id2 of this.bicicletaCarrito) {
       const bicicleta = await this.catalogoService.showOneBike(id2.idBici.toString());
       if (bicicleta) {
         bicicleta.cantidad = id2.cantidad
         this.idCarrito = id2.idCarrito
         this.idBicicleta = id2.idBici
-        if (this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)) {
+        if (this.bicicletas.filter(bicicleta => bicicleta.id == bicicleta.id)) {
 
         }
-        this.bicicletaCarrito = this.bicicletaCarrito.filter(bicicleta => bicicleta.id == bicicleta.id)
-        await this.bicicletaCarrito.push(bicicleta);
+        this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id == bicicleta.id)
+        await this.bicicletas.push(bicicleta);
       } else {
         console.log(`No se encontró bicicleta con ID ${id2}`);
       }
     }
   }
 
-  async eliminarYPintar(){
-    await this.eliminarBici(this.idBicicleta);
+  async eliminarYPintar(idBicis: number){
+    await this.eliminarBici(idBicis);
     await this.imprimirBici();
   }
 }

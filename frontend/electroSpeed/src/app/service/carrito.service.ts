@@ -55,16 +55,14 @@ export class CarritoService {
   }
 
   async borrarBiciCarrito(idCarrito: number, idBici: number){
-    try{
-      this.http.delete(`${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId=${idBici}`)
-      .subscribe({
-        next: (response) => console.log('za borrao:', response),
-        error: (error) => console.error('no za borrao:', error),
-      })
-    } catch{
-      console.log("que no se borra ompare")
-      return null
-    }
+    this.http.delete(
+      `${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId=${idBici}`
+      , { responseType: 'text' }
+    )
+    .subscribe({
+      next: (response) => console.log('za borrao:', response),
+      error: (error) => console.error('no za borrao:', error),
+    })
   }
 
   async pasarCarritoLocalABBDD(){

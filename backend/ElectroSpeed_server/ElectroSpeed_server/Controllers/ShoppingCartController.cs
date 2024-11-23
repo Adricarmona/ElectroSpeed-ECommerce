@@ -102,6 +102,11 @@ namespace ElectroSpeed_server.Controllers
 
             IList<BicisCantidad> bicisCantidad = carrito.BicisCantidad;
 
+            if (bicisCantidad.IsNullOrEmpty())
+            {
+                return Ok("Carrito vacio");
+            }
+
             BicisCantidad bicisTMP = new BicisCantidad();
             Boolean eliminar = false;
             foreach (var item in bicisCantidad)
