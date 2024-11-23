@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Result } from '../models/result';
 import { CheckoutSessionStatus } from '../models/checkout-session-status';
 import { ApiService } from './api-service';
-import { Product } from '../models/Product';
 import { CheckoutSession } from '../models/checkout.session';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'

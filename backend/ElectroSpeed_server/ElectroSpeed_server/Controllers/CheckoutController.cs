@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using Stripe.Forwarding;
@@ -15,9 +16,12 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpGet("embedded")]
-        public async Task<ActionResult> EmbededCheckout()
+        public async Task<ActionResult> EmbededCheckout(int idUsuario)
         {
             //ProductDto product = GetProducts()[0];
+            CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
+
+            var orden = checkout.Ordentemporal(idUsuario);
 
             SessionCreateOptions options = new SessionCreateOptions
             {
@@ -34,6 +38,7 @@ namespace ElectroSpeed_server.Controllers
                         UnitAmount = (long)(1 * 100),//(product.Price * 100),
                         ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
+
                             Name = "nombre",//product.Name,
                             Description = "descripcion",//product.Description,
                             Images = ["1","2"]//[product.ImageUrl]
@@ -59,18 +64,5 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }
-
-        //private ProductDto[] GetProducts()
-        //{
-        //    return [
-        //        new ProductDto
-        //   {
-        //       Name = "Rana epiléptica",
-        //       Description = "¡Presentamos la Rana Epiléptica! El DJ del estanque que transforma cualquier charca en una fiesta con sus saltos y croac descontrolados. ¡Lleva la diversión anfibia a otro nivel!",
-        //       Price = 100,
-        //      ImageUrl = Request.GetAbsoluteUrl("products/frog.gif")
-        //  }
-        //  ];
-        // }
     }
 }

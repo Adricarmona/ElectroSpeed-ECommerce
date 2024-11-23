@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StripeEmbeddedCheckout, StripeEmbeddedCheckoutOptions } from '@stripe/stripe-js';
 import { StripeService } from 'ngx-stripe';
-import { Product } from '../../models/Product';
 import { CheckoutService } from '../../service/checkout.service';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-stripe',

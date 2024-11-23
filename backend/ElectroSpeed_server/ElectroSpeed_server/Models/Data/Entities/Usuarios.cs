@@ -13,5 +13,7 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         public ICollection<Resenias> Resenias { get; set; }
         public ICollection<CarritoCompra> carritos { get; set; }
+
+        public ICollection<OrdeTemporal> ordenTemporal { get; set; }
     }
 }
