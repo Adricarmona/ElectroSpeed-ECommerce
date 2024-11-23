@@ -1,4 +1,5 @@
-﻿using ElectroSpeed_server.Models.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectroSpeed_server.Models.Data
@@ -11,6 +12,7 @@ namespace ElectroSpeed_server.Models.Data
         public DbSet<Bicicletas> Bicicletas { get; set; }
         public DbSet<Resenias> Resenias { get; set; }
         public DbSet<CarritoCompra> CarritoCompra { get; set; }
+        public DbSet<BicisCantidad> BiciCantidad { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthRequest } from '../../models/auth-request';
 import { AuthService } from '../../service/auth.service';
 import { timeInterval } from 'rxjs';
+import { CarritoService } from '../../service/carrito.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { timeInterval } from 'rxjs';
 export class LoginComponent {
 
   myForm: FormGroup;
-  constructor(private authService: AuthService, public fb: FormBuilder) {
+  constructor(private authService: AuthService, public fb: FormBuilder, private carrito: CarritoService) {
     this.myForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -37,12 +38,15 @@ export class LoginComponent {
 
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
-      this.volverInicio()
       if (this.remember) {
         localStorage.setItem('token', this.jwt);
       } else {
         sessionStorage.setItem('token', this.jwt);
       }
+
+      await this.carrito.pasarCarritoLocalABBDD()
+
+      this.volverInicio()
 
     } else {
         console.error('Error en la autenticación');

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
+import { Usuarios } from '../../models/usuarios';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,19 @@ import { AuthService } from '../../service/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) { }
+  
+  usuario: Usuarios = {
+    id: 0,
+    name: "",
+    email: "",
+    username: ""
+  };
 
+  async ngOnInit(): Promise<void> {
+    this.usuario = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
+  }
   /* cogemos el token para ver si existe o quien es */
   usuarioToken() {
     const token = this.authService.getToken()
@@ -23,10 +34,11 @@ export class NavbarComponent {
     location.reload()
   }
 
-  nombreToken() {
+  // Creo que esto no se utiliza pero lo dejo aqui porsi las moscas -adrian
+  async nombreToken() {
     const nombreNavBar = document.getElementById("nombreUsuario")
     if (nombreNavBar) {
-      nombreNavBar.innerText = this.authService.getEmailUserToken()
+      nombreNavBar.innerText = this.usuario.name
     }
   }
 

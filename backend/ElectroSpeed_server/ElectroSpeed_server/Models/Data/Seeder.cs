@@ -1,4 +1,5 @@
-﻿using ElectroSpeed_server.Models.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Models.Data.Entities;
 using ElectroSpeed_server.Recursos;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,7 +82,7 @@ namespace ElectroSpeed_server.Models.Data
             Resenias[] resenia =
             {
                 new Resenias() { textoDeResenia = "1", resultadoResenia = 2, UsuarioId = 1, BicicletaId = 1 },
-                new Resenias() { textoDeResenia = "2", resultadoResenia = 5, UsuarioId = 2, BicicletaId = 1 },
+                new Resenias() { textoDeResenia = "2", resultadoResenia = 1, UsuarioId = 2, BicicletaId = 1 },
                 new Resenias() { textoDeResenia = "3", resultadoResenia = 3, UsuarioId = 3, BicicletaId = 2 },
                 new Resenias() { textoDeResenia = "4", resultadoResenia = 2, UsuarioId = 4, BicicletaId = 2 }
             };
@@ -93,79 +94,15 @@ namespace ElectroSpeed_server.Models.Data
         {
             CarritoCompra[] carritos =
             {
-                new CarritoCompra
-                {
-                    UsuarioId = 1,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(1), 
-                        await _electroSpeedContext.Bicicletas.FindAsync(2)  
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 2,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(3),
-                        await _electroSpeedContext.Bicicletas.FindAsync(4)
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 3,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(5),
-                        await _electroSpeedContext.Bicicletas.FindAsync(6)
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 4,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(7),
-                        await _electroSpeedContext.Bicicletas.FindAsync(8)
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 5,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(1),
-                        await _electroSpeedContext.Bicicletas.FindAsync(3)
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 6,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(2),
-                        await _electroSpeedContext.Bicicletas.FindAsync(4)
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 7,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(5),
-                        await _electroSpeedContext.Bicicletas.FindAsync(7)
-                    }
-                },
-                new CarritoCompra
-                {
-                    UsuarioId = 8,
-                    Bicicletas = new List<Bicicletas>
-                    {
-                        await _electroSpeedContext.Bicicletas.FindAsync(6),
-                        await _electroSpeedContext.Bicicletas.FindAsync(8)
-                    }
-                }
-            };
+                new CarritoCompra { UsuarioId = 1, },
+                new CarritoCompra { UsuarioId = 2, },
+                new CarritoCompra { UsuarioId = 3, },
+                new CarritoCompra { UsuarioId = 4, },
+                new CarritoCompra { UsuarioId = 5, },
+                new CarritoCompra { UsuarioId = 6, },
+                new CarritoCompra { UsuarioId = 7, },
+                new CarritoCompra { UsuarioId = 8, },
+            }; 
 
             await _electroSpeedContext.CarritoCompra.AddRangeAsync(carritos);
         }
