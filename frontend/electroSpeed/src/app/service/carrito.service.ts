@@ -55,14 +55,11 @@ export class CarritoService {
   }
 
   async borrarBiciCarrito(idCarrito: number, idBici: number){
-    this.http.delete(
+    const request = this.http.delete(
       `${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId=${idBici}`
       , { responseType: 'text' }
     )
-    .subscribe({
-      next: (response) => console.log('za borrao:', response),
-      error: (error) => console.error('no za borrao:', error),
-    })
+    const response = await lastValueFrom(request)
   }
 
   async pasarCarritoLocalABBDD(){

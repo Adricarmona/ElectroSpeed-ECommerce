@@ -73,9 +73,9 @@ export class CarritoComponent {
 
   async eliminarBici(id: number) {
     try {
-        if (localStorage.getItem('token') !== null || sessionStorage.getItem('token') !== null) {
+        if (this.auth.getToken !== null) {
             // Llamar al servicio para eliminar la bicicleta en el servidor
-            await this.carritoService.borrarBiciCarrito(this.idCarrito, id);
+            await this.carritoService.borrarBiciCarrito(this.idCarrito, id).then();
 
             // Recargar el carrito actualizado desde el servidor
             this.carro = await this.carritoService.devolverCarritoPorUsuario(this.idUser);
@@ -83,9 +83,6 @@ export class CarritoComponent {
 
             // Actualizar la lista de bicicletas locales
             this.bicicletas = [];
-            this.imprimirBici();
-
-            console.log('Carrito actualizado:', this.bicicletas);
         } else {
             // Lógica para usuarios no logueados
             this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id !== id);
