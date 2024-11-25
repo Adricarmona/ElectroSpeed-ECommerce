@@ -20,37 +20,40 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("embedded")]
         public async Task<ActionResult> EmbededCheckout(int idUsuario)
         {
-            //ProductDto product = GetProducts()[0];
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
             var orden = checkout.Ordentemporal(idUsuario);
+
+            var lineItems = new List<SessionLineItemOptions>();
+
+            foreach (var b in orden.BicisCantidad)
+            {
+                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
+                    lineItems.Add(new SessionLineItemOptions()
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions()
+                        {
+                            Currency = "eur",
+                            UnitAmount = (long)(1 * 100),
+                            ProductData = new SessionLineItemPriceDataProductDataOptions()
+                            {
+                                Name = bici.MarcaModelo,
+                                Description = bici.Descripcion,
+                                Images = new List<string> { bici.UrlImg }
+                            }
+                        },
+                        Quantity = b.cantidad
+                    });
+            }
 
             SessionCreateOptions options = new SessionCreateOptions
             {
                 UiMode = "embedded",
                 Mode = "payment",
-                PaymentMethodTypes = new List<string> { "card" },
-                LineItems = new List<SessionLineItemOptions>
-            {
-                new SessionLineItemOptions()
-                {
-                    PriceData = new SessionLineItemPriceDataOptions()
-                    {
-                        Currency = "eur",
-                        UnitAmount = (long)(1 * 100),//(product.Price * 100),
-                        ProductData = new SessionLineItemPriceDataProductDataOptions()
-                        {
-
-                            Name = "nombre",//product.Name,
-                            Description = "descripcion",//product.Description,
-                            Images = new List<string> { "1", "2" }//[product.ImageUrl]
-                        }
-                    },
-                    Quantity = 1,
-                },
-            },
+                PaymentMethodTypes = ["card"],
+                LineItems = lineItems,
                 CustomerEmail = "correo_cliente@correo.es",
-                ReturnUrl = _settings.ClientBaseUrl + "/checkout?session_id={CHECKOUT_SESSION_ID}"
+                ReturnUrl = "http://localhost:4200"+"/checkout?session_id={CHECKOUT_SESSION_ID}"
             };
 
             SessionService service = new SessionService(); 
