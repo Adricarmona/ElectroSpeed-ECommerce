@@ -59,7 +59,7 @@ export class CarritoService {
       `${this.BASE_URL}ShoppingCart/${idCarrito}?bicicletaId=${idBici}`
       , { responseType: 'text' }
     )
-    const response = await lastValueFrom(request)
+    await lastValueFrom(request)
   }
 
   async pasarCarritoLocalABBDD(){
