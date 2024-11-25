@@ -42,7 +42,7 @@ namespace ElectroSpeed_server
                 {
                     Settings settings = builder.Configuration.GetSection(Settings.SECTION_NAME).Get<Settings>();
 
-                    String key = "NoeSocioPsoeñ0_asdh'0iasqjdìasjd0'ìhawsqj0d";
+                    String key = settings.JwtKey;
 
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
@@ -71,8 +71,6 @@ namespace ElectroSpeed_server
             }
 
             builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
-
-            StripeConfiguration.ApiKey = "sk_test_51QJzj7FTox3Yp5UyMUWhQLymNeSSg5PnjWL9e8lqJeODXqLfyZR7NQQbib4jF7h2x1ZVy7qusyKaP0ZWNQLd2txV00wettPlmd";
 
             var app = builder.Build();
 
@@ -121,7 +119,7 @@ namespace ElectroSpeed_server
             IOptions<Settings> options = scope.ServiceProvider.GetService<IOptions<Settings>>();
 
             // Ponemos nuestro secret key (se consulta en el dashboard => desarrolladores)
-            StripeConfiguration.ApiKey = "sk_test_51QJzj7FTox3Yp5UyMUWhQLymNeSSg5PnjWL9e8lqJeODXqLfyZR7NQQbib4jF7h2x1ZVy7qusyKaP0ZWNQLd2txV00wettPlmd";
+            StripeConfiguration.ApiKey = options.Value.StripeSecret;
         }
 
     }

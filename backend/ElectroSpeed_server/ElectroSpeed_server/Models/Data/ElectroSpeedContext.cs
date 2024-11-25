@@ -24,8 +24,9 @@ namespace ElectroSpeed_server.Models.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            options.UseSqlite($"DataSource={baseDir}{DATABASE_PATH}");
+            //string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            //options.UseSqlite($"DataSource={baseDir}{DATABASE_PATH}");
+            options.UseSqlite(_settings.DatabaseConnection);
         }
 
     }
