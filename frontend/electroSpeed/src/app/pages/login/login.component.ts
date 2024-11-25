@@ -6,6 +6,7 @@ import { timeInterval } from 'rxjs';
 import { CarritoService } from '../../service/carrito.service';
 import { RedirectionService } from '../../service/redirection.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../../service/api-service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent {
     private carrito: CarritoService,  
     private service: RedirectionService,
     private activatedRoute: ActivatedRoute,  
-    private router: Router
+    private router: Router,
+    private apiService: ApiService
 
   ) {
 
@@ -60,6 +62,7 @@ export class LoginComponent {
 
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
+
       if (this.remember) {
         localStorage.setItem('token', this.jwt);
       } else {

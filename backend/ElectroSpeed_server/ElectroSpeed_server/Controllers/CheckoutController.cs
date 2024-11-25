@@ -28,14 +28,15 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpGet("embedded")]
-        public async Task<ActionResult> EmbededCheckout(int idUsuario)
+        public async Task<ActionResult> EmbededCheckout()
         {
 
-            string token = User.FindFirst("id").Value;
+            // lo del puto token dios santo 4h soy subnormal ( el probrlema era del front )
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
 
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.Ordentemporal(idUsuario);
+            var orden = checkout.Ordentemporal(idtoken);
 
             var lineItems = new List<SessionLineItemOptions>();
 

@@ -1,10 +1,13 @@
 using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.ML;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Stripe;
+using Swashbuckle.AspNetCore.Filters;
 using System.Globalization;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -54,7 +57,20 @@ namespace ElectroSpeed_server
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    BearerFormat = "JWT",
+                    Name = "Authorization",
+                    Description = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkcmlhbkBlbGVjdHJvc3BlZWQuZXMiLCJpZCI6MSwibmJmIjoxNzMyNTY2OTEyLCJleHAiOjE4MjcxNzQ5MTIsImlhdCI6MTczMjU2NjkxMn0.2tG9BgrZX3rqsPitGW1XReE4IMav5D7suAGDAVJpfhw",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                });
+
+                options.OperationFilter<SecurityRequirementsOperationFilter>(true, JwtBearerDefaults.AuthenticationScheme);
+            });
             
 
             if (builder.Environment.IsDevelopment())
