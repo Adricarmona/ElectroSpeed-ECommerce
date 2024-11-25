@@ -51,6 +51,7 @@ namespace ElectroSpeed_server.Controllers
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
                 CustomerEmail = "correo_cliente@correo.es",
+                ReturnUrl = "http://localhost:4200"+"/checkout?session_id={CHECKOUT_SESSION_ID}"
             };
 
             SessionService service = new SessionService();
