@@ -7,6 +7,8 @@ using Stripe.Checkout;
 
 namespace ElectroSpeed_server.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CheckoutController : Controller
     {
         private readonly ElectroSpeedContext _esContext;
