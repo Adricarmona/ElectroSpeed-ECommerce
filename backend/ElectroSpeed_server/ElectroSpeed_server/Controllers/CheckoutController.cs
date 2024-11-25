@@ -19,19 +19,19 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpGet("AllProducts")]
-        public IList<Bicicletas> AllProducts(int idUsuario)
+        public IList<Bicicletas> AllProducts()
         {
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
-            IList<Bicicletas> bici = checkout.AllProduct(idUsuario);
+            IList<Bicicletas> bici = checkout.AllProduct(1);
             return bici;
         }
 
         [HttpGet("embedded")]
-        public async Task<ActionResult> EmbededCheckout(int idUsuario)
+        public async Task<ActionResult> EmbededCheckout()
         {
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.Ordentemporal(idUsuario);
+            var orden = checkout.Ordentemporal(1);
 
             var lineItems = new List<SessionLineItemOptions>();
 
@@ -43,7 +43,7 @@ namespace ElectroSpeed_server.Controllers
                         PriceData = new SessionLineItemPriceDataOptions()
                         {
                             Currency = "eur",
-                            UnitAmount = (long)(1 * 100),
+                            UnitAmount = (bici.Precio)*100,
                             ProductData = new SessionLineItemPriceDataProductDataOptions()
                             {
                                 Name = bici.MarcaModelo,

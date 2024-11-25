@@ -39,6 +39,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     // Por tanto, para poder captar los cambios en la url nos suscribimos al queryParamMap del route.
     // Cada vez que se cambie la url se llamará al método onInit
     this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    this.embeddedCheckout()
   }
 
   ngOnDestroy(): void {
