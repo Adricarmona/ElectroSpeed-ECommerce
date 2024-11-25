@@ -1,8 +1,6 @@
 ﻿using ElectroSpeed_server.Models.Data;
-using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace ElectroSpeed_server.Recursos
 {
@@ -37,22 +35,6 @@ namespace ElectroSpeed_server.Recursos
             }
 
             return orden;
-        }
-
-        public IList<Bicicletas> AllProduct(int id)
-        {
-            var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
-
-            IList<Bicicletas> bici = [];
-
-            foreach (var item in carrito.BicisCantidad)
-            {
-                 bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici));
-
-
-            }
-
-            return bici;
         }
 
     }
