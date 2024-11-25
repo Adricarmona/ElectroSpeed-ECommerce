@@ -102,6 +102,13 @@ export class AuthService {
     return request
   }
 
+  async getIdUser() {
+    const correo = this.getEmailUserToken()
+    const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+    const request: Usuarios = await lastValueFrom(resultado)
+    return request.id
+  }
+
 }
 
 

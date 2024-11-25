@@ -3,12 +3,17 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideNgxStripe } from 'ngx-stripe';
+import { IMAGE_CONFIG } from '@angular/common';
+import { environment } from './environments/enviroments.developments';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideNgxStripe('pk_test_51QJzl7Ahkg3lZ5a851ZMgE7zjPYyUFdwlyqTx63FFvJwzJEk1ELgtrYenTNa3xeElOh0sFicUcN3xMFoHIPDJ35u00EiLtR02y'),
-    provideHttpClient()]
+    provideNgxStripe(environment.stripePublicKey),
+    provideHttpClient(),
+    // Deshabilita el warning cuando las imágenes son muy grandes
+    { provide: IMAGE_CONFIG, useValue: { disableImageSizeWarning: true, disableImageLazyLoadWarning: true } }, 
+  ]
 };
 
