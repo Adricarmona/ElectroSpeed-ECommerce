@@ -58,6 +58,7 @@ export class StripeComponent implements OnInit, OnDestroy {
       }
     } else {
       const request = await this.service.getAllProducts();
+      console.log(request);
 
       if (request.success) {
         // Accede directamente a `data` porque no es un arreglo

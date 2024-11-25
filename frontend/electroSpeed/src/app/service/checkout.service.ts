@@ -15,11 +15,11 @@ export class CheckoutService {
   constructor(private api: ApiService) { }
 
   getAllProducts(): Promise<Result<CarritoEntero>> {
-    return this.api.get<CarritoEntero>('ShoppingCart/idDelUsuario?idUsuario=1');
+    return this.api.get<CarritoEntero>('api/checkout/AllProducts');
   }
 
   getEmbededCheckout(idUsuario: number): Promise<Result<CheckoutSession>> {
-    return this.api.get<CheckoutSession>('embedded?idUsuario='+idUsuario);
+    return this.api.get<CheckoutSession>('checkout/embedded');
   }
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {

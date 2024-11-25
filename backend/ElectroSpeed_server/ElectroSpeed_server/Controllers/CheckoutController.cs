@@ -7,6 +7,8 @@ using Stripe.Checkout;
 
 namespace ElectroSpeed_server.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CheckoutController : Controller
     {
         private readonly ElectroSpeedContext _esContext;
@@ -19,10 +21,10 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpGet("AllProducts")]
-        public IList<Bicicletas> AllProducts(int idUsuario)
+        public IList<Bicicletas> AllProducts()
         {
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
-            IList<Bicicletas> bici = checkout.AllProduct(idUsuario);
+            IList<Bicicletas> bici = checkout.AllProduct(1);
             return bici;
         }
 
