@@ -13,6 +13,24 @@ namespace ElectroSpeed_server.Recursos
             _esContext = esContext;
         }
 
+        //TODO funcion para recoger token
+
+        public IList<Bicicletas> AllProduct(int id)
+        {
+            var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
+
+            IList<Bicicletas> bici = [];
+
+            foreach (var item in carrito.BicisCantidad)
+            {
+                bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici));
+
+
+            }
+
+            return bici;
+        }
+
         public OrdeTemporal Ordentemporal(int id)
         {
             //guardo el carrito del usuario

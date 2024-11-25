@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Entities;
 using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,6 +16,14 @@ namespace ElectroSpeed_server.Controllers
         {
             _esContext = esContext;
             _settings = settings.Value;
+        }
+
+        [HttpGet("AllProducts")]
+        public IList<Bicicletas> AllProducts(int idUsuario)
+        {
+            CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
+            IList<Bicicletas> bici = checkout.AllProduct(idUsuario);
+            return bici;
         }
 
         [HttpGet("embedded")]
