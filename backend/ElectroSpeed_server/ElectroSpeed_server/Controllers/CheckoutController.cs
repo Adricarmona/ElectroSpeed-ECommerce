@@ -1,18 +1,20 @@
 ﻿using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Stripe.Checkout;
-using Stripe.Forwarding;
 
 namespace ElectroSpeed_server.Controllers
 {
     public class CheckoutController : Controller
     {
         private readonly ElectroSpeedContext _esContext;
+        private readonly Settings _settings;
 
-        public CheckoutController(ElectroSpeedContext esContext)
+        public CheckoutController(ElectroSpeedContext esContext, IOptions<Settings> settings)
         {
             _esContext = esContext;
+            _settings = settings.Value;
         }
 
         [HttpGet("embedded")]
@@ -27,7 +29,7 @@ namespace ElectroSpeed_server.Controllers
             {
                 UiMode = "embedded",
                 Mode = "payment",
-                PaymentMethodTypes = ["card"],
+                PaymentMethodTypes = new List<string> { "card" },
                 LineItems = new List<SessionLineItemOptions>
             {
                 new SessionLineItemOptions()
@@ -41,16 +43,17 @@ namespace ElectroSpeed_server.Controllers
 
                             Name = "nombre",//product.Name,
                             Description = "descripcion",//product.Description,
-                            Images = ["1","2"]//[product.ImageUrl]
+                            Images = new List<string> { "1", "2" }//[product.ImageUrl]
                         }
                     },
                     Quantity = 1,
                 },
             },
                 CustomerEmail = "correo_cliente@correo.es",
+                SuccessUrl = _settings.ClientBaseUrl + "/checkout?session_id={CHECKOUT_SESSION_ID}",
             };
 
-            SessionService service = new SessionService();
+            SessionService service = new SessionService(); 
             Session session = await service.CreateAsync(options);
 
             return Ok(new { clientSecret = session.ClientSecret });

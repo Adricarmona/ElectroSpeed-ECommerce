@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideNgxStripe(environment.stripePublicKey),
     provideHttpClient(),
+    
     // Deshabilita el warning cuando las imágenes son muy grandes
     { provide: IMAGE_CONFIG, useValue: { disableImageSizeWarning: true, disableImageLazyLoadWarning: true } }, 
   ]

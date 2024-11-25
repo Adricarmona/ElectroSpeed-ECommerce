@@ -2,8 +2,10 @@ using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using Microsoft.Extensions.ML;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Stripe;
+using System.Globalization;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -13,7 +15,15 @@ namespace ElectroSpeed_server
     {
         public static async Task Main(string[] args)
         {
+            // Configuramos cultura invariante para que al pasar los decimales a texto no tengan comas
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+
+            // Configuramos para que el directorio de trabajo sea donde está el ejecutable
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.Configure<Settings>(builder.Configuration.GetSection(Settings.SECTION_NAME));
 
             // Add services to the container.
 
@@ -29,6 +39,8 @@ namespace ElectroSpeed_server
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
+                    Settings settings = builder.Configuration.GetSection(Settings.SECTION_NAME).Get<Settings>();
+
                     String key = "NoeSocioPsoeñ0_asdh'0iasqjdìasjd0'ìhawsqj0d";
 
                     options.TokenValidationParameters = new TokenValidationParameters()
@@ -59,7 +71,7 @@ namespace ElectroSpeed_server
 
             builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
 
-            StripeConfiguration.ApiKey = "sk_test_51QJzl7Ahkg3lZ5a8PCchRIbU3HEwCtpPyBX5Ujzlv4LhxLnSHHcU11p0z04qfW938ZyBhUa09fjndKIaMZh8jPOj002lSeNugg";
+            StripeConfiguration.ApiKey = "sk_test_51QJzj7FTox3Yp5UyMUWhQLymNeSSg5PnjWL9e8lqJeODXqLfyZR7NQQbib4jF7h2x1ZVy7qusyKaP0ZWNQLd2txV00wettPlmd";
 
             var app = builder.Build();
 
@@ -83,6 +95,10 @@ namespace ElectroSpeed_server
             app.UseStaticFiles(); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);
+
+            // Configuramos Stripe
+            InitStripe(app.Services);
+
             app.Run();
         }
 
@@ -97,5 +113,15 @@ namespace ElectroSpeed_server
                 await seeder.SeedAsync();
             }
         }
+
+        static void InitStripe(IServiceProvider serviceProvider)
+        {
+            using IServiceScope scope = serviceProvider.CreateScope();
+            IOptions<Settings> options = scope.ServiceProvider.GetService<IOptions<Settings>>();
+
+            // Ponemos nuestro secret key (se consulta en el dashboard => desarrolladores)
+            StripeConfiguration.ApiKey = "sk_test_51QJzj7FTox3Yp5UyMUWhQLymNeSSg5PnjWL9e8lqJeODXqLfyZR7NQQbib4jF7h2x1ZVy7qusyKaP0ZWNQLd2txV00wettPlmd";
+        }
+
     }
 }
