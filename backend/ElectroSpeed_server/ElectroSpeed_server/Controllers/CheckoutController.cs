@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,6 @@ using Stripe.Checkout;
 
 namespace ElectroSpeed_server.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class CheckoutController : Controller
     {
         private readonly ElectroSpeedContext _esContext;
@@ -82,6 +81,24 @@ namespace ElectroSpeed_server.Controllers
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }
 
-        [HttpGet("guardarcomprar")]
+        [HttpPost("guardarcomprar")]
+        public ActionResult AnadirPedidos([FromBody] BicicletasAnadir model)
+        {
+
+            Pedidos pedido = new()
+            {
+                Id = model.Id,
+                MarcaModelo = model.MarcaModelo,
+                Descripcion = model.Descripcion,
+                Precio = model.Precio,
+                Stock = model.Stock,
+                UrlImg = model.Foto,
+            };
+
+            _esContext.Bicicletas.Add(bicicleta);
+            _esContext.SaveChanges();
+
+            return Ok("Subida correctamente");
+        }
     }
 }

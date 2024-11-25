@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit {
     email: "",
     username: ""
   };
+  
+  
 
   async ngOnInit(): Promise<void> {
     this.usuario = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
@@ -36,10 +38,8 @@ export class NavbarComponent implements OnInit {
 
   // Creo que esto no se utiliza pero lo dejo aqui porsi las moscas -adrian
   async nombreToken() {
-    const nombreNavBar = document.getElementById("nombreUsuario")
-    if (nombreNavBar) {
-      nombreNavBar.innerText = this.usuario.name
-    }
+    console.log(this.usuario.name)
+    return this.usuario.name
   }
 
   desplegable() {

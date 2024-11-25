@@ -14,7 +14,7 @@ export const redirectionGuard: CanActivateFn = (
     // Opción sin observable
     if (!redirectionService.isLogged) {
       // Navegamos al login indicando que después redireccione a donde queríamos ir en un principio
-      router.navigate(['checkout'], { queryParams: { redirectTo: state.url }});
+      router.navigate(['log'], { queryParams: { redirectTo: state.url }});
     }
 
     return redirectionService.isLogged;

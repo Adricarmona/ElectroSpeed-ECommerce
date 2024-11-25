@@ -60,6 +60,7 @@ export class LoginComponent {
 
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
+      this.service.login()
       if (this.remember) {
         localStorage.setItem('token', this.jwt);
       } else {
@@ -67,12 +68,15 @@ export class LoginComponent {
       }
 
       await this.carrito.pasarCarritoLocalABBDD()
-
-      this.volverInicio()
+      
+      this.router.navigateByUrl(this.redirectTo)
 
     } else {
         console.error('Error en la autenticación');
     }
+
+
+
   }
 
   volverInicio(){
