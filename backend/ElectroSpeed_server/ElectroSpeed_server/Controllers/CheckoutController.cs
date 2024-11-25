@@ -18,48 +18,45 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("embedded")]
         public async Task<ActionResult> EmbededCheckout(int idUsuario)
         {
-            //ProductDto product = GetProducts()[0];
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
             var orden = checkout.Ordentemporal(idUsuario);
+
+            var lineItems = new List<SessionLineItemOptions>();
+
             foreach (var b in orden.BicisCantidad)
             {
                 var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
-
-                SessionCreateOptions options = new SessionCreateOptions
-                {
-                    UiMode = "embedded",
-                    Mode = "payment",
-                    PaymentMethodTypes = ["card"],
-                    LineItems = new List<SessionLineItemOptions>
-            {
-                new SessionLineItemOptions()
-                {
-                    PriceData = new SessionLineItemPriceDataOptions()
+                    lineItems.Add(new SessionLineItemOptions()
                     {
-                        Currency = "eur",
-                        UnitAmount = (long)(1 * 100),//(product.Price * 100),
-                        ProductData = new SessionLineItemPriceDataProductDataOptions()
+                        PriceData = new SessionLineItemPriceDataOptions()
                         {
-
-                            Name = bici.MarcaModelo,
-                            Description = bici.Descripcion,
-                            Images = [bici.UrlImg]
-                        }
-                    },
-                    Quantity = 1,
-                },
-            },
-                    CustomerEmail = "correo_cliente@correo.es",
-                };
-
-
-                SessionService service = new SessionService();
-                Session session = await service.CreateAsync(options);
-
-                return Ok(new { clientSecret = session.ClientSecret });
+                            Currency = "eur",
+                            UnitAmount = (long)(1 * 100),
+                            ProductData = new SessionLineItemPriceDataProductDataOptions()
+                            {
+                                Name = bici.MarcaModelo,
+                                Description = bici.Descripcion,
+                                Images = new List<string> { bici.UrlImg }
+                            }
+                        },
+                        Quantity = b.cantidad
+                    });
             }
-            return null;
+
+            SessionCreateOptions options = new SessionCreateOptions
+            {
+                UiMode = "embedded",
+                Mode = "payment",
+                PaymentMethodTypes = ["card"],
+                LineItems = lineItems,
+                CustomerEmail = "correo_cliente@correo.es",
+            };
+
+            SessionService service = new SessionService();
+            Session session = await service.CreateAsync(options);
+
+            return Ok(new { clientSecret = session.ClientSecret });
         }
 
         [HttpGet("status/{sessionId}")]
