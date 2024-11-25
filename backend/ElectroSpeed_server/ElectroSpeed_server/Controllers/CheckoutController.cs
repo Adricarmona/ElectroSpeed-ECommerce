@@ -50,8 +50,7 @@ namespace ElectroSpeed_server.Controllers
                 },
             },
                 CustomerEmail = "correo_cliente@correo.es",
-                ReturnUrl = _settings.ClientBaseUrl + "/checkout?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = _settings.ClientBaseUrl + "/checkout"
+                ReturnUrl = _settings.ClientBaseUrl + "/checkout?session_id={CHECKOUT_SESSION_ID}"
             };
 
             SessionService service = new SessionService(); 

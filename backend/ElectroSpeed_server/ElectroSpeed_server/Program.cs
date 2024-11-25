@@ -35,6 +35,7 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<UserController>();
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
+            builder.Services.AddScoped<ElectroSpeedContext>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
@@ -54,7 +55,7 @@ namespace ElectroSpeed_server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<ElectroSpeedContext>();
+            
 
             if (builder.Environment.IsDevelopment())
             {
