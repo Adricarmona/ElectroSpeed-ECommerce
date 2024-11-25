@@ -1,6 +1,7 @@
 ﻿using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Entities;
 using ElectroSpeed_server.Recursos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe.Checkout;
@@ -29,6 +30,9 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("embedded")]
         public async Task<ActionResult> EmbededCheckout(int idUsuario)
         {
+
+            string token = User.FindFirst("id").Value;
+
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
             var orden = checkout.Ordentemporal(idUsuario);

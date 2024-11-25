@@ -7,6 +7,7 @@ import { AuthResponse } from '../models/auth-response';
 import { jwtDecode } from 'jwt-decode';
 import { AuthSend } from '../models/auth-send';
 import { Usuarios } from '../models/usuarios';
+import { ApiService } from './api-service';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AuthService {
 
   private BASE_URL = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiService : ApiService) { }
 
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
@@ -24,6 +25,8 @@ export class AuthService {
       const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}login`, authData);
       const result: AuthResponse = await lastValueFrom(request);
       console.log("Token recibido: " + result.accessToken);//escribimos el token por consola
+
+      this.apiService.token = result.accessToken;
 
       const decodedToken = jwtDecode(result.accessToken);//decodificamos el token usando la biblioteca jwtDecode
       console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
