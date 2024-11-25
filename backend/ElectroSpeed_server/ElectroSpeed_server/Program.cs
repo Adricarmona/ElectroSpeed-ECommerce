@@ -2,10 +2,8 @@ using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using Microsoft.Extensions.ML;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Stripe;
-using System.Globalization;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -15,15 +13,7 @@ namespace ElectroSpeed_server
     {
         public static async Task Main(string[] args)
         {
-            // Configuramos cultura invariante para que al pasar los decimales a texto no tengan comas
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-
-            // Configuramos para que el directorio de trabajo sea donde está el ejecutable
-            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
-
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.Configure<Settings>(builder.Configuration.GetSection(Settings.SECTION_NAME));
 
             // Add services to the container.
 
@@ -35,7 +25,6 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<UserController>();
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
-            builder.Services.AddScoped<ElectroSpeedContext>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
@@ -55,7 +44,7 @@ namespace ElectroSpeed_server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
+            builder.Services.AddScoped<ElectroSpeedContext>();
 
             if (builder.Environment.IsDevelopment())
             {
@@ -94,10 +83,6 @@ namespace ElectroSpeed_server
             app.UseStaticFiles(); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);
-
-            // Configuramos Stripe
-            InitStripe(app.Services);
-
             app.Run();
         }
 

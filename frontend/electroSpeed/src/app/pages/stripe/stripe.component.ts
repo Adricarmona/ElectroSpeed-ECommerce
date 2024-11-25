@@ -5,10 +5,6 @@ import { StripeEmbeddedCheckout, StripeEmbeddedCheckoutOptions } from '@stripe/s
 import { StripeService } from 'ngx-stripe';
 import { CheckoutService } from '../../service/checkout.service';
 import { Product } from '../../models/product';
-import { BiciPagina } from '../../models/bici-pagina';
-import { Bicicletas } from '../../models/catalogo';
-import { CarritoEntero } from '../../models/carrito-entero';
-import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-stripe',
@@ -22,13 +18,12 @@ export class StripeComponent implements OnInit, OnDestroy {
   @ViewChild('checkoutDialog')
   checkoutDialogRef: ElementRef<HTMLDialogElement>;
 
-  product: CarritoEntero = null;
+  product: Product = null;
   sessionId: string = '';
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
 
   constructor(
-    private auth: AuthService,
     private service: CheckoutService, 
     private route: ActivatedRoute, 
     private router: Router,
@@ -60,19 +55,13 @@ export class StripeComponent implements OnInit, OnDestroy {
       const request = await this.service.getAllProducts();
 
       if (request.success) {
-        // Accede directamente a `data` porque no es un arreglo
-        this.product = request.data;
-      
-        // Si quieres trabajar con `bicisCantidad` específicamente
-        const bicisCantidad = request.data.bicisCantidad;
+        this.product = request.data[0];
       }
     }
   }
 
   async embeddedCheckout() {
-    const idUsuario = await this.auth.getIdUser()
-
-    const request = await this.service.getEmbededCheckout(idUsuario);
+    const request = await this.service.getEmbededCheckout();
 
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {

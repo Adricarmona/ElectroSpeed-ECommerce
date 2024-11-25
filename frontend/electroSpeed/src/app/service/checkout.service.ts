@@ -4,8 +4,6 @@ import { CheckoutSessionStatus } from '../models/checkout-session-status';
 import { ApiService } from './api-service';
 import { CheckoutSession } from '../models/checkout.session';
 import { Product } from '../models/product';
-import { Bicicletas } from '../models/catalogo';
-import { CarritoEntero } from '../models/carrito-entero';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +12,12 @@ export class CheckoutService {
 
   constructor(private api: ApiService) { }
 
-  getAllProducts(): Promise<Result<CarritoEntero>> {
-    return this.api.get<CarritoEntero>('ShoppingCart/idDelUsuario?idUsuario=1');
+  getAllProducts(): Promise<Result<Product[]>> {
+    return this.api.get<Product[]>('checkout/products');
   }
 
-  getEmbededCheckout(idUsuario: number): Promise<Result<CheckoutSession>> {
-    return this.api.get<CheckoutSession>('embedded?idUsuario='+idUsuario);
+  getEmbededCheckout(): Promise<Result<CheckoutSession>> {
+    return this.api.get<CheckoutSession>('checkout/embedded');
   }
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
