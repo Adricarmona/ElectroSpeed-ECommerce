@@ -22,13 +22,16 @@ namespace ElectroSpeed_server.Controllers
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
             var orden = checkout.Ordentemporal(idUsuario);
-
-            SessionCreateOptions options = new SessionCreateOptions
+            foreach (var b in orden.BicisCantidad)
             {
-                UiMode = "embedded",
-                Mode = "payment",
-                PaymentMethodTypes = ["card"],
-                LineItems = new List<SessionLineItemOptions>
+                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
+
+                SessionCreateOptions options = new SessionCreateOptions
+                {
+                    UiMode = "embedded",
+                    Mode = "payment",
+                    PaymentMethodTypes = ["card"],
+                    LineItems = new List<SessionLineItemOptions>
             {
                 new SessionLineItemOptions()
                 {
@@ -39,21 +42,24 @@ namespace ElectroSpeed_server.Controllers
                         ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
 
-                            Name = "nombre",//product.Name,
-                            Description = "descripcion",//product.Description,
-                            Images = ["1","2"]//[product.ImageUrl]
+                            Name = bici.MarcaModelo,
+                            Description = bici.Descripcion,
+                            Images = [bici.UrlImg]
                         }
                     },
                     Quantity = 1,
                 },
             },
-                CustomerEmail = "correo_cliente@correo.es",
-            };
+                    CustomerEmail = "correo_cliente@correo.es",
+                };
 
-            SessionService service = new SessionService();
-            Session session = await service.CreateAsync(options);
 
-            return Ok(new { clientSecret = session.ClientSecret });
+                SessionService service = new SessionService();
+                Session session = await service.CreateAsync(options);
+
+                return Ok(new { clientSecret = session.ClientSecret });
+            }
+            return null;
         }
 
         [HttpGet("status/{sessionId}")]
