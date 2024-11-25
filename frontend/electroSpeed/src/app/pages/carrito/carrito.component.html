@@ -20,6 +20,11 @@
             <div class="pago">
                 <div class="precio">Precio total: {{calcularTotal()}}€</div>
                 <div class="botones">
+<!--                     @if(usuarioToken()){
+                        <a href="/checkout">
+                            <button class="pagoTarjeta">Pagar con Tarjeta</button>
+                        </a>
+                    }else -->
                     <a href="/checkout">
                         <button class="pagoTarjeta">Pagar con Tarjeta</button>
                     </a>

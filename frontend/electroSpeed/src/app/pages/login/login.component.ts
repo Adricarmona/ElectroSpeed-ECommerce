@@ -68,22 +68,10 @@ export class LoginComponent {
 
       await this.carrito.pasarCarritoLocalABBDD()
 
-      this.login()
+      this.volverInicio()
 
     } else {
         console.error('Error en la autenticación');
-    }
-  }
-
-  login() {
-    // Iniciamos sesión
-
-    console.log("esoty en login")
-    this.service.login();
-
-    // Si tenemos que redirigir al usuario, lo hacemos
-    if (this.redirectTo != null) {
-      this.router.navigateByUrl(this.redirectTo);
     }
   }
 

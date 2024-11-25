@@ -25,4 +25,8 @@ export class CheckoutService {
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
     return this.api.get<CheckoutSessionStatus>(`checkout/status/${sessionId}`);
   }
+
+  postPedido(){
+
+  }
 }

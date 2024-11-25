@@ -62,7 +62,7 @@ namespace ElectroSpeed_server.Controllers
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
                 CustomerEmail = "correo_cliente@correo.es",
-                ReturnUrl = "http://localhost:4200"+"/checkout?session_id={CHECKOUT_SESSION_ID}"
+                RedirectOnCompletion = "never"
             };
 
             SessionService service = new SessionService(); 
@@ -79,5 +79,7 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }
+
+        [HttpGet("guardarcomprar")]
     }
 }

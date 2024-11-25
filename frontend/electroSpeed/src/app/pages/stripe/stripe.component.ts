@@ -77,7 +77,8 @@ export class StripeComponent implements OnInit, OnDestroy {
 
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {
-        clientSecret: request.data.clientSecret
+        clientSecret: request.data.clientSecret,
+        onComplete: () => this.irConfirmacion()
       };
 
       this.stripe.initEmbeddedCheckout(options)
@@ -87,14 +88,12 @@ export class StripeComponent implements OnInit, OnDestroy {
           this.checkoutDialogRef.nativeElement.showModal();
         });
       }
+
+
   }
 
-  reload() {
-    this.router.navigate(['checkout']);
+  irConfirmacion(){
+    this.router.navigateByUrl("confirmacion")
   }
 
-  cancelCheckoutDialog() {
-    this.stripeEmbedCheckout.destroy();
-    this.checkoutDialogRef.nativeElement.close();
-  }
 }
