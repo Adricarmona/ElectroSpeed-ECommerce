@@ -50,31 +50,29 @@ export class StripeComponent implements OnInit, OnDestroy {
 
   async init(queryMap: ParamMap) {
     this.sessionId = queryMap.get('session_id');
-
+    console.log(this.sessionId)
     if (this.sessionId) {
       const request = await this.service.getStatus(this.sessionId);
-
+console.log("si")
       if (request.success) {
         console.log(request.data);
       }
     } else {
+      console.log("no")
+
       const request = await this.service.getAllProducts();
       console.log(request);
 
       if (request.success) {
         // Accede directamente a `data` porque no es un arreglo
         this.product = request.data;
-      
-        // Si quieres trabajar con `bicisCantidad` específicamente
-        const bicisCantidad = request.data.bicisCantidad;
       }
     }
   }
 
   async embeddedCheckout() {
-    const idUsuario = await this.auth.getIdUser()
 
-    const request = await this.service.getEmbededCheckout(idUsuario);
+    const request = await this.service.getEmbededCheckout();
 
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {

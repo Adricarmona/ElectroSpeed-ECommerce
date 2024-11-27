@@ -18,7 +18,7 @@ export class CheckoutService {
     return this.api.get<CarritoEntero>('api/checkout/AllProducts');
   }
 
-  getEmbededCheckout(idUsuario: number): Promise<Result<CheckoutSession>> {
+  getEmbededCheckout(): Promise<Result<CheckoutSession>> {
     return this.api.get<CheckoutSession>('checkout/embedded');
   }
 
