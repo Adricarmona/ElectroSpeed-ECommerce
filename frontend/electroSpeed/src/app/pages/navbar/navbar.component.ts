@@ -17,7 +17,9 @@ export class NavbarComponent implements OnInit {
   nombre : string = ""
 
   async ngOnInit(): Promise<void> {
-    
+    if(this.service.isLogged){
+      
+    }
   }
 
   async pintarNombre() {
