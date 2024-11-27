@@ -60,6 +60,7 @@ namespace ElectroSpeed_server.Controllers
                         {
                             {ClaimTypes.Email, usuario.Email},
                             {"id", usuario.Id},
+                            {ClaimTypes.Name, usuario.Name},
                         },
                 Expires = DateTime.UtcNow.AddYears(3),
                 SigningCredentials = new SigningCredentials(
@@ -92,6 +93,7 @@ namespace ElectroSpeed_server.Controllers
                         {
                             {ClaimTypes.Email, user.Email},
                             {"id", user.Id},
+                            {ClaimTypes.Name, user.Name},
                         },
                         Expires = DateTime.UtcNow.AddYears(3),
                         SigningCredentials = new SigningCredentials(

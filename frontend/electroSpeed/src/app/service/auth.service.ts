@@ -22,10 +22,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private service: RedirectionService,
-    private activatedRoute: ActivatedRoute,  
-    private router: Router,
-    private carrito: CarritoService,
+    private service: RedirectionService,  
     private apiService: ApiService
   ) { }
 
@@ -40,7 +37,7 @@ export class AuthService {
 
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
-
+console.log(authData)
       const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}login`, authData);
       const result: AuthResponse = await lastValueFrom(request);
       console.log("Token recibido: " + result.accessToken);//escribimos el token por consola
@@ -51,14 +48,11 @@ export class AuthService {
       console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
 
         this.jwt  = result.accessToken; // Asignamos el accessToken
-
         if (authData.remember) { //Guardamos el token en local o session en funcion si le ha dado a que le recuerde
           localStorage.setItem('token', this.jwt);
         } else {
           sessionStorage.setItem('token', this.jwt);
         }
-  
-        await this.carrito.pasarCarritoLocalABBDD()
         
   
       this.service.login()
@@ -142,6 +136,7 @@ export class AuthService {
   async getIdUserEmail(correo :string) {
     const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
     const request: Usuarios = await lastValueFrom(resultado)
+    console.log(request)
     if (request) {
       this.Usuarios = request
       return request
@@ -164,8 +159,8 @@ export class AuthService {
     const correo = this.getEmailUserToken()
     if (correo) {
       const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
-      const request: Usuarios = await lastValueFrom(resultado)
-      if (request) {
+      if (resultado) {
+        const request: Usuarios = await lastValueFrom(resultado)
         this.Usuarios = request
         return request.name
       }

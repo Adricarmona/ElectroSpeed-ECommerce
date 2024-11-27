@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthService } from '../../service/auth.service';
-import { timeInterval } from 'rxjs';
-import { CarritoService } from '../../service/carrito.service';
 import { RedirectionService } from '../../service/redirection.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../service/api-service';
+import { CarritoService } from '../../service/carrito.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +26,8 @@ export class LoginComponent {
     private service: RedirectionService,
     private activatedRoute: ActivatedRoute,  
     private router: Router,
-    private apiService: ApiService
+    private carrito: CarritoService
+
 
   ) {
 
@@ -55,8 +55,8 @@ export class LoginComponent {
       password: this.myForm.get('password')?.value,
       remember: this.remember
     };
-    const result = await this.authService.login(authData); // Llama al método login
-
+    await this.authService.login(authData); // Llama al método login
+    await this.carrito.pasarCarritoLocalABBDD()
     this.router.navigateByUrl(this.redirectTo)
 
 

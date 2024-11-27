@@ -43,7 +43,7 @@ export class RegistroComponent {
       Password: this.myForm.get('password')?.value, 
       Remember: this.remember
     };  
-    const result = await this.authService.register(registerData);
+    await this.authService.register(registerData);
   }
 
   volverInicio(){

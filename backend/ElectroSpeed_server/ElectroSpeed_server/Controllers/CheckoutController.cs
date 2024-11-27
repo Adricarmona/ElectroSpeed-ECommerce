@@ -85,7 +85,7 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }
-
+        /*
         [HttpPost("guardarcomprar")]
         public ActionResult AnadirPedidos([FromBody] BicicletasAnadir model)
         {
@@ -104,6 +104,6 @@ namespace ElectroSpeed_server.Controllers
             _esContext.SaveChanges();
 
             return Ok("Subida correctamente");
-        }
+        }*/
     }
 }
