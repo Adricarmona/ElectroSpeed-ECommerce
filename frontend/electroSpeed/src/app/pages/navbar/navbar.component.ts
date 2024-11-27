@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Usuarios } from '../../models/usuarios';
+import { RedirectionService } from '../../service/redirection.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ import { Usuarios } from '../../models/usuarios';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private service: RedirectionService,) { }
   
   usuario: Usuarios = {
     id: 0,
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
   }
 
   vaciarToken() {
+    this.service.logout
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
     location.reload()

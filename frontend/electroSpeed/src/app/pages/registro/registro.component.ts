@@ -40,21 +40,10 @@ export class RegistroComponent {
       Name : this.myForm.get('fullName')?.value,
       Direccion: this.myForm.get('direccion')?.value,
       Email: this.myForm.get('email')?.value,  
-      Password: this.myForm.get('password')?.value 
+      Password: this.myForm.get('password')?.value, 
+      Remember: this.remember
     };  
     const result = await this.authService.register(registerData);
-    if (result) { // Verificamos que result no sea nulo
-      this.jwt = result.accessToken; // Asignamos el accessToken
-      this.volverInicio()
-      if (this.remember) {
-        localStorage.setItem('token', this.jwt);
-      } else {
-        sessionStorage.setItem('token', this.jwt);
-      }
-
-    } else {
-        console.error('El usuario ya existe');
-    }
   }
 
   volverInicio(){

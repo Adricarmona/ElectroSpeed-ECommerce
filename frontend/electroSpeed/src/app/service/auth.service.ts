@@ -7,6 +7,9 @@ import { AuthResponse } from '../models/auth-response';
 import { jwtDecode } from 'jwt-decode';
 import { AuthSend } from '../models/auth-send';
 import { Usuarios } from '../models/usuarios';
+import { RedirectionService } from './redirection.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CarritoService } from './carrito.service';
 
 
 @Injectable({
@@ -16,7 +19,15 @@ export class AuthService {
 
   private BASE_URL = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private service: RedirectionService,
+    private activatedRoute: ActivatedRoute,  
+    private router: Router,
+    private carrito: CarritoService
+  ) { }
+
+  jwt: string = '';
 
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
@@ -27,6 +38,19 @@ export class AuthService {
 
       const decodedToken = jwtDecode(result.accessToken);//decodificamos el token usando la biblioteca jwtDecode
       console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
+
+        this.jwt  = result.accessToken; // Asignamos el accessToken
+
+        if (authData.remember) { //Guardamos el token en local o session en funcion si le ha dado a que le recuerde
+          localStorage.setItem('token', this.jwt);
+        } else {
+          sessionStorage.setItem('token', this.jwt);
+        }
+  
+        await this.carrito.pasarCarritoLocalABBDD()
+        
+  
+      this.service.login()
 
       return result;
     } catch (error) {
@@ -45,6 +69,14 @@ export class AuthService {
 
         const decodedToken = jwtDecode(result.accessToken);
         console.log("Decoded Token:", decodedToken);
+
+          this.jwt = result.accessToken; // Asignamos el accessToken
+
+          if (registerData.Remember) {
+            localStorage.setItem('token', this.jwt);
+          } else {
+            sessionStorage.setItem('token', this.jwt);
+          }
 
         return result;
     } catch (error: any) {
