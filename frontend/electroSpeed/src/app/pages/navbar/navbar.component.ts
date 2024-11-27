@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   /* cogemos el token para ver si existe o quien es */
   usuarioToken() {
     const token = this.authService.getToken()
-    this.pintarNombre()
+    //this.pintarNombre()
     return token
   }
 
