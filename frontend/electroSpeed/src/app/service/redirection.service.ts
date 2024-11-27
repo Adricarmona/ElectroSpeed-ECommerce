@@ -17,4 +17,10 @@ export class RedirectionService {
     this.isLogged = true;
     console.log(this.isLogged);
   }
+
+  logout() {
+    console.log(this.isLogged);
+    this.isLogged = false;
+    console.log(this.isLogged);
+}
 }

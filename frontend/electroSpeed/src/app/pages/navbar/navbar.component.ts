@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Usuarios } from '../../models/usuarios';
 import { lastValueFrom } from 'rxjs';
+import { RedirectionService } from '../../service/redirection.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ import { lastValueFrom } from 'rxjs';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private service: RedirectionService,) { }
   
   nombre : string = ""
 
@@ -33,6 +34,7 @@ export class NavbarComponent implements OnInit {
   }
 
   vaciarToken() {
+    this.service.logout
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
     location.reload()

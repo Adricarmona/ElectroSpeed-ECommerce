@@ -23,8 +23,7 @@ export class LoginComponent {
   myForm: FormGroup;
   constructor(
     private authService: AuthService, 
-    public fb: FormBuilder, 
-    private carrito: CarritoService,  
+    public fb: FormBuilder,   
     private service: RedirectionService,
     private activatedRoute: ActivatedRoute,  
     private router: Router,
@@ -48,34 +47,17 @@ export class LoginComponent {
   }
 
   jwt: string = '';
-  passwordConfirmation: boolean = true;
-
   remember: boolean = false;
 
   async submit() {  
     const authData: AuthRequest = { 
       email: this.myForm.get('email')?.value, 
-      password: this.myForm.get('password')?.value 
+      password: this.myForm.get('password')?.value,
+      remember: this.remember
     };
     const result = await this.authService.login(authData); // Llama al método login
 
-    if (result) { // Verificamos que result no sea nulo
-      this.jwt = result.accessToken; // Asignamos el accessToken
-      this.service.login()
-      if (this.remember) {
-        localStorage.setItem('token', this.jwt);
-      } else {
-        sessionStorage.setItem('token', this.jwt);
-      }
-
-      await this.carrito.pasarCarritoLocalABBDD()
-      
-      this.router.navigateByUrl(this.redirectTo)
-
-    } else {
-        console.error('Error en la autenticación');
-    }
-
+    this.router.navigateByUrl(this.redirectTo)
 
 
   }
