@@ -119,6 +119,11 @@ export class CarritoComponent {
     await this.eliminarBici(idBicis);
     await this.imprimirBici();
   }
+
+  usuarioToken() {
+    const token = this.auth.getToken()
+    return token
+  }
 }
 
 

@@ -61,7 +61,7 @@ export class LoginComponent {
 
     if (result) { // Verificamos que result no sea nulo
       this.jwt = result.accessToken; // Asignamos el accessToken
-
+      this.service.login()
       if (this.remember) {
         localStorage.setItem('token', this.jwt);
       } else {
@@ -69,24 +69,15 @@ export class LoginComponent {
       }
 
       await this.carrito.pasarCarritoLocalABBDD()
-
-      this.login()
+      
+      this.router.navigateByUrl(this.redirectTo)
 
     } else {
         console.error('Error en la autenticación');
     }
-  }
 
-  login() {
-    // Iniciamos sesión
 
-    console.log("esoty en login")
-    this.service.login();
 
-    // Si tenemos que redirigir al usuario, lo hacemos
-    if (this.redirectTo != null) {
-      this.router.navigateByUrl(this.redirectTo);
-    }
   }
 
   volverInicio(){

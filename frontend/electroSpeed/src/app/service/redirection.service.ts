@@ -13,7 +13,6 @@ export class RedirectionService {
   }
 
   login() {  
-
     console.log(this.isLogged);
     this.isLogged = true;
     console.log(this.isLogged);

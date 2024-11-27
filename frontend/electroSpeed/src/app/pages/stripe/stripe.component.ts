@@ -39,6 +39,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     // Por tanto, para poder captar los cambios en la url nos suscribimos al queryParamMap del route.
     // Cada vez que se cambie la url se llamará al método onInit
     this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    this.embeddedCheckout()
   }
 
   ngOnDestroy(): void {
@@ -58,6 +59,7 @@ export class StripeComponent implements OnInit, OnDestroy {
       }
     } else {
       const request = await this.service.getAllProducts();
+      console.log(request);
 
       if (request.success) {
         // Accede directamente a `data` porque no es un arreglo
@@ -76,7 +78,8 @@ export class StripeComponent implements OnInit, OnDestroy {
 
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {
-        clientSecret: request.data.clientSecret
+        clientSecret: request.data.clientSecret,
+        onComplete: () => this.irConfirmacion()
       };
 
       this.stripe.initEmbeddedCheckout(options)
@@ -86,14 +89,12 @@ export class StripeComponent implements OnInit, OnDestroy {
           this.checkoutDialogRef.nativeElement.showModal();
         });
       }
+
+
   }
 
-  reload() {
-    this.router.navigate(['checkout']);
+  irConfirmacion(){
+    this.router.navigateByUrl("confirmacion")
   }
 
-  cancelCheckoutDialog() {
-    this.stripeEmbedCheckout.destroy();
-    this.checkoutDialogRef.nativeElement.close();
-  }
 }
