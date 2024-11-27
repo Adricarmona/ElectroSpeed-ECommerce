@@ -56,6 +56,7 @@ console.log(authData)
         
   
       this.service.login()
+      console.log(this.service.isLogged)
 
       return result;
     } catch (error) {
@@ -129,6 +130,16 @@ console.log(authData)
       const tokenDecodificado: any = jwtDecode(token)
       const email = tokenDecodificado.email
       return email
+    }
+    return "error"
+  }
+
+  getNameUserToken() {
+    const token = this.getToken()
+    if (token != null) {
+      const tokenDecodificado: any = jwtDecode(token)
+      const name = tokenDecodificado.unique_name
+      return name
     }
     return "error"
   }

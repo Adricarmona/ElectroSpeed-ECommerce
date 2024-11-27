@@ -3,6 +3,7 @@ import { AuthService } from '../../service/auth.service';
 import { Usuarios } from '../../models/usuarios';
 import { lastValueFrom } from 'rxjs';
 import { RedirectionService } from '../../service/redirection.service';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,22 +13,28 @@ import { RedirectionService } from '../../service/redirection.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService, private service: RedirectionService,) { }
+  constructor(
+    private authService: AuthService, 
+    private service: RedirectionService,
+    private navBarService: NavbarService) { }
   
   nombre : string = ""
 
   async ngOnInit(): Promise<void> {
+    console.log(this.service.isLogged)
     if(this.service.isLogged){
-      
+      await this.navBarService.pintarNombre()
+      this.nombre = this.authService.getNameUserToken()
+
+      console.log(this.authService.getNameUserToken())
     }
   }
 
-  async pintarNombre() {
-    await this.authService.getNameUser()
-    this.nombre = this.authService.Usuarios.name
-  }
 
 
+  //
+  //    PARA LOS BOTONES DEL NAVBAR
+  //
   /* cogemos el token para ver si existe o quien es */
   usuarioToken() {
     const token = this.authService.getToken()
@@ -40,14 +47,6 @@ export class NavbarComponent implements OnInit {
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
     location.reload()
-  }
-
-  // Creo que esto no se utiliza pero lo dejo aqui porsi las moscas -adrian
-  async nombreToken() {
-    const nombreNavBar = document.getElementById("nombreUsuario")
-    if (nombreNavBar) {
-      nombreNavBar.innerText = this.nombre
-    }
   }
 
   desplegable() {
