@@ -6,6 +6,7 @@ import { AuthRequest } from '../models/auth-request';
 import { AuthResponse } from '../models/auth-response'; 
 import { jwtDecode } from 'jwt-decode';
 import { AuthSend } from '../models/auth-send';
+import { Usuarios } from '../models/usuarios';
 
 
 @Injectable({
@@ -85,14 +86,27 @@ export class AuthService {
     }
   }
 
-  getNameUserToken() {
+  getEmailUserToken() {
     const token = this.getToken()
     if (token != null) {
       const tokenDecodificado: any = jwtDecode(token)
-      const nombre = tokenDecodificado.unique_name
-      return nombre
+      const email = tokenDecodificado.email
+      return email
     }
     return "error"
+  }
+
+  async getIdUserEmail(correo :string) {
+    const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+    const request: Usuarios = await lastValueFrom(resultado)
+    return request
+  }
+
+  async getIdUser() {
+    const correo = this.getEmailUserToken()
+    const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+    const request: Usuarios = await lastValueFrom(resultado)
+    return request.id
   }
 
 }

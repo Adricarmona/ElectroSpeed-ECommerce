@@ -42,7 +42,11 @@ namespace ElectroSpeed_server.Controllers
                 Name = model.Name,
                 Email = model.Email,
                 Password = PasswordHelper.Hash(model.Password),
-                Direccion = model.Direccion
+                Direccion = model.Direccion,
+                carritos = new List<CarritoCompra>()
+                {
+                    new CarritoCompra()
+                }
             };
 
             _esContext.Usuarios.Add(newUser);

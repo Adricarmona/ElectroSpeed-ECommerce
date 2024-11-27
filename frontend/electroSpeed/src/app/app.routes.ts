@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { VistaDetalleComponent } from './pages/vista-detalle/vista-detalle.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
+import { StripeComponent } from './pages/stripe/stripe.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path: 'catalogo', component: CatalogoComponent},
     {path: 'detalle/:id', component: VistaDetalleComponent},
     {path: 'sobreNosotros', component:  SobreNosotrosComponent},
-    {path: 'carrito', component: CarritoComponent}
+    {path: 'carrito', component: CarritoComponent},
+    {path: 'checkout', component: StripeComponent}
 ];

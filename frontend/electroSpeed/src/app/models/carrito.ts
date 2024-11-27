@@ -1,4 +1,6 @@
+import { Bicicletas } from "./catalogo";
+
 export interface Carrito {
-    idBici: number,
+    idBici: Bicicletas[],
     idUsuario: number
 }

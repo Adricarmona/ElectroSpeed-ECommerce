@@ -8,7 +8,7 @@ namespace ElectroSpeed_server.Models.Data.Entities
     {
         public int Id { get; set; }
         public string textoDeResenia { get; set; }
-        public int resultadoResenia { get; set; }
+        public float resultadoResenia { get; set; }
         public int UsuarioId { get; set; }
 
         public int BicicletaId { get; set; }

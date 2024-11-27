@@ -2,17 +2,17 @@
     <div id="espacio"></div>
     <div class="todo">
         <div class="zonaProductos">
-            @for (items of bicicletaCarrito; track $index) {
-            <div class="bici">
-                <img class="fotoBici" src="{{items.urlImg}}">
-                <div class="datos">
-                    <h4 class="nombreBici">{{items.marcaModelo}}</h4>
-                    <h4>Precio: {{items.precio}}€</h4>
+            @for (items of bicicletas; track $index) {
+                <div class="bici">
+                    <img class="fotoBici" src="{{items.urlImg}}">
+                    <div class="datos">
+                        <h4 class="nombreBici">{{items.marcaModelo}}</h4>
+                        <h4>Precio: {{items.precio}}€</h4>
+                        <h4>Cantidad: {{items.cantidad}}</h4>
+                    </div>
+                    <button class="quitarBici" (click)="eliminarYPintar(items.id)">Eliminar</button>
                 </div>
-                <button class="quitarBici" (click)="eliminarBici(items.id)">Eliminar</button>
-
-            </div>
-            }
+                }
             <div class="productos">
             </div>
         </div>
@@ -20,7 +20,9 @@
             <div class="pago">
                 <div class="precio">Precio total: {{calcularTotal()}}€</div>
                 <div class="botones">
-                    <button class="pagoTarjeta">Pagar con Tarjeta</button>
+                    <a href="/checkout">
+                        <button class="pagoTarjeta">Pagar con Tarjeta</button>
+                    </a>
                     <button class="pagoEthereum">Pagar con Ethereum</button>
                 </div>
 
