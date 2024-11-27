@@ -19,6 +19,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, private apiService : ApiService) { }
 
+  Usuarios: Usuarios = {
+    id: 0,
+    name: '',
+    username: '',
+    email: ''
+  }
+
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
 
@@ -102,14 +109,35 @@ export class AuthService {
   async getIdUserEmail(correo :string) {
     const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
     const request: Usuarios = await lastValueFrom(resultado)
-    return request
+    if (request) {
+      this.Usuarios = request
+      return request
+    }
+    return null
   }
 
   async getIdUser() {
     const correo = this.getEmailUserToken()
-    const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
-    const request: Usuarios = await lastValueFrom(resultado)
-    return request.id
+    if (correo) {
+      const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+      const request: Usuarios = await lastValueFrom(resultado)   
+      this.Usuarios = request
+      return request.id
+    }
+    return null
+  }
+
+  async getNameUser() {
+    const correo = this.getEmailUserToken()
+    if (correo) {
+      const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
+      const request: Usuarios = await lastValueFrom(resultado)
+      if (request) {
+        this.Usuarios = request
+        return request.name
+      }
+    }
+    return null
   }
 
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Usuarios } from '../../models/usuarios';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -12,19 +13,22 @@ import { Usuarios } from '../../models/usuarios';
 export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) { }
   
-  usuario: Usuarios = {
-    id: 0,
-    name: "",
-    email: "",
-    username: ""
-  };
+  nombre : string = ""
 
   async ngOnInit(): Promise<void> {
-    this.usuario = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
+    this.pintarNombre()
   }
+
+  async pintarNombre() {
+    await this.authService.getNameUser()
+    this.nombre = this.authService.Usuarios.name
+  }
+
+
   /* cogemos el token para ver si existe o quien es */
   usuarioToken() {
     const token = this.authService.getToken()
+    this.pintarNombre()
     return token
   }
 
@@ -38,7 +42,7 @@ export class NavbarComponent implements OnInit {
   async nombreToken() {
     const nombreNavBar = document.getElementById("nombreUsuario")
     if (nombreNavBar) {
-      nombreNavBar.innerText = this.usuario.name
+      nombreNavBar.innerText = this.nombre
     }
   }
 
