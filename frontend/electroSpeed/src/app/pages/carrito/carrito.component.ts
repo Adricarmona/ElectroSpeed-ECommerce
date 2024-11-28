@@ -37,7 +37,7 @@ export class CarritoComponent {
     
     // si no existe el usuario coge las bicis del local storage
     if (!this.auth.getToken()) {
-      this.cogerBicisLocalStorage()
+      await this.cogerBicisLocalStorage()
     } else {
       // coge el id del usuario y con el id de usuario lo guarda en bicicleta carito 2
       this.idUser = await (await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id
@@ -55,15 +55,29 @@ export class CarritoComponent {
     this.codigoIdentificador = iddata ? iddata.split(',').map((id) => id.trim()) : [];
 
     // se mete en un for each para coger las bicis y meterlas en bicicletaCarrito
-    // que es la variable donde estan todas las bicis del carrito 
+    // que es la variable donde estan todas las bicis del carrito
+    var encontrado = false; 
     for (const id of this.codigoIdentificador) {
-      const bicicleta = await this.catalogoService.showOneBike(id);
+      const bicicleta: Bicicletas = await this.catalogoService.showOneBike(id);
       if (bicicleta) {
-        this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id == bicicleta.id)
-        this.bicicletas.push(bicicleta);
+
+        // recorre las bicis del local storage por si ya existen
+        this.bicicletas.forEach(bisi => {
+          if (bisi.id == bicicleta.id) {
+            bisi.cantidad++
+          }
+        });
+
+        // si no la encuentra le da cantidad 1 y la mete en el array
+        if (!encontrado) {
+          bicicleta.cantidad = 1
+          this.bicicletas.push(bicicleta);
+        }
+
       } else {
         console.log(`No se encontró bicicleta con ID ${id}`);
       }
+      encontrado = false
     }
   }
 
@@ -85,6 +99,17 @@ export class CarritoComponent {
             this.bicicletas = [];
         } else {
             // Lógica para usuarios no logueados
+            //
+            //
+            //      TO DO
+            //
+            //
+            this.codigoIdentificador.forEach(idCodigo => {
+              if (id == parseInt(idCodigo)) {
+                // usar filter 
+              }
+            });
+
             this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id !== id);
             const idsUpdated = this.bicicletas.map((bici) => bici.id);
             localStorage.setItem('idbici', JSON.stringify(idsUpdated));
@@ -123,6 +148,13 @@ export class CarritoComponent {
   usuarioToken() {
     const token = this.auth.getToken()
     return token
+  }
+
+  carritoVacio() {
+    if (this.bicicletaCarrito.length > 0) {
+      return false
+    }
+    return true
   }
 }
 
