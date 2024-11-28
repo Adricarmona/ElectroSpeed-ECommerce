@@ -23,8 +23,9 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("AllProducts")]
         public IList<Bicicletas> AllProducts()
         {
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
-            IList<Bicicletas> bici = checkout.AllProduct(1);
+            IList<Bicicletas> bici = checkout.AllProduct(idtoken);
             return bici;
         }
 

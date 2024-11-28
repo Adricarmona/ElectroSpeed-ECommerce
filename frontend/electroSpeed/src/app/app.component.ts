@@ -6,7 +6,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, InicioComponent,NavbarComponent],
+  imports: [RouterOutlet, InicioComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,10 +16,10 @@ export class AppComponent implements OnInit {
     //console.log(window.ethereum);
 
   }
-  }
-  declare global {
+}
+declare global {
   interface Window {
-  ethereum: any;
+    ethereum: any;
   }
 }
 
