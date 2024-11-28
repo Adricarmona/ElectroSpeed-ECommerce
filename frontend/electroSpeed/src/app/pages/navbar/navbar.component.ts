@@ -21,12 +21,12 @@ export class NavbarComponent implements OnInit {
   nombre : string = ""
 
   async ngOnInit(): Promise<void> {
-    console.log(this.service.isLogged)
-    if(this.service.isLogged){
-      await this.navBarService.pintarNombre()
-      this.nombre = this.authService.getNameUserToken()
+    console.log(this.authService.logued())
+    if(this.authService.logued()){
+      //await this.navBarService.pintarNombre()
+      this.nombre = await this.authService.getNameUser()
 
-      console.log(this.authService.getNameUserToken())
+      console.log(await this.authService.getNameUser())
     }
   }
 
@@ -43,7 +43,6 @@ export class NavbarComponent implements OnInit {
   }
 
   vaciarToken() {
-    this.service.logout
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
     location.reload()

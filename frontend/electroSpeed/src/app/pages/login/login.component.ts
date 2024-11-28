@@ -6,6 +6,8 @@ import { RedirectionService } from '../../service/redirection.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../service/api-service';
 import { CarritoService } from '../../service/carrito.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,8 @@ export class LoginComponent {
     private service: RedirectionService,
     private activatedRoute: ActivatedRoute,  
     private router: Router,
-    private carrito: CarritoService
+    private carrito: CarritoService,
+    private navbarService: NavbarService
 
 
   ) {
@@ -57,9 +60,13 @@ export class LoginComponent {
     };
     await this.authService.login(authData); // Llama al método login
     await this.carrito.pasarCarritoLocalABBDD()
-    this.router.navigateByUrl(this.redirectTo)
+    
+    
+    // sin esto "await" el location.reload() se recarga antes que el 
+    // router cambia de pagina y no funciona 
+    await this.router.navigateByUrl(this.redirectTo)
 
-
+    location.reload()
   }
 
   volverInicio(){

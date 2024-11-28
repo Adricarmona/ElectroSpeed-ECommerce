@@ -54,9 +54,7 @@ console.log(authData)
           sessionStorage.setItem('token', this.jwt);
         }
         
-  
-      this.service.login()
-      console.log(this.service.isLogged)
+        console.log(this.logued())
 
       return result;
     } catch (error) {
@@ -96,6 +94,12 @@ console.log(authData)
     }
 }
 
+  logued(){
+    if (this.getToken()) {
+      return true
+    }
+    return false
+  }
 
   // Método para recuperar el token
   getToken(): string | null {

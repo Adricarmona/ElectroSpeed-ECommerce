@@ -6,21 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class RedirectionService {
 
-  public isLogged: boolean = false;
-
   constructor() { 
     console.log("Se crea servicio auth"); 
   }
-
-  login() {  
-    console.log(this.isLogged);
-    this.isLogged = true;
-    console.log(this.isLogged);
-  }
-
-  logout() {
-    console.log(this.isLogged);
-    this.isLogged = false;
-    console.log(this.isLogged);
-}
 }
