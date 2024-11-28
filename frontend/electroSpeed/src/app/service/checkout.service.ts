@@ -19,11 +19,11 @@ export class CheckoutService {
   }
 
   getEmbededCheckout(): Promise<Result<CheckoutSession>> {
-    return this.api.get<CheckoutSession>('checkout/embedded');
+    return this.api.get<CheckoutSession>('api/checkout/embedded');
   }
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
-    return this.api.get<CheckoutSessionStatus>(`checkout/status/${sessionId}`);
+    return this.api.get<CheckoutSessionStatus>(`api/checkout/status/${sessionId}`);
   }
 
   postPedido(){

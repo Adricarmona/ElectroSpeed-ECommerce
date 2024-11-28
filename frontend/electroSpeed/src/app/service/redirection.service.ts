@@ -7,6 +7,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class RedirectionService {
 
   constructor() { 
-    //console.log("Se crea servicio auth"); 
+    console.log("Se crea servicio auth"); 
   }
 }
