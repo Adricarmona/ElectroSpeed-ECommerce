@@ -1,14 +1,14 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using ElectroSpeed_server.Recursos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe.Checkout;
 
 namespace ElectroSpeed_server.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class CheckoutController : Controller
     {
         private readonly ElectroSpeedContext _esContext;
@@ -23,17 +23,22 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet("AllProducts")]
         public IList<Bicicletas> AllProducts()
         {
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
-            IList<Bicicletas> bici = checkout.AllProduct(1);
+            IList<Bicicletas> bici = checkout.AllProduct(idtoken);
             return bici;
         }
 
         [HttpGet("embedded")]
-        public async Task<ActionResult> EmbededCheckout(int idUsuario)
+        public async Task<ActionResult> EmbededCheckout()
         {
+
+            // lo del puto token dios santo 4h soy subnormal ( el probrlema era del front )
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
+
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.Ordentemporal(idUsuario);
+            var orden = checkout.Ordentemporal(idtoken);
 
             var lineItems = new List<SessionLineItemOptions>();
 
@@ -45,7 +50,7 @@ namespace ElectroSpeed_server.Controllers
                         PriceData = new SessionLineItemPriceDataOptions()
                         {
                             Currency = "eur",
-                            UnitAmount = (long)(1 * 100),
+                            UnitAmount = (bici.Precio)*100,
                             ProductData = new SessionLineItemPriceDataProductDataOptions()
                             {
                                 Name = bici.MarcaModelo,
@@ -64,7 +69,7 @@ namespace ElectroSpeed_server.Controllers
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
                 CustomerEmail = "correo_cliente@correo.es",
-                ReturnUrl = "http://localhost:4200"+"/checkout?session_id={CHECKOUT_SESSION_ID}"
+                RedirectOnCompletion = "never"
             };
 
             SessionService service = new SessionService(); 
@@ -81,5 +86,25 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }
+        /*
+        [HttpPost("guardarcomprar")]
+        public ActionResult AnadirPedidos([FromBody] BicicletasAnadir model)
+        {
+
+            Pedidos pedido = new()
+            {
+                Id = model.Id,
+                MarcaModelo = model.MarcaModelo,
+                Descripcion = model.Descripcion,
+                Precio = model.Precio,
+                Stock = model.Stock,
+                UrlImg = model.Foto,
+            };
+
+            _esContext.Bicicletas.Add(bicicleta);
+            _esContext.SaveChanges();
+
+            return Ok("Subida correctamente");
+        }*/
     }
 }

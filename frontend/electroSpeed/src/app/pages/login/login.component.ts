@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthService } from '../../service/auth.service';
-import { timeInterval } from 'rxjs';
-import { CarritoService } from '../../service/carrito.service';
 import { RedirectionService } from '../../service/redirection.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../../service/api-service';
+import { CarritoService } from '../../service/carrito.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -21,13 +23,14 @@ export class LoginComponent {
 
   myForm: FormGroup;
   constructor(
-
     private authService: AuthService, 
-    public fb: FormBuilder, 
-    private carrito: CarritoService,  
+    public fb: FormBuilder,   
     private service: RedirectionService,
     private activatedRoute: ActivatedRoute,  
-    private router: Router
+    private router: Router,
+    private carrito: CarritoService,
+    private navbarService: NavbarService
+
 
   ) {
 
@@ -47,44 +50,23 @@ export class LoginComponent {
   }
 
   jwt: string = '';
-  passwordConfirmation: boolean = true;
-
   remember: boolean = false;
 
   async submit() {  
     const authData: AuthRequest = { 
       email: this.myForm.get('email')?.value, 
-      password: this.myForm.get('password')?.value 
+      password: this.myForm.get('password')?.value,
+      remember: this.remember
     };
-    const result = await this.authService.login(authData); // Llama al método login
+    await this.authService.login(authData); // Llama al método login
+    await this.carrito.pasarCarritoLocalABBDD()
+    
+    
+    // sin esto "await" el location.reload() se recarga antes que el 
+    // router cambia de pagina y no funciona 
+    await this.router.navigateByUrl(this.redirectTo)
 
-    if (result) { // Verificamos que result no sea nulo
-      this.jwt = result.accessToken; // Asignamos el accessToken
-      if (this.remember) {
-        localStorage.setItem('token', this.jwt);
-      } else {
-        sessionStorage.setItem('token', this.jwt);
-      }
-
-      await this.carrito.pasarCarritoLocalABBDD()
-
-      this.login()
-
-    } else {
-        console.error('Error en la autenticación');
-    }
-  }
-
-  login() {
-    // Iniciamos sesión
-
-    console.log("esoty en login")
-    this.service.login();
-
-    // Si tenemos que redirigir al usuario, lo hacemos
-    if (this.redirectTo != null) {
-      this.router.navigateByUrl(this.redirectTo);
-    }
+    location.reload()
   }
 
   volverInicio(){

@@ -7,6 +7,9 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { VistaDetalleComponent } from './pages/vista-detalle/vista-detalle.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { StripeComponent } from './pages/stripe/stripe.component';
+import { ConfirmacionCompraComponent } from './pages/confirmacion-compra/confirmacion-compra.component';
+import { GuardRedirectionComponent } from './pages/guard-redirection/guard-redirection.component';
+import { redirectionGuard } from './guards/redirection.guard/redirection.guard.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -16,5 +19,6 @@ export const routes: Routes = [
     {path: 'detalle/:id', component: VistaDetalleComponent},
     {path: 'sobreNosotros', component:  SobreNosotrosComponent},
     {path: 'carrito', component: CarritoComponent},
-    {path: 'checkout', component: StripeComponent}
+    {path: 'confirmacion', component: ConfirmacionCompraComponent},
+    {path: 'checkout', component: StripeComponent,  canActivate: [redirectionGuard]}
 ];

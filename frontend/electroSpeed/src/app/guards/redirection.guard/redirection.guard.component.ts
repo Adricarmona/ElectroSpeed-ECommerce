@@ -2,21 +2,22 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } fr
 import { tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { RedirectionService } from '../../service/redirection.service';
+import { AuthService } from '../../service/auth.service';
 
 export const redirectionGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot, 
   state: RouterStateSnapshot) => {
 
     // Inyectamos servicios
-    const redirectionService = inject(RedirectionService);
+    const authService = inject(AuthService);
     const router = inject(Router);
 
     // Opción sin observable
-    if (!redirectionService.isLogged) {
+    if (!authService.logued()) {
       // Navegamos al login indicando que después redireccione a donde queríamos ir en un principio
-      router.navigate(['checkout'], { queryParams: { redirectTo: state.url }});
+      router.navigate(['log'], { queryParams: { redirectTo: state.url }});
     }
 
-    return redirectionService.isLogged;
+    return authService.logued();
 };
 

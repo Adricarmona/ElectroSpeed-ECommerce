@@ -11,9 +11,21 @@ export class ApiService {
 
   private BASE_URL = environment.apiUrl;
 
-  jwt: string;
+  token: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // 4 horas complicandome la vida para que con hacer esto sirva
+    // a mi hoy no me riega la cabeza
+    let token: string | null = localStorage.getItem("token")
+    if (token) {
+      this.token = token
+    }
+  }
+
+  deleteToken() {
+    this.token = null;
+    localStorage.removeItem("token");
+  }
 
   async get<T = void>(path: string, params: any = {}, responseType = null): Promise<Result<T>> {
     const url = `${this.BASE_URL}${path}`;
@@ -90,8 +102,10 @@ export class ApiService {
   private getHeader(accept = null, contentType = null): HttpHeaders {
     let header: any = {};
 
+    console.log(this.token)
+
     // Para cuando haya que poner un JWT
-    header['Authorization'] = `Bearer ${this.jwt}`;
+    header['Authorization'] = `Bearer ${this.token}`;
 
     if (accept)
       header['Accept'] = accept;
