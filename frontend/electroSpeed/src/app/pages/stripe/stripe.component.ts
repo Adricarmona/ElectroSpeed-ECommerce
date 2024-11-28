@@ -74,6 +74,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {
         clientSecret: request.data.clientSecret,
+        
         onComplete: () => this.irConfirmacion()
       };
 

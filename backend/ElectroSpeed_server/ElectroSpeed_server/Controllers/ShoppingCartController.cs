@@ -131,41 +131,32 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("eliminado del carrito");
         }
-        /*
-        // dar la cantidad de los carritos
-        [HttpGet("cantidadBicis")]
-        public IList<BicisCantidad> GetCarritoCantidad(int idCarrito)
+        [HttpPost("OrdenTemporal")]
+        public OrdeTemporal CrearOrdentemporal(model)
         {
-            CarritoCompra carritoCompra = _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefault(r => r.Id == idCarrito);
-            IList<Bicicletas> bicis = carritoCompra.Bicicletas;
-            IList<BicisCantidad> bicisCantidad = new List<BicisCantidad>();
-            Boolean nuevaBici = false;
-            foreach (var item in bicis)
+            IList<BicisCantidad> biciCantidadActual = _esContext.BiciCantidad.ToList();
+
+
+
+            Bicicletas bicicleta = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == idBicicleta);
+
+            Boolean encontrada = false; // si esta encontrada la bici
+            foreach (var item in biciCantidadActual)
             {
-                foreach (var item1 in bicisCantidad)
-                {
-                    if (item1.idBici == item.Id)
+                    if (item.IdBici == idBicicleta && encontrada == false)
                     {
-                        item1.cantidad++;
+                        item.cantidad++;
+                        encontrada = true;
                     }
-                    else
-                    {
-                        nuevaBici = true;
-                    }
-                }
-                if (nuevaBici || bicisCantidad.IsNullOrEmpty())
-                {
-                    BicisCantidad biciTmp = new BicisCantidad()
-                    {
-                        idBici = item.Id,
-                        cantidad = 1
-                    };
-
-                    bicisCantidad.Add(biciTmp);
-                }
-
             }
-            return bicisCantidad;
-        }*/
+
+            OrdeTemporal ordentemporal = new()
+            {
+                UsuarioId = idUsuario,
+
+            };
+
+            return null;
+        }
     }
 }

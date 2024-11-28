@@ -17,6 +17,8 @@ namespace ElectroSpeed_server.Models.Data
         public DbSet<CarritoCompra> CarritoCompra { get; set; }
         public DbSet<BicisCantidad> BiciCantidad { get; set; }
 
+        public DbSet<OrdeTemporal> ordeTemporal { get; set; }
+
         public ElectroSpeedContext(IOptions<Settings> options)
         {
             _settings = options.Value;

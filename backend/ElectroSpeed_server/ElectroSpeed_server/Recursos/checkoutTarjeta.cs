@@ -13,13 +13,6 @@ namespace ElectroSpeed_server.Recursos
             _esContext = esContext;
         }
 
-        //TODO funcion para recoger token
-        public int cogerToken()
-        {
-       
-            return 0;
-        }
-
         public IList<Bicicletas> AllProduct(int id)
         {
             var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
@@ -29,8 +22,6 @@ namespace ElectroSpeed_server.Recursos
             foreach (var item in carrito.BicisCantidad)
             {
                 bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici));
-
-
             }
 
             return bici;
@@ -39,17 +30,10 @@ namespace ElectroSpeed_server.Recursos
         public OrdeTemporal Ordentemporal(int id)
         {
             //guardo el carrito del usuario
-            var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
-
-            //creo la orden temporal
-            OrdeTemporal orden = new()
-            {
-                BicisCantidad = carrito.BicisCantidad,
-                UsuarioId = carrito.UsuarioId,
-            };
+            var orden = _esContext.ordeTemporal.FirstOrDefault(r => r.UsuarioId == id);
 
             //bucle para recorrer las bicicletas del carrito
-            foreach (var item in carrito.BicisCantidad)
+            foreach (var item in orden.BicisCantidad)
             {
                 var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);//buscamos la bici en la base de datos
                 

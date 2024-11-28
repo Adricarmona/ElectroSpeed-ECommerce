@@ -5,6 +5,7 @@ import { Bicicletas } from '../../models/catalogo';
 import { AuthService } from '../../service/auth.service';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { BicisCantidad } from '../../models/bicis-cantidad';
+import { Carrito } from '../../models/carrito';
 
 @Component({
   selector: 'app-carrito',
@@ -113,6 +114,14 @@ export class CarritoComponent {
         console.log(`No se encontró bicicleta con ID ${id2}`);
       }
     }
+  }
+
+  async enviarOrdenTemporal(){
+    const carrito: Carrito = {
+      idBici: this.bicicletas,
+      idUsuario: this.idUser
+    }
+    await this.carritoService.enviarOrdenTemporal(carrito);
   }
 
   async eliminarYPintar(idBicis: number){
