@@ -166,7 +166,6 @@ namespace ElectroSpeed_server.Controllers
 
             }
             return bicisCantidad;
-        }
-        */
+        }*/
     }
 }
