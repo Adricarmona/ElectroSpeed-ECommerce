@@ -21,13 +21,10 @@
                     <a href="/reg">¡Registrate!</a></p>
             </div>
             <div class="register-link">
-                <p>
-                    @if (jwt) {
-                        Se ha iniciado sesión
+                <p id="ErrorIniciar">
+                    @if (errorAlIniciar) {
+                        Error al indicar el email o la contraseña
                     }
-                    @else {
-                        No se ha iniciado sesión
-                    } 
                 </p>
             </div>
         </form>

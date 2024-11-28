@@ -20,6 +20,7 @@ export class LoginComponent {
 
   readonly PARAM_KEY: string = 'redirectTo';
   private redirectTo: string = null;
+  protected errorAlIniciar: Boolean = false;
 
   myForm: FormGroup;
   constructor(
@@ -58,7 +59,13 @@ export class LoginComponent {
       password: this.myForm.get('password')?.value,
       remember: this.remember
     };
-    await this.authService.login(authData); // Llama al método login
+    const error = await this.authService.login(authData); // Llama al método login
+    if (error == null) {
+      this.errorAlIniciar = true
+    } else {
+      this.errorAlIniciar = false
+    }
+
     await this.carrito.pasarCarritoLocalABBDD()
     
     

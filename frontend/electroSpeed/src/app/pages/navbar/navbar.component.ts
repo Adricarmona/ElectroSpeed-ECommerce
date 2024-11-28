@@ -21,12 +21,8 @@ export class NavbarComponent implements OnInit {
   nombre : string = ""
 
   async ngOnInit(): Promise<void> {
-    console.log(this.authService.logued())
-    if(this.authService.logued()){
-      //await this.navBarService.pintarNombre()
+    if(this.authService.loged()){
       this.nombre = await this.authService.getNameUser()
-
-      console.log(await this.authService.getNameUser())
     }
   }
 

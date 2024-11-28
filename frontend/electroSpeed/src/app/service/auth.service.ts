@@ -37,15 +37,10 @@ export class AuthService {
 
   async login(authData: AuthRequest): Promise<AuthResponse | null> {
     try {
-console.log(authData)
       const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}login`, authData);
       const result: AuthResponse = await lastValueFrom(request);
-      console.log("Token recibido: " + result.accessToken);//escribimos el token por consola
 
       this.apiService.token = result.accessToken;
-
-      const decodedToken = jwtDecode(result.accessToken);//decodificamos el token usando la biblioteca jwtDecode
-      console.log("Decoded Token:", decodedToken);//escribimos por consola el token decodificado
 
         this.jwt  = result.accessToken; // Asignamos el accessToken
         if (authData.remember) { //Guardamos el token en local o session en funcion si le ha dado a que le recuerde
@@ -53,26 +48,19 @@ console.log(authData)
         } else {
           sessionStorage.setItem('token', this.jwt);
         }
-        
-        console.log(this.logued())
 
       return result;
     } catch (error) {
 
-      console.error('Error during login:', error);
+      //console.error('Error during login:', error);
       return null;
     }
   }
 
   async register(registerData: AuthSend): Promise<AuthResponse | null> {
     try {
-        console.log('Datos a enviar:', registerData);
         const request: Observable<AuthResponse> = this.http.post<AuthResponse>(`${this.BASE_URL}register`, registerData);
         const result: AuthResponse = await lastValueFrom(request);
-        console.log("Token recibido: " + result.accessToken);
-
-        const decodedToken = jwtDecode(result.accessToken);
-        console.log("Decoded Token:", decodedToken);
 
           this.jwt = result.accessToken; // Asignamos el accessToken
 
@@ -94,7 +82,7 @@ console.log(authData)
     }
 }
 
-  logued(){
+  loged(){
     if (this.getToken()) {
       return true
     }
@@ -151,7 +139,6 @@ console.log(authData)
   async getIdUserEmail(correo :string) {
     const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
     const request: Usuarios = await lastValueFrom(resultado)
-    console.log(request)
     if (request) {
       this.Usuarios = request
       return request

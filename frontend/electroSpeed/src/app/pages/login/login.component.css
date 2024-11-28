@@ -100,3 +100,12 @@
 .register-link p a:hover{
     text-decoration: underline;
 }
+
+/*   esto es simplon pero yo que se por ahora sirve   */
+#ErrorIniciar {
+    border-radius: 2vh;
+    background-color: white;
+    color: red;
+    font-style: oblique;
+    font-size: larger;
+}

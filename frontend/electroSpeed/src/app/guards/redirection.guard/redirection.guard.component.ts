@@ -13,11 +13,11 @@ export const redirectionGuard: CanActivateFn = (
     const router = inject(Router);
 
     // Opción sin observable
-    if (!authService.logued()) {
+    if (!authService.loged()) {
       // Navegamos al login indicando que después redireccione a donde queríamos ir en un principio
       router.navigate(['log'], { queryParams: { redirectTo: state.url }});
     }
 
-    return authService.logued();
+    return authService.loged();
 };
 
