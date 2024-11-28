@@ -16,10 +16,14 @@ export class ApiService {
   constructor(private http: HttpClient) {
     // 4 horas complicandome la vida para que con hacer esto sirva
     // a mi hoy no me riega la cabeza
-    let token: string | null = localStorage.getItem("token")
-    if (token) {
+    if (localStorage.getItem("token")) {
+      let token: string | null = localStorage.getItem("token")
+      this.token = token
+    } else {
+      let token: string | null = sessionStorage.getItem("token")
       this.token = token
     }
+  
   }
 
   deleteToken() {

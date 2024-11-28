@@ -1,15 +1,16 @@
-﻿using ElectroSpeed_server.Models.Data;
-using ElectroSpeed_server.Models.Data.Dto;
-using ElectroSpeed_server.Models.Data.Entities;
+﻿using ElectroSpeed_server.Models.Data.Entities;
+using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Recursos;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe.Checkout;
 
 namespace ElectroSpeed_server.Controllers
 {
-    public class CheckoutController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CheckoutController : ControllerBase
     {
         private readonly ElectroSpeedContext _esContext;
         private readonly Settings _settings;
@@ -45,21 +46,21 @@ namespace ElectroSpeed_server.Controllers
             foreach (var b in orden.BicisCantidad)
             {
                 var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
-                    lineItems.Add(new SessionLineItemOptions()
+                lineItems.Add(new SessionLineItemOptions()
+                {
+                    PriceData = new SessionLineItemPriceDataOptions()
                     {
-                        PriceData = new SessionLineItemPriceDataOptions()
+                        Currency = "eur",
+                        UnitAmount = (bici.Precio) * 100,
+                        ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
-                            Currency = "eur",
-                            UnitAmount = (bici.Precio)*100,
-                            ProductData = new SessionLineItemPriceDataProductDataOptions()
-                            {
-                                Name = bici.MarcaModelo,
-                                Description = bici.Descripcion,
-                                Images = new List<string> { bici.UrlImg }
-                            }
-                        },
-                        Quantity = b.cantidad
-                    });
+                            Name = bici.MarcaModelo,
+                            Description = bici.Descripcion,
+                            Images = new List<string> { bici.UrlImg }
+                        }
+                    },
+                    Quantity = b.cantidad
+                });
             }
 
             SessionCreateOptions options = new SessionCreateOptions
@@ -72,7 +73,7 @@ namespace ElectroSpeed_server.Controllers
                 RedirectOnCompletion = "never"
             };
 
-            SessionService service = new SessionService(); 
+            SessionService service = new SessionService();
             Session session = await service.CreateAsync(options);
 
             return Ok(new { clientSecret = session.ClientSecret });

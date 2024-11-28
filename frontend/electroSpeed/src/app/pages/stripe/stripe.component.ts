@@ -53,13 +53,10 @@ export class StripeComponent implements OnInit, OnDestroy {
     console.log(this.sessionId)
     if (this.sessionId) {
       const request = await this.service.getStatus(this.sessionId);
-console.log("si")
       if (request.success) {
         console.log(request.data);
       }
     } else {
-      console.log("no")
-
       const request = await this.service.getAllProducts();
       console.log(request);
 
