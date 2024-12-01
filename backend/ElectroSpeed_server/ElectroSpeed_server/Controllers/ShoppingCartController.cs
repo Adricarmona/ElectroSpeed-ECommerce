@@ -131,6 +131,8 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("eliminado del carrito");
         }
+
+
         /*
         // dar la cantidad de los carritos
         [HttpGet("cantidadBicis")]
