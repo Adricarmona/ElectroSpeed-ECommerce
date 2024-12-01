@@ -44,7 +44,7 @@ export class CarritoComponent {
       this.bicicletaCarrito = (await this.carritoService.getIdCarrito(this.idUser)).bicisCantidad;
     }
 
-      this.imprimirBici();
+    this.imprimirBici();
   }
 
   async cogerBicisLocalStorage(){
@@ -65,6 +65,7 @@ export class CarritoComponent {
         this.bicicletas.forEach(bisi => {
           if (bisi.id == bicicleta.id) {
             bisi.cantidad++
+            encontrado = true
           }
         });
 
@@ -87,7 +88,7 @@ export class CarritoComponent {
 
   async eliminarBici(id: number) {
     try {
-        if (this.auth.getToken !== null) {
+        if (this.usuarioToken() != null) {
             // Llamar al servicio para eliminar la bicicleta en el servidor
             await this.carritoService.borrarBiciCarrito(this.idCarrito, id).then();
 
@@ -99,21 +100,18 @@ export class CarritoComponent {
             this.bicicletas = [];
         } else {
             // Lógica para usuarios no logueados
-            //
-            //
-            //      TO DO
-            //
-            //
-            this.codigoIdentificador.forEach(idCodigo => {
-              if (id == parseInt(idCodigo)) {
-                // usar filter 
-              }
-            });
 
-            this.bicicletas = this.bicicletas.filter(bicicleta => bicicleta.id !== id);
-            const idsUpdated = this.bicicletas.map((bici) => bici.id);
-            localStorage.setItem('idbici', JSON.stringify(idsUpdated));
+            const index = this.codigoIdentificador.findIndex(bici => bici == id.toString());
+            this.codigoIdentificador.splice(index, 1);
+
+            // limpiamos el localstorage y le metemos los datos
+            localStorage.clear()
+            localStorage.setItem('idbici',this.codigoIdentificador.toString())
+
             this.bicicletas = [];
+            // importante borro las bicis y luego las guardo en el array (llevo 1h con esto xdd)
+            await this.cogerBicisLocalStorage()
+
         }
     } catch (error) {
         console.error(`Error al eliminar la bicicleta con ID ${id}:`, error);
@@ -142,6 +140,7 @@ export class CarritoComponent {
 
   async eliminarYPintar(idBicis: number){
     await this.eliminarBici(idBicis);
+
     await this.imprimirBici();
   }
 
@@ -151,7 +150,8 @@ export class CarritoComponent {
   }
 
   carritoVacio() {
-    if (this.bicicletaCarrito.length > 0) {
+    console.log(this.codigoIdentificador)
+    if (this.bicicletaCarrito.length > 0 || this.codigoIdentificador.length > 0) {
       return false
     }
     return true
