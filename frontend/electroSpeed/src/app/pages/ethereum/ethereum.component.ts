@@ -41,6 +41,7 @@ export class EthereumComponent {
     };
     const ethereumInfoResult = await this.service.getEthereumInfo(transactionRequest);
     const ethereumInfo = ethereumInfoResult.data;
+    console.log(ethereumInfo)
 
     // Creamos la transacción y pedimos al usuario que la firme
     const transactionHash = await window.ethereum.request({

@@ -1,6 +1,7 @@
 using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Recursos.Blockchain;
 using Microsoft.Extensions.ML;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -36,6 +37,7 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
             builder.Services.AddScoped<ElectroSpeedContext>();
+            builder.Services.AddTransient<BlockchainService>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>

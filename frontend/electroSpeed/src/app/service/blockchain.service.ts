@@ -12,11 +12,11 @@ export class BlockchainService {
 
   constructor(private api: ApiService) { }
   getEthereumInfo(data: EthTransactionRequest): Promise<Result<Ethereuminfo>> {
-    return this.api.post<Ethereuminfo>(`blockchain/transaction`, data)
+    return this.api.post<Ethereuminfo>(`api/Blockchain/transaccion`, data)
   }
 
   checkTransaction(data: CheckEthTransactionRequest): Promise<Result<boolean>> {
-    return this.api.post<boolean>(`blockchain/check`, data)
+    return this.api.post<boolean>(`api/Blockchain/checkeaetabaina`, data)
   }
 
 }

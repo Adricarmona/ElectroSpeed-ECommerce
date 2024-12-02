@@ -10,23 +10,23 @@ namespace ElectroSpeed_server.Controllers
     [ApiController]
     public class BlockchainController : ControllerBase
     {
-        private BlockchainService blockchainService;
+        private readonly BlockchainService _blockchainService;
 
         public BlockchainController(BlockchainService blockchainService)
         {
-            this.blockchainService = blockchainService;
+            this._blockchainService = blockchainService;
         }
 
         [HttpPost("transaccion")]
         public Task<EthereumTransaction> CreateEthereumTransaction([FromBody] CreateTransactionRequest data)
         {
-            return blockchainService.GetEthereumInfoAsync(data);
+            return _blockchainService.GetEthereumInfoAsync(data);
         }
 
         [HttpPost("checkeaetabaina")]
         public Task<bool> CheckTransaction([FromBody] CheckTransactionRequest data)
         {
-            return blockchainService.CheckTransactionAsync(data);
+            return _blockchainService.CheckTransactionAsync(data);
         }
 
 
