@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } 
 import { Injectable } from '@angular/core';
 import { Result } from '../models/result';
 import { Observable, lastValueFrom } from 'rxjs';
-import { environment } from '../environments/enviroments.developments';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'

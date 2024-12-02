@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/enviroments.developments';
+import { environment } from '../environments/environment.development';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
 import { CarritoEntero } from '../models/carrito-entero';
