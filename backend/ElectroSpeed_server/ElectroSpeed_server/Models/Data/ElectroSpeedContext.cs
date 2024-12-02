@@ -26,9 +26,15 @@ namespace ElectroSpeed_server.Models.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+            string serverConnection = "Server=db10826.databaseasp.net; Database=db10826; Uid=db10826; Pwd=L!e2rX6%?4yF";
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            options.UseSqlite($"DataSource={baseDir}{DATABASE_PATH}");
-            //options.UseSqlite(_settings.DatabaseConnection);
+            
+
+            #if DEBUG
+                options.UseSqlite($"DataSource={baseDir}{DATABASE_PATH}");
+            #else
+                options.UseMySql(serverConnection,ServerVersion.AutoDetect(serverConnection));
+            #endif
         }
 
     }
