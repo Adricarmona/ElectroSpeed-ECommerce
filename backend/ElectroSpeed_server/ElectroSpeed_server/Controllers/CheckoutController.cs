@@ -43,20 +43,19 @@ namespace ElectroSpeed_server.Controllers
 
             var lineItems = new List<SessionLineItemOptions>();
 
-            foreach (var b in orden.BicisCantidad)
+            foreach (var b in orden.idBici)
             {
-                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
                 lineItems.Add(new SessionLineItemOptions()
                 {
                     PriceData = new SessionLineItemPriceDataOptions()
                     {
                         Currency = "eur",
-                        UnitAmount = (bici.Precio) * 100,
+                        UnitAmount = (b.Precio) * 100,
                         ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
-                            Name = bici.MarcaModelo,
-                            Description = bici.Descripcion,
-                            Images = new List<string> { bici.UrlImg }
+                            Name = b.MarcaModelo,
+                            Description = b.Descripcion,
+                            Images = new List<string> { b.UrlImg }
                         }
                     },
                     Quantity = b.cantidad

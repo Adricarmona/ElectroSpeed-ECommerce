@@ -131,32 +131,19 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("eliminado del carrito");
         }
+
+
         [HttpPost("OrdenTemporal")]
-        public OrdeTemporal CrearOrdentemporal(model)
+        public async Task<ActionResult> CrearOrdentemporal(OrdenTemporal model)
         {
-            IList<BicisCantidad> biciCantidadActual = _esContext.BiciCantidad.ToList();
 
-
-
-            Bicicletas bicicleta = await _esContext.Bicicletas.FirstOrDefaultAsync(b => b.Id == idBicicleta);
-
-            Boolean encontrada = false; // si esta encontrada la bici
-            foreach (var item in biciCantidadActual)
+            OrdenTemporal ordenTemporal = new()
             {
-                    if (item.IdBici == idBicicleta && encontrada == false)
-                    {
-                        item.cantidad++;
-                        encontrada = true;
-                    }
-            }
-
-            OrdeTemporal ordentemporal = new()
-            {
-                UsuarioId = idUsuario,
-
+                idUsuario = model.idUsuario,
+                idBici = model.idBici
             };
 
-            return null;
+            return Ok("orden creada");
         }
     }
 }

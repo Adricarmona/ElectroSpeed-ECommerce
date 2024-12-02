@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,21 +28,9 @@ namespace ElectroSpeed_server.Recursos
             return bici;
         }
 
-        public OrdeTemporal Ordentemporal(int id)
+        public OrdenTemporal Ordentemporal(int id)
         {
-            //guardo el carrito del usuario
-            var orden = _esContext.ordeTemporal.FirstOrDefault(r => r.UsuarioId == id);
-
-            //bucle para recorrer las bicicletas del carrito
-            foreach (var item in orden.BicisCantidad)
-            {
-                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);//buscamos la bici en la base de datos
-                
-                bici.Stock = bici.Stock - item.cantidad;//eliminamos el stock en funcion de la cantidad de bici seleccionadas
-
-            }
-
-            return orden;
+            return _esContext.ordenTemporal.FirstOrDefault(o => o.idUsuario == id);
         }
 
     }

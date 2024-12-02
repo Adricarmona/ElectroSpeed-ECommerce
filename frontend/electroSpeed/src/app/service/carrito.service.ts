@@ -78,6 +78,7 @@ export class CarritoService {
   }
 
   async enviarOrdenTemporal(carrito: Carrito){
-  this.service.post<Carrito>(`api/checkout/OrdenTemporal`, carrito);
+    console.log(carrito.idBici)
+  this.service.post<Carrito>(`OrdenTemporal`, carrito);
   }
 }

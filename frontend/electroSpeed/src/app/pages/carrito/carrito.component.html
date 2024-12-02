@@ -21,7 +21,7 @@
                 <div class="precio">Precio total: {{calcularTotal()}}€</div>
                 <div class="botones">
                     <a href="/checkout">
-                        <button class="pagoTarjeta">Pagar con Tarjeta</button>
+                        <button (click)="enviarOrdenTemporal()" class="pagoTarjeta">Pagar con Tarjeta</button>
                     </a>
                     <button class="pagoEthereum">Pagar con Ethereum</button>
                 </div>

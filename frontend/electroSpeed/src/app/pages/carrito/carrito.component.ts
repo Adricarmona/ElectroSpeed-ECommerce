@@ -34,6 +34,7 @@ export class CarritoComponent {
   bicicletaCarrito: BicisCantidad[] = [];
   carro : CarritoEntero
 
+
   async ngOnInit() {
     
     // si no existe el usuario coge las bicis del local storage
