@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideNgxStripe } from 'ngx-stripe';
 import { IMAGE_CONFIG } from '@angular/common';
-import { environment } from './environments/enviroments.developments';
+import { environment } from './environments/environment.development';
 
 export const appConfig: ApplicationConfig = {
   providers: [
