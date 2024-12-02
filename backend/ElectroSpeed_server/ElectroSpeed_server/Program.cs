@@ -2,6 +2,7 @@ using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.ML;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -92,13 +93,10 @@ namespace ElectroSpeed_server
 
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
-                app.UseCors();
-            }
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
@@ -107,7 +105,11 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            app.UseStaticFiles(); // para que pueda verse las fotos
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
+            }); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);
 
