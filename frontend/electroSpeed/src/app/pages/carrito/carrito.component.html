@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="grid-derecha">
+            @if (!carritoVacio()) {
             <div class="pago">
                 <div class="precio">Precio total: {{calcularTotal()}}€</div>
                 <div class="botones">
@@ -25,8 +26,8 @@
                     </a>
                     <button class="pagoEthereum">Pagar con Ethereum</button>
                 </div>
-
             </div>
+            }
             <div class="recomendaciones">
                 Recomendaciones
                 <img
