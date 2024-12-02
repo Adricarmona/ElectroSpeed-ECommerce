@@ -6,6 +6,8 @@ import { Carrito } from '../models/carrito';
 import { CarritoEntero } from '../models/carrito-entero';
 import { AuthService } from './auth.service';
 import { ApiService } from './api-service';
+import { Bicicletas } from '../models/catalogo';
+import { OrdenTemporal } from '../models/orden-temporal';
 
 @Injectable({
   providedIn: 'root'
@@ -77,8 +79,9 @@ export class CarritoService {
     localStorage.removeItem('idbici')
   }
 
-  async enviarOrdenTemporal(carrito: Carrito){
-    console.log(carrito.idBici)
-  this.service.post<Carrito>(`OrdenTemporal`, carrito);
+  async enviarOrdenTemporal(orden: OrdenTemporal){
+    console.log("Bicicleta")
+    console.log(orden)
+    this.service.post<Carrito>(`api/checkout/OrdenTemporal`, orden);
   }
 }

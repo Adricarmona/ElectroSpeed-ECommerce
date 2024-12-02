@@ -28,9 +28,37 @@ namespace ElectroSpeed_server.Recursos
             return bici;
         }
 
-        public OrdenTemporal Ordentemporal(int id)
+        public IList<BicisTemporales> Ordentemporal(int id)
         {
-            return _esContext.ordenTemporal.FirstOrDefault(o => o.idUsuario == id);
+            //guardo el carrito del usuario
+            var orden = _esContext.ordenTemporal.Include(c => c.Bici).FirstOrDefault(r => r.idUsuario == id);
+
+            foreach (var item in orden.Bici)
+            {
+                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);
+
+                bici.Stock = bici.Stock - item.cantidad;
+            }
+
+            IList<BicisTemporales> bicis = [];
+
+            foreach (var item in orden.Bici)
+            {
+                var b = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);
+
+                BicisTemporales bicitemp = new()
+                {
+                    Id = b.Id,
+                    Nombre = b.MarcaModelo,
+                    Description = b.Descripcion,
+                    Cantidad = item.cantidad,
+                    Precio = b.Precio,
+                    UrlImg = b.UrlImg
+                };
+                bicis.Add(bicitemp);
+            }
+
+            return bicis;
         }
 
     }

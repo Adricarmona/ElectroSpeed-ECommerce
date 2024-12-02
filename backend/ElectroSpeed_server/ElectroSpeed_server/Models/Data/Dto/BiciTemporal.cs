@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectroSpeed_server.Models.Data.Dto
 {
@@ -6,16 +7,11 @@ namespace ElectroSpeed_server.Models.Data.Dto
     {
         public int Id { get; set; }
 
+        public int IdBici { get; set; }
         public int cantidad { get; set; }
-        public string MarcaModelo { get; set; }
-        public string Descripcion { get; set; }
-        public int Stock { get; set; }
-        public int Precio { get; set; }
-        public string UrlImg { get; set; }
-        public int? ReseniasId { get; set; }
 
-        public ICollection<Resenias> Resenias { get; set; }
 
-        public IList<BicisCantidad> BicisCantidadId { get; set; }
+        [ForeignKey(nameof(IdBici))]
+        public Bicicletas bicicletas { get; set; }
     }
 }

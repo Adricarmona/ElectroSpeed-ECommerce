@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { CatalogoService } from '../../service/catalogo.service';
 import { CarritoService } from '../../service/carrito.service';
 import { Bicicletas } from '../../models/catalogo';
@@ -6,6 +6,8 @@ import { AuthService } from '../../service/auth.service';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { BicisCantidad } from '../../models/bicis-cantidad';
 import { Carrito } from '../../models/carrito';
+import { OrdenTemporal } from '../../models/orden-temporal';
+import { BiciTemporal } from '../../models/bici-temporal';
 
 @Component({
   selector: 'app-carrito',
@@ -141,11 +143,24 @@ export class CarritoComponent {
   }
 
   async enviarOrdenTemporal(){
-    const carrito: Carrito = {
-      idBici: this.bicicletas,
-      idUsuario: this.idUser
+    const BiciTemporal: BiciTemporal [] = []
+
+    this.bicicletas.forEach(e => {
+
+      const t: BiciTemporal = {
+        idBici: e.id,
+        cantidad: e.cantidad
+      }
+
+      BiciTemporal.push(t)
+    });
+
+    const orden: OrdenTemporal = {
+      idUsuario: this.idUser,
+      Bici: BiciTemporal
     }
-    await this.carritoService.enviarOrdenTemporal(carrito);
+
+    await this.carritoService.enviarOrdenTemporal(orden);
   }
 
   async eliminarYPintar(idBicis: number){

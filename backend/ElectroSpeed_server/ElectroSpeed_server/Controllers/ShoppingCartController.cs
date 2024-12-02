@@ -131,19 +131,5 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("eliminado del carrito");
         }
-
-
-        [HttpPost("OrdenTemporal")]
-        public async Task<ActionResult> CrearOrdentemporal(OrdenTemporal model)
-        {
-
-            OrdenTemporal ordenTemporal = new()
-            {
-                idUsuario = model.idUsuario,
-                idBici = model.idBici
-            };
-
-            return Ok("orden creada");
-        }
     }
 }

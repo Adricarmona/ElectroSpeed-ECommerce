@@ -21,6 +21,19 @@ namespace ElectroSpeed_server.Controllers
             _settings = settings.Value;
         }
 
+        [HttpPost("OrdenTemporal")]
+        public async Task<ActionResult> CrearOrdentemporal(OrdenTemporal model)
+        {
+
+            OrdenTemporal ordenTemporal = new()
+            {
+                idUsuario = model.idUsuario,
+                Bici = model.Bici
+            };
+
+            return Ok("orden creada");
+        }
+
         [HttpGet("AllProducts")]
         public IList<Bicicletas> AllProducts()
         {
@@ -43,7 +56,7 @@ namespace ElectroSpeed_server.Controllers
 
             var lineItems = new List<SessionLineItemOptions>();
 
-            foreach (var b in orden.idBici)
+            foreach (var b in orden)
             {
                 lineItems.Add(new SessionLineItemOptions()
                 {
@@ -53,12 +66,12 @@ namespace ElectroSpeed_server.Controllers
                         UnitAmount = (b.Precio) * 100,
                         ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
-                            Name = b.MarcaModelo,
-                            Description = b.Descripcion,
+                            Name = b.Nombre,
+                            Description = b.Description,
                             Images = new List<string> { b.UrlImg }
                         }
                     },
-                    Quantity = b.cantidad
+                    Quantity = b.Cantidad
                 });
             }
 
