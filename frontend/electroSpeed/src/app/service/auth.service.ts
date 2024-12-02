@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, Observable } from 'rxjs';
-import { environment } from '../environments/enviroments.developments';
+import { environment } from '../environments/environment.development';
 import { AuthRequest } from '../models/auth-request'; 
 import { AuthResponse } from '../models/auth-response'; 
 import { jwtDecode } from 'jwt-decode';
