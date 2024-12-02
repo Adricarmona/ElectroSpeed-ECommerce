@@ -64,7 +64,10 @@ export class CarritoService {
 
   async pasarCarritoLocalABBDD(){
     const idBicisLocal = localStorage.getItem('idbici')
+    if (idBicisLocal != null) {
     const ids = idBicisLocal ? idBicisLocal.split(',').map((id) => id.trim()) : [];
+
+    console.log((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
 
     const carrito: CarritoEntero = await this.devolverCarritoPorUsuario((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
 
@@ -73,5 +76,6 @@ export class CarritoService {
     });
     
     localStorage.removeItem('idbici')
+    }
   }
 }
