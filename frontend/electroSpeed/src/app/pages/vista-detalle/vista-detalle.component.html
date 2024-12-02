@@ -1,0 +1,73 @@
+<div class="fondo">
+    <div id="base">
+        <div class="grid">
+            <div class="fotos">
+                <img src="{{fotoBici}}" alt="">
+            </div>
+            <div class="datos">
+                <h1>{{nombreModelo}}</h1>
+                <h5>Codigo: {{codigoIdentificador}}</h5>
+                <p>Descripcion: {{descripcionBici}}</p>
+                <h3>Precio: {{precioBici | precios}}€  stock:
+                    @if (stockBici > 0) 
+                    {
+                        ✔️ {{stockBici}}
+                    }
+                    @else 
+                    {
+                        ❌
+                    } 
+                </h3>
+                <div class="botones">
+                    <button id="anadirCarrito" (click)="anadirCarrito()">Añadir al carrito</button>
+                    <!--<button id="comprar">Comprar</button>-->
+                    @if (usuarioToken()) {
+                        <button id="resenias" (click)="verResenias()">Añadir Reseña</button>
+                    } 
+                </div>
+            </div>
+        </div>
+        <div id="escribirReseña">
+            <form id="escribirReseñaForm" (submit)="enviarResenias()">
+                <h5>reseña a enviar: </h5>
+                <input type="text" name="textoResenia" id="textoFormResenias" [(ngModel)]="textoResenia" [ngModelOptions]="{standalone: true}">
+                <input type="submit" value="enviar reseña">
+            </form>
+        </div>
+        <div class="reseñasArriba">
+            <div class="arribaIzquierda">
+                <h4>Media de las reseñas: </h4>
+                <div id="puntuacion">
+                    @for (engranaje of arrayResultados(this.mediaResenia); track $index) {
+                        <img [src]="engranaje" alt="detalle/full.png">
+                    }
+                </div>
+            </div>
+            <div class="arribaDerecha">
+                <h5 id="cantidadReseñas">{{resenias.length}} reseñas actualmente! </h5>
+            </div>
+        </div>
+        <div class="reseñasAbajo">
+            <!--    las tarjetas    -->
+                @for (item of resenias; track $index) {
+                    <div class="tarjetasReseñas">
+                        <div class="tarjetaReseñaArriba">
+                            <div class="puntuacionReseñas">
+                                @for (engranaje of arrayResultados(item.resenias.resultadoResenia); track $index) {
+                                    <img [src]="engranaje" >
+                                }
+                            </div>
+                            <span>
+                                <img id="iconoUsuario" src="iconoUsuario.webp" alt="detalle/noe.png">
+                                <span>{{item.usuario}}</span>
+                            </span>
+                        </div>
+                        <div class="tarjetaReseñaAbajo">
+                            <p>{{item.resenias.textoDeResenia}}</p>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+</div>
+

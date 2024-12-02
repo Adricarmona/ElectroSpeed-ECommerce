@@ -1,0 +1,136 @@
+.body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #e6e6e6;
+    margin: 0;
+    padding: 0;
+}
+
+.all {
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    color: #ffffff;
+    margin-top: 100px;
+    margin-bottom: 0px;
+}
+
+.imagen_team img {
+    position: relative;
+    width: 1300px;
+    text-align: center;
+}
+
+.info_miembros {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 0px;
+}
+
+.miembro {
+    text-align: center; /* Centra el contenido de cada miembro */
+    width: 200px; /* Ancho de cada caja de miembro */
+    margin: 10px; /* Espacio entre cada miembro */
+}
+
+.info_miembros h2 {
+    font-size: 1.2em;
+    color: #ffffff;
+    margin: 0;
+    padding-bottom: 5px; /* Espacio entre el nombre y la descripción */
+}
+
+.info_miembros p {
+    font-size: 0.9em;
+    color: #cccccc;
+    line-height: 1.5em;
+    margin: 0;
+}
+
+
+.descripcion_empresa {
+    background-color: #1a1a1a;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.descripción_empresa p {
+    font-size: 0.95em;
+    color: #b3b3b3;
+    line-height: 1.7em;
+    margin-bottom: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.contacto {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    color: #cccccc;
+}
+
+.mapa iframe {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+}
+
+.contacto_info {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.contacto_info h3, .contacto_info h4 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.contacto_info p {
+    font-size: 0.95em;
+    color: #b3b3b3;
+    line-height: 1.5em;
+}
+
+.logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.logo img {
+    width: 150px;
+    max-width: 150px;
+    height: auto;
+}
+
+.mapa button {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.mapa button:hover {
+    background-color: #4d4d4d;
+}

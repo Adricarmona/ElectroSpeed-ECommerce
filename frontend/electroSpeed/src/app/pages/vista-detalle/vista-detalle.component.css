@@ -1,0 +1,106 @@
+.fondo {
+    margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+    width: 100vw;
+    background-image: url(../../../../public/registroLogin/fondologinregistro.jpg);
+    background-size: cover;
+}
+
+#base {
+    background-color: white;
+    border-radius: 2vh;
+    padding: 5vh;
+    margin: 50vh;
+}
+
+/*   la imagen y la informacion de la derecha   */
+.grid {
+    display: grid;
+    grid-template-columns: 50vh 70vh;
+    margin-bottom: 5vh;
+}
+
+.fotos img {
+    width: 40vh;
+}
+
+.botones {
+    display: flex;
+}
+
+#resenias {
+    margin-left: 2vh;
+    background-color: orange;
+}
+
+/*-------------- el form de las reseñas -----------*/
+#escribirReseñaForm {
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#escribirReseña {
+    margin: 5vh;
+}
+
+#textoFormResenias {
+    margin: 0 2vh;
+}
+
+
+/* --------- Las reseñas --------- */
+
+.reseñasArriba {
+    display: flex;
+}
+
+.arribaIzquierda {
+    display: flex;
+}
+
+.arribaDerecha {
+    margin-left: auto;
+    justify-content: right;
+}
+
+/* donde estan las reseñas*/
+.reseñasAbajo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* cada reseña */
+.tarjetasReseñas {
+    background-color: gray;
+    border-radius: 2vh;
+    margin: 1vh;
+    padding: 1vh;
+}
+
+.tarjetaReseñaArriba {
+    display: flex;
+}
+
+.tarjetaReseñaArriba span {
+    margin-left: auto;
+    justify-content: right;
+}
+
+.puntuacionReseñas img{
+    height: 2vh;
+}
+
+.tarjetaReseñaAbajo p{
+    text-align: center;
+    font-size: small;
+}
+
+#iconoUsuario {
+    width: 5vh;
+}

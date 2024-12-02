@@ -1,0 +1,32 @@
+<div class="contenido">
+    <div class="wrapper">
+        <form (submit)="submit()" [formGroup]="myForm" novalidate action="">
+            <h1>Iniciar Sesión</h1>
+            <div class="input-box">
+                <input type="email" placeholder="Username" formControlName="email" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" formControlName="password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox"[(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>Recuerdame</label>
+            </div>
+    
+            <button type="submit" class="btn">Iniciar Sesión</button>
+    
+            <div class="register-link">
+                <p>¿No tienes una cuenta? 
+                    <a href="/reg">¡Registrate!</a></p>
+            </div>
+            <div class="register-link">
+                <p id="ErrorIniciar">
+                    @if (errorAlIniciar) {
+                        Error al indicar el email o la contraseña
+                    }
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
