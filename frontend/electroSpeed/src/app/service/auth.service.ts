@@ -52,7 +52,7 @@ export class AuthService {
       return result;
     } catch (error) {
 
-      //console.error('Error during login:', error);
+      console.error('Error during login:', error);
       return null;
     }
   }
@@ -91,10 +91,9 @@ export class AuthService {
 
   // Método para recuperar el token
   getToken(): string | null {
-
-    if (localStorage.getItem('token') != "") {
+    if (localStorage.getItem('token') != "" && localStorage.getItem('token') != null) {
       return localStorage.getItem('token')
-    } else if (sessionStorage.getItem('token') != "") {
+    } else if (sessionStorage.getItem('token') != "" && sessionStorage.getItem('token') != null) {
       return sessionStorage.getItem('token')
     }
     return null;
@@ -123,7 +122,7 @@ export class AuthService {
       const email = tokenDecodificado.email
       return email
     }
-    return "error"
+    return null
   }
 
   getNameUserToken() {
