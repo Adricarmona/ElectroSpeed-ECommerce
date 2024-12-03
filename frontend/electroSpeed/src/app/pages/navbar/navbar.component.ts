@@ -16,7 +16,10 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private service: RedirectionService,
-    private navBarService: NavbarService) {}
+    private navBarService: NavbarService) 
+    {
+      this.productosCarrito = this.navBarService.productosCarrito
+    }
   
   nombre : string = ""
   productosCarrito = false

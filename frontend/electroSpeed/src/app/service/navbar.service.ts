@@ -36,6 +36,8 @@ export class NavbarService {
         this.productosCarrito = false
       }
     }
+
+    return this.productosCarrito
   }
 
 }
