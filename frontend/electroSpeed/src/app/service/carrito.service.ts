@@ -64,18 +64,23 @@ export class CarritoService {
 
   async pasarCarritoLocalABBDD(){
     const idBicisLocal = localStorage.getItem('idbici')
-    if (idBicisLocal != null) {
-    const ids = idBicisLocal ? idBicisLocal.split(',').map((id) => id.trim()) : [];
+    console.log(idBicisLocal)
+    if (idBicisLocal != null || idBicisLocal !== "") {
+      console.log("ah")
+      const ids = idBicisLocal ? idBicisLocal.split(',').map((id) => id.trim()) : [];
 
-    console.log((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
+      const toyques = this.auth.getEmailUserToken()
+      console.log(toyques)
+      const yoquese =(await this.auth.getIdUserEmail(toyques)).id
+      console.log(yoquese)
 
-    const carrito: CarritoEntero = await this.devolverCarritoPorUsuario((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
+      const carrito: CarritoEntero = await this.devolverCarritoPorUsuario((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
 
-    ids.forEach(idBicis => {
-      this.enviarCarrito(parseInt(idBicis),carrito.id)
-    });
-    
-    localStorage.removeItem('idbici')
+      ids.forEach(idBicis => {
+        this.enviarCarrito(parseInt(idBicis),carrito.id)
+      });
+      
+      localStorage.removeItem('idbici')
     }
   }
 }

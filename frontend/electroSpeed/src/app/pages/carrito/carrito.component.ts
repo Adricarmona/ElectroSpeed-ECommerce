@@ -5,6 +5,7 @@ import { Bicicletas } from '../../models/catalogo';
 import { AuthService } from '../../service/auth.service';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { BicisCantidad } from '../../models/bicis-cantidad';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-carrito',
@@ -17,7 +18,8 @@ export class CarritoComponent {
   constructor(
     private catalogoService: CatalogoService,
     private carritoService: CarritoService,
-    private auth: AuthService
+    private auth: AuthService,
+    private navBar: NavbarService
   ) { }
 
   codigoIdentificador: string[] = [];
@@ -140,7 +142,7 @@ export class CarritoComponent {
 
   async eliminarYPintar(idBicis: number){
     await this.eliminarBici(idBicis);
-
+    this.navBar.cogerProductos()
     await this.imprimirBici();
   }
 
@@ -150,7 +152,6 @@ export class CarritoComponent {
   }
 
   carritoVacio() {
-    console.log(this.codigoIdentificador)
     if (this.bicicletaCarrito.length > 0 || this.codigoIdentificador.length > 0) {
       return false
     }
