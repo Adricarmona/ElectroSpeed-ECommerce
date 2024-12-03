@@ -78,10 +78,4 @@ export class CarritoService {
     
     localStorage.removeItem('idbici')
   }
-
-  async enviarOrdenTemporal(orden: OrdenTemporal){
-    console.log("Bicicleta")
-    console.log(orden)
-    this.service.post<Carrito>(`api/checkout/OrdenTemporal`, orden);
-  }
 }

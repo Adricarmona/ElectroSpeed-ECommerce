@@ -6,6 +6,7 @@ import { CheckoutSession } from '../models/checkout.session';
 import { Product } from '../models/product';
 import { Bicicletas } from '../models/catalogo';
 import { CarritoEntero } from '../models/carrito-entero';
+import { OrdenTemporal } from '../models/orden-temporal';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,12 @@ export class CheckoutService {
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
     return this.api.get<CheckoutSessionStatus>(`api/checkout/status/${sessionId}`);
+  }
+
+  async enviarOrdenTemporal(orden: OrdenTemporal){
+    console.log("Bicicleta")
+    console.log(orden)
+    await this.api.post<OrdenTemporal>(`api/Checkout/OrdenTemporal`, orden);
   }
 
   postPedido(){

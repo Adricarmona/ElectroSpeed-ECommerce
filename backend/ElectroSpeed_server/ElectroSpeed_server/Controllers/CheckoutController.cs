@@ -30,6 +30,8 @@ namespace ElectroSpeed_server.Controllers
                 idUsuario = model.idUsuario,
                 Bici = model.Bici
             };
+            _esContext.ordenTemporal.Add(ordenTemporal);
+            _esContext.SaveChanges();
 
             return Ok("orden creada");
         }

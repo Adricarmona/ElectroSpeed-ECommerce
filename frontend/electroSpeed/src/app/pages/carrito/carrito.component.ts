@@ -8,6 +8,7 @@ import { BicisCantidad } from '../../models/bicis-cantidad';
 import { Carrito } from '../../models/carrito';
 import { OrdenTemporal } from '../../models/orden-temporal';
 import { BiciTemporal } from '../../models/bici-temporal';
+import { CheckoutService } from '../../service/checkout.service';
 
 @Component({
   selector: 'app-carrito',
@@ -20,6 +21,7 @@ export class CarritoComponent {
   constructor(
     private catalogoService: CatalogoService,
     private carritoService: CarritoService,
+    private checkoutService: CheckoutService,
     private auth: AuthService
   ) { }
 
@@ -160,7 +162,7 @@ export class CarritoComponent {
       Bici: BiciTemporal
     }
 
-    await this.carritoService.enviarOrdenTemporal(orden);
+    await this.checkoutService.enviarOrdenTemporal(orden);
   }
 
   async eliminarYPintar(idBicis: number){

@@ -9,9 +9,5 @@ namespace ElectroSpeed_server.Models.Data.Dto
 
         public int IdBici { get; set; }
         public int cantidad { get; set; }
-
-
-        [ForeignKey(nameof(IdBici))]
-        public Bicicletas bicicletas { get; set; }
     }
 }

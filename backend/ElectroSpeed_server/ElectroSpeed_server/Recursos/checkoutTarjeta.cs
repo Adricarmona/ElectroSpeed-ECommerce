@@ -31,7 +31,7 @@ namespace ElectroSpeed_server.Recursos
         public IList<BicisTemporales> Ordentemporal(int id)
         {
             //guardo el carrito del usuario
-            var orden = _esContext.ordenTemporal.Include(c => c.Bici).FirstOrDefault(r => r.idUsuario == id);
+            var orden = _esContext.ordenTemporal.FirstOrDefault(r => r.idUsuario == id);
 
             foreach (var item in orden.Bici)
             {
