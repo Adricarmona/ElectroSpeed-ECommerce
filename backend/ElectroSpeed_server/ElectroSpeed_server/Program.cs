@@ -1,6 +1,7 @@
 using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.ML;
@@ -40,6 +41,7 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
             builder.Services.AddScoped<ElectroSpeedContext>();
+            builder.Services.AddScoped<ImagenMapper>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>
@@ -105,11 +107,12 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            app.UseStaticFiles(//new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
-            //}
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(builder.Environment.ContentRootPath, "../../../wwwroot")
+                )
+            }
             ); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);
