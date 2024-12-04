@@ -71,3 +71,9 @@
         visibility: visible;
     }
 }
+
+#masCarrito {
+    width: 3vh;
+
+    margin-left: -1vh;
+}
