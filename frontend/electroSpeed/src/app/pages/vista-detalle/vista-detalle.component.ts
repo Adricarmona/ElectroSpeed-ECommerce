@@ -58,6 +58,7 @@ export class VistaDetalleComponent implements OnInit {
       this.precioBici = bicicleta.precio
       this.stockBici = bicicleta.stock
       this.fotoBici = bicicleta.urlImg
+      console.log(this.fotoBici)
     }
 
     this.devolverMediaResenias()

@@ -31,6 +31,9 @@ namespace ElectroSpeed_server.Controllers
             busqueda = filtro.Order(model, busqueda);
             BicisPaginas paginasFiltradas = filtro.Pages(model, busqueda);
 
+            // para la url de las imagenes
+            paginasFiltradas.Bicicletas = _imagenMapper.AddCorrectPath(paginasFiltradas.Bicicletas,Request);
+
             /// Le pasamos el filtro de buscar por nombre con todas las bicicletas, luego por el de ordenacion y para terminar lo metemos en el de paginacion           
             return paginasFiltradas;
         }
@@ -62,7 +65,6 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IList<Bicicletas> GetBicicletas()
         {
-
             return _imagenMapper.AddCorrectPath(_esContext.Bicicletas.ToList());
         }
 
@@ -70,7 +72,7 @@ namespace ElectroSpeed_server.Controllers
         public Bicicletas getBicicleta(int id)
         {
             Bicicletas bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
-            return _imagenMapper.AddCorrectPath(bici);
+            return _imagenMapper.AddCorrectPath(bici, Request);
         }
 
     }

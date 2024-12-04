@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development'
+import { environment } from '../../environments/environment'
 import { Resenias } from '../models/resenias';
 import { Usuarios } from '../models/usuarios';
 import { lastValueFrom, Observable } from 'rxjs';
