@@ -144,27 +144,6 @@ export class CarritoComponent {
     }
   }
 
-  async enviarOrdenTemporal(){
-    const BiciTemporal: BiciTemporal [] = []
-
-    this.bicicletas.forEach(e => {
-
-      const t: BiciTemporal = {
-        idBici: e.id,
-        cantidad: e.cantidad
-      }
-
-      BiciTemporal.push(t)
-    });
-
-    const orden: OrdenTemporal = {
-      idUsuario: this.idUser,
-      Bici: BiciTemporal
-    }
-
-    await this.checkoutService.enviarOrdenTemporal(orden);
-  }
-
   async eliminarYPintar(idBicis: number){
     await this.eliminarBici(idBicis);
 

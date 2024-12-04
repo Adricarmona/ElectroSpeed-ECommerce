@@ -22,7 +22,7 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpPost("OrdenTemporal")]
-        public async Task<ActionResult> CrearOrdentemporal(OrdenTemporal model)
+        public int CrearOrdentemporal(OrdenTemporal model)
         {
 
             OrdenTemporal ordenTemporal = new()
@@ -33,7 +33,7 @@ namespace ElectroSpeed_server.Controllers
             _esContext.ordenTemporal.Add(ordenTemporal);
             _esContext.SaveChanges();
 
-            return Ok("orden creada");
+            return ordenTemporal.Id;
         }
 
         [HttpGet("AllProducts")]
@@ -58,22 +58,23 @@ namespace ElectroSpeed_server.Controllers
 
             var lineItems = new List<SessionLineItemOptions>();
 
-            foreach (var b in orden)
+            foreach (var b in orden.BicisCantidad)
             {
+                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
                 lineItems.Add(new SessionLineItemOptions()
                 {
                     PriceData = new SessionLineItemPriceDataOptions()
                     {
                         Currency = "eur",
-                        UnitAmount = (b.Precio) * 100,
+                        UnitAmount = (bici.Precio) * 100,
                         ProductData = new SessionLineItemPriceDataProductDataOptions()
                         {
-                            Name = b.Nombre,
-                            Description = b.Description,
-                            Images = new List<string> { b.UrlImg }
+                            Name = bici.MarcaModelo,
+                            Description = bici.Descripcion,
+                            Images = new List<string> { bici.UrlImg }
                         }
                     },
-                    Quantity = b.Cantidad
+                    Quantity = b.cantidad
                 });
             }
 

@@ -27,12 +27,6 @@ export class CheckoutService {
     return this.api.get<CheckoutSessionStatus>(`api/checkout/status/${sessionId}`);
   }
 
-  async enviarOrdenTemporal(orden: OrdenTemporal){
-    console.log("Bicicleta")
-    console.log(orden)
-    await this.api.post<OrdenTemporal>(`api/Checkout/OrdenTemporal`, orden);
-  }
-
   postPedido(){
 
   }

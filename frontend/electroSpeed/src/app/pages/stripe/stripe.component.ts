@@ -9,6 +9,7 @@ import { BiciPagina } from '../../models/bici-pagina';
 import { Bicicletas } from '../../models/catalogo';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { AuthService } from '../../service/auth.service';
+import { CarritoComponent } from '../carrito/carrito.component';
 
 @Component({
   selector: 'app-stripe',
