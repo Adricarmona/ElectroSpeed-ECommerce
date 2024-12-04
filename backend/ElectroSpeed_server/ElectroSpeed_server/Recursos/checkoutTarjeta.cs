@@ -14,6 +14,11 @@ namespace ElectroSpeed_server.Recursos
         }
 
         //TODO funcion para recoger token
+        public int cogerToken()
+        {
+       
+            return 0;
+        }
 
         public IList<Bicicletas> AllProduct(int id)
         {

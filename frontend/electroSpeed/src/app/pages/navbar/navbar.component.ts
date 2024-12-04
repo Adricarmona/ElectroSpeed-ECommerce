@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Usuarios } from '../../models/usuarios';
+import { lastValueFrom } from 'rxjs';
+import { RedirectionService } from '../../service/redirection.service';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,21 +13,36 @@ import { Usuarios } from '../../models/usuarios';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService, 
+    private service: RedirectionService,
+    private navBarService: NavbarService) 
+    {
+      this.productosCarrito = this.navBarService.productosCarrito
+    }
   
-  usuario: Usuarios = {
-    id: 0,
-    name: "",
-    email: "",
-    username: ""
-  };
+  nombre : string = ""
+  productosCarrito = false
 
   async ngOnInit(): Promise<void> {
-    this.usuario = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
+
+    await this.navBarService.cogerProductos()
+    this.productosCarrito = this.navBarService.productosCarrito
+
+    if(this.authService.loged()){
+      this.nombre = await this.authService.getNameUser()
+    }
   }
+
+
+
+  //
+  //    PARA LOS BOTONES DEL NAVBAR
+  //
   /* cogemos el token para ver si existe o quien es */
   usuarioToken() {
     const token = this.authService.getToken()
+    //this.pintarNombre()
     return token
   }
 
@@ -32,14 +50,6 @@ export class NavbarComponent implements OnInit {
     this.authService.setTokenLocal("")
     this.authService.setTokenSesion("")
     location.reload()
-  }
-
-  // Creo que esto no se utiliza pero lo dejo aqui porsi las moscas -adrian
-  async nombreToken() {
-    const nombreNavBar = document.getElementById("nombreUsuario")
-    if (nombreNavBar) {
-      nombreNavBar.innerText = this.usuario.name
-    }
   }
 
   desplegable() {

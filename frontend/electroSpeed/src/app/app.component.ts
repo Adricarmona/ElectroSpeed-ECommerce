@@ -13,7 +13,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 export class AppComponent implements OnInit {
   title = 'electroSpeed';
   ngOnInit(): void {
-    console.log(window.ethereum);
+    //console.log(window.ethereum);
 
   }
 }

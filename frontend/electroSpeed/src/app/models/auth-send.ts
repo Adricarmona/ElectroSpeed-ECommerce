@@ -3,4 +3,5 @@ export interface AuthSend {
   Email: string;
   Password: string;
   Direccion: string;
+  Remember: boolean;
   }

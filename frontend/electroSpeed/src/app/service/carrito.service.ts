@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/enviroments.developments';
+import { environment } from '../../environments/environment.development';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
 import { CarritoEntero } from '../models/carrito-entero';
@@ -64,14 +64,23 @@ export class CarritoService {
 
   async pasarCarritoLocalABBDD(){
     const idBicisLocal = localStorage.getItem('idbici')
-    const ids = idBicisLocal ? idBicisLocal.split(',').map((id) => id.trim()) : [];
+    console.log(idBicisLocal)
+    if (idBicisLocal != null || idBicisLocal !== "") {
+      console.log("ah")
+      const ids = idBicisLocal ? idBicisLocal.split(',').map((id) => id.trim()) : [];
 
-    const carrito: CarritoEntero = await this.devolverCarritoPorUsuario((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
+      const toyques = this.auth.getEmailUserToken()
+      console.log(toyques)
+      const yoquese =(await this.auth.getIdUserEmail(toyques)).id
+      console.log(yoquese)
 
-    ids.forEach(idBicis => {
-      this.enviarCarrito(parseInt(idBicis),carrito.id)
-    });
-    
-    localStorage.removeItem('idbici')
+      const carrito: CarritoEntero = await this.devolverCarritoPorUsuario((await this.auth.getIdUserEmail(this.auth.getEmailUserToken())).id)
+
+      ids.forEach(idBicis => {
+        this.enviarCarrito(parseInt(idBicis),carrito.id)
+      });
+      
+      localStorage.removeItem('idbici')
+    }
   }
 }

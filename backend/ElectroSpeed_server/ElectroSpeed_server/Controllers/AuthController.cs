@@ -52,11 +52,15 @@ namespace ElectroSpeed_server.Controllers
             _esContext.Usuarios.Add(newUser);
             _esContext.SaveChanges();
 
+            Usuarios usuario = _esContext.Usuarios.FirstOrDefault(r => r.Email == model.Email);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Claims = new Dictionary<string, object>
                         {
-                            {ClaimTypes.Name, model.Name}
+                            {ClaimTypes.Email, usuario.Email},
+                            {"id", usuario.Id},
+                            {ClaimTypes.Name, usuario.Name},
                         },
                 Expires = DateTime.UtcNow.AddYears(3),
                 SigningCredentials = new SigningCredentials(
@@ -87,7 +91,9 @@ namespace ElectroSpeed_server.Controllers
                     {
                         Claims = new Dictionary<string, object>
                         {
-                            {ClaimTypes.Email, model.Email}
+                            {ClaimTypes.Email, user.Email},
+                            {"id", user.Id},
+                            {ClaimTypes.Name, user.Name},
                         },
                         Expires = DateTime.UtcNow.AddYears(3),
                         SigningCredentials = new SigningCredentials(

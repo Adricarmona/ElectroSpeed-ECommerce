@@ -8,6 +8,9 @@ import { VistaDetalleComponent } from './pages/vista-detalle/vista-detalle.compo
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { StripeComponent } from './pages/stripe/stripe.component';
 import { EthereumComponent } from './pages/ethereum/ethereum.component';
+import { ConfirmacionCompraComponent } from './pages/confirmacion-compra/confirmacion-compra.component';
+import { GuardRedirectionComponent } from './pages/guard-redirection/guard-redirection.component';
+import { redirectionGuard } from './guards/redirection.guard/redirection.guard.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -18,5 +21,7 @@ export const routes: Routes = [
     {path: 'sobreNosotros', component:  SobreNosotrosComponent},
     {path: 'carrito', component: CarritoComponent},
     {path: 'checkout', component: StripeComponent},
-    {path: 'blockchain', component: EthereumComponent}
+    {path: 'blockchain', component: EthereumComponent},
+    {path: 'confirmacion', component: ConfirmacionCompraComponent},
+    {path: 'checkout', component: StripeComponent,  canActivate: [redirectionGuard]}
 ];
