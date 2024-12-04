@@ -110,7 +110,7 @@ namespace ElectroSpeed_server
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(builder.Environment.ContentRootPath, "../../../wwwroot")
+                    Path.Combine(builder.Environment.ContentRootPath, "wwwroot")
                 )
             }
             ); // para que pueda verse las fotos
