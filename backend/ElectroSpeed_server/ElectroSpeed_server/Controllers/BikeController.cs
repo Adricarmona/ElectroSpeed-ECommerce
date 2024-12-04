@@ -14,10 +14,12 @@ namespace ElectroSpeed_server.Controllers
     public class BikeController : ControllerBase
     {
         private ElectroSpeedContext _esContext;
+        private ImagenMapper _imagenMapper;
 
-        public BikeController(ElectroSpeedContext esContext)
+        public BikeController(ElectroSpeedContext esContext, ImagenMapper imagenMapper)
         {
             _esContext = esContext;
+            _imagenMapper = imagenMapper;
         }
 
         [HttpPost("/filtroBicis")]
@@ -60,13 +62,15 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IList<Bicicletas> GetBicicletas()
         {
-            return _esContext.Bicicletas.ToList();
+
+            return _imagenMapper.AddCorrectPath(_esContext.Bicicletas.ToList());
         }
 
         [HttpGet("/bicicleta")]
         public Bicicletas getBicicleta(int id)
         {
-            return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
+            Bicicletas bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
+            return _imagenMapper.AddCorrectPath(bici);
         }
 
     }
