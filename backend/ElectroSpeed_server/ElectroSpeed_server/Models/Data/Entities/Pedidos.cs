@@ -12,5 +12,7 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         [ForeignKey(nameof(UsuarioId))]
         public Usuarios Usuario { get; set; }
+
+        public DateTime Fecha { get; set; }
     }
 }

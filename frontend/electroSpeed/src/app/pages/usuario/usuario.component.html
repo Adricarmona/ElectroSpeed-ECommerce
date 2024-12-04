@@ -1,0 +1,39 @@
+<div>
+    <h2>Hola, {{ usuario?.name }}</h2>
+    <p><strong>Correo:</strong> {{ usuario?.email }}</p>
+    <p><strong>Dirección:</strong> {{ usuario?.direccion }}</p>
+    <p><strong>Rol:</strong> {{ usuario?.rol }}</p>
+  
+    <h3>Pedidos</h3>
+    <div *ngFor="let pedido of usuario?.pedidos">
+      <p><strong>Fecha:</strong> {{ pedido.fecha }}</p>
+      <p><strong>Método de pago:</strong> {{ pedido.metodoPago }}</p>
+      <p><strong>Total:</strong> {{ pedido.precioTotal }} €</p>
+      <div *ngFor="let producto of pedido.productos">
+        <img [src]="producto.urlImg" alt="{{ producto.marcaModelo }}" width="50" />
+        <p>{{ producto.marcaModelo }} (x{{ producto.cantidad }}) - {{ producto.precioUnitario }} €</p>
+      </div>
+    </div>
+  
+    <h3>Actualizar información</h3>
+    <form (ngSubmit)="actualizarUsuario()">
+      <label>
+        Nombre:
+        <input type="text" [(ngModel)]="form.name" name="name" />
+      </label>
+      <label>
+        Correo:
+        <input type="email" [(ngModel)]="form.email" name="email" />
+      </label>
+      <label>
+        Dirección:
+        <input type="text" [(ngModel)]="form.direccion" name="direccion" />
+      </label>
+      <label>
+        Contraseña:
+        <input type="password" [(ngModel)]="form.password" name="password" />
+      </label>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+  

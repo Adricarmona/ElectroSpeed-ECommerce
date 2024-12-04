@@ -23,7 +23,6 @@ export class ApiService {
       let token: string | null = sessionStorage.getItem("token")
       this.token = token
     }
-  
   }
 
   deleteToken() {
@@ -118,5 +117,16 @@ export class ApiService {
       header['Content-Type'] = contentType;
 
     return new HttpHeaders(header);
+  }
+
+  // Metodos para la vista de usuario
+  async getUsuarioDetalle<T = void>(): Promise<Result<T>> {
+    const path = 'usuario/detalle';
+    return this.get<T>(path);
+  }
+
+  async actualizarUsuario<T = void>(body: any): Promise<Result<T>> {
+    const path = 'usuario/actualizar';
+    return this.put<T>(path, body);
   }
 }

@@ -17,6 +17,12 @@ import { CarritoService } from './carrito.service';
   providedIn: 'root'
 })
 export class AuthService {
+  getUsuarioByToken(): Usuarios | PromiseLike<Usuarios> {
+    throw new Error('Method not implemented.');
+  }
+  isAuthenticated() {
+    throw new Error('Method not implemented.');
+  }
 
   private BASE_URL = `${environment.apiUrl}`;
 
