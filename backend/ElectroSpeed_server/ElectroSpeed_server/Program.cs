@@ -76,18 +76,16 @@ namespace ElectroSpeed_server
             });
             
 
-            if (builder.Environment.IsDevelopment())
-            {
+
                 builder.Services.AddCors(options =>
                 {
                     options.AddDefaultPolicy(builder =>
                     {
-                        builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                        builder.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
                 });
-            }
 
             builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
 

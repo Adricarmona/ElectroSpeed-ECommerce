@@ -19,7 +19,6 @@ export class CatalogoService {
       const request: Observable<BiciPagina> = this.http.post<BiciPagina>(`${this.BASE_URL}filtroBicis`,formaDeVer);
       const result: BiciPagina = await lastValueFrom(request);
 
-      console.log(result)
       return result;
     }
     catch(error: any)
