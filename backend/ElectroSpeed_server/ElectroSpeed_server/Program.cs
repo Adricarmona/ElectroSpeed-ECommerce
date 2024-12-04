@@ -105,11 +105,12 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            app.UseStaticFiles(//new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
-            //}
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(builder.Environment.ContentRootPath, "../../../wwwroot")
+                )
+            }
             ); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);
