@@ -11,6 +11,7 @@ import { AnadirResenias } from '../../models/anadir-resenias';
 import { CarritoService } from '../../service/carrito.service';
 import { Usuarios } from '../../models/usuarios';
 import { CarritoEntero } from '../../models/carrito-entero';
+import { BicisCantidad } from '../../models/bicis-cantidad';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -21,7 +22,7 @@ import { CarritoEntero } from '../../models/carrito-entero';
 })
 export class VistaDetalleComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService, private enrutador: Router) {}
+  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService, private enrutador: Router) { }
 
   codigoIdentificador: string = "";
 
@@ -31,6 +32,7 @@ export class VistaDetalleComponent implements OnInit {
   stockBici: number = 0;
   fotoBici: string = "";
   mediaResenia: number = 0;
+  prueba: number = 0;
 
   // resenias
   resenias: ReseniasYUsuario[] = [];
@@ -50,9 +52,8 @@ export class VistaDetalleComponent implements OnInit {
     const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
     if (bicicleta == null) {
       this.rickRoll() // rick roll si no existe
-    } 
-    else 
-    {
+    }
+    else {
       this.nombreModelo = bicicleta.marcaModelo
       this.descripcionBici = bicicleta.descripcion
       this.precioBici = bicicleta.precio
@@ -62,7 +63,7 @@ export class VistaDetalleComponent implements OnInit {
 
     this.devolverMediaResenias()
     this.devolverTodasResenias()
-    
+
   }
 
   rickRoll() {
@@ -89,18 +90,27 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *     CARRITO 
   */
-  async anadirCarrito(){
+  async anadirCarrito() {
     if (this.usuarioToken()) {
 
       const Usuario: Usuarios = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
 
       const carritoUsuarioActual: CarritoEntero = await this.carrito.devolverCarritoPorUsuario(Usuario.id)
 
-      this.carrito.enviarCarrito(parseInt(this.codigoIdentificador), carritoUsuarioActual.id)
+
+      if (this.prueba<this.stockBici) {
+        this.carrito.enviarCarrito(parseInt(this.codigoIdentificador), carritoUsuarioActual.id)
+        this.prueba += 1
+      }else{
+
+      }
+
+      
 
     } else {
-      if(localStorage.getItem("idbici")){
-        localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
+
+      if (localStorage.getItem("idbici")) {
+        localStorage.setItem("idbici", this.codigoIdentificador + "," + localStorage.getItem("idbici"))
       } else {
         localStorage.setItem("idbici", this.codigoIdentificador)
       }
@@ -122,7 +132,7 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *   RESEÑAS
   */
-  verResenias(){
+  verResenias() {
     const ponerResenias = document.getElementById("escribirReseñaForm")
     if (ponerResenias) {
       ponerResenias.style.display = "flex";
@@ -130,7 +140,7 @@ export class VistaDetalleComponent implements OnInit {
   }
 
   devolverMediaResenias() {
-    this.resenia.devolverMediaResenias(this.codigoIdentificador).then(value => 
+    this.resenia.devolverMediaResenias(this.codigoIdentificador).then(value =>
       this.mediaResenia = value
     )
   }
@@ -138,10 +148,10 @@ export class VistaDetalleComponent implements OnInit {
   async devolverTodasResenias() {
     const reseniasAhora: Resenias[] = await this.resenia.devolverResenia(this.codigoIdentificador);
 
-    for(const element of reseniasAhora){
+    for (const element of reseniasAhora) {
       const nombreUsuario = await this.devolverUsuarioNombre(element.usuarioId)
 
-      const ReseniasYUsuario : ReseniasYUsuario = {
+      const ReseniasYUsuario: ReseniasYUsuario = {
         resenias: element,
         usuario: nombreUsuario
       }
@@ -153,15 +163,15 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *   ENVIAR RESENIAS
   */
-  async enviarResenias(){
-    const reseniasEnviar : AnadirResenias = {
+  async enviarResenias() {
+    const reseniasEnviar: AnadirResenias = {
       texto: this.textoResenia,
       usuarioId: await this.resenia.devolverIdUsuario(this.authService.getEmailUserToken()),
       bicicletaId: parseInt(this.codigoIdentificador)
     }
-    
+
     this.resenia.enviarResenas(reseniasEnviar)
-    
+
     //this.enrutador.navigate(['catalogo'])
     //location.reload()
 
@@ -169,7 +179,7 @@ export class VistaDetalleComponent implements OnInit {
 
   }
 
-  devolverReseniasAlRecargar(){
+  devolverReseniasAlRecargar() {
     this.resenias = []
     this.devolverMediaResenias()
     this.devolverTodasResenias()
