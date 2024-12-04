@@ -27,7 +27,11 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="/carrito">Carrito</a>
+            <a class="nav-link mx-lg-2" href="/carrito">Carrito
+              @if (productosCarrito) {
+                <img id="masCarrito" src="navbar/iconoMasCarrito.png" alt="Mas en el carrito">
+              }
+            </a>
           </li>
 
           <li class="nav-item">

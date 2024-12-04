@@ -16,11 +16,19 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private service: RedirectionService,
-    private navBarService: NavbarService) { }
+    private navBarService: NavbarService) 
+    {
+      this.productosCarrito = this.navBarService.productosCarrito
+    }
   
   nombre : string = ""
+  productosCarrito = false
 
   async ngOnInit(): Promise<void> {
+
+    await this.navBarService.cogerProductos()
+    this.productosCarrito = this.navBarService.productosCarrito
+
     if(this.authService.loged()){
       this.nombre = await this.authService.getNameUser()
     }
