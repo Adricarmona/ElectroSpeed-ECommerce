@@ -41,6 +41,7 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
             builder.Services.AddScoped<ElectroSpeedContext>();
+            builder.Services.AddScoped<UnitOfWork>();
             builder.Services.AddTransient<BlockchainService>();
 
             builder.Services.AddAuthentication()
