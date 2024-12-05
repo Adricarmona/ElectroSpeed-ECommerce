@@ -1,0 +1,43 @@
+#fondo {
+    background-color: navajowhite;
+}
+
+.centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centradoTexto {
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 0.4fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 10px;
+
+    margin: 0 10vh;
+    padding: 0 40vh;
+    text-align: center;
+}
+
+.fotoBici, 
+.nombreBici, 
+.precioBici,
+.cantidadBici,
+.sumaPrecios{
+    background-color: white;
+}
+
+.nombreBici, 
+.cantidadBici{
+    background-color: rgb(199, 198, 198);
+}
+
+.fotoBici img {
+    height: 10vh;
+}
+
