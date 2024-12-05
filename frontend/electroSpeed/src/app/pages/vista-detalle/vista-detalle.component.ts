@@ -59,6 +59,7 @@ export class VistaDetalleComponent implements OnInit {
       this.precioBici = bicicleta.precio
       this.stockBici = bicicleta.stock
       this.fotoBici = bicicleta.urlImg
+      this.prueba = this.stockBici
     }
 
     this.devolverMediaResenias()
@@ -91,23 +92,38 @@ export class VistaDetalleComponent implements OnInit {
   *     CARRITO 
   */
   async anadirCarrito() {
+    if (this.stockBici <= 0) {
+      alert("No hay más stock de la bici")
+      return;
+    }
+
     if (this.usuarioToken()) {
 
       const Usuario: Usuarios = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
 
       const carritoUsuarioActual: CarritoEntero = await this.carrito.devolverCarritoPorUsuario(Usuario.id)
 
+      //se mira cuantas hay en el carrito (no puedo mas)
 
-      if (this.prueba<this.stockBici) {
-        this.carrito.enviarCarrito(parseInt(this.codigoIdentificador), carritoUsuarioActual.id)
-        this.prueba += 1
-      }else{
+      const cantidadActual = carritoUsuarioActual.bicisCantidad.reduce((cuenta, bici) => 
+        bici.idBici === parseInt(this.codigoIdentificador) ? cuenta + bici.cantidad : cuenta, 0);
 
+      if (cantidadActual>=this.stockBici) {
+        alert("No puedes añadir más bicis de las que hay en stock")
+        return;
       }
 
-      
+      this.carrito.enviarCarrito(parseInt(this.codigoIdentificador), carritoUsuarioActual.id)
+
 
     } else {
+      const idsBicis = localStorage.getItem("idbici")?.split(",") || []
+      const cantidadActual = idsBicis.filter(id => id === this.codigoIdentificador).length
+
+      if (cantidadActual >= this.stockBici) {
+        alert("No puedes añadir más bicis de las que hay en stock")
+        return;
+      }
 
       if (localStorage.getItem("idbici")) {
         localStorage.setItem("idbici", this.codigoIdentificador + "," + localStorage.getItem("idbici"))
