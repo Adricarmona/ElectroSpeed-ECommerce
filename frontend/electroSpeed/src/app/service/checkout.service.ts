@@ -27,6 +27,11 @@ export class CheckoutService {
     return this.api.get<CheckoutSessionStatus>(`api/checkout/status/${sessionId}`);
   }
 
+  async postOrdenTemporal(carrito : string){
+    var result = await this.api.post<number>(`api/checkout/OrdenTemporal/${carrito}`)
+    return result;
+  }
+
   postPedido(){
 
   }

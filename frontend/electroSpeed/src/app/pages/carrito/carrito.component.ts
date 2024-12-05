@@ -9,6 +9,7 @@ import { Carrito } from '../../models/carrito';
 import { OrdenTemporal } from '../../models/orden-temporal';
 import { BiciTemporal } from '../../models/bici-temporal';
 import { CheckoutService } from '../../service/checkout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -21,7 +22,8 @@ export class CarritoComponent {
   constructor(
     private catalogoService: CatalogoService,
     private carritoService: CarritoService,
-    private checkoutService: CheckoutService,
+    private router: Router,
+    private checkoutservice: CheckoutService,
     private auth: AuthService
   ) { }
 
@@ -36,7 +38,7 @@ export class CarritoComponent {
   idCarrito: number = 0;
   bicicletas: Bicicletas[] = [];
   bicicletaCarrito: BicisCantidad[] = [];
-  carro : CarritoEntero
+  carro : CarritoEntero;
 
 
   async ngOnInit() {
@@ -156,11 +158,33 @@ export class CarritoComponent {
   }
 
   carritoVacio() {
-    console.log(this.codigoIdentificador)
+    //console.log(this.codigoIdentificador)
     if (this.bicicletaCarrito.length > 0 || this.codigoIdentificador.length > 0) {
       return false
     }
     return true
+  }
+
+  async crearOrdenTemporal(){
+    var carrito = localStorage.getItem("idbici")
+    var result  = await this.checkoutservice.postOrdenTemporal(carrito)
+    return result.data
+  }
+
+  async goTarjeta() {
+    var reserva_id = await this.crearOrdenTemporal();
+    console.log("session_id:  "+reserva_id)
+    this.router.navigate(
+      ['/checkout'],
+      { queryParams: { 'reserva_id': reserva_id, 'metodo-pago': 'stripe' } }
+    );
+  }
+
+  goBlockchain() {
+    this.router.navigate(
+      ['/checkout'],
+      { queryParams: { session_id: 'session_id', 'metodo-pago': 'ethereum' } }
+    );
   }
 }
 

@@ -60,7 +60,7 @@ namespace ElectroSpeed_server.Recursos
         //
         //    return bicis;
         //}
-        public OrdeTemporal Ordentemporal(int id)
+        public OrdeTemporal OrdentemporalSesionSi(int id)
         {
             //guardo el carrito del usuario
             var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);

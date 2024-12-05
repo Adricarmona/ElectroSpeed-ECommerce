@@ -21,17 +21,24 @@ namespace ElectroSpeed_server.Controllers
             _settings = settings.Value;
         }
 
-        [HttpPost("OrdenTemporal")]
-        public int CrearOrdentemporal(OrdenTemporal model)
+        [HttpPost("OrdenTemporal/{carrito}")]
+        public int CrearOrdentemporal(string carrito)
         {
+           String[] idBicis = carrito.Split(",");
+            
+            IList<Bicicletas> bici = [];
+
+            foreach (var item in idBicis)
+            {
+                var id = Convert.ToInt32(item);
+                bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == id));
+            }
 
             OrdenTemporal ordenTemporal = new()
             {
-                idUsuario = model.idUsuario,
-                Bici = model.Bici
+                idUsuario = "",
+                Bici = bici
             };
-            _esContext.ordenTemporal.Add(ordenTemporal);
-            _esContext.SaveChanges();
 
             return ordenTemporal.Id;
         }
@@ -54,7 +61,7 @@ namespace ElectroSpeed_server.Controllers
 
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.Ordentemporal(idtoken);
+            var orden = checkout.OrdentemporalSesionSi(idtoken);
 
             var lineItems = new List<SessionLineItemOptions>();
 

@@ -7,8 +7,8 @@ namespace ElectroSpeed_server.Models.Data.Entities
     {
 
         public int Id { get; set; }
-        public IList<BiciTemporal> Bici { get; set; }
+        public IList<Bicicletas> Bici { get; set; }
 
-        public int idUsuario { get; set; }
+        public string idUsuario { get; set; }
     }
 }
