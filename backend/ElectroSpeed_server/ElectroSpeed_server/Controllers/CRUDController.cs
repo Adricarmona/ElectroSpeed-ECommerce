@@ -7,5 +7,6 @@ namespace ElectroSpeed_server.Controllers
     [ApiController]
     public class CRUDController : ControllerBase
     {
+
     }
 }
