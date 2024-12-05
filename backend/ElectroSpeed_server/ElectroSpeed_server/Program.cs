@@ -76,18 +76,16 @@ namespace ElectroSpeed_server
             });
             
 
-            if (builder.Environment.IsDevelopment())
-            {
+
                 builder.Services.AddCors(options =>
                 {
                     options.AddDefaultPolicy(builder =>
                     {
-                        builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                        builder.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
                 });
-            }
 
             builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
 
@@ -110,7 +108,7 @@ namespace ElectroSpeed_server
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(builder.Environment.ContentRootPath, "../../../wwwroot")
+                    Path.Combine(builder.Environment.ContentRootPath, "wwwroot")
                 )
             }
             ); // para que pueda verse las fotos
