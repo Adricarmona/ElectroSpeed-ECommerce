@@ -10,6 +10,7 @@ import { StripeComponent } from './pages/stripe/stripe.component';
 import { ConfirmacionCompraComponent } from './pages/confirmacion-compra/confirmacion-compra.component';
 import { GuardRedirectionComponent } from './pages/guard-redirection/guard-redirection.component';
 import { redirectionGuard } from './guards/redirection.guard/redirection.guard.component';
+import { AdministradorComponent } from './pages/administrador/administrador.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -20,5 +21,6 @@ export const routes: Routes = [
     {path: 'sobreNosotros', component:  SobreNosotrosComponent},
     {path: 'carrito', component: CarritoComponent},
     {path: 'confirmacion', component: ConfirmacionCompraComponent},
-    {path: 'checkout', component: StripeComponent,  canActivate: [redirectionGuard]}
+    {path: 'checkout', component: StripeComponent,  canActivate: [redirectionGuard]},
+    {path: 'administrador', component: AdministradorComponent},
 ];
