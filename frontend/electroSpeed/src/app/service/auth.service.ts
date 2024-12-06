@@ -30,7 +30,8 @@ export class AuthService {
     id: 0,
     name: '',
     username: '',
-    email: ''
+    email: '',
+    rol: false
   }
 
   jwt: string = '';

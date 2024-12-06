@@ -7,11 +7,50 @@
     <div class="vista">
         <div class="productos_usuarios coloresYbordes">
 
-                <div class="centrado">
-                    <button>{{usuarioOBici}}</button>
-                    <div class="pestana">
-                        @if (usuarioOBici == "usuario") {
-                            <p>adad</p>
+                <div class="pestana">
+
+                    <p>Cambiar a:</p>
+                    @if (usuarioOBici == 0) {
+                        <button (click)="cambiarUsuarioBici()">bicicleta</button>
+                    }
+                    @else {
+                        <button (click)="cambiarUsuarioBici()">usuario</button>
+                    }
+                    
+                    <div>
+                        <button>-</button>
+                        <button>añadir</button>
+                        <button>+</button>
+                    </div>
+
+                    <div class="menu">
+                        @if (usuarioOBici == 1) {
+
+                            @for (item of bicicletasFiltradas; track $index) {
+
+                                <div class="tarjeta" (click)="seleccionado = 0">
+                                    <img [src]="item.urlImg" alt="">
+                                    <p>id: {{item.id}}</p>
+                                    <p>marca y modelo: {{item.marcaModelo}}</p>
+                                    <p>precio: {{item.stock}} stock: {{item.stock}}</p>
+                                </div>
+    
+                            }
+
+                        }
+                        @else if(usuarioOBici == 0) {
+
+                            @for (item of usuariosFiltrados; track $index) {
+
+                                <div class="tarjeta" (click)="seleccionado = 1">
+                                    <p>id: {{item.id}}</p>
+                                    <p>email: {{item.email}}</p>
+                                    <p>usuaario: {{item.username}}</p>
+                                    <p>nombre: {{item.name}}</p>
+                                </div>
+    
+                            }
+
                         }
                     </div>
 
@@ -22,7 +61,7 @@
 
         <div class="detalles coloresYbordes">
 
-            @if (true) {
+            @if (seleccionado == 1) {
                 <form action="">
                     <div class="centrado">
                         <h2>Usuario</h2>
@@ -31,22 +70,33 @@
                         <div>
                             <div class="pestana">
                                 <span>Id Usuario: </span>
-                                <input type="number" name="id" id="id" [value]="id">
+                                <input type="number" name="id" id="id" [value]="usuarioSeleccionado.id">
                             </div>
                             <br>
                             <div class="pestana">
                                 <span>Nombre usuario: </span>
-                                <input type="text" name="nombre" id="nombre" [value]="name">
+                                <input type="text" name="nombre" id="nombre" [value]="usuarioSeleccionado.name">
                             </div>
                             <br>
                             <div class="pestana">
                                 <span>Email usuario: </span>
-                                <input type="text" name="email" id="email" [value]="email">
+                                <input type="text" name="email" id="email" [value]="usuarioSeleccionado.email">
                             </div>
                             <br>
                             <div class="pestana">
                                 <span>Direccion usuario: </span>
-                                <input type="text" name="direccion" id="direccion" [value]="direccion">
+                                <input type="text" name="direccion" id="direccion" [value]="usuarioSeleccionado.username">
+                            </div>
+                            <br>
+                            <div class="pestana">
+
+                                <span>Rol del usuario: </span>
+                                <br>
+
+                                <span>administradro: 
+                                    <input type="checkbox" [(ngModel)]="usuarioSeleccionado.rol" [ngModelOptions]="{standalone: true}" value="{{usuarioSeleccionado.rol}}" >
+                                </span>
+                                
                             </div>
                         </div>
                     </div>
@@ -57,28 +107,28 @@
                     </div>
                 </form>
             } 
-            @else if(true) {
+            @else if(seleccionado == 0) {
                 <form action="">
                     <div class="centrado">
                         <h2>Bicicleta</h2>
                     </div>
                     <div class="gridDetalle">
                         <div>
-                            <img id="biciDetalle" [src]="foto" alt="">
+                            <img id="biciDetalle" [src]="bicicletaSeleccionada.urlImg" alt="">
                         </div>   
                         <div>
                             <div class="inputs">
                                 <span>NombreModelo bicicleta: </span>
-                                <input type="text" name="nombreYMarca" id="nombreYMarca" [value]="nombreYMarca">
+                                <input type="text" name="nombreYMarca" id="nombreYMarca" [value]="bicicletaSeleccionada.marcaModelo">
                                 <br>
                                 <span>Descripcion bicicleta: </span>
-                                <input type="text" name="descripcion" id="descripcion" [value]="descripcion">
+                                <input type="text" name="descripcion" id="descripcion" [value]="bicicletaSeleccionada.descripcion">
                                 <br>
                                 <span>Precio bicicleta: </span>
-                                <input type="number" name="precio" id="precio" [value]="precio">
+                                <input type="number" name="precio" id="precio" [value]="bicicletaSeleccionada.precio">
                                 <br>
                                 <span>Stock disponible: </span>
-                                <input type="number" name="stock" id="stock" [value]="stock">      
+                                <input type="number" name="stock" id="stock" [value]="bicicletaSeleccionada.stock">      
                                 <br>    
                                 <span>Imagen: <input type="file" name="Imagen" id=""> </span>
                             </div>
@@ -92,7 +142,7 @@
                 </form>
             }
             @else {
-                <img id="cargando" [src]="foto" alt="">
+                <img id="cargando" src="./administrador/chinoEnBici.gif" alt="">
             }
 
         </div>
