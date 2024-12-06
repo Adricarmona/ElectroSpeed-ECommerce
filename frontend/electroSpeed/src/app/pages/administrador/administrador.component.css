@@ -86,3 +86,7 @@
 .tarjeta:hover {
     border: 1px solid #ff1e0042;
 }
+
+.marguinDe2 {
+    margin: 2vh;
+}

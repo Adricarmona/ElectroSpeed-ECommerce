@@ -7,20 +7,22 @@
     <div class="vista">
         <div class="productos_usuarios coloresYbordes">
 
-                <div class="pestana">
+                <div class="pestana marguinDe2">
 
-                    <p>Cambiar a:</p>
-                    @if (usuarioOBici == 0) {
-                        <button (click)="cambiarUsuarioBici()">bicicleta</button>
-                    }
-                    @else {
-                        <button (click)="cambiarUsuarioBici()">usuario</button>
-                    }
-                    
-                    <div>
-                        <button>-</button>
-                        <button>añadir</button>
-                        <button>+</button>
+                    <div class="marguinDe2">
+                        <span>Cambiar a: </span>
+                        @if (usuarioOBici == 0) {
+                            <button (click)="cambiarUsuarioBici()">bicicleta</button>
+                        }
+                        @else {
+                            <button (click)="cambiarUsuarioBici()">usuario</button>
+                        }
+                    </div>
+
+                    <div class="marguinDe2">
+                        <button (click)="sumarRestarEjecutar(-1)">-</button>
+                        <span> {{idBuscarMenu}} </span>
+                        <button (click)="sumarRestarEjecutar(1)">+</button>
                     </div>
 
                     <div class="menu">
@@ -28,13 +30,13 @@
 
                             @for (item of bicicletasFiltradas; track $index) {
 
-                                <div class="tarjeta" (click)="seleccionado = 0">
+                                <div class="tarjeta" (click)="seleccionarDestacado(item.id,1)">
                                     <img [src]="item.urlImg" alt="">
                                     <p>id: {{item.id}}</p>
                                     <p>marca y modelo: {{item.marcaModelo}}</p>
                                     <p>precio: {{item.stock}} stock: {{item.stock}}</p>
                                 </div>
-    
+
                             }
 
                         }
@@ -42,7 +44,7 @@
 
                             @for (item of usuariosFiltrados; track $index) {
 
-                                <div class="tarjeta" (click)="seleccionado = 1">
+                                <div class="tarjeta" (click)="seleccionarDestacado(item.id,0)">
                                     <p>id: {{item.id}}</p>
                                     <p>email: {{item.email}}</p>
                                     <p>usuaario: {{item.username}}</p>
@@ -54,15 +56,18 @@
                         }
                     </div>
 
-                </div>
+                    <div>
+                        <button>añadir</button>
+                    </div>
 
+                </div>
 
         </div>
 
         <div class="detalles coloresYbordes">
 
-            @if (seleccionado == 1) {
-                <form action="">
+            @if (seleccionado == 0) {
+                <form action="" class="marguinDe2">
                     <div class="centrado">
                         <h2>Usuario</h2>
                     </div>
@@ -107,8 +112,8 @@
                     </div>
                 </form>
             } 
-            @else if(seleccionado == 0) {
-                <form action="">
+            @else if(seleccionado == 1) {
+                <form action="" class="marguinDe2">
                     <div class="centrado">
                         <h2>Bicicleta</h2>
                     </div>
