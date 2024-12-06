@@ -1,0 +1,102 @@
+<div id="Fondo">
+    <div id="Titulo">
+        <h2>Vista de administrador</h2>
+    </div>    
+
+
+    <div class="vista">
+        <div class="productos_usuarios coloresYbordes">
+
+                <div class="centrado">
+                    <button>{{usuarioOBici}}</button>
+                    <div class="pestana">
+                        @if (usuarioOBici == "usuario") {
+                            <p>adad</p>
+                        }
+                    </div>
+
+                </div>
+
+
+        </div>
+
+        <div class="detalles coloresYbordes">
+
+            @if (true) {
+                <form action="">
+                    <div class="centrado">
+                        <h2>Usuario</h2>
+                    </div>
+                    <div class="gridDetalle">
+                        <div>
+                            <div class="pestana">
+                                <span>Id Usuario: </span>
+                                <input type="number" name="id" id="id" [value]="id">
+                            </div>
+                            <br>
+                            <div class="pestana">
+                                <span>Nombre usuario: </span>
+                                <input type="text" name="nombre" id="nombre" [value]="name">
+                            </div>
+                            <br>
+                            <div class="pestana">
+                                <span>Email usuario: </span>
+                                <input type="text" name="email" id="email" [value]="email">
+                            </div>
+                            <br>
+                            <div class="pestana">
+                                <span>Direccion usuario: </span>
+                                <input type="text" name="direccion" id="direccion" [value]="direccion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="centrado">
+                        <input type="submit" value="añadir">
+                        <input type="submit" value="guardar">
+                        <input type="submit" value="eliminar">
+                    </div>
+                </form>
+            } 
+            @else if(true) {
+                <form action="">
+                    <div class="centrado">
+                        <h2>Bicicleta</h2>
+                    </div>
+                    <div class="gridDetalle">
+                        <div>
+                            <img id="biciDetalle" [src]="foto" alt="">
+                        </div>   
+                        <div>
+                            <div class="inputs">
+                                <span>NombreModelo bicicleta: </span>
+                                <input type="text" name="nombreYMarca" id="nombreYMarca" [value]="nombreYMarca">
+                                <br>
+                                <span>Descripcion bicicleta: </span>
+                                <input type="text" name="descripcion" id="descripcion" [value]="descripcion">
+                                <br>
+                                <span>Precio bicicleta: </span>
+                                <input type="number" name="precio" id="precio" [value]="precio">
+                                <br>
+                                <span>Stock disponible: </span>
+                                <input type="number" name="stock" id="stock" [value]="stock">      
+                                <br>    
+                                <span>Imagen: <input type="file" name="Imagen" id=""> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="centrado">
+                        <input type="submit" value="añadir">
+                        <input type="submit" value="guardar">
+                        <input type="submit" value="eliminar">
+                    </div>
+                </form>
+            }
+            @else {
+                <img id="cargando" [src]="foto" alt="">
+            }
+
+        </div>
+    </div>
+        
+    <app-footer></app-footer>
+</div>

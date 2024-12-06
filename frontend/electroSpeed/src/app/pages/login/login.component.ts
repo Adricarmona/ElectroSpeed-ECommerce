@@ -31,9 +31,8 @@ export class LoginComponent {
     private router: Router,
     private carrito: CarritoService,
     private navbarService: NavbarService
-
-
   ) {
+    navbarService.cambiarCss(0)
 
     this.myForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

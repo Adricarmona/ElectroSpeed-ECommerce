@@ -19,15 +19,15 @@
         <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
 
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" aria-current="page" href="#">Inicio</a>  <!-- active -->
+            <a id="inicio" class="nav-link mx-lg-2 active" aria-current="page" href="#">Inicio</a>  <!-- active -->
           </li>
 
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="/catalogo">Productos</a>
+            <a id="productos" class="nav-link mx-lg-2" href="/catalogo">Productos</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="/carrito">Carrito
+            <a id="carrito" class="nav-link mx-lg-2" href="/carrito">Carrito
               @if (productosCarrito) {
                 <img id="masCarrito" src="navbar/iconoMasCarrito.png" alt="Mas en el carrito">
               }
@@ -35,7 +35,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="/sobreNosotros">Sobre Nosotros</a>
+            <a id="sobreNosotros" class="nav-link mx-lg-2" href="/sobreNosotros">Sobre Nosotros</a>
           </li>
 
           <li class="nav-item">
