@@ -9,6 +9,7 @@ import { BiciPagina } from '../../models/bici-pagina';
 import { Bicicletas } from '../../models/catalogo';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { AuthService } from '../../service/auth.service';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-stripe',
@@ -32,7 +33,10 @@ export class StripeComponent implements OnInit, OnDestroy {
     private service: CheckoutService, 
     private route: ActivatedRoute, 
     private router: Router,
-    private stripe: StripeService) {}
+    private stripe: StripeService,
+    private navbarService: NavbarService) {
+      navbarService.cambiarCss(0)
+    }
 
    ngOnInit() {
     // El evento ngOnInit solo se llama una vez en toda la vida del componente.

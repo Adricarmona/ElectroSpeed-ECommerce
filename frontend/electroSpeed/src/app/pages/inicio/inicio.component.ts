@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-inicio',
@@ -10,4 +11,7 @@ import { FooterComponent } from '../footer/footer.component';
 })
 export class InicioComponent {
 
+  constructor(private navbarService : NavbarService) {
+    navbarService.cambiarCss(1)
+  }
 }

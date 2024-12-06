@@ -20,7 +20,9 @@ export class CarritoComponent {
     private carritoService: CarritoService,
     private auth: AuthService,
     private navBar: NavbarService
-  ) { }
+  ) { 
+    navBar.cambiarCss(3)
+  }
 
   codigoIdentificador: string[] = [];
   codigoIdentificadorLogueado: number[] = [];
