@@ -1,1 +1,6 @@
-<p>checkout works!</p>
+
+@if(this.metodoPago == "stripe"){
+    <app-stripe></app-stripe>
+}@else{
+    <p>Ethereum</p>
+}

@@ -99,9 +99,10 @@ export class CarritoComponent {
         if (this.usuarioToken() != null) {
             // Llamar al servicio para eliminar la bicicleta en el servidor
             await this.carritoService.borrarBiciCarrito(this.idCarrito, id).then();
-
+          
             // Recargar el carrito actualizado desde el servidor
             this.carro = await this.carritoService.devolverCarritoPorUsuario(this.idUser);
+            console.log(this.carro)
             this.bicicletaCarrito = this.carro.bicisCantidad;
 
             // Actualizar la lista de bicicletas locales
@@ -165,25 +166,35 @@ export class CarritoComponent {
     return true
   }
 
-  async crearOrdenTemporal(){
+  async crearOrdenTemporalLocal(){
     var carrito = localStorage.getItem("idbici")
-    var result  = await this.checkoutservice.postOrdenTemporal(carrito)
+    var result  = await this.checkoutservice.postOrdenTemporalLocal(carrito)
+    return result.data
+  }
+
+  async crearOrdenTemporalCarrito(){
+    var result  = await this.checkoutservice.postOrdenTemporalCarrito(this.idUser)
     return result.data
   }
 
   async goTarjeta() {
-    var reserva_id = await this.crearOrdenTemporal();
+    if (this.idUser) {
+      var reserva_id = await this.crearOrdenTemporalCarrito();
+    }else{
+      var reserva_id = await this.crearOrdenTemporalLocal();
+    }
+    //var reserva_id = await this.crearOrdenTemporalLocal();
     console.log("session_id:  "+reserva_id)
     this.router.navigate(
       ['/checkout'],
-      { queryParams: { 'reserva_id': reserva_id, 'metodo-pago': 'stripe' } }
+      { queryParams: { 'reserva_id': reserva_id, 'metodo_pago': 'stripe' } }
     );
   }
 
   goBlockchain() {
     this.router.navigate(
       ['/checkout'],
-      { queryParams: { session_id: 'session_id', 'metodo-pago': 'ethereum' } }
+      { queryParams: { session_id: 'session_id', 'metodo_pago': 'ethereum' } }
     );
   }
 }

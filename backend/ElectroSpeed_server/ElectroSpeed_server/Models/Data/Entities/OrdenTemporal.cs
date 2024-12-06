@@ -9,6 +9,11 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public int Id { get; set; }
         public IList<Bicicletas> Bici { get; set; }
 
-        public string idUsuario { get; set; }
+        public int UsuarioId { get; set; }
+
+        public IList<BicisCantidad> BicisCantidad { get; set; }
+
+        [ForeignKey(nameof(UsuarioId))]
+        public Usuarios Usuario { get; set; }
     }
 }

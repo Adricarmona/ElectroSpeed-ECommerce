@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe.Checkout;
+using Microsoft.EntityFrameworkCore;
+using ElectroSpeed_server.Models.Data.Dto;
 
 namespace ElectroSpeed_server.Controllers
 {
@@ -21,8 +23,8 @@ namespace ElectroSpeed_server.Controllers
             _settings = settings.Value;
         }
 
-        [HttpPost("OrdenTemporal/{carrito}")]
-        public int CrearOrdentemporal(string carrito)
+        [HttpPost("OrdenTemporalLocal/{carrito}")]
+        public int CrearOrdentemporalLocal(string carrito)
         {
            String[] idBicis = carrito.Split(",");
             
@@ -36,9 +38,33 @@ namespace ElectroSpeed_server.Controllers
 
             OrdenTemporal ordenTemporal = new()
             {
-                idUsuario = "",
-                Bici = bici
+                UsuarioId = 0,
+                Bici = bici,
+                BicisCantidad = null
             };
+
+            _esContext.OrdenTemporal.Add(ordenTemporal);
+            _esContext.SaveChanges();
+
+            return ordenTemporal.Id;
+        }
+
+        [HttpPost("OrdenTemporalCarrito/{id}")]
+        public int CrearOrdentemporalCarrito(int id)
+        {
+            //guardo el carrito del usuario
+            var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
+
+            //creo la orden temporal
+            OrdenTemporal ordenTemporal = new()
+            {
+                BicisCantidad = carrito.BicisCantidad,
+                UsuarioId = carrito.UsuarioId,
+                Bici = null
+            };
+
+            _esContext.OrdenTemporal.Add(ordenTemporal);
+            _esContext.SaveChanges();
 
             return ordenTemporal.Id;
         }
@@ -61,7 +87,7 @@ namespace ElectroSpeed_server.Controllers
 
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.OrdentemporalSesionSi(idtoken);
+            var orden = checkout.CogerOrdenTemporal(idtoken);
 
             var lineItems = new List<SessionLineItemOptions>();
 
