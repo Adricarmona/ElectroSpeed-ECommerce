@@ -5,6 +5,7 @@ import { Usuarios } from '../../models/usuarios';
 import { FormsModule } from '@angular/forms';
 import { CatalogoService } from '../../service/catalogo.service';
 import { AuthService } from '../../service/auth.service';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-administrador',
@@ -55,10 +56,13 @@ export class AdministradorComponent {
 
   constructor(
     private catalogoService: CatalogoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private navbarService: NavbarService
   ){}
 
   async ngOnInit(): Promise<void> {
+    this.navbarService.cambiarCss(0)
+
     await this.ObtenerBicis()
     await this.ObtenerUsuarios()
 

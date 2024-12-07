@@ -136,6 +136,16 @@ export class AuthService {
     return "error"
   }
 
+  getAdminUserToken() {
+    const token = this.getToken()
+    if (token != null) {
+      const tokenDecodificado: any = jwtDecode(token)
+      const role = tokenDecodificado.role
+      return role
+    }
+    return null
+  }
+
   async getIdUserEmail(correo :string) {
     const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
     const request: Usuarios = await lastValueFrom(resultado)
