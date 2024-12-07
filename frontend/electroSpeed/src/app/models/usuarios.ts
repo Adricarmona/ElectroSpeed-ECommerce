@@ -3,4 +3,5 @@ export interface Usuarios {
     name: string,
     username: string,
     email: string,
+    admin: boolean
 }

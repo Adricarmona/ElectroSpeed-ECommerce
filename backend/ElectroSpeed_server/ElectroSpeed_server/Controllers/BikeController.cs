@@ -65,7 +65,7 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IList<Bicicletas> GetBicicletas()
         {
-            return _imagenMapper.AddCorrectPath(_esContext.Bicicletas.ToList());
+            return _imagenMapper.AddCorrectPath(_esContext.Bicicletas.ToList(), Request);
         }
 
         [HttpGet("/bicicleta")]

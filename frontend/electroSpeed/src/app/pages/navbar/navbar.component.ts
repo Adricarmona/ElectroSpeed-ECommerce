@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
     }
   
   nombre : string = ""
+  admin : boolean = false
   productosCarrito = false
 
   async ngOnInit(): Promise<void> {
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
 
     if(this.authService.loged()){
       this.nombre = await this.authService.getNameUser()
+      this.admin = await this.authService.getAdminUserToken()
     }
   }
 

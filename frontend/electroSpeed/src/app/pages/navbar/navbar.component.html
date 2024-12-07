@@ -48,9 +48,20 @@
 
         </ul>
 
+        @if (admin) {
+          <div class="administratorIcono nav-link">
+            <a href="/administrador">
+              <img src="./navbar/administrator.png" alt="">
+            </a>
+          </div>
+        }
+
       </div>
 
     </div>
+
+
+
     @if (!usuarioToken()) {
       <a href="/log" class="login-button" >Iniciar Sesión</a>
     }@else{

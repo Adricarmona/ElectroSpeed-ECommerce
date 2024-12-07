@@ -30,7 +30,8 @@ export class AuthService {
     id: 0,
     name: '',
     username: '',
-    email: ''
+    email: '',
+    admin: false
   }
 
   jwt: string = '';
@@ -135,6 +136,16 @@ export class AuthService {
     return "error"
   }
 
+  getAdminUserToken() {
+    const token = this.getToken()
+    if (token != null) {
+      const tokenDecodificado: any = jwtDecode(token)
+      const role = tokenDecodificado.role
+      return role
+    }
+    return null
+  }
+
   async getIdUserEmail(correo :string) {
     const resultado: Observable<Usuarios> = this.http.get<Usuarios>(`${this.BASE_URL}usuarioEmail?email=${correo}`);
     const request: Usuarios = await lastValueFrom(resultado)
@@ -167,6 +178,19 @@ export class AuthService {
       }
     }
     return null
+  }
+
+
+  async getUsersDto() {
+    try {
+      const request: Observable<Usuarios[]> = this.http.get<Usuarios[]>(`${this.BASE_URL}api/User/AdminView`);
+      const result: Usuarios[] = await lastValueFrom(request);
+
+      return result
+    } catch (error) {
+      console.error("Error al buscar el usuario: ", error)
+      return null
+  }
   }
 
 }

@@ -26,7 +26,7 @@
 }
 
 .productos_usuarios {
-    height: 50vh;
+    height: auto;
 }
 
 .coloresYbordes {
@@ -69,4 +69,24 @@
 
 .pestana {
     display: block;
+    text-align: center;
+}
+
+.menu img {
+    width: 10vh;
+}
+
+.tarjeta {
+    background-color: ghostwhite;
+    margin: 1vh;
+    text-align: center;
+    border-radius: 2vh;
+}
+
+.tarjeta:hover {
+    border: 1px solid #ff1e0042;
+}
+
+.marguinDe2 {
+    margin: 2vh;
 }
