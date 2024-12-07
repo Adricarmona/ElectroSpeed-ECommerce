@@ -30,7 +30,7 @@ namespace ElectroSpeed_server.Recursos
 
         public OrdenTemporal CogerOrdenTemporal(int id)
         {
-            var orden = _esContext.OrdenTemporal.Include(o => o.Bici).Include(o => o.BicisCantidad).FirstOrDefault(o => o.UsuarioId == id);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.UsuarioId == id);
 
             //bucle para recorrer las bicicletas del carrito
            // foreach (var item in carrito.BicisCantidad)

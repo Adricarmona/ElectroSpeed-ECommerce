@@ -194,7 +194,7 @@ export class CarritoComponent {
   goBlockchain() {
     this.router.navigate(
       ['/checkout'],
-      { queryParams: { session_id: 'session_id', 'metodo_pago': 'ethereum' } }
+      { queryParams: { 'reserva_id': 'session_id', 'metodo_pago': 'ethereum' } }
     );
   }
 }

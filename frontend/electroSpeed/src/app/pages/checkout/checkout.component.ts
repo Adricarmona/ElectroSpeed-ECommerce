@@ -17,6 +17,7 @@ export class CheckoutComponent {
   routeQueryMap$: Subscription;
   metodoPago: string = '';
   queryMap: ParamMap;
+  reserva: number;
 
   constructor(
     private auth: AuthService,
@@ -30,21 +31,10 @@ export class CheckoutComponent {
   }
 
   async init(queryMap: ParamMap) {
+    this.reserva = parseInt(queryMap.get('reserva_id'));
+    await this.service.cambiarIdUser(this.reserva)
+    console.log(this.reserva)
     this.metodoPago = queryMap.get('metodo_pago');
     console.log(this.metodoPago)
-/*     if (this.sessionId) {
-      const request = await this.service.getStatus(this.sessionId);
-      if (request.success) {
-        console.log(request.data);
-      }
-    } else {
-      const request = await this.service.getAllProducts();
-      console.log(request);
-
-      if (request.success) {
-        // Accede directamente a `data` porque no es un arreglo
-        this.product = request.data;
-      }
-    } */
   }
 }

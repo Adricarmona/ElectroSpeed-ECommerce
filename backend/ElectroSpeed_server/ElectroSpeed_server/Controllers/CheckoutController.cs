@@ -27,20 +27,37 @@ namespace ElectroSpeed_server.Controllers
         public int CrearOrdentemporalLocal(string carrito)
         {
            String[] idBicis = carrito.Split(",");
-            
-            IList<Bicicletas> bici = [];
 
+            Dictionary<int, int> cantidad = new();
             foreach (var item in idBicis)
             {
-                var id = Convert.ToInt32(item);
-                bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == id));
+                int id = Convert.ToInt32(item);
+                if (cantidad.ContainsKey(id))
+                {
+                    cantidad[id]++;
+                }
+                else
+                {
+                    cantidad[id] = 1;
+                }
+            }
+
+            IList<BiciTemporal> biciT = [];
+
+            foreach (var item in cantidad)
+            {
+                BiciTemporal b = new()
+                {
+                    IdBici = item.Key,
+                    cantidad = item.Value
+                };
+                biciT.Add(b);
             }
 
             OrdenTemporal ordenTemporal = new()
             {
-                UsuarioId = 0,
-                Bici = bici,
-                BicisCantidad = null
+                UsuarioId = 1,
+                Bicis = biciT
             };
 
             _esContext.OrdenTemporal.Add(ordenTemporal);
@@ -48,6 +65,33 @@ namespace ElectroSpeed_server.Controllers
 
             return ordenTemporal.Id;
         }
+
+        [HttpPost("OrdenTAñadirUsuario/{reserva}")]
+        public async Task<ActionResult> OrdenTAñadirUsuario(int reserva)
+        {
+
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == reserva);
+            orden.UsuarioId = idtoken;
+
+            _esContext.SaveChanges();
+
+            //IList<OrdenTemporal> ordenes = _esContext.OrdenTemporal.ToList();
+
+            //foreach (var item in ordenes)
+            //{
+            //    if (item.UsuarioId == idtoken)
+            //    {
+            //        if (orden != item)
+            //        {
+            //            _esContext.OrdenTemporal.Remove(item);
+            //        }
+            //   }
+            //}
+            //_esContext.SaveChanges();
+            return Ok("Usuario añadido");
+        }
+
 
         [HttpPost("OrdenTemporalCarrito/{id}")]
         public int CrearOrdentemporalCarrito(int id)
@@ -55,27 +99,29 @@ namespace ElectroSpeed_server.Controllers
             //guardo el carrito del usuario
             var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
 
+            IList<BiciTemporal> biciT = [];
+
+            foreach (var item in carrito.BicisCantidad)
+            {
+                BiciTemporal b = new()
+                {
+                    IdBici = item.IdBici,
+                    cantidad = item.cantidad
+                };
+                biciT.Add(b);
+            }
+
             //creo la orden temporal
             OrdenTemporal ordenTemporal = new()
             {
-                BicisCantidad = carrito.BicisCantidad,
+                Bicis = biciT,
                 UsuarioId = carrito.UsuarioId,
-                Bici = null
             };
 
             _esContext.OrdenTemporal.Add(ordenTemporal);
             _esContext.SaveChanges();
 
             return ordenTemporal.Id;
-        }
-
-        [HttpGet("AllProducts")]
-        public IList<Bicicletas> AllProducts()
-        {
-            int idtoken = Int32.Parse(User.FindFirst("id").Value);
-            CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
-            IList<Bicicletas> bici = checkout.AllProduct(idtoken);
-            return bici;
         }
 
         [HttpGet("embedded")]
@@ -91,7 +137,7 @@ namespace ElectroSpeed_server.Controllers
 
             var lineItems = new List<SessionLineItemOptions>();
 
-            foreach (var b in orden.BicisCantidad)
+            foreach (var b in orden.Bicis)
             {
                 var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == b.IdBici);
                 lineItems.Add(new SessionLineItemOptions()
