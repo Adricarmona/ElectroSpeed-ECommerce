@@ -20,9 +20,9 @@
                     </div>
 
                     <div class="marguinDe2">
-                        <button (click)="sumarRestarEjecutar(-1)">-</button>
+                        <button (click)="sumarRestarEjecutar(-2)">-</button>
                         <span> {{idBuscarMenu}} </span>
-                        <button (click)="sumarRestarEjecutar(1)">+</button>
+                        <button (click)="sumarRestarEjecutar(2)">+</button>
                     </div>
 
                     <div class="menu">
@@ -99,7 +99,7 @@
                                 <br>
 
                                 <span>administradro: 
-                                    <input type="checkbox" [(ngModel)]="usuarioSeleccionado.rol" [ngModelOptions]="{standalone: true}" value="{{usuarioSeleccionado.rol}}" >
+                                    <input type="checkbox" [(ngModel)]="usuarioSeleccionado.admin" [ngModelOptions]="{standalone: true}" value="{{usuarioSeleccionado.admin}}" >
                                 </span>
                                 
                             </div>

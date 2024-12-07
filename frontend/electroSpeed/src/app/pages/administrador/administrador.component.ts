@@ -3,6 +3,8 @@ import { FooterComponent } from '../footer/footer.component';
 import { Bicicletas } from '../../models/catalogo';
 import { Usuarios } from '../../models/usuarios';
 import { FormsModule } from '@angular/forms';
+import { CatalogoService } from '../../service/catalogo.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-administrador',
@@ -30,79 +32,43 @@ export class AdministradorComponent {
     name: '',
     username: '',
     email: '',
-    rol: false
+    admin: false
   }
 
 
 
   // bicicletas
-  bicicletasTotales: Bicicletas[] = [{
-    id: 1,
-    marcaModelo: 'marcaModelo',
-    descripcion: 'descripcion',
-    precio: 1,
-    stock: 1,
-    urlImg: 'administrador/chinoEnBici.gif',
-    cantidad: 0
-  },
-  {
-    id: 2,
-    marcaModelo: 'marcaModelo1',
-    descripcion: 'descripcion1',
-    precio: 2,
-    stock: 2,
-    urlImg: 'administrador/chinoEnBici.gif',
-    cantidad: 0
-  },
-  {
-    id: 3,
-    marcaModelo: 'marcaModelo2',
-    descripcion: 'descripcion2',
-    precio: 3,
-    stock: 3,
-    urlImg: 'administrador/chinoEnBici.gif',
-    cantidad: 0
-  }]
-
+  bicicletasTotales: Bicicletas[] = []
   bicicletasFiltradas: Bicicletas[]
 
 
   // usuarios
-  usuariosTotales: Usuarios[] = [{
-    id: 1,
-    name: 'nombre',
-    username: 'usuario',
-    email: 'correo',
-    rol: false
-  },
-  {
-    id: 2,
-    name: 'nombre1',
-    username: 'usuario1',
-    email: 'correo1',
-    rol: true
-  },
-  {
-    id: 3,
-    name: 'nombre2',
-    username: 'usuario2',
-    email: 'correo2',
-    rol: true
-  }]
-
+  usuariosTotales: Usuarios[] = []
   usuariosFiltrados: Usuarios[]
 
     // usuario o bici
     usuarioOBici: number = 1 // 0 usuario , 1 bici
-    seleccionado: number = 1 // si clica en un usuario o bici (como arriba)
+    seleccionado: number = 3 // si clica en un usuario o bici (como arriba)
 
     // id par menu
     idBuscarMenu: number = 1
 
-  ngOnInit(): void {
+  constructor(
+    private catalogoService: CatalogoService,
+    private authService: AuthService
+  ){}
+
+  async ngOnInit(): Promise<void> {
+    await this.ObtenerBicis()
+    await this.ObtenerUsuarios()
+
     this.sumarRestarEjecutar(0)
   }
 
+
+  //
+  //  las funciones que hacen que funcione el menu
+  //
   cambiarUsuarioBici(){
     if (this.usuarioOBici == 1) { // si es bici
       this.usuarioOBici = 0
@@ -176,4 +142,15 @@ export class AdministradorComponent {
 
   }
 
+
+  //
+  // utilizando los datos
+  //
+  async ObtenerBicis(){
+    this.bicicletasTotales = await this.catalogoService.todasLasBicis()
+  }
+
+  async ObtenerUsuarios() {
+    this.usuariosTotales = await this.authService.getUsersDto()
+  }
 }

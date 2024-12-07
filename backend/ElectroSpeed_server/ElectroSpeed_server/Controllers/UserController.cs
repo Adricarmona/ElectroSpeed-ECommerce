@@ -29,6 +29,23 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.Usuarios.Include(c => c.carritos).ToList();
         }
 
+        [HttpGet("AdminView")]
+        public IEnumerable<UserToAdmin> GetUsuariosAdmin()
+        {
+            IEnumerable<Usuarios> usuarios = _esContext.Usuarios.ToList();
+
+            IEnumerable<UserToAdmin> userDto = usuarios.Select(u => new UserToAdmin
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Direccion = u.Direccion,
+                Admin = u.Admin,
+            });
+
+            return userDto;
+        }
+
         [HttpGet("/usuarioId")]
         public Usuarios Uuarios(int id)
         {

@@ -31,7 +31,7 @@ export class AuthService {
     name: '',
     username: '',
     email: '',
-    rol: false
+    admin: false
   }
 
   jwt: string = '';
@@ -168,6 +168,19 @@ export class AuthService {
       }
     }
     return null
+  }
+
+
+  async getUsersDto() {
+    try {
+      const request: Observable<Usuarios[]> = this.http.get<Usuarios[]>(`${this.BASE_URL}api/User/AdminView`);
+      const result: Usuarios[] = await lastValueFrom(request);
+
+      return result
+    } catch (error) {
+      console.error("Error al buscar el usuario: ", error)
+      return null
+  }
   }
 
 }

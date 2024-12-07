@@ -51,6 +51,6 @@ export class CatalogoService {
         console.error("Error al buscar la bici: ", error);
         return null; // Devuelve `null` en caso de error.
     }
-}
+  }
 
 }
