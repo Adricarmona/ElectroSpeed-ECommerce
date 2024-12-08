@@ -2,6 +2,7 @@ using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Recursos;
+using ElectroSpeed_server.Recursos.Blockchain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.ML;
@@ -23,7 +24,7 @@ namespace ElectroSpeed_server
             // Configuramos cultura invariante para que al pasar los decimales a texto no tengan comas
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
-            // Configuramos para que el directorio de trabajo sea donde está el ejecutable
+            // Configuramos para que el directorio de trabajo sea donde estï¿½ el ejecutable
             Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 
             var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +43,8 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<ShoppingCartController>();
             builder.Services.AddScoped<ElectroSpeedContext>();
             builder.Services.AddScoped<ImagenMapper>();
+            builder.Services.AddScoped<UnitOfWork>();
+            builder.Services.AddTransient<BlockchainService>();
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>

@@ -12,6 +12,7 @@ import { CarritoService } from '../../service/carrito.service';
 import { Usuarios } from '../../models/usuarios';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { NavbarService } from '../../service/navbar.service';
+import { BicisCantidad } from '../../models/bicis-cantidad';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -41,6 +42,7 @@ export class VistaDetalleComponent implements OnInit {
   stockBici: number = 0;
   fotoBici: string = "";
   mediaResenia: number = 0;
+  prueba: number = 0;
 
   // resenias
   resenias: ReseniasYUsuario[] = [];
@@ -60,20 +62,20 @@ export class VistaDetalleComponent implements OnInit {
     const bicicleta = await this.catalogoService.showOneBike(this.codigoIdentificador)
     if (bicicleta == null) {
       this.rickRoll() // rick roll si no existe
-    } 
-    else 
-    {
+    }
+    else {
       this.nombreModelo = bicicleta.marcaModelo
       this.descripcionBici = bicicleta.descripcion
       this.precioBici = bicicleta.precio
       this.stockBici = bicicleta.stock
       this.fotoBici = bicicleta.urlImg
       console.log(this.fotoBici)
+      this.prueba = this.stockBici
     }
 
     this.devolverMediaResenias()
     this.devolverTodasResenias()
-    
+
   }
 
   rickRoll() {
@@ -100,18 +102,42 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *     CARRITO 
   */
-  async anadirCarrito(){
+  async anadirCarrito() {
+    if (this.stockBici <= 0) {
+      alert("No hay más stock de la bici")
+      return;
+    }
+
     if (this.usuarioToken()) {
 
       const Usuario: Usuarios = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())
 
       const carritoUsuarioActual: CarritoEntero = await this.carrito.devolverCarritoPorUsuario(Usuario.id)
 
+      //se mira cuantas hay en el carrito (no puedo mas)
+
+      const cantidadActual = carritoUsuarioActual.bicisCantidad.reduce((cuenta, bici) => 
+        bici.idBici === parseInt(this.codigoIdentificador) ? cuenta + bici.cantidad : cuenta, 0);
+
+      if (cantidadActual>=this.stockBici) {
+        alert("No puedes añadir más bicis de las que hay en stock")
+        return;
+      }
+
       this.carrito.enviarCarrito(parseInt(this.codigoIdentificador), carritoUsuarioActual.id)
 
+
     } else {
-      if(localStorage.getItem("idbici")){
-        localStorage.setItem("idbici", this.codigoIdentificador+","+localStorage.getItem("idbici"))
+      const idsBicis = localStorage.getItem("idbici")?.split(",") || []
+      const cantidadActual = idsBicis.filter(id => id === this.codigoIdentificador).length
+
+      if (cantidadActual >= this.stockBici) {
+        alert("No puedes añadir más bicis de las que hay en stock")
+        return;
+      }
+
+      if (localStorage.getItem("idbici")) {
+        localStorage.setItem("idbici", this.codigoIdentificador + "," + localStorage.getItem("idbici"))
       } else {
         localStorage.setItem("idbici", this.codigoIdentificador)
       }
@@ -133,7 +159,7 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *   RESEÑAS
   */
-  verResenias(){
+  verResenias() {
     const ponerResenias = document.getElementById("escribirReseñaForm")
     if (ponerResenias) {
       ponerResenias.style.display = "flex";
@@ -141,7 +167,7 @@ export class VistaDetalleComponent implements OnInit {
   }
 
   devolverMediaResenias() {
-    this.resenia.devolverMediaResenias(this.codigoIdentificador).then(value => 
+    this.resenia.devolverMediaResenias(this.codigoIdentificador).then(value =>
       this.mediaResenia = value
     )
   }
@@ -149,10 +175,10 @@ export class VistaDetalleComponent implements OnInit {
   async devolverTodasResenias() {
     const reseniasAhora: Resenias[] = await this.resenia.devolverResenia(this.codigoIdentificador);
 
-    for(const element of reseniasAhora){
+    for (const element of reseniasAhora) {
       const nombreUsuario = await this.devolverUsuarioNombre(element.usuarioId)
 
-      const ReseniasYUsuario : ReseniasYUsuario = {
+      const ReseniasYUsuario: ReseniasYUsuario = {
         resenias: element,
         usuario: nombreUsuario
       }
@@ -164,15 +190,15 @@ export class VistaDetalleComponent implements OnInit {
   /*
   *   ENVIAR RESENIAS
   */
-  async enviarResenias(){
-    const reseniasEnviar : AnadirResenias = {
+  async enviarResenias() {
+    const reseniasEnviar: AnadirResenias = {
       texto: this.textoResenia,
       usuarioId: await this.resenia.devolverIdUsuario(this.authService.getEmailUserToken()),
       bicicletaId: parseInt(this.codigoIdentificador)
     }
-    
+
     this.resenia.enviarResenas(reseniasEnviar)
-    
+
     //this.enrutador.navigate(['catalogo'])
     //location.reload()
 
@@ -180,7 +206,7 @@ export class VistaDetalleComponent implements OnInit {
 
   }
 
-  devolverReseniasAlRecargar(){
+  devolverReseniasAlRecargar() {
     this.resenias = []
     this.devolverMediaResenias()
     this.devolverTodasResenias()
