@@ -11,6 +11,7 @@ import { AnadirResenias } from '../../models/anadir-resenias';
 import { CarritoService } from '../../service/carrito.service';
 import { Usuarios } from '../../models/usuarios';
 import { CarritoEntero } from '../../models/carrito-entero';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-vista-detalle',
@@ -21,7 +22,16 @@ import { CarritoEntero } from '../../models/carrito-entero';
 })
 export class VistaDetalleComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService, private enrutador: Router) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private catalogoService: CatalogoService, 
+    private resenia: ReseniasService, 
+    private authService: AuthService, 
+    private carrito: CarritoService, 
+    private enrutador: Router,
+    private navBar: NavbarService) {
+    navBar.cambiarCss(0)
+  }
 
   codigoIdentificador: string = "";
 
