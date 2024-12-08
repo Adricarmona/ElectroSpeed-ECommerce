@@ -21,8 +21,6 @@ export const routes: Routes = [
     {path: 'detalle/:id', component: VistaDetalleComponent},
     {path: 'sobreNosotros', component:  SobreNosotrosComponent},
     {path: 'carrito', component: CarritoComponent},
-    {path: 'checkout', component: StripeComponent},
-    {path: 'blockchain', component: EthereumComponent},
     {path: 'confirmacion', component: ConfirmacionCompraComponent},
     {path: 'administrador', component: AdministradorComponent},
     {path: 'checkout', component: CheckoutComponent,  canActivate: [redirectionGuard]}
