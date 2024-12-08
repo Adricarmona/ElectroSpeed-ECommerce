@@ -20,7 +20,7 @@ export class CheckoutService {
   }
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
-    return this.api.get<CheckoutSessionStatus>(`api/checkout/status/${sessionId}`);
+    return this.api.get<CheckoutSessionStatus>(`api/Checkout/status/${sessionId}`);
   }
 
   async postOrdenTemporalLocal(carrito : string){
@@ -35,6 +35,11 @@ export class CheckoutService {
   async cambiarIdUser(reserva: number){
      await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
   }
+
+   eliminarOrden(){
+    console.log('4. Finalmente esto (cuando el componente sea destruido)');
+     this.api.delete<number>(`api/checkout/EliminarOrdenTemporal`)
+ }
 
   postPedido(){
 

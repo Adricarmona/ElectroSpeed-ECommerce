@@ -30,11 +30,15 @@ export class CheckoutComponent {
     this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
   }
 
+  ngOnDestroy(): void {
+     this.service.eliminarOrden()
+  }
+
   async init(queryMap: ParamMap) {
     this.reserva = parseInt(queryMap.get('reserva_id'));
     await this.service.cambiarIdUser(this.reserva)
-    console.log(this.reserva)
     this.metodoPago = queryMap.get('metodo_pago');
-    console.log(this.metodoPago)
   }
+
+  
 }
