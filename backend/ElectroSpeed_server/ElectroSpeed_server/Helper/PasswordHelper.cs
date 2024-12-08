@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace ElectroSpeed_server.Recursos
+namespace ElectroSpeed_server.Helper
 {
-    internal class PasswordHelper
+    public class PasswordHelper
     {
         public static string Hash(string password)
         {
