@@ -53,12 +53,33 @@ namespace ElectroSpeed_server.Controllers
                 Descripcion = model.Descripcion,
                 Precio = model.Precio,
                 Stock = model.Stock,
-                UrlImg = model.Foto,
+                UrlImg = model.UrlImg,
             };
 
             _esContext.Bicicletas.Add(bicicleta);
             _esContext.SaveChanges();
             
+            return Ok("Subida correctamente");
+        }
+
+        [HttpPost("/editarBici")]
+        public ActionResult EditarBici([FromBody] BicicletasAnadir model)
+        {
+            Bicicletas bicicleta = getBicicleta(model.Id);
+
+            if (bicicleta == null)
+            {
+                return BadRequest("Bici no existe");
+            }
+
+            bicicleta.MarcaModelo = model.MarcaModelo;
+            bicicleta.Descripcion = model.Descripcion;
+            bicicleta.Stock = model.Stock;
+            bicicleta.Precio = model.Precio;
+            bicicleta.UrlImg = model.UrlImg;
+
+            _esContext.SaveChanges();
+
             return Ok("Subida correctamente");
         }
 
@@ -72,7 +93,29 @@ namespace ElectroSpeed_server.Controllers
         public Bicicletas getBicicleta(int id)
         {
             Bicicletas bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
+            if (bici == null)
+            {
+                return bici;
+            }
+            
             return _imagenMapper.AddCorrectPath(bici, Request);
+
+        }
+
+        [HttpDelete("/deleteBikeId")]
+        public async Task<ActionResult> DeleteBike(int id)
+        {
+            Bicicletas bicicleta = getBicicleta(id);
+
+            if (bicicleta == null)
+            {
+                return NotFound("No se encuentra la bicicleta");
+            }
+
+            _esContext.Remove(bicicleta);
+            await _esContext.SaveChangesAsync();
+
+            return Ok("bici eliminada");
         }
 
     }

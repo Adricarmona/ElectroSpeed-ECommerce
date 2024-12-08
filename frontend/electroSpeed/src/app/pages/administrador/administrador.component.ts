@@ -70,6 +70,10 @@ export class AdministradorComponent {
   }
 
 
+  bicicletasTotalesNumero() {
+    return this.bicicletasTotales.length
+  }
+
   //
   //  las funciones que hacen que funcione el menu
   //
@@ -154,18 +158,56 @@ export class AdministradorComponent {
     this.bicicletasTotales = await this.catalogoService.todasLasBicis()
   }
 
+  NuevoUsuario(){
+
+    this.bicicletaSeleccionada = {
+      id: 0,
+      marcaModelo: '',
+      descripcion: '',
+      precio: 0,
+      stock: 0,
+      urlImg: '',
+      cantidad: 0
+    }
+
+    this.seleccionado = 1
+
+  }
+
+  anadirBicicleta(){
+    this.catalogoService.anadirBicicleta(this.bicicletaSeleccionada)
+    alert("Bicicleta añadida")
+  }
+
+  async EliminarBicicleta(id: number) {
+    await this.catalogoService.eliminarBicicleta(id)
+    alert("Bicicleta eliminada")
+    await this.ObtenerBicis()
+    this.sumarRestarEjecutar(0)
+  }
+
+  async EditarBicicleta(bici: Bicicletas){
+    await this.catalogoService.editarBicicleta(bici)
+    alert("Usuario Editado")
+    await this.ObtenerBicis()
+    this.sumarRestarEjecutar(0)
+  }
+
+  // usuarios
   async ObtenerUsuarios() {
     this.usuariosTotales = await this.authService.getUsersDto()
   }
 
   async EliminarUsuarios(id: number) {
     await this.authService.deleteUser(id)
+    alert("Usuario Eliminado")
     await this.ObtenerUsuarios()
     this.sumarRestarEjecutar(0)
   }
 
   async EditarUsuarios(usuario: Usuarios){
     await this.authService.updateUser(usuario)
+    alert("Usuario Editado")
     await this.ObtenerUsuarios()
     this.sumarRestarEjecutar(0)
   }

@@ -5,6 +5,7 @@ import { Filtro } from '../models/filtro';
 import { lastValueFrom, Observable } from 'rxjs';
 import { BiciPagina } from '../models/bici-pagina';
 import { Bicicletas } from '../models/catalogo';
+import { ApiService } from './api-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,10 @@ import { Bicicletas } from '../models/catalogo';
 export class CatalogoService {
   private BASE_URL = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private api: ApiService
+  ) {}
 
   async showBikes(formaDeVer: Filtro){
     try{
@@ -51,6 +55,31 @@ export class CatalogoService {
         console.error("Error al buscar la bici: ", error);
         return null; // Devuelve `null` en caso de error.
     }
+  }
+
+  anadirBicicleta(bicicletas :Bicicletas) {
+    try {
+      const resultado = this.api.post("anadirBici",bicicletas)
+    } catch (error) {
+      console.error("Error al buscar la bici: ", error);
+    }
+  }
+
+  editarBicicleta(bicicletas :Bicicletas) {
+    try {
+      const resultado = this.api.post("editarBici",bicicletas)
+    } catch (error) {
+      console.error("Error al buscar la bici: ", error);
+    }
+  }
+
+  eliminarBicicleta(id :number){
+    try {
+      this.api.delete("deleteBikeId?id="+id)
+    } catch (error) {
+      console.error("Error eliminar la bici: ", error);
+    }
+    
   }
 
 }

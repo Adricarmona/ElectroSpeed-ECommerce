@@ -21,7 +21,7 @@
 
                     <div class="marguinDe2">
                         <button (click)="sumarRestarEjecutar(-2)">-</button>
-                        <span> {{idBuscarMenu}} </span>
+                        <span> {{idBuscarMenu}}/{{bicicletasTotalesNumero()}} </span>
                         <button (click)="sumarRestarEjecutar(2)">+</button>
                     </div>
 
@@ -39,6 +39,10 @@
 
                             }
 
+                            <div>
+                                <button (click)="NuevoUsuario()">añadir</button>
+                            </div>
+
                         }
                         @else if(usuarioOBici == 0) {
 
@@ -54,10 +58,7 @@
                             }
 
                         }
-                    </div>
 
-                    <div>
-                        <button>añadir</button>
                     </div>
 
                 </div>
@@ -123,24 +124,25 @@
                         <div>
                             <div class="inputs">
                                 <span>NombreModelo bicicleta: </span>
-                                <input type="text" name="nombreYMarca" id="nombreYMarca" [value]="bicicletaSeleccionada.marcaModelo">
+                                <input type="text" name="nombreYMarca" id="nombreYMarca" [(ngModel)]="bicicletaSeleccionada.marcaModelo" [ngModelOptions]="{standalone: true}" [value]="bicicletaSeleccionada.marcaModelo">
                                 <br>
                                 <span>Descripcion bicicleta: </span>
-                                <input type="text" name="descripcion" id="descripcion" [value]="bicicletaSeleccionada.descripcion">
+                                <input type="text" name="descripcion" id="descripcion" [(ngModel)]="bicicletaSeleccionada.descripcion" [ngModelOptions]="{standalone: true}" [value]="bicicletaSeleccionada.descripcion">
                                 <br>
                                 <span>Precio bicicleta: </span>
-                                <input type="number" name="precio" id="precio" [value]="bicicletaSeleccionada.precio">
+                                <input type="number" name="precio" id="precio" [(ngModel)]="bicicletaSeleccionada.precio" [ngModelOptions]="{standalone: true}" [value]="bicicletaSeleccionada.precio">
                                 <br>
                                 <span>Stock disponible: </span>
-                                <input type="number" name="stock" id="stock" [value]="bicicletaSeleccionada.stock">      
+                                <input type="number" name="stock" id="stock" [(ngModel)]="bicicletaSeleccionada.stock" [ngModelOptions]="{standalone: true}" [value]="bicicletaSeleccionada.stock">      
                                 <br>    
                                 <span>Imagen: <input type="file" name="Imagen" id=""> </span>
                             </div>
                         </div>
                     </div>
                     <div class="centrado">
-                        <input type="submit" value="guardar">
-                        <input type="submit" value="eliminar">
+                        <input type="submit" value="añadir" (click)="anadirBicicleta()">
+                        <input type="submit" value="guardar" (click)="EditarBicicleta(bicicletaSeleccionada)">
+                        <input type="submit" value="eliminar" (click)="EliminarBicicleta(bicicletaSeleccionada.id)">
                     </div>
                 </form>
             }
