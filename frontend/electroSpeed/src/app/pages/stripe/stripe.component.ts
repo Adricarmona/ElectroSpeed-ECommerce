@@ -10,6 +10,7 @@ import { Bicicletas } from '../../models/catalogo';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { AuthService } from '../../service/auth.service';
 import { NavbarService } from '../../service/navbar.service';
+import { CarritoComponent } from '../carrito/carrito.component';
 
 @Component({
   selector: 'app-stripe',
@@ -24,7 +25,7 @@ export class StripeComponent implements OnInit, OnDestroy {
   checkoutDialogRef: ElementRef<HTMLDialogElement>;
 
   product: CarritoEntero = null;
-  sessionId: string = '';
+  reservaId: string = '';
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
 
@@ -53,20 +54,12 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   async init(queryMap: ParamMap) {
-    this.sessionId = queryMap.get('session_id');
-    console.log(this.sessionId)
-    if (this.sessionId) {
-      const request = await this.service.getStatus(this.sessionId);
+    this.reservaId = queryMap.get('reserva_id');
+    console.log(this.reservaId)
+    if (this.reservaId) {
+      const request = await this.service.getStatus(this.reservaId);
       if (request.success) {
         console.log(request.data);
-      }
-    } else {
-      const request = await this.service.getAllProducts();
-      console.log(request);
-
-      if (request.success) {
-        // Accede directamente a `data` porque no es un arreglo
-        this.product = request.data;
       }
     }
   }
@@ -78,6 +71,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {
         clientSecret: request.data.clientSecret,
+        
         onComplete: () => this.irConfirmacion()
       };
 

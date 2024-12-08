@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data;
+using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +14,6 @@ namespace ElectroSpeed_server.Recursos
             _esContext = esContext;
         }
 
-        //TODO funcion para recoger token
-        public int cogerToken()
-        {
-       
-            return 0;
-        }
-
         public IList<Bicicletas> AllProduct(int id)
         {
             var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
@@ -29,33 +23,23 @@ namespace ElectroSpeed_server.Recursos
             foreach (var item in carrito.BicisCantidad)
             {
                 bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici));
-
-
             }
 
             return bici;
         }
 
-        public OrdeTemporal Ordentemporal(int id)
+        public OrdenTemporal CogerOrdenTemporal(int id)
         {
-            //guardo el carrito del usuario
-            var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(r => r.UsuarioId == id);
-
-            //creo la orden temporal
-            OrdeTemporal orden = new()
-            {
-                BicisCantidad = carrito.BicisCantidad,
-                UsuarioId = carrito.UsuarioId,
-            };
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.UsuarioId == id);
 
             //bucle para recorrer las bicicletas del carrito
-            foreach (var item in carrito.BicisCantidad)
-            {
-                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);//buscamos la bici en la base de datos
-                
-                bici.Stock = bici.Stock - item.cantidad;//eliminamos el stock en funcion de la cantidad de bici seleccionadas
-
-            }
+           // foreach (var item in carrito.BicisCantidad)
+           // {
+           //     var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);//buscamos la bici en la base de datos
+           //
+           //     bici.Stock = bici.Stock - item.cantidad;//eliminamos el stock en funcion de la cantidad de bici seleccionadas
+           //
+           // }
 
             return orden;
         }
