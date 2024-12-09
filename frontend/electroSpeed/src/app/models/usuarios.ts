@@ -1,6 +1,7 @@
 export interface Usuarios {
     id: number,
     name: string,
-    username: string,
+    direccion: string,
     email: string,
+    admin: boolean
 }

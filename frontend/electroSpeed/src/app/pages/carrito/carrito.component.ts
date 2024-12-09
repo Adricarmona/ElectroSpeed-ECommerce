@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { CatalogoService } from '../../service/catalogo.service';
 import { CarritoService } from '../../service/carrito.service';
 import { Bicicletas } from '../../models/catalogo';
@@ -6,6 +6,11 @@ import { AuthService } from '../../service/auth.service';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { BicisCantidad } from '../../models/bicis-cantidad';
 import { NavbarService } from '../../service/navbar.service';
+import { Carrito } from '../../models/carrito';
+import { OrdenTemporal } from '../../models/orden-temporal';
+import { BiciTemporal } from '../../models/bici-temporal';
+import { CheckoutService } from '../../service/checkout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -19,8 +24,12 @@ export class CarritoComponent {
     private catalogoService: CatalogoService,
     private carritoService: CarritoService,
     private auth: AuthService,
-    private navBar: NavbarService
-  ) { }
+    private navBar: NavbarService,
+    private router: Router,
+    private checkoutservice: CheckoutService,
+  ) { 
+    navBar.cambiarCss(3)
+  }
 
   codigoIdentificador: string[] = [];
   codigoIdentificadorLogueado: number[] = [];
@@ -33,7 +42,8 @@ export class CarritoComponent {
   idCarrito: number = 0;
   bicicletas: Bicicletas[] = [];
   bicicletaCarrito: BicisCantidad[] = [];
-  carro : CarritoEntero
+  carro : CarritoEntero;
+
 
   async ngOnInit() {
     
@@ -93,9 +103,10 @@ export class CarritoComponent {
         if (this.usuarioToken() != null) {
             // Llamar al servicio para eliminar la bicicleta en el servidor
             await this.carritoService.borrarBiciCarrito(this.idCarrito, id).then();
-
+          
             // Recargar el carrito actualizado desde el servidor
             this.carro = await this.carritoService.devolverCarritoPorUsuario(this.idUser);
+            console.log(this.carro)
             this.bicicletaCarrito = this.carro.bicisCantidad;
 
             // Actualizar la lista de bicicletas locales
@@ -152,10 +163,43 @@ export class CarritoComponent {
   }
 
   carritoVacio() {
+    //console.log(this.codigoIdentificador)
     if (this.bicicletaCarrito.length > 0 || this.codigoIdentificador.length > 0) {
       return false
     }
     return true
+  }
+
+  async crearOrdenTemporalLocal(){
+    var carrito = localStorage.getItem("idbici")
+    var result  = await this.checkoutservice.postOrdenTemporalLocal(carrito)
+    return result.data
+  }
+
+  async crearOrdenTemporalCarrito(){
+    var result  = await this.checkoutservice.postOrdenTemporalCarrito(this.idUser)
+    return result.data
+  }
+
+  async goTarjeta() {
+    if (this.idUser) {
+      var reserva_id = await this.crearOrdenTemporalCarrito();
+    }else{
+      var reserva_id = await this.crearOrdenTemporalLocal();
+    }
+    //var reserva_id = await this.crearOrdenTemporalLocal();
+    console.log("session_id:  "+reserva_id)
+    this.router.navigate(
+      ['/checkout'],
+      { queryParams: { 'reserva_id': reserva_id, 'metodo_pago': 'stripe' } }
+    );
+  }
+
+  goBlockchain() {
+    this.router.navigate(
+      ['/checkout'],
+      { queryParams: { 'reserva_id': 'session_id', 'metodo_pago': 'ethereum' } }
+    );
   }
 }
 

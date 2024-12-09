@@ -1,6 +1,7 @@
 using ElectroSpeed_server.Controllers;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Recursos;
 using ElectroSpeed_server.Recursos.Blockchain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
@@ -41,6 +42,7 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
             builder.Services.AddScoped<ElectroSpeedContext>();
+            builder.Services.AddScoped<ImagenMapper>();
             builder.Services.AddScoped<UnitOfWork>();
             builder.Services.AddTransient<BlockchainService>();
 
@@ -77,18 +79,16 @@ namespace ElectroSpeed_server
             });
             
 
-            if (builder.Environment.IsDevelopment())
-            {
+
                 builder.Services.AddCors(options =>
                 {
                     options.AddDefaultPolicy(builder =>
                     {
-                        builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                        builder.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
                 });
-            }
 
             builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile("IAdeprueba.mlnet");
 
@@ -108,11 +108,12 @@ namespace ElectroSpeed_server
 
             app.MapControllers();
 
-            app.UseStaticFiles(//new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
-            //}
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(builder.Environment.ContentRootPath, "wwwroot")
+                )
+            }
             ); // para que pueda verse las fotos
 
             await SeedDataBase(app.Services);

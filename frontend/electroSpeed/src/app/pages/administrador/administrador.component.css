@@ -1,0 +1,92 @@
+#Fondo {
+    background-color: blanchedalmond;
+}
+
+#Titulo {
+    padding-top: 15vh;
+    text-align: center;
+}
+
+#Titulo h2 {
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.vista {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+    margin: 5vh 20vh;
+}
+
+.detalles {
+    grid-column: span 3 / span 3;
+}
+
+.productos_usuarios {
+    height: auto;
+}
+
+.coloresYbordes {
+    background-color: white;
+    border-radius: 5vh;
+}
+
+#cargando {
+    margin-left: 35%;
+    margin-top: 6vh;
+}
+
+#biciDetalle {
+    height: 30vh;
+}
+
+.gridDetalle {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+
+    margin: 3vh;
+}
+
+.inputs input {
+    margin-bottom: 2vh;
+}
+
+.centrado {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.centrado input {
+    margin: 0 1vh;
+}
+
+.pestana {
+    display: block;
+    text-align: center;
+}
+
+.menu img {
+    width: 10vh;
+}
+
+.tarjeta {
+    background-color: ghostwhite;
+    margin: 1vh;
+    text-align: center;
+    border-radius: 2vh;
+}
+
+.tarjeta:hover {
+    border: 1px solid #ff1e0042;
+}
+
+.marguinDe2 {
+    margin: 2vh;
+}

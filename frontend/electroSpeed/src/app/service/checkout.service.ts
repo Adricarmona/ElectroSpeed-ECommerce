@@ -6,6 +6,7 @@ import { CheckoutSession } from '../models/checkout.session';
 import { Product } from '../models/product';
 import { Bicicletas } from '../models/catalogo';
 import { CarritoEntero } from '../models/carrito-entero';
+import { OrdenTemporal } from '../models/orden-temporal';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,25 @@ export class CheckoutService {
 
   constructor(private api: ApiService) { }
 
-  getAllProducts(): Promise<Result<CarritoEntero>> {
-    return this.api.get<CarritoEntero>('api/checkout/AllProducts');
-  }
-
   getEmbededCheckout(): Promise<Result<CheckoutSession>> {
     return this.api.get<CheckoutSession>('api/checkout/embedded');
   }
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
     return this.api.get<CheckoutSessionStatus>(`api/checkout/status/${sessionId}`);
+  }
+
+  async postOrdenTemporalLocal(carrito : string){
+    var result = await this.api.post<number>(`api/checkout/OrdenTemporalLocal/${carrito}`)
+    return result;
+  }
+  async postOrdenTemporalCarrito(id : number){
+    var result = await this.api.post<number>(`api/checkout/OrdenTemporalCarrito/${id}`)
+    return result;
+  }
+
+  async cambiarIdUser(reserva: number){
+     await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
   }
 
   postPedido(){

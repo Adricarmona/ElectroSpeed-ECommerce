@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
 import { CarritoEntero } from '../models/carrito-entero';
 import { AuthService } from './auth.service';
+import { ApiService } from './api-service';
+import { Bicicletas } from '../models/catalogo';
+import { OrdenTemporal } from '../models/orden-temporal';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,8 @@ export class CarritoService {
   private BASE_URL = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
+    private service: ApiService
   ) { }
 
   async getIdCarrito(idUsuario: number){

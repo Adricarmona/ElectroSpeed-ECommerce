@@ -11,6 +11,7 @@ import { AnadirResenias } from '../../models/anadir-resenias';
 import { CarritoService } from '../../service/carrito.service';
 import { Usuarios } from '../../models/usuarios';
 import { CarritoEntero } from '../../models/carrito-entero';
+import { NavbarService } from '../../service/navbar.service';
 import { BicisCantidad } from '../../models/bicis-cantidad';
 
 @Component({
@@ -22,7 +23,16 @@ import { BicisCantidad } from '../../models/bicis-cantidad';
 })
 export class VistaDetalleComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private catalogoService: CatalogoService, private resenia: ReseniasService, private authService: AuthService, private carrito: CarritoService, private enrutador: Router) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private catalogoService: CatalogoService, 
+    private resenia: ReseniasService, 
+    private authService: AuthService, 
+    private carrito: CarritoService, 
+    private enrutador: Router,
+    private navBar: NavbarService) {
+    navBar.cambiarCss(0)
+  }
 
   codigoIdentificador: string = "";
 
@@ -59,6 +69,7 @@ export class VistaDetalleComponent implements OnInit {
       this.precioBici = bicicleta.precio
       this.stockBici = bicicleta.stock
       this.fotoBici = bicicleta.urlImg
+      console.log(this.fotoBici)
       this.prueba = this.stockBici
     }
 

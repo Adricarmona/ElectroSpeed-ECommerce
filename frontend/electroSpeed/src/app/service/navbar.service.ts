@@ -40,4 +40,37 @@ export class NavbarService {
     return this.productosCarrito
   }
 
+  cambiarCss(pagina: number) { // inicio = 1 , productos = 2, carrito = 3, Sobre nosotros = 4
+    // ids los a de los id
+    const inicio = document.getElementById("inicio")
+    const productos = document.getElementById("productos")
+    const carrito = document.getElementById("carrito")
+    const sobreNosotros = document.getElementById("sobreNosotros")
+
+    // eliminamos todas las barras
+    inicio.classList.remove("active")
+    productos.classList.remove("active")
+    carrito.classList.remove("active")
+    sobreNosotros.classList.remove("active")
+
+    // añadimos la bara en el que deseemos
+    switch (pagina) {
+      case 1:
+        inicio.classList.add("active")
+      break;
+      case 2:
+        productos.classList.add("active")
+        break;
+      case 3:
+        carrito.classList.add("active")
+        break;
+      case 4:
+        sobreNosotros.classList.add("active")
+        break;
+    
+      default:
+        break;
+    }
+  }
+
 }

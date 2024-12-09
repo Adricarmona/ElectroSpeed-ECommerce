@@ -29,6 +29,23 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.Usuarios.Include(c => c.carritos).ToList();
         }
 
+        [HttpGet("/AdminView")]
+        public IEnumerable<UserToAdmin> GetUsuariosAdmin()
+        {
+            IEnumerable<Usuarios> usuarios = _esContext.Usuarios.ToList();
+
+            IEnumerable<UserToAdmin> userDto = usuarios.Select(u => new UserToAdmin
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Direccion = u.Direccion,
+                Admin = u.Admin,
+            });
+
+            return userDto;
+        }
+
         [HttpGet("/usuarioId")]
         public Usuarios Uuarios(int id)
         {
@@ -39,6 +56,47 @@ namespace ElectroSpeed_server.Controllers
         public Usuarios UsuariosEmail(string email)
         {
             return _esContext.Usuarios.Include(c => c.carritos).FirstOrDefault(r => r.Email == email);
+        }
+
+        [HttpDelete("/deleteUsuarioId")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            Usuarios user = Uuarios(id);
+
+            if (user == null)
+            {
+                return NotFound("No se encuentra usuario");
+            }
+
+            _esContext.Remove(user);
+            await _esContext.SaveChangesAsync();
+
+            return Ok("Usuario eliminado");
+        }
+
+        [HttpPost("/updateUsuario")]
+        public async Task<ActionResult> UptadteUser(UserToAdmin userIndicado)
+        {
+            if (userIndicado == null)
+            {
+                return BadRequest("Usuario no indicado");
+            }
+
+            Usuarios user = Uuarios(userIndicado.Id);
+
+            if (user == null)
+            {
+                return BadRequest("Usuario no encontrado");
+            }
+
+            user.Name = userIndicado.Name;
+            user.Email = userIndicado.Email;
+            user.Direccion = userIndicado.Direccion;
+            user.Admin = userIndicado.Admin;
+
+            await _esContext.SaveChangesAsync();
+            return Ok("usuario editado");
+
         }
     }
 }

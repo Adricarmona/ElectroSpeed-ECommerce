@@ -14,10 +14,12 @@ namespace ElectroSpeed_server.Controllers
     public class BikeController : ControllerBase
     {
         private ElectroSpeedContext _esContext;
+        private ImagenMapper _imagenMapper;
 
-        public BikeController(ElectroSpeedContext esContext)
+        public BikeController(ElectroSpeedContext esContext, ImagenMapper imagenMapper)
         {
             _esContext = esContext;
+            _imagenMapper = imagenMapper;
         }
 
         [HttpPost("/filtroBicis")]
@@ -28,6 +30,9 @@ namespace ElectroSpeed_server.Controllers
             IList<Bicicletas> busqueda = filtro.Search(model.Consulta, _esContext.Bicicletas.ToList());
             busqueda = filtro.Order(model, busqueda);
             BicisPaginas paginasFiltradas = filtro.Pages(model, busqueda);
+
+            // para la url de las imagenes
+            paginasFiltradas.Bicicletas = _imagenMapper.AddCorrectPath(paginasFiltradas.Bicicletas,Request);
 
             /// Le pasamos el filtro de buscar por nombre con todas las bicicletas, luego por el de ordenacion y para terminar lo metemos en el de paginacion           
             return paginasFiltradas;
@@ -60,13 +65,14 @@ namespace ElectroSpeed_server.Controllers
         [HttpGet]
         public IList<Bicicletas> GetBicicletas()
         {
-            return _esContext.Bicicletas.ToList();
+            return _imagenMapper.AddCorrectPath(_esContext.Bicicletas.ToList(), Request);
         }
 
         [HttpGet("/bicicleta")]
         public Bicicletas getBicicleta(int id)
         {
-            return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
+            Bicicletas bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
+            return _imagenMapper.AddCorrectPath(bici, Request);
         }
 
     }

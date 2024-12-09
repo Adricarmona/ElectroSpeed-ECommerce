@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Filtro } from '../models/filtro';
 import { lastValueFrom, Observable } from 'rxjs';
@@ -10,10 +10,9 @@ import { Bicicletas } from '../models/catalogo';
   providedIn: 'root'
 })
 export class CatalogoService {
-
   private BASE_URL = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   async showBikes(formaDeVer: Filtro){
     try{
@@ -34,7 +33,6 @@ export class CatalogoService {
     try {
       const request: Observable<Bicicletas> = this.http.get<Bicicletas>(`${this.BASE_URL}bicicleta?id=${id}`);
       const result: Bicicletas = await lastValueFrom(request);
-
       return result
     } catch (error) {
       console.error("Error al buscar la bici: ",error)
@@ -53,6 +51,6 @@ export class CatalogoService {
         console.error("Error al buscar la bici: ", error);
         return null; // Devuelve `null` en caso de error.
     }
-}
+  }
 
 }

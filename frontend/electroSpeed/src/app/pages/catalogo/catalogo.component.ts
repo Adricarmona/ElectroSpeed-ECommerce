@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Filtro } from '../../models/filtro';
 import { BiciPagina } from '../../models/bici-pagina';
 import { Bicicletas } from '../../models/catalogo';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -25,7 +26,10 @@ export class CatalogoComponent implements OnInit {
   paginasTotales: number = 0;
 
 
-  constructor(private catalogoService: CatalogoService) {}
+  constructor(private catalogoService: CatalogoService,
+    private navBarService: NavbarService) {
+      navBarService.cambiarCss(2)
+    }
 
   ngOnInit(): void {
 
