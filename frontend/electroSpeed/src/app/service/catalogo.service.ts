@@ -6,6 +6,7 @@ import { lastValueFrom, Observable } from 'rxjs';
 import { BiciPagina } from '../models/bici-pagina';
 import { Bicicletas } from '../models/catalogo';
 import { ApiService } from './api-service';
+import { BicisFile } from '../models/bicis-file';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class CatalogoService {
     }
   }
 
-  anadirBicicleta(bicicletas :Bicicletas) {
+  anadirBicicleta(bicicletas :BicisFile) {
     try {
       const resultado = this.api.post("anadirBici",bicicletas)
     } catch (error) {
@@ -65,9 +66,9 @@ export class CatalogoService {
     }
   }
 
-  editarBicicleta(bicicletas :Bicicletas) {
+  async editarBicicleta(bicicletas :BicisFile) {
     try {
-      const resultado = this.api.post("editarBici",bicicletas)
+      const resultado = await this.api.post("editarBici",bicicletas)
     } catch (error) {
       console.error("Error al buscar la bici: ", error);
     }

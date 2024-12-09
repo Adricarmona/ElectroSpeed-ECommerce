@@ -5,6 +5,7 @@ using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Recursos;
 using Microsoft.EntityFrameworkCore;
 using ElectroSpeed_server.Models.Data.Repositories;
+using ElectroSpeed_server.Helpers;
 
 
 namespace ElectroSpeed_server.Controllers
@@ -39,8 +40,11 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpPost("/anadirBici")]
-        public ActionResult AnadirBicis([FromBody] BicicletasAnadir model)
+        public async Task<ActionResult> AnadirBicisAsync(BicicletaFileFoto model)
         {
+
+            string direccionImagen = $"{Guid.NewGuid()}_{model.UrlImg.FileName}";
+
             if (_esContext.Bicicletas.Any(Bicicletas => model.Id == Bicicletas.Id))
             {
                 return BadRequest("Bici ya en la base de datos");
@@ -53,8 +57,12 @@ namespace ElectroSpeed_server.Controllers
                 Descripcion = model.Descripcion,
                 Precio = model.Precio,
                 Stock = model.Stock,
-                UrlImg = model.UrlImg,
+                UrlImg = direccionImagen,
             };
+
+            using Stream stream = model.UrlImg.OpenReadStream();
+
+            await FileHelper.SaveAsync(stream, "bicis"+direccionImagen);
 
             _esContext.Bicicletas.Add(bicicleta);
             _esContext.SaveChanges();
@@ -63,9 +71,11 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpPost("/editarBici")]
-        public ActionResult EditarBici([FromBody] BicicletasAnadir model)
+        public async Task<ActionResult> EditarBiciAsync(BicicletaFileFoto model)
         {
             Bicicletas bicicleta = getBicicleta(model.Id);
+
+            string direccionImagen = $"{Guid.NewGuid()}_{model.UrlImg.FileName}";
 
             if (bicicleta == null)
             {
@@ -76,7 +86,11 @@ namespace ElectroSpeed_server.Controllers
             bicicleta.Descripcion = model.Descripcion;
             bicicleta.Stock = model.Stock;
             bicicleta.Precio = model.Precio;
-            bicicleta.UrlImg = model.UrlImg;
+            bicicleta.UrlImg = direccionImagen;
+
+            using Stream stream = model.UrlImg.OpenReadStream();
+
+            await FileHelper.SaveAsync(stream, "bicis" + direccionImagen);
 
             _esContext.SaveChanges();
 

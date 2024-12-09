@@ -135,7 +135,7 @@
                                 <span>Stock disponible: </span>
                                 <input type="number" name="stock" id="stock" [(ngModel)]="bicicletaSeleccionada.stock" [ngModelOptions]="{standalone: true}" [value]="bicicletaSeleccionada.stock">      
                                 <br>    
-                                <span>Imagen: <input type="file" name="Imagen" id=""> </span>
+                                <span>Imagen: <input type="file" accept="image/png, image/jpeg, image/jpg" name="Imagen" id="" (change)="onFileSelected($event)"> </span>
                             </div>
                         </div>
                     </div>

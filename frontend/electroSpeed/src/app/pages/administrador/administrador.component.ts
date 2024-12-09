@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CatalogoService } from '../../service/catalogo.service';
 import { AuthService } from '../../service/auth.service';
 import { NavbarService } from '../../service/navbar.service';
+import { BicisFile } from '../../models/bicis-file';
 
 @Component({
   selector: 'app-administrador',
@@ -26,6 +27,8 @@ export class AdministradorComponent {
     urlImg: 'administrador/chinoEnBici.gif',
     cantidad: 0
   }
+
+  foto: File;
 
   // usuario
   usuarioSeleccionado: Usuarios = {
@@ -150,6 +153,11 @@ export class AdministradorComponent {
 
   }
 
+  onFileSelected(event: any) {
+    const image = event.target.files[0] as File; // Here we use only the first file (single file)
+    this.foto = image
+    console.log(this.foto)
+  }
 
   //
   // utilizando los datos
@@ -175,7 +183,17 @@ export class AdministradorComponent {
   }
 
   anadirBicicleta(){
-    this.catalogoService.anadirBicicleta(this.bicicletaSeleccionada)
+
+    const biciConfoto :BicisFile = {
+      id: this.bicicletaSeleccionada.id,
+      marcaModelo: this.bicicletaSeleccionada.marcaModelo,
+      descripcion: this.bicicletaSeleccionada.descripcion,
+      stock: this.bicicletaSeleccionada.stock,
+      precio: this.bicicletaSeleccionada.precio,
+      urlImg: this.foto
+    }
+
+    this.catalogoService.anadirBicicleta(biciConfoto)
     alert("Bicicleta añadida")
   }
 
@@ -187,7 +205,17 @@ export class AdministradorComponent {
   }
 
   async EditarBicicleta(bici: Bicicletas){
-    await this.catalogoService.editarBicicleta(bici)
+
+    const biciConfoto :BicisFile = {
+      id: bici.id,
+      marcaModelo: bici.marcaModelo,
+      descripcion: bici.descripcion,
+      stock: bici.stock,
+      precio: bici.precio,
+      urlImg: this.foto
+    }
+
+    await this.catalogoService.editarBicicleta(biciConfoto)
     alert("Usuario Editado")
     await this.ObtenerBicis()
     this.sumarRestarEjecutar(0)
