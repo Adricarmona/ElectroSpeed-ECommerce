@@ -1,9 +1,6 @@
 using ElectroSpeed_server.Controllers;
-using ElectroSpeed_server.Helper;
 using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
-using ElectroSpeed_server.Models.Data.Services;
-using ElectroSpeed_server.Recursos;
 using ElectroSpeed_server.Recursos.Blockchain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
@@ -43,20 +40,9 @@ namespace ElectroSpeed_server
             builder.Services.AddScoped<UserController>();
             builder.Services.AddScoped<BikeController>();
             builder.Services.AddScoped<ShoppingCartController>();
-            builder.Services.AddScoped<ReseniasController>();
-            builder.Services.AddScoped<BlockchainController>();
-            builder.Services.AddScoped<CheckoutController>();
-            builder.Services.AddScoped<AuthController>();
             builder.Services.AddScoped<ElectroSpeedContext>();
             builder.Services.AddScoped<UnitOfWork>();
-            builder.Services.AddScoped<FiltroRecurso>();
-            builder.Services.AddSingleton<PasswordHelper>();
             builder.Services.AddTransient<BlockchainService>();
-            builder.Services.AddTransient<AuthService>();
-            builder.Services.AddTransient<BikeService>();
-            builder.Services.AddTransient<ReseniasService>();
-            builder.Services.AddTransient<ShoppingCartService>();
-
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer(options =>

@@ -5,7 +5,6 @@ using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Recursos;
 using Microsoft.EntityFrameworkCore;
 using ElectroSpeed_server.Models.Data.Repositories;
-using ElectroSpeed_server.Models.Data.Services;
 
 
 namespace ElectroSpeed_server.Controllers
@@ -14,33 +13,35 @@ namespace ElectroSpeed_server.Controllers
     [ApiController]
     public class BikeController : ControllerBase
     {
-        private readonly BikeService _bikeService;
+        private ElectroSpeedContext _esContext;
 
-        public BikeController(BikeService bikeService)
+        public BikeController(ElectroSpeedContext esContext)
         {
-            _bikeService = bikeService;
+            _esContext = esContext;
         }
 
         [HttpPost("/filtroBicis")]
-        public async Task<ActionResult<BicisPaginas>> FiltroBicis([FromBody] FiltroBicis model)
+        public BicisPaginas FiltroBicis([FromBody] FiltroBicis model)
         {
-            var result = await _bikeService.FiltroBicisAsync(model);
-            if (result == null)
-            {
-                return BadRequest("No se pudieron aplicar los filtros correctamente.");
-            }
-            return Ok(result);
+            FiltroRecurso filtro = new FiltroRecurso(_esContext);
+
+            IList<Bicicletas> busqueda = filtro.Search(model.Consulta, _esContext.Bicicletas.ToList());
+            busqueda = filtro.Order(model, busqueda);
+            BicisPaginas paginasFiltradas = filtro.Pages(model, busqueda);
+
+            /// Le pasamos el filtro de buscar por nombre con todas las bicicletas, luego por el de ordenacion y para terminar lo metemos en el de paginacion           
+            return paginasFiltradas;
         }
 
         [HttpPost("/anadirBici")]
-        public async Task<ActionResult> AnadirBicis([FromBody] BicicletasAnadir model)
+        public ActionResult AnadirBicis([FromBody] BicicletasAnadir model)
         {
-            if (await _bikeService.GetBikeByIdAsync(model.Id) != null)
+            if (_esContext.Bicicletas.Any(Bicicletas => model.Id == Bicicletas.Id))
             {
                 return BadRequest("Bici ya en la base de datos");
             }
 
-            var bicicleta = new Bicicletas
+            Bicicletas bicicleta = new()
             {
                 Id = model.Id,
                 MarcaModelo = model.MarcaModelo,
@@ -50,27 +51,23 @@ namespace ElectroSpeed_server.Controllers
                 UrlImg = model.Foto,
             };
 
-            await _bikeService.AddBikeAsync(bicicleta);
+            _esContext.Bicicletas.Add(bicicleta);
+            _esContext.SaveChanges();
+            
             return Ok("Subida correctamente");
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bicicletas>>> GetBicicletas()
+        public IList<Bicicletas> GetBicicletas()
         {
-            var bicicletas = await _bikeService.GetAllBikesAsync();
-            return Ok(bicicletas);
+            return _esContext.Bicicletas.ToList();
         }
 
         [HttpGet("/bicicleta")]
-        public async Task<ActionResult<Bicicletas>> GetBicicleta(int id)
+        public Bicicletas getBicicleta(int id)
         {
-            var bicicleta = await _bikeService.GetBikeByIdAsync(id);
-            if (bicicleta == null)
-            {
-                return NotFound();
-            }
-            return Ok(bicicleta);
+            return _esContext.Bicicletas.FirstOrDefault(r => r.Id == id);
         }
-    }
 
+    }
 }

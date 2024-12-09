@@ -1,6 +1,6 @@
-﻿using ElectroSpeed_server.Helper;
-using ElectroSpeed_server.Models.Data.Dto;
+﻿using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
+using ElectroSpeed_server.Recursos;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectroSpeed_server.Models.Data

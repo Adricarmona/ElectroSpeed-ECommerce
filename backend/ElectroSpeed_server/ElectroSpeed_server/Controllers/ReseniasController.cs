@@ -1,7 +1,6 @@
 ﻿using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
-using ElectroSpeed_server.Models.Data.Services;
 using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ML;
@@ -12,36 +11,61 @@ namespace ElectroSpeed_server.Controllers
     [ApiController]
     public class ReseniasController : ControllerBase
     {
-        private readonly ReseniasService _reseniasService;
+        private ElectroSpeedContext _esContext;
+        private readonly PredictionEnginePool<ModelInput, ModelOutput> _model;
 
-        public ReseniasController(ReseniasService reseniasService)
+        public ReseniasController(ElectroSpeedContext esContext, PredictionEnginePool<ModelInput, ModelOutput> model)
         {
-            _reseniasService = reseniasService;
+            _esContext = esContext;
+            _model = model;
         }
 
         [HttpGet("/idBici")]
         public IList<Resenias> ReseniasIdBici(int id)
         {
-            return _reseniasService.GetReseniasByBiciId(id);
+            RecursosResenias resenias = new(_esContext);
+
+            return resenias.ReseniasIdBici(id);
         }
 
         [HttpGet("/idUsuario")]
         public IList<Resenias> ReseniasIdUsuario(int id)
         {
-            return _reseniasService.GetReseniasByUsuarioId(id);
+            RecursosResenias resenias = new(_esContext);
+
+            return resenias.ReseniasIdUsuario(id);
         }
 
         [HttpGet("/mediaResenia")]
         public int MediaResenia(int id)
         {
-            return _reseniasService.GetMediaResenia(id);
+            RecursosResenias resenias = new(_esContext);
+            return resenias.MediaResenia(id);
         }
 
         [HttpPost("/IAanadir")]
         public ActionResult Predict([FromBody] adicionResenia model)
         {
-            _reseniasService.AddResenia(model);
+            ModelInput input = new ModelInput
+            {
+                Text = model.texto
+            };
+            ModelOutput output = _model.Predict(input);
+
+            Resenias resenia = new()
+            {
+                Id = model.Id,
+                textoDeResenia = model.texto,
+                resultadoResenia = output.PredictedLabel+2,
+                UsuarioId = model.UsuarioId,
+                BicicletaId = model.BicicletaId
+            };
+
+            _esContext.Resenias.Add(resenia);
+            _esContext.SaveChanges();
+
             return Ok("Subida correctamente");
         }
+
     }
 }
