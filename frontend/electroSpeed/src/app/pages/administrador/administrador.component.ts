@@ -185,7 +185,7 @@ export class AdministradorComponent {
   anadirBicicleta(){
 
     const biciConfoto :BicisFile = {
-      id: this.bicicletaSeleccionada.id,
+      id: 0,
       marcaModelo: this.bicicletaSeleccionada.marcaModelo,
       descripcion: this.bicicletaSeleccionada.descripcion,
       stock: this.bicicletaSeleccionada.stock,

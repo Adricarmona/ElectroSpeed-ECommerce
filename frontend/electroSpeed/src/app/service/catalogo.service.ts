@@ -60,7 +60,7 @@ export class CatalogoService {
 
   anadirBicicleta(bicicletas :BicisFile) {
     try {
-      const resultado = this.api.post("anadirBici",bicicletas)
+      this.api.post("anadirBici",bicicletas)
     } catch (error) {
       console.error("Error al buscar la bici: ", error);
     }
