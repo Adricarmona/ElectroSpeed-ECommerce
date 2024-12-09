@@ -29,7 +29,7 @@ export class AuthService {
   Usuarios: Usuarios = {
     id: 0,
     name: '',
-    username: '',
+    direccion: '',
     email: '',
     admin: false
   }
@@ -183,16 +183,31 @@ export class AuthService {
 
   async getUsersDto() {
     try {
-      const request: Observable<Usuarios[]> = this.http.get<Usuarios[]>(`${this.BASE_URL}api/User/AdminView`);
+      const request: Observable<Usuarios[]> = this.http.get<Usuarios[]>(`${this.BASE_URL}AdminView`);
       const result: Usuarios[] = await lastValueFrom(request);
 
       return result
     } catch (error) {
       console.error("Error al buscar el usuario: ", error)
       return null
-  }
+    }
   }
 
+  async deleteUser(id: number) {
+    try {
+      await this.apiService.delete("deleteUsuarioId?id="+id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async updateUser(usuario: Usuarios) {
+    try {
+      await this.apiService.post("updateUsuario",usuario)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 

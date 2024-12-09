@@ -47,8 +47,8 @@
                                 <div class="tarjeta" (click)="seleccionarDestacado(item.id,0)">
                                     <p>id: {{item.id}}</p>
                                     <p>email: {{item.email}}</p>
-                                    <p>usuaario: {{item.username}}</p>
                                     <p>nombre: {{item.name}}</p>
+                                    <p>direccion: {{item.direccion}}</p>
                                 </div>
     
                             }
@@ -80,17 +80,17 @@
                             <br>
                             <div class="pestana">
                                 <span>Nombre usuario: </span>
-                                <input type="text" name="nombre" id="nombre" [value]="usuarioSeleccionado.name">
+                                <input type="text" name="nombre" id="nombre" [(ngModel)]="usuarioSeleccionado.name" [ngModelOptions]="{standalone: true}"  [value]="usuarioSeleccionado.name">
                             </div>
                             <br>
                             <div class="pestana">
                                 <span>Email usuario: </span>
-                                <input type="text" name="email" id="email" [value]="usuarioSeleccionado.email">
+                                <input type="text" name="email" id="email" [(ngModel)]="usuarioSeleccionado.email" [ngModelOptions]="{standalone: true}"  [value]="usuarioSeleccionado.email">
                             </div>
                             <br>
                             <div class="pestana">
                                 <span>Direccion usuario: </span>
-                                <input type="text" name="direccion" id="direccion" [value]="usuarioSeleccionado.username">
+                                <input type="text" name="direccion" id="direccion" [(ngModel)]="usuarioSeleccionado.direccion" [ngModelOptions]="{standalone: true}" [value]="usuarioSeleccionado.direccion">
                             </div>
                             <br>
                             <div class="pestana">
@@ -106,9 +106,8 @@
                         </div>
                     </div>
                     <div class="centrado">
-                        <input type="submit" value="añadir">
-                        <input type="submit" value="guardar">
-                        <input type="submit" value="eliminar">
+                        <input type="submit" value="guardar" (click)="EditarUsuarios(usuarioSeleccionado)">
+                        <input type="submit" value="eliminar" (click)="EliminarUsuarios(usuarioSeleccionado.id)">
                     </div>
                 </form>
             } 
@@ -140,7 +139,6 @@
                         </div>
                     </div>
                     <div class="centrado">
-                        <input type="submit" value="añadir">
                         <input type="submit" value="guardar">
                         <input type="submit" value="eliminar">
                     </div>

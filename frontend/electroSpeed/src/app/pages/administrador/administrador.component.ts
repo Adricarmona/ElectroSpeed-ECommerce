@@ -31,7 +31,7 @@ export class AdministradorComponent {
   usuarioSeleccionado: Usuarios = {
     id: 0,
     name: '',
-    username: '',
+    direccion: '',
     email: '',
     admin: false
   }
@@ -156,5 +156,17 @@ export class AdministradorComponent {
 
   async ObtenerUsuarios() {
     this.usuariosTotales = await this.authService.getUsersDto()
+  }
+
+  async EliminarUsuarios(id: number) {
+    await this.authService.deleteUser(id)
+    await this.ObtenerUsuarios()
+    this.sumarRestarEjecutar(0)
+  }
+
+  async EditarUsuarios(usuario: Usuarios){
+    await this.authService.updateUser(usuario)
+    await this.ObtenerUsuarios()
+    this.sumarRestarEjecutar(0)
   }
 }
