@@ -26,8 +26,10 @@ export class StripeComponent implements OnInit, OnDestroy {
 
   product: CarritoEntero = null;
   reservaId: string = '';
+  res: string;
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
+  private intervalId: any;
 
   constructor(
     private auth: AuthService,
@@ -43,7 +45,10 @@ export class StripeComponent implements OnInit, OnDestroy {
     // El evento ngOnInit solo se llama una vez en toda la vida del componente.
     // Por tanto, para poder captar los cambios en la url nos suscribimos al queryParamMap del route.
     // Cada vez que se cambie la url se llamará al método onInit
-    this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    this.intervalId = setInterval(() => {
+    this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init());
+  }, 10000);
+    this.res = this.route.snapshot.queryParamMap.get('reserva_id');
     this.embeddedCheckout()
   }
 
@@ -53,22 +58,24 @@ export class StripeComponent implements OnInit, OnDestroy {
     this.routeQueryMap$.unsubscribe();
   }
 
-  async init(queryMap: ParamMap) {
-    this.reservaId = queryMap.get('reserva_id');
-    console.log(this.reservaId)
+  async init() {
     if (this.reservaId) {
       const request = await this.service.getStatus(this.reservaId);
+      console.log(this.reservaId)
       if (request.success) {
         console.log(request.data);
+      }else {
+        console.log("request null");
       }
     }
   }
 
   async embeddedCheckout() {
 
-    const request = await this.service.getEmbededCheckout();
-
+    const request = await this.service.getEmbededCheckout(this.res);
     if (request.success) {
+      console.log(request.data.sesionid)
+      this.reservaId = request.data.sesionid;
       const options: StripeEmbeddedCheckoutOptions = {
         clientSecret: request.data.clientSecret,
         
