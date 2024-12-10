@@ -70,6 +70,7 @@ export class EthereumComponent {
     // Notificamos al usuario si la transacción ha sido exitosa o si ha fallado.
     if (checkTransactionResult.success && checkTransactionResult.data) {
       alert('Transacción realizada con éxito');
+      
     } else {
       alert('Transacción fallida');
     }
