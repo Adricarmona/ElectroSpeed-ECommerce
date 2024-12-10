@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Bicicletas } from '../../models/catalogo';
 import { FooterComponent } from '../footer/footer.component';
+import { CheckoutService } from '../../service/checkout.service';
+
 
 @Component({
   selector: 'app-confirmacion-compra',
@@ -37,9 +39,13 @@ export class ConfirmacionCompraComponent {
   },
 ]
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,    private service: CheckoutService ) {
     this.devolverNombre()
   }
+
+  ngOnDestroy(): void {
+    this.service.eliminarOrden()
+ }
 
   async devolverNombre() {
     this.nombre = await this.authService.getNameUser()
