@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { CarritoService } from './carrito.service';
+import { NavbarComponent } from '../pages/navbar/navbar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class NavbarService {
 
   nombre = ""
   productosCarrito = false
-
+  productosCarritoCantidad = 0
   constructor(
     private authService: AuthService,
     private carritoService: CarritoService
@@ -26,12 +27,14 @@ export class NavbarService {
       const bicisRemoto = await this.carritoService.devolverCarritoPorUsuario(await this.authService.getIdUser())
       if (bicisRemoto.bicisCantidad.length > 0) {
         this.productosCarrito = true
+        this.productosCarritoCantidad = bicisRemoto.bicisCantidad.length
       } else {
         this.productosCarrito = false
       }
     } else {
       if (bicisLocal.length > 0) {
         this.productosCarrito = true
+        this.productosCarritoCantidad = bicisLocal.length
       } else {
         this.productosCarrito = false
       }
