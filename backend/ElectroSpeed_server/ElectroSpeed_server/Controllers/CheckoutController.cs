@@ -16,11 +16,13 @@ namespace ElectroSpeed_server.Controllers
     {
         private readonly ElectroSpeedContext _esContext;
         private readonly Settings _settings;
+        private readonly EmailHelper _emailHelper;
 
         public CheckoutController(ElectroSpeedContext esContext, IOptions<Settings> settings)
         {
             _esContext = esContext;
             _settings = settings.Value;
+            _emailHelper = new EmailHelper();
         }
 
         [HttpPost("OrdenTemporalLocal/{carrito}")]
@@ -177,7 +179,8 @@ namespace ElectroSpeed_server.Controllers
             Session session = await sessionService.GetAsync(sessionId);
             if (session.PaymentStatus == "paid")
             {
-                    Console.WriteLine("pago completado");
+                EmailHelper.SendEmailAsync(session.CustomerEmail, "Compra en ElectroSpeed", "hectornegro", true);
+                Console.WriteLine("pago completado");
             }
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
