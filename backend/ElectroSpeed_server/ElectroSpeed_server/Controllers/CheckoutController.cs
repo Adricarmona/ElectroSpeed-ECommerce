@@ -83,8 +83,8 @@ namespace ElectroSpeed_server.Controllers
         [HttpDelete("EliminarOrdenTemporal/{reserva}")]
         public async Task<ActionResult> EliminarOrdenTemporal(string reserva)
         {
-            CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
-            var orden = checkout.CogerOrdenTemporal(reserva);
+            var id = Convert.ToInt32(reserva);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
 
             _esContext.OrdenTemporal.Remove(orden);       
             _esContext.SaveChanges();
