@@ -28,6 +28,7 @@ export class StripeComponent implements OnInit, OnDestroy {
   reservaId: string = '';
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
+  private intervalId: any;
 
   constructor(
     private auth: AuthService,
@@ -43,7 +44,9 @@ export class StripeComponent implements OnInit, OnDestroy {
     // El evento ngOnInit solo se llama una vez en toda la vida del componente.
     // Por tanto, para poder captar los cambios en la url nos suscribimos al queryParamMap del route.
     // Cada vez que se cambie la url se llamará al método onInit
-    this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    this.intervalId = setInterval(() => {
+      this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    }, 5000);
     this.embeddedCheckout()
   }
 
@@ -55,11 +58,13 @@ export class StripeComponent implements OnInit, OnDestroy {
 
   async init(queryMap: ParamMap) {
     this.reservaId = queryMap.get('reserva_id');
-    console.log(this.reservaId)
     if (this.reservaId) {
       const request = await this.service.getStatus(this.reservaId);
+      console.log(this.reservaId)
       if (request.success) {
         console.log(request.data);
+      }else {
+        console.log("request null");
       }
     }
   }

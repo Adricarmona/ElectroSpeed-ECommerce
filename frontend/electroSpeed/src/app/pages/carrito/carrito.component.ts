@@ -195,12 +195,17 @@ export class CarritoComponent {
     );
   }
 
-  goBlockchain() {
+  async goBlockchain() {
+    if (this.idUser) {
+      var reserva_id = await this.crearOrdenTemporalCarrito();
+    }else{
+      var reserva_id = await this.crearOrdenTemporalLocal();
+    }
+    //var reserva_id = await this.crearOrdenTemporalLocal();
+    console.log("session_id:  "+reserva_id)
     this.router.navigate(
       ['/checkout'],
-      { queryParams: { 'reserva_id': 'session_id', 'metodo_pago': 'ethereum' } }
+      { queryParams: { 'reserva_id': reserva_id, 'metodo_pago': 'ethereum' } }
     );
-  }
 }
-
-
+}

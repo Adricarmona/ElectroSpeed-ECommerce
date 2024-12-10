@@ -75,21 +75,20 @@ namespace ElectroSpeed_server.Controllers
             orden.UsuarioId = idtoken;
 
             _esContext.SaveChanges();
-
-            //IList<OrdenTemporal> ordenes = _esContext.OrdenTemporal.ToList();
-
-            //foreach (var item in ordenes)
-            //{
-            //    if (item.UsuarioId == idtoken)
-            //    {
-            //        if (orden != item)
-            //        {
-            //            _esContext.OrdenTemporal.Remove(item);
-            //        }
-            //   }
-            //}
-            //_esContext.SaveChanges();
             return Ok("Usuario añadido");
+        }
+
+        [HttpDelete("EliminarOrdenTemporal")]
+        public async Task<ActionResult> EliminarOrdenTemporal()
+        {
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
+            CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
+
+            var orden = checkout.CogerOrdenTemporal(idtoken);
+
+            _esContext.OrdenTemporal.Remove(orden);       
+            _esContext.SaveChanges();
+            return Ok("Orden eliminada");
         }
 
 
