@@ -21,6 +21,7 @@ export class CatalogoComponent implements OnInit {
   orden: string = "desc";
   cantidadProductos: number = 10; // esto fijo por que no se si hay que variarlo en el filtro y ahora no me apetece
   paginaActual: number = 1; /// A VER COMO HACEMOS ESTO AHORA
+  griditem: number;
 
   biciFiltradasTotales: Bicicletas[] = [];
   paginasTotales: number = 0;
@@ -46,6 +47,11 @@ export class CatalogoComponent implements OnInit {
     }
 
     this.submitFiltro();
+  }
+
+  gridItem(){
+    
+    return this.griditem++
   }
 
   toggleDropdown(): void {
