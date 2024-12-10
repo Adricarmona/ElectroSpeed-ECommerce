@@ -84,9 +84,9 @@ namespace ElectroSpeed_server.Controllers
             int idtoken = Int32.Parse(User.FindFirst("id").Value);
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.CogerOrdenTemporal(idtoken);
+            //var orden = checkout.CogerOrdenTemporal();
 
-            _esContext.OrdenTemporal.Remove(orden);       
+            //_esContext.OrdenTemporal.Remove(orden);       
             _esContext.SaveChanges();
             return Ok("Orden eliminada");
         }
@@ -123,16 +123,14 @@ namespace ElectroSpeed_server.Controllers
             return ordenTemporal.Id;
         }
 
-        [HttpGet("embedded")]
-        public async Task<ActionResult> EmbededCheckout()
+        [HttpGet("embedded/{reserva}")]
+        public async Task<ActionResult> EmbededCheckout(string reserva)
         {
-
-            // lo del puto token dios santo 4h soy subnormal ( el probrlema era del front )
-            int idtoken = Int32.Parse(User.FindFirst("id").Value);
 
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
 
-            var orden = checkout.CogerOrdenTemporal(idtoken);
+            var orden = checkout.CogerOrdenTemporal(reserva);
+            var user = _esContext.Usuarios.FirstOrDefault(r => r.Id == orden.UsuarioId);
 
             var lineItems = new List<SessionLineItemOptions>();
 
@@ -162,14 +160,14 @@ namespace ElectroSpeed_server.Controllers
                 Mode = "payment",
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
-                CustomerEmail = "correo_cliente@correo.es",
+                CustomerEmail = user.Email,
                 RedirectOnCompletion = "never"
             };
 
             SessionService service = new SessionService();
             Session session = await service.CreateAsync(options);
 
-            return Ok(new { clientSecret = session.ClientSecret });
+            return Ok(new { sesionid = session.Id, clientSecret = session.ClientSecret });
         }
 
         [HttpGet("status/{sessionId}")]
@@ -177,6 +175,10 @@ namespace ElectroSpeed_server.Controllers
         {
             SessionService sessionService = new SessionService();
             Session session = await sessionService.GetAsync(sessionId);
+            if (session.PaymentStatus == "paid")
+            {
+                    Console.WriteLine("pago completado");
+            }
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }

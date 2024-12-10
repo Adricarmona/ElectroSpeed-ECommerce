@@ -1,201 +1,127 @@
-#fondo {
-    background-image: url(../../../../public/catalogo/fondoCatalogo.png);
-    height: 100vh;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center 0;
-}
-
 #espacio {
-    height: 15vh;
+  height: 15vh;
 }
 
 #buscadorFiltro {
-    display: flex;
-    height: 5vh;
-    justify-content: center;
+  background-color: black;
+  display: flex;
+  height: 5vh;
+  justify-content: center;
 }
 
 #buscadorFiltro img,
 #buscadorFiltro input {
-    margin-right: 2.5vh;
+  margin-right: 2.5vh;
 }
 
-.containerCatalogo{
-    background-image: url(../../../../public/catalogo/fondoCatalogo.png);
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.containerCatalogo {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1, 400px;
+  grid-auto-rows: auto;
+  gap: 20px;
+  padding: 20px;
 }
 
-.catalogo {
-    display: flex;
-    flex-wrap: wrap;
-    width: fit-content;
-    justify-content: space-evenly;
-    margin-left: 150px;
-    margin-right: 150px; 
+.paginacion {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px 0;
+  color: #f1f1f1;
 }
 
-.paginacion{
-    color: #f1f1f1;
+#paginaActual {
+  padding: 10px 20px;
 }
 
-#paginaActual{
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-
-
+/* Botón estilizado */
 .button-85 {
-    padding: 0.6em 2em;
-    border: none;
-    outline: none;
-    color: rgb(255, 255, 255);
-    background: #111;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #f88b30;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+  z-index: 0;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-85:hover {
+  background: #fca440;
+  transform: scale(1.05);
+}
+
+.button-85:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.bicicontent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+
+.bici {
+  margin-top: 30px;
+  grid-area: 1 / 1 / 2 / 2;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: 0 0px 8px var(--shadow-color);
+
+  &:hover {
+    --shadow-color: rgba(102, 102, 102, 0.5);
   }
-  
-  .button-85:before {
-    border-radius: 10px;
-    z-index: -1;
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
 
-  }
-  
-  @keyframes glowing-button-85 {
-    0% {
-      background-position: 0 0;
-    }
-    50% {
-      background-position: 400% 0;
-    }
-    100% {
-      background-position: 0 0;
-    }
-  }
-  
-  .button-85:disabled:after {
-    content: "";
-    background: linear-gradient(
-      45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #00ff9b,
-      #d4ff00,
-      #ff3a00,
-      #0078ff,
-      #ae00ff,
-      #1bff00,
-      #1fecdf,
-      #44a423,
-      #ff0000
-    );
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing-button-85 20s linear infinite;
-    transition: opacity 0.3s ease-in-out;
-  } 
-
-/* 
-*       CADA BICICLETA
-*/
-
-.bici{
-    max-height: 55vh;
-
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 50px;
-    margin-top: 50px;
-    background-color: white;
-    --shadow-color: rgba(0,0,0,0.1);
-    --border-radius: 10px;
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: var(--border-radius);
-    text-align: center;
-    box-shadow: 0 0px 8px var(--shadow-color);
-    cursor: pointer;
-    &:hover {
-    --shadow-color: rgba(0, 72, 255, 0.5);
-    }
+  display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
 
 }
 
 .bici img {
-  max-width: 35vh;
-  max-height: 35vh;
-}
-
-.parteArriba {
-    display: flex;
-
-}
-
-.parteAbajo {
-    display: flex;
+  width: 500px;
+  height: auto;
 }
 
 h3 {
-    margin-right: 20px;
+  margin: 0;
 }
 
-/*
-*       EL FILTRO
-*/
-
+/* Filtro */
 .filtro {
-    position: relative;
+  position: relative;
 }
 
 #tiposFiltro {
-    display: none;
-    position: absolute;
-    top: 150%;
-    left: 0;
-    background-color: #f1f1f1;
-    min-width: 250px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  top: 150%;
+  left: 0;
+  background-color: #f1f1f1;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 #tiposFiltro.show {
-    display: flex;
+  display: flex;
 }
 
-.lupa{
+.lupa {
   cursor: pointer;
 }
-

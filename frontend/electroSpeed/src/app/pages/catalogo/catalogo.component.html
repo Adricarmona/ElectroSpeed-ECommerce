@@ -18,7 +18,8 @@
                             <option value="desc">Descendente</option>
                         </select>
                     </div>
-                    <select name="numeroProductos" id="numeroProductos" [(ngModel)]="cantidadProductos" [ngModelOptions]="{standalone: true}">
+                    <select name="numeroProductos" id="numeroProductos" [(ngModel)]="cantidadProductos"
+                        [ngModelOptions]="{standalone: true}">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -26,7 +27,8 @@
                     </select>
                 </div>
             </div>
-            <input type="search" name="filtroCatalogo" id="filtroCatalogo" [(ngModel)]="consulta" [ngModelOptions]="{standalone: true}">
+            <input type="search" name="filtroCatalogo" id="filtroCatalogo" [(ngModel)]="consulta"
+                [ngModelOptions]="{standalone: true}">
             <img src="catalogo/lupa.png" class="lupa" (click)="goToPage(1)">
         </div>
     </form>
@@ -35,43 +37,46 @@
     <br>
     <div class="containerCatalogo">
         <div class="catalogo">
-            @for (item of biciFiltradasTotales; track $index) 
+            @for (item of biciFiltradasTotales; track $index)
             {
-                <a href="detalle/{{item.id}}">
-                    <div class="bici">
-                        <img src="{{item.urlImg}}">
-                        <div class="parteArriba">
-                            <h3>{{item.marcaModelo}}</h3>
-                            <h3>{{item.precio}}€</h3>
-                        </div>
-                        <div class="parteAbajo">
-                            <h3>stock:{{item.stock}}</h3>
-                            <h3>id:{{item.id}}</h3>
-                        </div>
+            <a href="detalle/{{item.id}}">
+                <div class="bici">
+                    <img src="{{item.urlImg}}">
+                    <div class="bicicontent">
+                        <h3>Model: {{item.marcaModelo}}</h3>
+                        <br>
+                        <h3>Precio: {{item.precio}}€</h3>
+                        <br>
+                        <h3>Stock:{{item.stock}}</h3>
+                        <br>
+                        <h3>Id:{{item.id}}</h3>
                     </div>
-                </a>
+                </div>
+            </a>
             }
-        </div>  
-        <br>
-        <br>
-        <br>
-        <div class="paginacion">
-            @if (paginaActual != 1) {
-                <button (click)="goPrevious()" style="margin-right: 20px;" class="button-85" role="button">Página anterior</button>
-            }
-            <!-- <button (click)="goPrevious()" style="margin-right: 20px;" [disabled]="paginaActual === 1" class="button-85" role="button">Página anterior</button> -->
-            @for(item of createRange(paginasTotales); track item) 
-            {
-                <button (click)="goToPage(item)" style="margin-right: 10px; margin-left: 10px;" [disabled]="paginaActual === item" class="button-85">{{item}}</button>
-            }
-            @if(paginaActual === 1 || paginaActual != paginasTotales){
-                <button (click)="goNext()" style="margin-left: 20px;" class="button-85" role="button">Página siguiente</button>
-            }
-            <!-- <button (click)="goNext()" style="margin-left: 20px;" [disabled]="paginaActual === paginasTotales" class="button-85" role="button">Página siguiente</button> -->
         </div>
         <br>
         <br>
-        <span style="color: white;" id="paginaActual">Página: {{ paginaActual }} de {{paginasTotales}}</span>   
         <br>
     </div>
+    <div class="paginacion">
+        @if (paginaActual != 1) {
+        <button (click)="goPrevious()" style="margin-right: 20px;" class="button-85" role="button">Página
+            anterior</button>
+        }
+        <!-- <button (click)="goPrevious()" style="margin-right: 20px;" [disabled]="paginaActual === 1" class="button-85" role="button">Página anterior</button> -->
+        @for(item of createRange(paginasTotales); track item)
+        {
+        <button (click)="goToPage(item)" style="margin-right: 10px; margin-left: 10px;"
+            [disabled]="paginaActual === item" class="button-85">{{item}}</button>
+        }
+        @if(paginaActual === 1 || paginaActual != paginasTotales){
+        <button (click)="goNext()" style="margin-left: 20px;" class="button-85" role="button">Página siguiente</button>
+        }
+        <!-- <button (click)="goNext()" style="margin-left: 20px;" [disabled]="paginaActual === paginasTotales" class="button-85" role="button">Página siguiente</button> -->
+        <br>
+        <br>
+        <span style="color: black;" id="paginaActual">Página: {{ paginaActual }} de {{paginasTotales}}</span>
+    </div>
+    <br>
 </div>
