@@ -1,9 +1,8 @@
-export interface Bicicletas{
+export interface BicisFile {
     id: number,
     marcaModelo: string, 
     descripcion: string,
     stock: number,
     precio: number,
-    urlImg: string,
-    cantidad: number
+    urlImg: File,
 }

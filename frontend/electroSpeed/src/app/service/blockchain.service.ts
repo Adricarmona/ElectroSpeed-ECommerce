@@ -4,6 +4,7 @@ import { EthTransactionRequest } from '../models/eth-transaction-request';
 import { Result } from '../models/result';
 import { Ethereuminfo } from '../models/ethereuminfo';
 import { CheckEthTransactionRequest } from '../models/check-eth-transaction-request';
+import { CorreoFactura } from '../models/correo-factura';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class BlockchainService {
 
   checkTransaction(data: CheckEthTransactionRequest): Promise<Result<boolean>> {
     return this.api.post<boolean>(`api/Blockchain/checkeaetabaina`, data)
+  }
+
+  sendEmail(data: CorreoFactura) {
+    return this.api.post(`api/Blockchain/enviofactura`, data)
   }
 
 }

@@ -33,7 +33,7 @@ export class CheckoutService {
   }
 
   async cambiarIdUser(reserva: number){
-     await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
+    await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
   }
 
    eliminarOrden(){
