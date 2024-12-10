@@ -36,12 +36,11 @@ export class CheckoutService {
     await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
   }
 
-   eliminarOrden(){
-    console.log('4. Finalmente esto (cuando el componente sea destruido)');
-     this.api.delete<number>(`api/checkout/EliminarOrdenTemporal`)
+   eliminarOrden(res: string){
+     this.api.delete<number>(`api/checkout/EliminarOrdenTemporal/${res}`)
  }
 
-  postPedido(){
-
+  async postPedido(res: string){
+    await this.api.post<number>(`api/checkout/guardarcomprar/${res}`)
   }
 }

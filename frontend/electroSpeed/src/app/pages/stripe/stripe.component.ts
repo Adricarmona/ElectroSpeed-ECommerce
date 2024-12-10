@@ -95,6 +95,8 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   irConfirmacion(){
+    this.service.postPedido(this.res)
+    this.service.eliminarOrden(this.res)
     this.router.navigateByUrl("confirmacion")
   }
 

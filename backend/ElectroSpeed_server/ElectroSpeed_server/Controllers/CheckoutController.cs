@@ -80,15 +80,13 @@ namespace ElectroSpeed_server.Controllers
             return Ok("Usuario añadido");
         }
 
-        [HttpDelete("EliminarOrdenTemporal")]
-        public async Task<ActionResult> EliminarOrdenTemporal()
+        [HttpDelete("EliminarOrdenTemporal/{reserva}")]
+        public async Task<ActionResult> EliminarOrdenTemporal(string reserva)
         {
-            int idtoken = Int32.Parse(User.FindFirst("id").Value);
             CheckoutTarjeta checkout = new CheckoutTarjeta(_esContext);
+            var orden = checkout.CogerOrdenTemporal(reserva);
 
-            //var orden = checkout.CogerOrdenTemporal();
-
-            //_esContext.OrdenTemporal.Remove(orden);       
+            _esContext.OrdenTemporal.Remove(orden);       
             _esContext.SaveChanges();
             return Ok("Orden eliminada");
         }
@@ -185,25 +183,23 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok(new { status = session.Status, customerEmail = session.CustomerEmail });
         }
-        /*
-        [HttpPost("guardarcomprar")]
-        public ActionResult AnadirPedidos([FromBody] BicicletasAnadir model)
+        
+        [HttpPost("guardarcomprar/{reserva}")]
+        public ActionResult AnadirPedidos(string reserva)
         {
+            var id = Convert.ToInt32(reserva);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
 
             Pedidos pedido = new()
             {
-                Id = model.Id,
-                MarcaModelo = model.MarcaModelo,
-                Descripcion = model.Descripcion,
-                Precio = model.Precio,
-                Stock = model.Stock,
-                UrlImg = model.Foto,
+                UsuarioId = orden.UsuarioId,
+                Bicis = orden.Bicis,
             };
 
-            _esContext.Bicicletas.Add(bicicleta);
+            _esContext.Pedido.Add(pedido);
             _esContext.SaveChanges();
 
             return Ok("Subida correctamente");
-        }*/
+        }
     }
 }

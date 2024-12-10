@@ -43,10 +43,6 @@ export class ConfirmacionCompraComponent {
     this.devolverNombre()
   }
 
-  ngOnDestroy(): void {
-    this.service.eliminarOrden()
- }
-
   async devolverNombre() {
     this.nombre = await this.authService.getNameUser()
   }
