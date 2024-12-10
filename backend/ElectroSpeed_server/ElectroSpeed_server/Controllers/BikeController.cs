@@ -43,12 +43,19 @@ namespace ElectroSpeed_server.Controllers
         public async Task<ActionResult> AnadirBicisAsync(BicicletaFileFoto model)
         {
 
-            string direccionImagen = $"{Guid.NewGuid()}_{model.UrlImg.FileName}";
-
             if (_esContext.Bicicletas.Any(Bicicletas => model.Id == Bicicletas.Id))
             {
                 return BadRequest("Bici ya en la base de datos");
             }
+
+            if (model.UrlImg == null || model.UrlImg.Length == 0)
+            {
+                return BadRequest("Imagen no indicada");
+            }
+
+            string direccionImagen = $"{Guid.NewGuid()}_{model.UrlImg.FileName}";
+
+            await StoreImageAsync("bicis/"+direccionImagen, model.UrlImg);
 
             Bicicletas bicicleta = new()
             {
@@ -60,13 +67,9 @@ namespace ElectroSpeed_server.Controllers
                 UrlImg = direccionImagen,
             };
 
-            using Stream stream = model.UrlImg.OpenReadStream();
-
-            await FileHelper.SaveAsync(stream, "bicis"+direccionImagen);
-
             _esContext.Bicicletas.Add(bicicleta);
             _esContext.SaveChanges();
-            
+
             return Ok("Subida correctamente");
         }
 
@@ -75,22 +78,25 @@ namespace ElectroSpeed_server.Controllers
         {
             Bicicletas bicicleta = getBicicleta(model.Id);
 
-            string direccionImagen = $"{Guid.NewGuid()}_{model.UrlImg.FileName}";
-
             if (bicicleta == null)
             {
                 return BadRequest("Bici no existe");
             }
+
+            if (model.UrlImg == null || model.UrlImg.Length == 0)
+            {
+                return BadRequest("Imagen no indicada");
+            }
+            
+            string direccionImagen = $"{Guid.NewGuid()}_{model.UrlImg.FileName}";
+
+            await StoreImageAsync("bicis/" + direccionImagen, model.UrlImg);
 
             bicicleta.MarcaModelo = model.MarcaModelo;
             bicicleta.Descripcion = model.Descripcion;
             bicicleta.Stock = model.Stock;
             bicicleta.Precio = model.Precio;
             bicicleta.UrlImg = direccionImagen;
-
-            using Stream stream = model.UrlImg.OpenReadStream();
-
-            await FileHelper.SaveAsync(stream, "bicis" + direccionImagen);
 
             _esContext.SaveChanges();
 
@@ -130,6 +136,13 @@ namespace ElectroSpeed_server.Controllers
             await _esContext.SaveChangesAsync();
 
             return Ok("bici eliminada");
+        }
+
+        private async Task StoreImageAsync(string relativePath, IFormFile file)
+        {
+            using Stream stream = file.OpenReadStream();
+
+            await FileHelper.SaveAsync(stream, relativePath);
         }
 
     }

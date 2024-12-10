@@ -59,16 +59,36 @@ export class CatalogoService {
   }
 
   anadirBicicleta(bicicletas :BicisFile) {
+
+    const formData = new FormData();
+
+    formData.append('Id', bicicletas.id.toString())
+    formData.append('MarcaModelo',bicicletas.marcaModelo)
+    formData.append('Descripcion',bicicletas.descripcion)
+    formData.append('Stock',bicicletas.stock.toString())
+    formData.append('Precio',bicicletas.precio.toString())
+    formData.append('UrlImg',bicicletas.urlImg)
+
     try {
-      this.api.post("anadirBici",bicicletas)
+      this.api.post("anadirBici",formData)
     } catch (error) {
       console.error("Error al buscar la bici: ", error);
     }
   }
 
   async editarBicicleta(bicicletas :BicisFile) {
+
+    const formData = new FormData();
+
+    formData.append('Id', bicicletas.id.toString())
+    formData.append('MarcaModelo',bicicletas.marcaModelo)
+    formData.append('Descripcion',bicicletas.descripcion)
+    formData.append('Stock',bicicletas.stock.toString())
+    formData.append('Precio',bicicletas.precio.toString())
+    formData.append('UrlImg',bicicletas.urlImg)
+
     try {
-      const resultado = await this.api.post("editarBici",bicicletas)
+      const resultado = await this.api.post("editarBici",formData)
     } catch (error) {
       console.error("Error al buscar la bici: ", error);
     }
