@@ -15,8 +15,8 @@ export class CheckoutService {
 
   constructor(private api: ApiService) { }
 
-  getEmbededCheckout(): Promise<Result<CheckoutSession>> {
-    return this.api.get<CheckoutSession>('api/checkout/embedded');
+  getEmbededCheckout(res: string): Promise<Result<CheckoutSession>> {
+    return this.api.get<CheckoutSession>(`api/checkout/embedded/${res}`);
   }
 
   getStatus(sessionId: string): Promise<Result<CheckoutSessionStatus>> {
@@ -33,7 +33,7 @@ export class CheckoutService {
   }
 
   async cambiarIdUser(reserva: number){
-     await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
+    await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
   }
 
    eliminarOrden(){

@@ -106,7 +106,7 @@ export class ApiService {
   private getHeader(accept = null, contentType = null): HttpHeaders {
     let header: any = {};
 
-    console.log(this.token)
+    //console.log(this.token)
 
     // Para cuando haya que poner un JWT
     header['Authorization'] = `Bearer ${this.token}`;
