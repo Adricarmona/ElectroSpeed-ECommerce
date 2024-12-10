@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CatalogoService } from '../../service/catalogo.service';
 import { AuthService } from '../../service/auth.service';
 import { NavbarService } from '../../service/navbar.service';
+import { BicisFile } from '../../models/bicis-file';
 
 @Component({
   selector: 'app-administrador',
@@ -26,6 +27,8 @@ export class AdministradorComponent {
     urlImg: 'administrador/chinoEnBici.gif',
     cantidad: 0
   }
+
+  foto: File;
 
   // usuario
   usuarioSeleccionado: Usuarios = {
@@ -69,6 +72,10 @@ export class AdministradorComponent {
     this.sumarRestarEjecutar(0)
   }
 
+
+  bicicletasTotalesNumero() {
+    return this.bicicletasTotales.length
+  }
 
   //
   //  las funciones que hacen que funcione el menu
@@ -146,6 +153,11 @@ export class AdministradorComponent {
 
   }
 
+  onFileSelected(event: any) {
+    const image = event.target.files[0] as File; // Here we use only the first file (single file)
+    this.foto = image
+    console.log(this.foto)
+  }
 
   //
   // utilizando los datos
@@ -154,18 +166,76 @@ export class AdministradorComponent {
     this.bicicletasTotales = await this.catalogoService.todasLasBicis()
   }
 
+  NuevoUsuario(){
+
+    this.bicicletaSeleccionada = {
+      id: 0,
+      marcaModelo: '',
+      descripcion: '',
+      precio: 0,
+      stock: 0,
+      urlImg: '',
+      cantidad: 0
+    }
+
+    this.seleccionado = 1
+
+  }
+
+  anadirBicicleta(){
+
+    const biciConfoto :BicisFile = {
+      id: 0,
+      marcaModelo: this.bicicletaSeleccionada.marcaModelo,
+      descripcion: this.bicicletaSeleccionada.descripcion,
+      stock: this.bicicletaSeleccionada.stock,
+      precio: this.bicicletaSeleccionada.precio,
+      urlImg: this.foto
+    }
+
+    this.catalogoService.anadirBicicleta(biciConfoto)
+    alert("Bicicleta añadida")
+  }
+
+  async EliminarBicicleta(id: number) {
+    await this.catalogoService.eliminarBicicleta(id)
+    alert("Bicicleta eliminada")
+    await this.ObtenerBicis()
+    this.sumarRestarEjecutar(0)
+  }
+
+  async EditarBicicleta(bici: Bicicletas){
+
+    const biciConfoto :BicisFile = {
+      id: bici.id,
+      marcaModelo: bici.marcaModelo,
+      descripcion: bici.descripcion,
+      stock: bici.stock,
+      precio: bici.precio,
+      urlImg: this.foto
+    }
+
+    await this.catalogoService.editarBicicleta(biciConfoto)
+    alert("Usuario Editado")
+    await this.ObtenerBicis()
+    this.sumarRestarEjecutar(0)
+  }
+
+  // usuarios
   async ObtenerUsuarios() {
     this.usuariosTotales = await this.authService.getUsersDto()
   }
 
   async EliminarUsuarios(id: number) {
     await this.authService.deleteUser(id)
+    alert("Usuario Eliminado")
     await this.ObtenerUsuarios()
     this.sumarRestarEjecutar(0)
   }
 
   async EditarUsuarios(usuario: Usuarios){
     await this.authService.updateUser(usuario)
+    alert("Usuario Editado")
     await this.ObtenerUsuarios()
     this.sumarRestarEjecutar(0)
   }

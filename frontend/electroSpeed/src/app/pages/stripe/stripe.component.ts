@@ -56,6 +56,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     // Cuando este componente se destruye hay que cancelar la suscripción.
     // Si no se cancela se seguirá llamando aunque el usuario no esté ya en esta página
     this.routeQueryMap$.unsubscribe();
+    
   }
 
   async init() {
