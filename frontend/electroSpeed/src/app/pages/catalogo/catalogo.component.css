@@ -51,6 +51,7 @@
 .catalogo {
   flex: 1;
   display: grid;
+  margin: 0 50px ;
 }
 
 .paginacion {
