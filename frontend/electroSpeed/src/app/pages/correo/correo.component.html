@@ -25,12 +25,14 @@
               </p>
               <!-- Tabla de Factura -->
               <table width="100%" cellpadding="10" cellspacing="0" border="1" style="border-collapse: collapse; font-size: 16px; color: #555; margin-top: 20px;">
-                <tr style="background-color: #007bff; color: #ffffff;">
+                @for (item of bicis; track $index) {
+                  <tr style="background-color: #007bff; color: #ffffff;">
                   <th>Producto</th>
                   <th>Cantidad</th>
                   <th>Precio Unitario</th>
                   <th>Total</th>
                 </tr>
+                }
                 <tr>
                   <td>Bicicleta Eléctrica Modelo X</td>
                   <td>1</td>
