@@ -1,6 +1,45 @@
-<br><br><br><br><br>
+<div id="fondo">
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-<p>confirmacion-compra works!</p>
+    <div class="centrado">
+        <div class="centradoTexto">
+            <h3>Gracias por la compra {{nombre}}</h3>
+            <p>Se enviara a su correo electronico el pedido</p>
+        </div>
+    </div>
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdrTAnAy1v-_nLu0YsieoN8936AdX7ayQ0tw&s" width="600px">
+    <br>
+
+    <div class="centrado">
+        <div class="centradoTexto">
+            <h4>Pagado con {{tipoPago}}</h4>
+            <h4>Entregado en {{entrega}}</h4>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="centrado">
+        <div>
+            <h3>Productos</h3>
+        </div>
+    </div>
+
+    <div class="grid">
+        @for (producto of productos; track $index) {
+            <div class="fotoBici"> <img [src]="producto.urlImg" alt=""> </div>
+            <div class="nombreBici"> {{producto.marcaModelo}} </div>
+            <div class="precioBici"> {{producto.precio}} </div>
+            <div class="cantidadBici"> {{producto.cantidad}} </div>
+            <div class="sumaPrecios"> {{producto.cantidad * producto.precio}} </div>
+        }
+    </div>
+        
+</div>
+
+<app-footer></app-footer>

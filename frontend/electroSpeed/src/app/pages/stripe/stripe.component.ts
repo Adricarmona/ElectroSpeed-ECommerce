@@ -9,6 +9,8 @@ import { BiciPagina } from '../../models/bici-pagina';
 import { Bicicletas } from '../../models/catalogo';
 import { CarritoEntero } from '../../models/carrito-entero';
 import { AuthService } from '../../service/auth.service';
+import { NavbarService } from '../../service/navbar.service';
+import { CarritoComponent } from '../carrito/carrito.component';
 
 @Component({
   selector: 'app-stripe',
@@ -23,22 +25,28 @@ export class StripeComponent implements OnInit, OnDestroy {
   checkoutDialogRef: ElementRef<HTMLDialogElement>;
 
   product: CarritoEntero = null;
-  sessionId: string = '';
+  reservaId: string = '';
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
+  private intervalId: any;
 
   constructor(
     private auth: AuthService,
     private service: CheckoutService, 
     private route: ActivatedRoute, 
     private router: Router,
-    private stripe: StripeService) {}
+    private stripe: StripeService,
+    private navbarService: NavbarService) {
+      navbarService.cambiarCss(0)
+    }
 
    ngOnInit() {
     // El evento ngOnInit solo se llama una vez en toda la vida del componente.
     // Por tanto, para poder captar los cambios en la url nos suscribimos al queryParamMap del route.
     // Cada vez que se cambie la url se llamará al método onInit
-    this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    this.intervalId = setInterval(() => {
+      this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
+    }, 5000);
     this.embeddedCheckout()
   }
 
@@ -49,20 +57,14 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   async init(queryMap: ParamMap) {
-    this.sessionId = queryMap.get('session_id');
-    console.log(this.sessionId)
-    if (this.sessionId) {
-      const request = await this.service.getStatus(this.sessionId);
+    this.reservaId = queryMap.get('reserva_id');
+    if (this.reservaId) {
+      const request = await this.service.getStatus(this.reservaId);
+      console.log(this.reservaId)
       if (request.success) {
         console.log(request.data);
-      }
-    } else {
-      const request = await this.service.getAllProducts();
-      console.log(request);
-
-      if (request.success) {
-        // Accede directamente a `data` porque no es un arreglo
-        this.product = request.data;
+      }else {
+        console.log("request null");
       }
     }
   }
@@ -74,6 +76,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     if (request.success) {
       const options: StripeEmbeddedCheckoutOptions = {
         clientSecret: request.data.clientSecret,
+        
         onComplete: () => this.irConfirmacion()
       };
 

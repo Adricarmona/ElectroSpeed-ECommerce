@@ -19,6 +19,8 @@ namespace ElectroSpeed_server.Models.Data.Entities
 
         public IList<BicisCantidad> BicisCantidadId { get; set; }
 
+        public IList<BiciTemporal> BicisT { get; set; }
+
 
     }
 }

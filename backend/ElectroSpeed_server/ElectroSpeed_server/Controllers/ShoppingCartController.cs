@@ -131,43 +131,5 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("eliminado del carrito");
         }
-
-
-        /*
-        // dar la cantidad de los carritos
-        [HttpGet("cantidadBicis")]
-        public IList<BicisCantidad> GetCarritoCantidad(int idCarrito)
-        {
-            CarritoCompra carritoCompra = _esContext.CarritoCompra.Include(c => c.Bicicletas).FirstOrDefault(r => r.Id == idCarrito);
-            IList<Bicicletas> bicis = carritoCompra.Bicicletas;
-            IList<BicisCantidad> bicisCantidad = new List<BicisCantidad>();
-            Boolean nuevaBici = false;
-            foreach (var item in bicis)
-            {
-                foreach (var item1 in bicisCantidad)
-                {
-                    if (item1.idBici == item.Id)
-                    {
-                        item1.cantidad++;
-                    }
-                    else
-                    {
-                        nuevaBici = true;
-                    }
-                }
-                if (nuevaBici || bicisCantidad.IsNullOrEmpty())
-                {
-                    BicisCantidad biciTmp = new BicisCantidad()
-                    {
-                        idBici = item.Id,
-                        cantidad = 1
-                    };
-
-                    bicisCantidad.Add(biciTmp);
-                }
-
-            }
-            return bicisCantidad;
-        }*/
     }
 }

@@ -10,12 +10,13 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public string Password { get; set; }
         public string Email { get; set; }
         public string Direccion { get; set; }
+        public Boolean Admin { get; set; } = false;
 
         public string Rol { get; set; }
 
         public ICollection<Resenias> Resenias { get; set; }
         public ICollection<CarritoCompra> carritos { get; set; }
 
-        public ICollection<OrdeTemporal> ordenTemporal { get; set; }
+        public ICollection<OrdenTemporal> OrdenTemporal { get; set; }
     }
 }

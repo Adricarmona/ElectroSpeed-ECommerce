@@ -31,6 +31,23 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.Usuarios.Include(c => c.carritos).ToList();
         }
 
+        [HttpGet("/AdminView")]
+        public IEnumerable<UserToAdmin> GetUsuariosAdmin()
+        {
+            IEnumerable<Usuarios> usuarios = _esContext.Usuarios.ToList();
+
+            IEnumerable<UserToAdmin> userDto = usuarios.Select(u => new UserToAdmin
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Direccion = u.Direccion,
+                Admin = u.Admin,
+            });
+
+            return userDto;
+        }
+
         [HttpGet("/usuarioId")]
         public Usuarios Uuarios(int id)
         {
@@ -43,8 +60,7 @@ namespace ElectroSpeed_server.Controllers
             return _esContext.Usuarios.Include(c => c.carritos).FirstOrDefault(r => r.Email == email);
         }
 
-
-
+        /*                                      Esto lo voy a comentar por que no compila pero no lo borro porsi
         [HttpGet("/usuario/detalle")]
         [Authorize]
         public ActionResult GetUsuarioDetalle()
@@ -111,6 +127,48 @@ namespace ElectroSpeed_server.Controllers
 
             _esContext.SaveChanges();
             return Ok("Información actualizada correctamente");
+
+        */
+
+        [HttpDelete("/deleteUsuarioId")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            Usuarios user = Uuarios(id);
+
+            if (user == null)
+            {
+                return NotFound("No se encuentra usuario");
+            }
+
+            _esContext.Remove(user);
+            await _esContext.SaveChangesAsync();
+
+            return Ok("Usuario eliminado");
+        }
+
+        [HttpPost("/updateUsuario")]
+        public async Task<ActionResult> UptadteUser(UserToAdmin userIndicado)
+        {
+            if (userIndicado == null)
+            {
+                return BadRequest("Usuario no indicado");
+            }
+
+            Usuarios user = Uuarios(userIndicado.Id);
+
+            if (user == null)
+            {
+                return BadRequest("Usuario no encontrado");
+            }
+
+            user.Name = userIndicado.Name;
+            user.Email = userIndicado.Email;
+            user.Direccion = userIndicado.Direccion;
+            user.Admin = userIndicado.Admin;
+
+            await _esContext.SaveChangesAsync();
+            return Ok("usuario editado");
+
         }
     }
 }
