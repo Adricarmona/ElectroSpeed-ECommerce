@@ -95,7 +95,9 @@ export class CarritoComponent {
   }
 
   calcularTotal(): number {
-    return this.bicicletas.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
+    const total = this.bicicletas.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
+    this.carritoService.setTotal(total);
+    return total;
   }
 
   async eliminarBici(id: number) {

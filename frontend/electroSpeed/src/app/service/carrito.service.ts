@@ -15,6 +15,7 @@ import { OrdenTemporal } from '../models/orden-temporal';
 export class CarritoService {
 
   private BASE_URL = `${environment.apiUrl}`;
+  private total = 0;
 
   constructor(private http: HttpClient,
     private auth: AuthService,
@@ -86,5 +87,13 @@ export class CarritoService {
       
       localStorage.removeItem('idbici')
     }
+  }
+
+  setTotal(total: number) {
+    this.total = total;
+  }
+
+  getTotal() {
+    return this.total;
   }
 }
