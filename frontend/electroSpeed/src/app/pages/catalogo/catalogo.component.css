@@ -17,7 +17,7 @@
 .containerCatalogo {
   flex: 1;
   display: grid;
-  grid-template-columns: 1, 1fr;
+  grid-template-columns: 1, 400px;
   grid-auto-rows: auto;
   gap: 20px;
   padding: 20px;
@@ -87,10 +87,9 @@ a {
   }
 
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: space-around;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
 
 }
 
