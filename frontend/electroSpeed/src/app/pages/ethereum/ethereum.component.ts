@@ -111,15 +111,18 @@ export class EthereumComponent implements OnInit {
   async irConfirmacion() {
     await this.checkoutservice.postPedido(this.res);
     await this.checkoutservice.elimiarCarrito(this.res);
-    await this.DevolverOrden
+    await this.DevolverOrden()
+    if (this.bicis.length === 0) {
+      console.error('No se cargaron las bicicletas asociadas al pedido.');
+      return;
+    }
 
     let totalGeneral = 0;
 
-    // Generar las filas de la tabla
     const filas = this.bicis
       .map((bici) => {
         const total = bici.cantidad * bici.precio;
-        totalGeneral += total; // Sumar al total general
+        totalGeneral += total; 
         return `
       <tr>
         <td>${bici.marcaModelo}</td>
@@ -131,7 +134,6 @@ export class EthereumComponent implements OnInit {
       })
       .join('');
 
-    // Plantilla completa del correo con las filas generadas dinámicamente
     const correoBody = `
   <!DOCTYPE html>
   <html lang="es">
@@ -203,10 +205,10 @@ export class EthereumComponent implements OnInit {
   }
 
   async DevolverOrden(){
-    const request = await this.checkoutservice.DevolverOrden(this.res)
-    request.data.forEach(e => {
-      this.datosBici(e.id)
-    });
+    const request = await this.checkoutservice.DevolverOrden(this.res);
+
+    const promises = request.data.map((e) => this.datosBici(e.id));
+    await Promise.all(promises);
   }
 
   async datosBici(id: number){

@@ -40,7 +40,7 @@ export class StripeComponent implements OnInit, OnDestroy {
   res: string;
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
-  bicis: Bicicletas[] = []
+  bicis: Bicicletas[] = [];
   private intervalId: any;
 
   constructor(
@@ -116,13 +116,16 @@ export class StripeComponent implements OnInit, OnDestroy {
     await this.service.postPedido(this.res);
     await this.service.elimiarCarrito(this.res);
     await this.DevolverOrden();
+    if (this.bicis.length === 0) {
+      console.error('No se cargaron las bicicletas asociadas al pedido.');
+      return;
+    }
     let totalGeneral = 0;
 
-    // Generar las filas de la tabla
     const filas = this.bicis
       .map((bici) => {
         const total = bici.cantidad * bici.precio;
-        totalGeneral += total; // Sumar al total general
+        totalGeneral += total;
         return `
       <tr>
         <td>${bici.marcaModelo}</td>
@@ -134,7 +137,6 @@ export class StripeComponent implements OnInit, OnDestroy {
       })
       .join('');
 
-    // Plantilla completa del correo con las filas generadas dinámicamente
     const correoBody = `
   <!DOCTYPE html>
   <html lang="es">
@@ -191,29 +193,28 @@ export class StripeComponent implements OnInit, OnDestroy {
   </body>
   </html>
 `;
-    
-        const correofactura = {
-          to: 'hectordogarcia@gmail.com',
-          //to: this.otroservice.getEmailUserToken(),
-          subject: 'Compra ElectroSpeed',
-          body: correoBody,
-          isHtml: true,
-        };
-        await this.blockchainservice.sendEmail(correofactura);
-        this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
+
+    const correofactura = {
+      to: 'hectordogarcia@gmail.com',
+      //to: this.otroservice.getEmailUserToken(),
+      subject: 'Compra ElectroSpeed',
+      body: correoBody,
+      isHtml: true,
+    };
+    await this.blockchainservice.sendEmail(correofactura);
+    this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
   }
 
-  async DevolverOrden(){
-    const request = await this.service.DevolverOrden(this.res)
-    request.data.forEach(e => {
-      this.datosBici(e.id)
-    });
+  async DevolverOrden() {
+    const request = await this.service.DevolverOrden(this.res);
+
+    const promises = request.data.map((e) => this.datosBici(e.id));
+    await Promise.all(promises);
   }
 
-  async datosBici(id: number){
+  async datosBici(id: number) {
     const bicicleta = await this.catalogoService.showOneBike(id.toString());
-    console.log(bicicleta.cantidad)
-    this.bicis.push(bicicleta)
+    console.log(bicicleta.cantidad);
+    this.bicis.push(bicicleta);
   }
 }
-    
