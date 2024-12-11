@@ -30,7 +30,7 @@ export class ConfirmacionCompraComponent {
 
   ngOnInit(){
     this.res = this.route.snapshot.queryParamMap.get('id');
-    this.DevolverOrden()
+    //this.DevolverOrden()
   }
 
   async devolverNombre() {

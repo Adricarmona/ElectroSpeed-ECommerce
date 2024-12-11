@@ -32,9 +32,9 @@ namespace ElectroSpeed_server.Controllers
             return _blockchainService.CheckTransactionAsync(data);
         }
         [HttpPost("enviofactura")]
-        public Task SendEmail(string to, string subject, string body, bool isHtml = false)
+        public Task SendEmail([FromBody] Correo data)
         {
-            return EmailHelper.SendEmailAsync(to, subject, body, isHtml);
+            return EmailHelper.SendEmailAsync(data.to, data.subject, data.body, data.ishtml);
         }
 
 

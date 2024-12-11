@@ -27,24 +27,12 @@
               <table width="100%" cellpadding="10" cellspacing="0" border="1" style="border-collapse: collapse; font-size: 16px; color: #555; margin-top: 20px;">
                 @for (item of bicis; track $index) {
                   <tr style="background-color: #007bff; color: #ffffff;">
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unitario</th>
-                  <th>Total</th>
+                  <th>{{item.marcaModelo}}</th>
+                  <th>{{item.cantidad}}</th>
+                  <th>{{item.precio}}</th>
+                  <th>{{calcularTotal()}}</th>
                 </tr>
                 }
-                <tr>
-                  <td>Bicicleta Eléctrica Modelo X</td>
-                  <td>1</td>
-                  <td>€1,200.00</td>
-                  <td>€1,200.00</td>
-                </tr>
-                <tr>
-                  <td>Kit de Reparación</td>
-                  <td>2</td>
-                  <td>€50.00</td>
-                  <td>€100.00</td>
-                </tr>
                 <tr>
                   <td colspan="3" style="text-align: right; font-weight: bold;">Total</td>
                   <td>{{precio}}€</td>
