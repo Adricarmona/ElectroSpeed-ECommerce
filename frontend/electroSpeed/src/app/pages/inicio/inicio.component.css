@@ -32,89 +32,149 @@
     font-size: 1.1em;
 }
 
+/* Contenedor de texto principal */
 .textContainer {
-    width: 90%; 
-    max-width: 900px; 
-    margin: 20px auto;
-    padding: 20px; 
-    border-radius: 8px; 
-    text-align: center;
-    font-size: 1.2em; 
-    line-height: 1.6; 
+    background-color: #f4f4f4; /* Fondo suave */
+    padding: 50px 20px; /* Espaciado para no quedar pegado al borde */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-align: center; /* Centrar texto */
+    margin-bottom: 40px; /* Espacio debajo del contenedor */
 }
 
 .textContainer h2 {
-    margin: 0; 
-    font-weight: 400; 
+    font-size: 2rem; /* Tamaño de fuente más grande */
+    line-height: 1.8; /* Mejor separación entre líneas */
+    color: #333; /* Color de texto oscuro */
+    font-family: 'Arial', sans-serif; /* Fuente sencilla y moderna */
+    margin: 0; /* Eliminar márgenes */
 }
 
+/* Contenedor de productos destacados */
+.textProduct {
+    text-align: center; /* Centrar texto */
+    padding: 20px;
+    margin-bottom: 50px; /* Espacio inferior */
+}
 
-/* carousel de imagenes */
+.textProduct h1 {
+    font-size: 3rem; /* Tamaño de fuente más grande para título */
+    color: #007bff; /* Color de título llamativo */
+    font-family: 'Roboto', sans-serif; /* Fuente moderna */
+    margin-bottom: 10px; /* Espacio debajo del título */
+}
 
-.containerCarousel{
+.textProduct h3 {
+    font-size: 1.5rem; /* Tamaño de fuente más grande para subtítulo */
+    color: #555; /* Color de texto secundario */
+    font-family: 'Arial', sans-serif; /* Fuente simple */
+    margin: 0; /* Eliminar márgenes */
+}
+
+/* Estilo de los elementos del carrusel */
+.containerCarousel {
     margin-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
 }
-/* .containerCarousel {
-    background-color: #1a1a1a;
-    padding: 30px;
+
+.carousel {
+    margin: 30px;
+    max-width: 1200px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    color: white;
-    text-align: center;
-} */
-
-
-.carousel{
-    margin: 50px;
-    width: 1500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
-
-/* Imagenes que van debajo del carousel indicando en cual estas */
-
-/* .carousel-indicators img{
-    width: 70px;
-    display: block;
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 10px;
 }
-
-.carousel-indicators button{
-    width: max-content!important;
-}
-
-.carousel-indicators{
-    position: unset;
-}
-
-.carousel-indicators button.active img{
-    border: 1px solid red;
-} */
-
-
-
-/* servicios que ofrecemos */
-
-.containerimg{
-    margin: 200px;
-    display: grid;
-    grid-template-rows: repeat(3, 700px);
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    grid-gap: 5.5em;
-}
-
-.item{
+.containerimg {
     display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 50px 20px;
+    justify-content: center;
 }
 
-.item-1{/* text */
-    grid-row: 1 / 1;
+.item {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
 }
 
-.item-4{/* text */
-    grid-row: 2 / 2;
+.item:hover {
+    transform: translateY(-10px); /* Efecto de elevación al pasar el mouse */
 }
 
-.item-5{/* text */
-    grid-row: 3 / 3;
+.item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.item h4 {
+    padding: 30px;
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Bordes redondeados para las imágenes */
+.item-1 img,
+.item-4 img,
+.item-5 img {
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .fondo h1 {
+        font-size: 2rem;
+    }
+
+    .fondo h2 {
+        font-size: 1.2rem;
+    }
+
+    .textContainer h2 {
+        font-size: 1.5rem;
+    }
+
+    .textProduct h1 {
+        font-size: 2.5rem;
+    }
+
+    .textProduct h3 {
+        font-size: 1.2rem;
+    }
+
+    .carousel {
+        width: 100%;
+        margin: 20px;
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .textContainer h2 {
+        font-size: 1.2rem; /* Reducir el tamaño de fuente en pantallas pequeñas */
+    }
+
+    .textProduct h1 {
+        font-size: 2rem; /* Reducir tamaño de título en pantallas pequeñas */
+    }
+
+    .textProduct h3 {
+        font-size: 1rem; /* Reducir tamaño de subtítulo en pantallas pequeñas */
+    }
 }
