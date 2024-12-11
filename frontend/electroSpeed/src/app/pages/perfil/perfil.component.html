@@ -1,4 +1,4 @@
-<div class="fondo separacionArriba">
+<div class="fondoseparacionArriba">
 
     <div class="tarjetaFondo alrededoresTarjeta">
 
@@ -16,7 +16,7 @@
                 <span class="letrasPequeñas">Ahoramismo eres: </span>
                 @if (usuario.admin) 
                 {
-                    <span class="letrasGrandes">🎇Administrador🎇</span> 
+                    <span class="letrasGrandes">Administrador</span> 
                 }
                 @else 
                 {
@@ -67,29 +67,12 @@
 
             <div class="pedidosUsuario">
                 <h3>Tus pedidos</h3>
-                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmx4cWN6dDBhZHYwYWFtdnJqdHhzM2dtZjc5Mjl4dXJ4a28wZ3JobCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lJNoBCvQYp7nq/giphy.webp" alt="">
-
-                <!--         public int Id { get; set; }
-        public IList<BicisCantidad> BicisCantidad { get; set; } = new List<BicisCantidad>();
-
-        public int UsuarioId { get; set; }-->
-
-        <!-- 
-                <div class="tarjetaPedidos">
-                    <p>fecha que no esta en la bbdd XXD</p>
-
-                    @for (bisi of bicicantidad; track $index) {
-                        <p>{{bisi.idBici}}</p>
-                        <p>{{bisi.cantidad}}</p>
-                    }
-
-                    <p>Precio que tampoco esta</p>
-                </div>
-
-            </div>
-        </div>
-        -->
-
+                @for (pedidos of pedidos; track $index) {
+                    <div class="fotoBici"> <img [src]="pedidos.urlImg" alt=""> </div>
+                    <div class="nombreBici"> Nombre: {{pedidos.marcaModelo}} </div>
+                    <div class="precioBici"> Precio: {{pedidos.precio}}€  </div>
+                }
+                
     </div>
 
 </div>

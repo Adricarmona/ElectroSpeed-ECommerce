@@ -1,85 +1,151 @@
-.fondo {
-    background-color: darksalmon;
+.fondoseparacionArriba {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-top: 100px;
 }
-
-.separacionArriba {
-    padding: 13vh 0;
-}
-
 .tarjetaFondo {
-    background-color: white;
-    border-radius: 2vh;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .alrededoresTarjeta {
-    margin: 0 40vh;
-    padding: 2vh;
+    max-width: 900px;
+    margin: auto;
 }
 
-h1 {
+.tituloPerfil {
+    font-size: 2rem;
+    color: #333;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-#id {
-    color: rgb(221, 221, 221);
-    font-size: 10cap;
-    position: absolute;
-    top: 11vh;
+.idUsuario {
+    font-size: 1.2rem;
+    color: #888;
+    cursor: pointer;
+    text-align: center;
 }
 
 .parent {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-    
-.datosUsuario { 
-    grid-area: 1 / 1 / 2 / 2; 
-    margin: 4vh;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.pedidosUsuario { 
-    grid-area: 1 / 2 / 2 / 3; 
+.datosUsuario {
+    flex: 1;
+    min-width: 250px;
 }
 
-.tarjetaPedidos {    
-    border: 2px solid #dedede;
-} 
-
-.letrasGrandes {
-    font-size: 3cap;
-    font-weight: bolder;
+.pedidosUsuario {
+    flex: 2;
+    min-width: 300px;
 }
 
 .letrasPequeñas {
-    font-style: italic;
+    font-size: 1rem;
+    color: #555;
+}
+
+.letrasGrandes {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
 }
 
 .espaciadoArriba {
-    margin-top: 4vh;
+    margin-top: 20px;
 }
 
-#botonSeguro {
-    background-color: red;
+.botonAccion {
+    background-color: #4CAF50;
     color: white;
-    font-weight: bolder;
-    font-size: 3cap;
-    margin-top: 2vh;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.botonAccion:hover {
+    background-color: #45a049;
+}
+
+.botonCancelar {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botonCancelar:hover {
+    background-color: #e53935;
+}
+
+.botonFormulario {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.botonFormulario:hover {
+    background-color: #45a049;
+}
+
+.botonEliminar {
+    background-color: #e53935;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botonEliminar:hover {
+    background-color: #c62828;
 }
 
 .forms {
-    margin: 2vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;
 }
 
-.forms input {
-    margin: 1vh;
+.inputFormulario {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-button {
-    border-radius: 1vh;
-    border-color: cornsilk;
-    background-color: white;
+.tituloPedidos {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.pedidoItem {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.fotoBici img {
+    max-width: 100px;
+    margin-right: 20px;
+}
+
+.nombreBici, .precioBici {
+    font-size: 1.1rem;
+    color: #333;
 }

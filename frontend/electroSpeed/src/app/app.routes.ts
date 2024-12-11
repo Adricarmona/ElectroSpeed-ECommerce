@@ -23,7 +23,7 @@ export const routes: Routes = [
     {path: 'sobreNosotros', component:  SobreNosotrosComponent},
     {path: 'carrito', component: CarritoComponent},
     {path: 'confirmacion', component: ConfirmacionCompraComponent},
-    {path: 'administrador', component: AdministradorComponent},
-    {path: 'perfil', component: PerfilComponent},
+    {path: 'administrador', component: AdministradorComponent, canActivate: [redirectionGuard]},
+    {path: 'perfil', component: PerfilComponent, canActivate: [redirectionGuard]},
     {path: 'checkout', component: CheckoutComponent,  canActivate: [redirectionGuard]}
 ];

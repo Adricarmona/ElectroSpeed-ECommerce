@@ -4,6 +4,8 @@ import { Usuarios } from '../../models/usuarios';
 import { BicisCantidad } from '../../models/bicis-cantidad';
 import { AuthService } from '../../service/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Bicicletas } from '../../models/catalogo';
+import { CatalogoService } from '../../service/catalogo.service';
 
 @Component({
   selector: 'app-perfil',
@@ -33,32 +35,21 @@ export class PerfilComponent implements OnInit {
 
   password: string 
 
-  /*
-  bicicantidad: BicisCantidad[] = [{
-    id: 1,
-    idBici: 1,
-    idCarrito: 1,
-    cantidad: 1
-  },{
-    id: 2,
-    idBici: 2,
-    idCarrito: 2,
-    cantidad: 2
-  },]
-*/
-
   // si que al elegir entre los 3 botones
   opcion: number = 0 // 0 nada, 1 cambiar contraseña, 2 cambiar datos, 3 Eliminar usuario
-
+  pedidos: Bicicletas[] = []
   constructor(
     private navbarService : NavbarService,
+    private catalogoService: CatalogoService,
     private authService: AuthService
   ) {
     navbarService.cambiarCss(5)
   }
 
   async ngOnInit() {
+    
     await this.authService.getIdUser()
+    this.getPedidos()
     this.usuario = this.authService.Usuarios
     this.usuarioEditar.id = this.usuario.id
     this.usuarioEditar.name = this.usuario.name
@@ -90,6 +81,19 @@ export class PerfilComponent implements OnInit {
     await this.authService.updateUser(this.usuarioEditar)
     alert("Vuelve a iniciar sesion")
     this.vaciarToken()
+  }
+
+  async getPedidos(){
+    const request = await this.authService.getPedidos();
+    request.data.forEach(e => {
+      this.datosBici(e.id)
+    });
+  }
+
+  async datosBici(id: number){
+    const bicicleta = await this.catalogoService.showOneBike(id.toString());
+    console.log(bicicleta.cantidad)
+    this.pedidos.push(bicicleta)
   }
 
 }

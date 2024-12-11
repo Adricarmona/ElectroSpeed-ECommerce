@@ -11,6 +11,7 @@ import { ApiService } from './api-service';
 import { RedirectionService } from './redirection.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarritoService } from './carrito.service';
+import { BicisCantidad } from '../models/bicis-cantidad';
 
 
 @Injectable({
@@ -215,6 +216,10 @@ export class AuthService {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async getPedidos(){
+    return this.apiService.get<BicisCantidad[]>(`listapedidos`)
   }
 
 }
