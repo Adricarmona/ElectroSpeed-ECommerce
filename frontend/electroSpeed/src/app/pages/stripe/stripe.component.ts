@@ -128,10 +128,11 @@ export class StripeComponent implements OnInit, OnDestroy {
         totalGeneral += total;
         return `
       <tr>
+        <td>${bici.urlImg}</td>
         <td>${bici.marcaModelo}</td>
         <td>${bici.cantidad}</td>
-        <td>€${bici.precio.toFixed(2)}</td>
-        <td>€${total.toFixed(2)}</td>
+        <td>€${bici.precio}</td>
+        <td>€${total}</td>
       </tr>
     `;
       })
@@ -166,6 +167,7 @@ export class StripeComponent implements OnInit, OnDestroy {
                 <!-- Tabla de Factura -->
                 <table width="100%" cellpadding="10" cellspacing="0" border="1" style="border-collapse: collapse; font-size: 16px; color: #555; margin-top: 20px;">
                   <tr style="background-color: #007bff; color: #ffffff;">
+                    <th>Foto</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Precio Unitario</th>
@@ -174,7 +176,7 @@ export class StripeComponent implements OnInit, OnDestroy {
                   ${filas}
                   <tr>
                     <td colspan="3" style="text-align: right; font-weight: bold;">Total</td>
-                    <td>€${totalGeneral.toFixed(2)}</td>
+                    <td>€${totalGeneral}</td>
                   </tr>
                 </table>
               </td>
@@ -183,7 +185,7 @@ export class StripeComponent implements OnInit, OnDestroy {
             <tr>
               <td style="background-color: #f4f4f4; color: #777; text-align: center; padding: 20px; font-size: 14px;">
                 <p style="margin: 0;">Gracias por confiar en nosotros.</p>
-                <p style="margin: 0;">[Nombre de la Empresa]</p>
+                <p style="margin: 0;">ElectroSpeed</p>
               </td>
             </tr>
           </table>
