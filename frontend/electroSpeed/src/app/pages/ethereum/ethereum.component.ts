@@ -5,7 +5,8 @@ import { CarritoService } from '../../service/carrito.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { CheckoutService } from '../../service/checkout.service';
+import CheckoutService from '../../service/checkout.service';
+
 
 @Component({
   selector: 'app-ethereum',
@@ -102,13 +103,18 @@ export class EthereumComponent implements OnInit {
     this.checkoutservice.elimiarCarrito(this.res);
     this.http.get('pages/correo/correo.component.html', { responseType: 'text' }).subscribe((htmlContent) => {
       const correofactura = {
-        to: this.otroservice.getEmailUserToken(),
+        to: "hectordogarcia@gmail.com",
+        //to: this.otroservice.getEmailUserToken(),
         subject: "Compra ElectroSpeed",
         body: htmlContent,
         isHtml: true 
       };
+      this.service.sendEmail(correofactura);
     });
-    this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
+    this.router.navigate(
+      ['/confirmacion'],
+      { queryParams: { 'reserva_id': this.res } }
+    );
   }
 }
 
