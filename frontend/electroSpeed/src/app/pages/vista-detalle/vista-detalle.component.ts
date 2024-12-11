@@ -108,6 +108,8 @@ export class VistaDetalleComponent implements OnInit {
       return;
     }
 
+    this.navBar.cogerProductos()
+
     if (this.usuarioToken()) {
 
       const Usuario: Usuarios = await this.authService.getIdUserEmail(this.authService.getEmailUserToken())

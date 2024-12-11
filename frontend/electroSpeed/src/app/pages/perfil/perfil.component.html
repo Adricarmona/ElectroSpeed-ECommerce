@@ -1,0 +1,95 @@
+<div class="fondo separacionArriba">
+
+    <div class="tarjetaFondo alrededoresTarjeta">
+
+        <h1>Tu Perfil</h1>
+
+        <h2 (click)="opcion = 0" id="id">{{usuario.id}}</h2>   
+
+        <div class="parent">
+            <div class="datosUsuario">
+                
+                <p class="letrasPequeñas">Nombre: <span class="letrasGrandes">{{usuario.name}}</span></p>
+                <p class="letrasPequeñas">email: <samp class="letrasGrandes">{{usuario.email}}</samp></p>
+                <p class="letrasPequeñas">direccion: <span class="letrasGrandes">{{usuario.direccion}}</span></p>
+
+                <span class="letrasPequeñas">Ahoramismo eres: </span>
+                @if (usuario.admin) 
+                {
+                    <span class="letrasGrandes">🎇Administrador🎇</span> 
+                }
+                @else 
+                {
+                    <span class="letrasGrandes">Cliente</span> 
+                }
+
+                <div class="espaciadoArriba">
+                    @if ( opcion == 0) {
+                        <button (click)="opcion = 1">Cambiar contraseña 🛠</button>
+                        <button (click)="opcion = 2">🛠</button>
+                        <button (click)="opcion = 3">Eliminar usuario 🗑</button>
+                    }
+                    @else {
+                        <button (click)="opcion = 0">❌</button>
+                    }
+                </div>
+
+                @if (opcion == 1) {
+                    <form (submit)="actualizarPasword()" class="forms">
+                        <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Contraseña" >
+                        <input type="button" value="📤" (click)="actualizarPasword()">
+                    </form>
+                }
+
+                @if (opcion == 2) {
+                    <form (submit)="actualizarUsuario()" class="forms">
+                        <span> 
+                            Nombre: <input type="text" [(ngModel)]="usuarioEditar.name" [ngModelOptions]="{standalone: true}" >
+                        </span>
+                        <br>
+                        <span>
+                            Email: <input type="text" [(ngModel)]="usuarioEditar.email" [ngModelOptions]="{standalone: true}" >
+                        </span>
+                        <br>
+                        <span>
+                            Direccion: <input type="text" [(ngModel)]="usuarioEditar.direccion" [ngModelOptions]="{standalone: true}" >
+                        </span>
+                        <br>
+                        <input type="button" value="📤" (click)="actualizarUsuario()">
+                    </form>
+                }
+
+                @if (opcion == 3) {
+                    <button id="botonSeguro" (click)="eliminarUsuario()">¿Seguro?</button>
+                }
+
+            </div>
+
+            <div class="pedidosUsuario">
+                <h3>Tus pedidos</h3>
+                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmx4cWN6dDBhZHYwYWFtdnJqdHhzM2dtZjc5Mjl4dXJ4a28wZ3JobCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lJNoBCvQYp7nq/giphy.webp" alt="">
+
+                <!--         public int Id { get; set; }
+        public IList<BicisCantidad> BicisCantidad { get; set; } = new List<BicisCantidad>();
+
+        public int UsuarioId { get; set; }-->
+
+        <!-- 
+                <div class="tarjetaPedidos">
+                    <p>fecha que no esta en la bbdd XXD</p>
+
+                    @for (bisi of bicicantidad; track $index) {
+                        <p>{{bisi.idBici}}</p>
+                        <p>{{bisi.cantidad}}</p>
+                    }
+
+                    <p>Precio que tampoco esta</p>
+                </div>
+
+            </div>
+        </div>
+        -->
+
+    </div>
+
+</div>

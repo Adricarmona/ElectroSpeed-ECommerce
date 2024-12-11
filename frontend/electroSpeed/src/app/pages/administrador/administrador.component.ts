@@ -182,7 +182,7 @@ export class AdministradorComponent {
 
   }
 
-  anadirBicicleta(){
+  async anadirBicicleta(){
 
     const biciConfoto :BicisFile = {
       id: 0,
@@ -195,6 +195,11 @@ export class AdministradorComponent {
 
     this.catalogoService.anadirBicicleta(biciConfoto)
     alert("Bicicleta añadida")
+
+    await this.ObtenerBicis()
+    this.sumarRestarEjecutar(0)
+
+    this.foto = null
   }
 
   async EliminarBicicleta(id: number) {
@@ -217,8 +222,10 @@ export class AdministradorComponent {
 
     await this.catalogoService.editarBicicleta(biciConfoto)
     alert("Usuario Editado")
+
     await this.ObtenerBicis()
     this.sumarRestarEjecutar(0)
+    this.foto = null
   }
 
   // usuarios

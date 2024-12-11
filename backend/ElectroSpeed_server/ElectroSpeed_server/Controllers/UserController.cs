@@ -1,6 +1,7 @@
 ﻿using ElectroSpeed_server.Models.Data;
 using ElectroSpeed_server.Models.Data.Dto;
 using ElectroSpeed_server.Models.Data.Entities;
+using ElectroSpeed_server.Recursos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -96,6 +97,24 @@ namespace ElectroSpeed_server.Controllers
 
             await _esContext.SaveChangesAsync();
             return Ok("usuario editado");
+
+        }
+
+        [HttpPost("/updateUsuarioPasword")]
+        public async Task<ActionResult> UptadteUserPasword(int id, string password)
+        {
+
+            Usuarios user = Uuarios(id);
+
+            if (user == null)
+            {
+                return BadRequest("Usuario no encontrado");
+            }
+
+            user.Password = PasswordHelper.Hash(password);
+
+            await _esContext.SaveChangesAsync();
+            return Ok("Contraseña cambiada");
 
         }
     }

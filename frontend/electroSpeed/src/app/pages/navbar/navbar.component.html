@@ -29,7 +29,7 @@
           <li class="nav-item">
             <a id="carrito" class="nav-link mx-lg-2" [routerLink]="'/carrito'">Carrito
               @if (productosCarrito) {
-                <img id="masCarrito" src="navbar/iconoMasCarrito.png" alt="Mas en el carrito">
+                : {{productosCarritoNumero}}
               }
             </a>
           </li>
@@ -41,7 +41,9 @@
           <li class="nav-item">
           <!--  <a class="nav-link mx-lg-2" href="#"> -->
             @if (usuarioToken()) {
-              <span class="nav-link mx-lg-2">Usuario Iniciado: <span id="nombreUsuario">{{nombre}}</span></span>
+                <a id="nombreUsuario" href="/perfil" class="nav-link mx-lg-2">
+                  Usuario Iniciado: <span>{{nombre}}</span>
+                </a>
             }
             <!-- </a> -->
           </li>
