@@ -202,8 +202,7 @@ export class StripeComponent implements OnInit, OnDestroy {
 `;
 
     const correofactura = {
-      to: 'hectordogarcia@gmail.com',
-      //to: this.otroservice.getEmailUserToken(),
+      to: this.auth.getEmailUserToken(),
       subject: 'Compra ElectroSpeed',
       body: correoBody,
       isHtml: true,

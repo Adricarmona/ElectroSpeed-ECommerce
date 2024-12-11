@@ -198,8 +198,7 @@ export class EthereumComponent implements OnInit {
 `;
     
         const correofactura = {
-          to: 'hectordogarcia@gmail.com',
-          //to: this.otroservice.getEmailUserToken(),
+          to: this.otroservice.getEmailUserToken(),
           subject: 'Compra ElectroSpeed',
           body: correoBody,
           isHtml: true,
