@@ -3,6 +3,9 @@ import { AuthService } from '../../service/auth.service';
 import { Bicicletas } from '../../models/catalogo';
 import { FooterComponent } from '../footer/footer.component';
 import { CheckoutService } from '../../service/checkout.service';
+import { ActivatedRoute } from '@angular/router';
+import { CatalogoService } from '../../service/catalogo.service';
+import { BiciTemporal } from '../../models/bici-temporal';
 
 
 @Component({
@@ -13,11 +16,12 @@ import { CheckoutService } from '../../service/checkout.service';
   styleUrl: './confirmacion-compra.component.css'
 })
 export class ConfirmacionCompraComponent {
-
+private BiciTemporal: BiciTemporal[]
   nombre: string = ""
 
   tipoPago = "targeta"
   entrega = "mi casa"
+  res: string;
 
   productos: Bicicletas[] = [{
     id: 0,
@@ -38,16 +42,28 @@ export class ConfirmacionCompraComponent {
     cantidad: 5
   },
 ]
-
-  constructor(private authService: AuthService,    private service: CheckoutService ) {
+  constructor(private authService: AuthService,    private service: CheckoutService,  private route: ActivatedRoute,private catalogoService: CatalogoService ) {
     this.devolverNombre()
   }
 
-  ngOnDestroy(): void {
-    this.service.eliminarOrden()
- }
+  ngOnInit(){
+    this.res = this.route.snapshot.queryParamMap.get('id');
+    this.DevolverOrden()
+  }
 
   async devolverNombre() {
     this.nombre = await this.authService.getNameUser()
   }
+  async DevolverOrden(){
+    const request = await this.service.DevolverOrden(this.res)
+    console.log(request.data)
+    const bici= request.data
+    bici.forEach(e => {
+      
+    });
+  }
+
+/*   datosBici(id: number){
+    const bicicleta = await this.catalogoService.showOneBike(id2.idBici.toString());
+  } */
 }

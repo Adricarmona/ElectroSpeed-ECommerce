@@ -45,9 +45,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     // El evento ngOnInit solo se llama una vez en toda la vida del componente.
     // Por tanto, para poder captar los cambios en la url nos suscribimos al queryParamMap del route.
     // Cada vez que se cambie la url se llamará al método onInit
-    this.intervalId = setInterval(() => {
     this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init());
-  }, 10000);
     this.res = this.route.snapshot.queryParamMap.get('reserva_id');
     this.embeddedCheckout()
   }
@@ -55,8 +53,13 @@ export class StripeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Cuando este componente se destruye hay que cancelar la suscripción.
     // Si no se cancela se seguirá llamando aunque el usuario no esté ya en esta página
+    this.init()
     this.routeQueryMap$.unsubscribe();
     
+  }
+
+  restaurarStock(){
+    this.service.restaurarStock(this.res)
   }
 
   async init() {
@@ -64,7 +67,10 @@ export class StripeComponent implements OnInit, OnDestroy {
       const request = await this.service.getStatus(this.reservaId);
       console.log(this.reservaId)
       if (request.success) {
-        console.log(request.data);
+        console.log(request.data.status);
+        if(request.data.status != "complete"){
+          this.restaurarStock()
+        }
       }else {
         console.log("request null");
       }
@@ -75,7 +81,6 @@ export class StripeComponent implements OnInit, OnDestroy {
 
     const request = await this.service.getEmbededCheckout(this.res);
     if (request.success) {
-      console.log(request.data.sesionid)
       this.reservaId = request.data.sesionid;
       const options: StripeEmbeddedCheckoutOptions = {
         clientSecret: request.data.clientSecret,
@@ -95,7 +100,12 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   irConfirmacion(){
-    this.router.navigateByUrl("confirmacion")
+    this.service.postPedido(this.res)
+    this.service.elimiarCarrito(this.res)
+    this.router.navigate(
+      ['/confirmacion'],
+      { queryParams: { 'id': this.res} }
+    );
   }
 
 }
