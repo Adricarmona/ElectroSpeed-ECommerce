@@ -252,14 +252,14 @@ namespace ElectroSpeed_server.Controllers
             return Ok("Bicicletas eliminadas del carrito correctamente.");
         }
 
-        [HttpPost("DevolverOrden/{reserva}")]
+        /*[HttpPost("DevolverOrden/{reserva}")]
         public IList<BiciTemporal> DevolverOrden(string reserva)
         {
             var id = Convert.ToInt32(reserva);
             var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
             IList<Bicicletas> biciT = ;
             return orden.Bicis;
-        }
+        }*/
 
     }
 }

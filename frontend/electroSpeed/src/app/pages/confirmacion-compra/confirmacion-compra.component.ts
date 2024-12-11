@@ -48,14 +48,14 @@ private BiciTemporal: BiciTemporal[]
 
   ngOnInit(){
     this.res = this.route.snapshot.queryParamMap.get('id');
-    this.DevolverOrden()
+    //this.DevolverOrden()
   }
 
   async devolverNombre() {
     this.nombre = await this.authService.getNameUser()
   }
   async DevolverOrden(){
-    const request = await this.service.DevolverOrden(this.res)
+    const request = await this.service.DevolverOrden(this.res)5
     console.log(request.data)
     const bici= request.data
     bici.forEach(e => {

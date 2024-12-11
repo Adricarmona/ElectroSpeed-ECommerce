@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlockchainService } from '../../service/blockchain.service';
 import { EthTransactionRequest } from '../../models/eth-transaction-request';
 import { CarritoService } from '../../service/carrito.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { CheckoutService } from '../../service/checkout.service';
 
 @Component({
   selector: 'app-ethereum',
@@ -13,18 +14,26 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './ethereum.component.html',
   styleUrl: './ethereum.component.css'
 })
-export class EthereumComponent {
+export class EthereumComponent implements OnInit {
 
   constructor(
     private carritoService: CarritoService,
+    private route: ActivatedRoute,
     private router: Router,
     private otroservice: AuthService,
     private http: HttpClient,
+    private checkoutservice: CheckoutService, 
     private service: BlockchainService
 
   ) {}
+  reservaId: string = '';
+  res: string;
   eurosToSend: number ;
   addressToSend: string = "0xDBd229EBae72064CD86B213908fc4a7e0c12D65d";
+
+  ngOnInit() {
+    this.res = this.route.snapshot.queryParamMap.get('reserva_id');
+  }
   async createTransaction() {
 
     this.eurosToSend = this.carritoService.getTotal()
@@ -82,23 +91,24 @@ export class EthereumComponent {
     // Notificamos al usuario si la transacción ha sido exitosa o si ha fallado.
     if (checkTransactionResult.success && checkTransactionResult.data) {
       alert('Transacción realizada con éxito');
-      this.http.get('pages/correo/correo.component.html', { responseType: 'text' }).subscribe((htmlContent) => {
-        const correofactura = {
-          to: this.otroservice.getEmailUserToken(),
-          subject: "Compra ElectroSpeed",
-          body: htmlContent,
-          isHtml: true 
-        };
-      });
       this.irConfirmacion()
-      
     } else {
       alert('Transacción fallida');
     }
   }  
 
   irConfirmacion(){
-    this.router.navigateByUrl("confirmacion")
+    this.checkoutservice.postPedido(this.res);
+    this.checkoutservice.elimiarCarrito(this.res);
+    this.http.get('pages/correo/correo.component.html', { responseType: 'text' }).subscribe((htmlContent) => {
+      const correofactura = {
+        to: this.otroservice.getEmailUserToken(),
+        subject: "Compra ElectroSpeed",
+        body: htmlContent,
+        isHtml: true 
+      };
+    });
+    this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
   }
 }
 
