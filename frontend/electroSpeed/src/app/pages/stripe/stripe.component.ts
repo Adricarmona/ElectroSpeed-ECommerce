@@ -112,9 +112,10 @@ export class StripeComponent implements OnInit, OnDestroy {
     }
   }
 
-  irConfirmacion() {
-    this.service.postPedido(this.res);
-    this.service.elimiarCarrito(this.res);
+  async irConfirmacion() {
+    await this.service.postPedido(this.res);
+    await this.service.elimiarCarrito(this.res);
+    await this.DevolverOrden();
     let totalGeneral = 0;
 
     // Generar las filas de la tabla
@@ -198,7 +199,7 @@ export class StripeComponent implements OnInit, OnDestroy {
           body: correoBody,
           isHtml: true,
         };
-        this.blockchainservice.sendEmail(correofactura);
+        await this.blockchainservice.sendEmail(correofactura);
         this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
   }
 

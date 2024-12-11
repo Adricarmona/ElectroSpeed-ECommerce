@@ -108,9 +108,10 @@ export class EthereumComponent implements OnInit {
     }
   }
 
-  irConfirmacion() {
-    this.checkoutservice.postPedido(this.res);
-    this.checkoutservice.elimiarCarrito(this.res);
+  async irConfirmacion() {
+    await this.checkoutservice.postPedido(this.res);
+    await this.checkoutservice.elimiarCarrito(this.res);
+    await this.DevolverOrden
 
     let totalGeneral = 0;
 
@@ -195,7 +196,7 @@ export class EthereumComponent implements OnInit {
           body: correoBody,
           isHtml: true,
         };
-        this.service.sendEmail(correofactura);
+        await this.service.sendEmail(correofactura);
     this.router.navigate(['/confirmacion'], {
       queryParams: { reserva_id: this.res },
     });
