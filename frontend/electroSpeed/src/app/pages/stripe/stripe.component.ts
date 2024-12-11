@@ -23,6 +23,7 @@ import { CarritoComponent } from '../carrito/carrito.component';
 import { BlockchainService } from '../../service/blockchain.service';
 import { HttpClient } from '@angular/common/http';
 import { CatalogoService } from '../../service/catalogo.service';
+import { BicisCantidad } from '../../models/bicis-cantidad';
 
 @Component({
   selector: 'app-stripe',
@@ -41,6 +42,7 @@ export class StripeComponent implements OnInit, OnDestroy {
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
   bicis: Bicicletas[] = [];
+  bicicantidad: BicisCantidad[] = []
   private intervalId: any;
 
   constructor(
@@ -123,20 +125,23 @@ export class StripeComponent implements OnInit, OnDestroy {
     let totalGeneral = 0;
 
     const filas = this.bicis
-      .map((bici) => {
-        const total = bici.cantidad * bici.precio;
-        totalGeneral += total;
+      .map((bici, index) => {
+        const biciCantidad = this.bicicantidad[index]; 
+        const cantidad = biciCantidad.cantidad; 
+        const total = cantidad * bici.precio;
+        totalGeneral += total; 
         return `
       <tr>
-        <td>${bici.urlImg}</td>
+        <td><img src="${bici.urlImg}"></td>
         <td>${bici.marcaModelo}</td>
-        <td>${bici.cantidad}</td>
+        <td>${cantidad}</td>
         <td>€${bici.precio}</td>
         <td>€${total}</td>
       </tr>
     `;
       })
       .join('');
+
 
     const correoBody = `
   <!DOCTYPE html>
