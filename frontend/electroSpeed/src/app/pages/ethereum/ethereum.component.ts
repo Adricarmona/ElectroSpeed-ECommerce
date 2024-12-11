@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import CheckoutService from '../../service/checkout.service';
 import { CatalogoService } from '../../service/catalogo.service';
 import { Bicicletas } from '../../models/catalogo';
+import { BicisCantidad } from '../../models/bicis-cantidad';
 
 @Component({
   selector: 'app-ethereum',
@@ -32,6 +33,7 @@ export class EthereumComponent implements OnInit {
   eurosToSend: number;
   addressToSend: string = '0xDBd229EBae72064CD86B213908fc4a7e0c12D65d';
   bicis: Bicicletas[] = []
+  bicicantidad: BicisCantidad[] = []
 
   ngOnInit() {
     this.res = this.route.snapshot.queryParamMap.get('reserva_id');
@@ -120,14 +122,16 @@ export class EthereumComponent implements OnInit {
     let totalGeneral = 0;
 
     const filas = this.bicis
-      .map((bici) => {
-        const total = bici.cantidad * bici.precio;
+      .map((bici, index) => {
+        const biciCantidad = this.bicicantidad[index]; 
+        const cantidad = biciCantidad.cantidad; 
+        const total = cantidad * bici.precio;
         totalGeneral += total; 
         return `
       <tr>
-        <td>${bici.urlImg}</td>
+        <td><img src="${bici.urlImg}"></td>
         <td>${bici.marcaModelo}</td>
-        <td>${bici.cantidad}</td>
+        <td>${cantidad}</td>
         <td>€${bici.precio}</td>
         <td>€${total}</td>
       </tr>
@@ -208,6 +212,7 @@ export class EthereumComponent implements OnInit {
 
   async DevolverOrden(){
     const request = await this.checkoutservice.DevolverOrden(this.res);
+    this.bicicantidad = request.data
 
     const promises = request.data.map((e) => this.datosBici(e.id));
     await Promise.all(promises);
