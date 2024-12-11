@@ -214,6 +214,15 @@ export class AuthService {
       console.log(error)
     }
   }
+
+  async updatePasword(id: number, password: string) {
+    try {
+      await this.apiService.post("updateUsuarioPasword?id="+id+"&password="+password)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 }
 
 

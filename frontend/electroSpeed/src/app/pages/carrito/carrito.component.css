@@ -1,90 +1,142 @@
+/* General Layout */
 .fondo {
-    background-image: url(../../../../public/carrito/pexels-jahangeer-bm-1619299-scaled.jpg);
-    background-attachment: fixed;
+    background-color: #f7f7f7;
     min-height: 100vh;
-    background-size: cover;
-    background-position: center 0;
-}
-#espacio {
-    height: 25vh;
-}
-.todo{
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px; 
-    
-}
-.grid-derecha{
-    display: grid;
-    grid-template-rows: auto auto; 
-    gap: 10px; 
-    justify-content: right;
-    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 120px;
 }
 
-.zonaProductos{
-    display: grid;
-    background-color: white;
-    margin-left: 70px;
-    min-width: 1100px;
-    max-width: 2000px;
-    margin-right: 50px;
-    border-radius: 20px;
+.todo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
 }
-.pago{
-    display: grid;
-    background-color: white;
-    max-width: 450px;
-    min-height: 120px;
-    margin-right: 20px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    
+
+.zonaProductos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 70%;
 }
-.recomendaciones{
-    display: grid;
+
+.bici {
     background-color: white;
-    max-width: 450px;
-    min-height: 120px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    margin-right: 20px;
-}
-.precio{
-    margin-bottom: -15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
-    font-size: large;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+.bici:hover {
+    transform: translateY(-5px);
+}
+
+.fotoBici {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.datos h4 {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.quitarBici {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.quitarBici:hover {
+    background-color: #c0392b;
+}
+
+/* Right Side Layout */
+.grid-derecha {
+    width: 28%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pago {
+    margin-bottom: 30px;
+    font-size: 18px;
     font-weight: bold;
+    color: #333;
 }
-.pagoTarjeta{
-    border-radius: 5px;
-    background-color: orange;
+
+.precio {
+    font-size: 22px;
+    margin-bottom: 15px;
 }
-.pagoEthereum{
-    border-radius: 5px;
-    background-color: chocolate;
-}
-.bici{
+
+.botones {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-.fotoBici{
-    height: 150px;
-    width: 150px;
-    margin-right: 20px;
-    margin-left: 20px;
+
+.pagoTarjeta, .pagoEthereum {
+    background-color: #f88b30;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
-.datos{
-    display: flex;
-    margin-top: 50px;
+
+.pagoTarjeta:hover, .pagoEthereum:hover {
+    background-color: #fca440;
 }
-.nombreBici{
-    margin-right: 20px;
+
+.recomendaciones {
+    font-size: 16px;
+    color: #555;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
 }
-.quitarBici{
-    width: 100px;
-    height: 50px;
-    margin-top: 40px;
-    margin-left: 20px;
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .todo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .zonaProductos {
+        width: 100%;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .bici {
+        width: 90%;
+    }
+
+    .grid-derecha {
+        width: 90%;
+        margin-top: 20px;
+    }
 }

@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { StripeService } from 'ngx-stripe';
 import { AuthService } from '../../service/auth.service';
-import { CheckoutService } from '../../service/checkout.service';
+import CheckoutService from '../../service/checkout.service';
 import { Subscription } from 'rxjs';
 import { StripeComponent } from '../stripe/stripe.component';
+import { EthereumComponent } from '../ethereum/ethereum.component';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [StripeComponent],
+  imports: [StripeComponent,EthereumComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
@@ -28,10 +29,6 @@ export class CheckoutComponent {
 
   ngOnInit() {
     this.routeQueryMap$ = this.route.queryParamMap.subscribe(queryMap => this.init(queryMap));
-  }
-
-  ngOnDestroy(): void {
-     this.service.eliminarOrden()
   }
 
   async init(queryMap: ParamMap) {

@@ -9,7 +9,7 @@ import { NavbarService } from '../../service/navbar.service';
 import { Carrito } from '../../models/carrito';
 import { OrdenTemporal } from '../../models/orden-temporal';
 import { BiciTemporal } from '../../models/bici-temporal';
-import { CheckoutService } from '../../service/checkout.service';
+import CheckoutService from '../../service/checkout.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -95,7 +95,9 @@ export class CarritoComponent {
   }
 
   calcularTotal(): number {
-    return this.bicicletas.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
+    const total = this.bicicletas.reduce((total, bici) => total + bici.precio * bici.cantidad, 0);
+    this.carritoService.setTotal(total);
+    return total;
   }
 
   async eliminarBici(id: number) {

@@ -4,11 +4,12 @@ import { Usuarios } from '../../models/usuarios';
 import { lastValueFrom } from 'rxjs';
 import { RedirectionService } from '../../service/redirection.service';
 import { NavbarService } from '../../service/navbar.service';
+import { RouterModule } from '@angular/router'; // Importa el RouterModule
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -17,18 +18,16 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService, 
     private service: RedirectionService,
     private navBarService: NavbarService) 
-    {
-      this.productosCarrito = this.navBarService.productosCarrito
-    }
+    {}
   
   nombre : string = ""
   admin : boolean = false
   productosCarrito = false
+  productosCarritoNumero = 0
 
   async ngOnInit(): Promise<void> {
 
-    await this.navBarService.cogerProductos()
-    this.productosCarrito = this.navBarService.productosCarrito
+    await this.objetosNavbar()
 
     if(this.authService.loged()){
       this.nombre = await this.authService.getNameUser()
@@ -36,11 +35,22 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-
+  async ngOnChanges() {
+    await this.objetosNavbar()
+  }
 
   //
   //    PARA LOS BOTONES DEL NAVBAR
   //
+
+  /* cogemos productos para la navbar */
+  async objetosNavbar(){
+    await this.navBarService.cogerProductos()
+
+    this.productosCarrito = this.navBarService.productosCarrito
+    this.productosCarritoNumero = this.navBarService.productosCarritoCantidad
+  }
+
   /* cogemos el token para ver si existe o quien es */
   usuarioToken() {
     const token = this.authService.getToken()

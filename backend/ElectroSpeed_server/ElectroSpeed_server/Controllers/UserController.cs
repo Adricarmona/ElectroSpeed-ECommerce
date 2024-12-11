@@ -170,5 +170,23 @@ namespace ElectroSpeed_server.Controllers
             return Ok("usuario editado");
 
         }
+
+        [HttpPost("/updateUsuarioPasword")]
+        public async Task<ActionResult> UptadteUserPasword(int id, string password)
+        {
+
+            Usuarios user = Uuarios(id);
+
+            if (user == null)
+            {
+                return BadRequest("Usuario no encontrado");
+            }
+
+            user.Password = PasswordHelper.Hash(password);
+
+            await _esContext.SaveChangesAsync();
+            return Ok("Contraseña cambiada");
+
+        }
     }
 }

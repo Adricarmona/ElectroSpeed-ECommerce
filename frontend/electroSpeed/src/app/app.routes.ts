@@ -12,6 +12,7 @@ import { ConfirmacionCompraComponent } from './pages/confirmacion-compra/confirm
 import { redirectionGuard } from './guards/redirection.guard/redirection.guard.component';
 import { AdministradorComponent } from './pages/administrador/administrador.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -23,5 +24,6 @@ export const routes: Routes = [
     {path: 'carrito', component: CarritoComponent},
     {path: 'confirmacion', component: ConfirmacionCompraComponent},
     {path: 'administrador', component: AdministradorComponent},
+    {path: 'perfil', component: PerfilComponent},
     {path: 'checkout', component: CheckoutComponent,  canActivate: [redirectionGuard]}
 ];

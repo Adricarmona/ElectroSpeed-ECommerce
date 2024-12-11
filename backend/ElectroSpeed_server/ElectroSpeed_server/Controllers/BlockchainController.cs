@@ -1,4 +1,5 @@
 ﻿using ElectroSpeed_server.Models.Data.Dto;
+using ElectroSpeed_server.Recursos;
 using ElectroSpeed_server.Recursos.Blockchain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace ElectroSpeed_server.Controllers
     public class BlockchainController : ControllerBase
     {
         private readonly BlockchainService _blockchainService;
+        private readonly EmailHelper _emailHelper;
 
         public BlockchainController(BlockchainService blockchainService)
         {
             this._blockchainService = blockchainService;
+            _emailHelper = new EmailHelper();
         }
 
         [HttpPost("transaccion")]
@@ -28,7 +31,11 @@ namespace ElectroSpeed_server.Controllers
         {
             return _blockchainService.CheckTransactionAsync(data);
         }
-
+        [HttpPost("enviofactura")]
+        public Task SendEmail(string to, string subject, string body, bool isHtml = false)
+        {
+            return EmailHelper.SendEmailAsync(to, subject, body, isHtml);
+        }
 
 
     }

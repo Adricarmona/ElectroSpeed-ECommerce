@@ -8,10 +8,12 @@
                 <h1>{{nombreModelo}}</h1>
                 <h5>Codigo: {{codigoIdentificador}}</h5>
                 <p>Descripcion: {{descripcionBici}}</p>
-                <h3>Precio: {{precioBici | precios}}€  stock:
+                <h3>Precio: {{precioBici | precios}}€ </h3>    
+            <h3>
+                    Stock:
                     @if (stockBici > 0) 
                     {
-                        ✔️ {{stockBici}}
+                        {{stockBici}}
                     }
                     @else 
                     {
@@ -58,7 +60,6 @@
                                 }
                             </div>
                             <span>
-                                <img id="iconoUsuario" src="iconoUsuario.webp" alt="detalle/noe.png">
                                 <span>{{item.usuario}}</span>
                             </span>
                         </div>
