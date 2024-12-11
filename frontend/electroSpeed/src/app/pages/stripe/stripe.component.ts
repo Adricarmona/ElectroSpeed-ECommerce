@@ -20,6 +20,8 @@ import { CarritoEntero } from '../../models/carrito-entero';
 import { AuthService } from '../../service/auth.service';
 import { NavbarService } from '../../service/navbar.service';
 import { CarritoComponent } from '../carrito/carrito.component';
+import { BlockchainService } from '../../service/blockchain.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-stripe',
@@ -43,9 +45,11 @@ export class StripeComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private service: CheckoutService,
     private route: ActivatedRoute,
+    private http: HttpClient,
     private router: Router,
     private stripe: StripeService,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    private blockchainservice: BlockchainService
   ) {
     navbarService.cambiarCss(0);
   }
@@ -108,6 +112,16 @@ export class StripeComponent implements OnInit, OnDestroy {
   irConfirmacion() {
     this.service.postPedido(this.res);
     this.service.elimiarCarrito(this.res);
+    this.http.get('pages/correo/correo.component.html', { responseType: 'text' }).subscribe((htmlContent) => {
+      const correofactura = {
+        to: "hectordogarcia@gmail.com",
+        //to: this.otroservice.getEmailUserToken(),
+        subject: "Compra ElectroSpeed",
+        body: htmlContent,
+        isHtml: true 
+      };
+      this.blockchainservice.sendEmail(correofactura);
+    });
     this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
   }
 }
