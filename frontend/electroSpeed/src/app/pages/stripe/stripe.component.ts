@@ -12,7 +12,6 @@ import {
   StripeEmbeddedCheckoutOptions,
 } from '@stripe/stripe-js';
 import { StripeService } from 'ngx-stripe';
-import CheckoutService from '../../service/checkout.service';
 import { Product } from '../../models/product';
 import { BiciPagina } from '../../models/bici-pagina';
 import { Bicicletas } from '../../models/catalogo';
@@ -24,6 +23,7 @@ import { BlockchainService } from '../../service/blockchain.service';
 import { HttpClient } from '@angular/common/http';
 import { CatalogoService } from '../../service/catalogo.service';
 import { BicisCantidad } from '../../models/bicis-cantidad';
+import { CheckoutService } from '../../service/checkout.service';
 
 @Component({
   selector: 'app-stripe',

@@ -9,8 +9,8 @@ import { NavbarService } from '../../service/navbar.service';
 import { Carrito } from '../../models/carrito';
 import { OrdenTemporal } from '../../models/orden-temporal';
 import { BiciTemporal } from '../../models/bici-temporal';
-import CheckoutService from '../../service/checkout.service';
 import { Router } from '@angular/router';
+import { CheckoutService } from '../../service/checkout.service';
 
 @Component({
   selector: 'app-carrito',

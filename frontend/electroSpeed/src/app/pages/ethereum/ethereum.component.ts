@@ -5,10 +5,10 @@ import { CarritoService } from '../../service/carrito.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { HttpClient } from '@angular/common/http';
-import CheckoutService from '../../service/checkout.service';
 import { CatalogoService } from '../../service/catalogo.service';
 import { Bicicletas } from '../../models/catalogo';
 import { BicisCantidad } from '../../models/bicis-cantidad';
+import { CheckoutService } from '../../service/checkout.service';
 
 @Component({
   selector: 'app-ethereum',
