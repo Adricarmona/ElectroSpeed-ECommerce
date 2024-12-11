@@ -3,10 +3,7 @@ import { Result } from '../models/result';
 import { CheckoutSessionStatus } from '../models/checkout-session-status';
 import { ApiService } from './api-service';
 import { CheckoutSession } from '../models/checkout.session';
-import { Product } from '../models/product';
-import { Bicicletas } from '../models/catalogo';
-import { CarritoEntero } from '../models/carrito-entero';
-import { OrdenTemporal } from '../models/orden-temporal';
+
 
 @Injectable({
   providedIn: 'root'

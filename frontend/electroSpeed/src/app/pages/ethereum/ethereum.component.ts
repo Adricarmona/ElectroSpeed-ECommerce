@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [],
   templateUrl: './ethereum.component.html',
+  styleUrl: './ethereum.component.css'
 })
 export class EthereumComponent {
 
