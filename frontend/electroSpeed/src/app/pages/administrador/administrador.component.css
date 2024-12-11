@@ -222,3 +222,8 @@ form .centrado input[type="submit"]:hover {
         padding: 8px;
     }
 }
+
+
+.displayBlock {
+    display: block;
+}
