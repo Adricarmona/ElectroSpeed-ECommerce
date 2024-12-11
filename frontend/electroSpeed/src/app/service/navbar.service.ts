@@ -49,12 +49,16 @@ export class NavbarService {
     const productos = document.getElementById("productos")
     const carrito = document.getElementById("carrito")
     const sobreNosotros = document.getElementById("sobreNosotros")
+    const perfil = document.getElementById("nombreUsuario")
 
     // eliminamos todas las barras
     inicio.classList.remove("active")
     productos.classList.remove("active")
     carrito.classList.remove("active")
     sobreNosotros.classList.remove("active")
+    if (perfil) {
+      perfil.classList.remove("active")
+    }
 
     // añadimos la bara en el que deseemos
     switch (pagina) {
@@ -70,7 +74,9 @@ export class NavbarService {
       case 4:
         sobreNosotros.classList.add("active")
         break;
-    
+      case 5:
+        perfil.classList.add("active")
+        break;
       default:
         break;
     }

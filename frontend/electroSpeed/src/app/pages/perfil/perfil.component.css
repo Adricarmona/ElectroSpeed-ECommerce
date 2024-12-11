@@ -1,0 +1,85 @@
+.fondo {
+    background-color: darksalmon;
+}
+
+.separacionArriba {
+    padding: 13vh 0;
+}
+
+.tarjetaFondo {
+    background-color: white;
+    border-radius: 2vh;
+}
+
+.alrededoresTarjeta {
+    margin: 0 40vh;
+    padding: 2vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+#id {
+    color: rgb(221, 221, 221);
+    font-size: 10cap;
+    position: absolute;
+    top: 11vh;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+    
+.datosUsuario { 
+    grid-area: 1 / 1 / 2 / 2; 
+    margin: 4vh;
+    text-align: center;
+}
+
+.pedidosUsuario { 
+    grid-area: 1 / 2 / 2 / 3; 
+}
+
+.tarjetaPedidos {    
+    border: 2px solid #dedede;
+} 
+
+.letrasGrandes {
+    font-size: 3cap;
+    font-weight: bolder;
+}
+
+.letrasPequeñas {
+    font-style: italic;
+}
+
+.espaciadoArriba {
+    margin-top: 4vh;
+}
+
+#botonSeguro {
+    background-color: red;
+    color: white;
+    font-weight: bolder;
+    font-size: 3cap;
+    margin-top: 2vh;
+}
+
+.forms {
+    margin: 2vh;
+}
+
+.forms input {
+    margin: 1vh;
+}
+
+button {
+    border-radius: 1vh;
+    border-color: cornsilk;
+    background-color: white;
+}
