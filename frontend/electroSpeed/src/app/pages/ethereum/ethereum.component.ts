@@ -187,18 +187,15 @@ export class EthereumComponent implements OnInit {
   </body>
   </html>
 `;
-    this.http
-      .get('pages/correo/correo.component.html', { responseType: 'text' })
-      .subscribe((htmlContent) => {
+    
         const correofactura = {
           to: 'hectordogarcia@gmail.com',
           //to: this.otroservice.getEmailUserToken(),
           subject: 'Compra ElectroSpeed',
-          body: htmlContent,
+          body: correoBody,
           isHtml: true,
         };
         this.service.sendEmail(correofactura);
-      });
     this.router.navigate(['/confirmacion'], {
       queryParams: { reserva_id: this.res },
     });

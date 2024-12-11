@@ -22,6 +22,7 @@ import { NavbarService } from '../../service/navbar.service';
 import { CarritoComponent } from '../carrito/carrito.component';
 import { BlockchainService } from '../../service/blockchain.service';
 import { HttpClient } from '@angular/common/http';
+import { CatalogoService } from '../../service/catalogo.service';
 
 @Component({
   selector: 'app-stripe',
@@ -39,6 +40,7 @@ export class StripeComponent implements OnInit, OnDestroy {
   res: string;
   routeQueryMap$: Subscription;
   stripeEmbedCheckout: StripeEmbeddedCheckout;
+  bicis: Bicicletas[] = []
   private intervalId: any;
 
   constructor(
@@ -49,7 +51,8 @@ export class StripeComponent implements OnInit, OnDestroy {
     private router: Router,
     private stripe: StripeService,
     private navbarService: NavbarService,
-    private blockchainservice: BlockchainService
+    private blockchainservice: BlockchainService,
+    private catalogoService: CatalogoService
   ) {
     navbarService.cambiarCss(0);
   }
@@ -112,16 +115,104 @@ export class StripeComponent implements OnInit, OnDestroy {
   irConfirmacion() {
     this.service.postPedido(this.res);
     this.service.elimiarCarrito(this.res);
-    this.http.get('pages/correo/correo.component.html', { responseType: 'text' }).subscribe((htmlContent) => {
-      const correofactura = {
-        to: "hectordogarcia@gmail.com",
-        //to: this.otroservice.getEmailUserToken(),
-        subject: "Compra ElectroSpeed",
-        body: htmlContent,
-        isHtml: true 
-      };
-      this.blockchainservice.sendEmail(correofactura);
+    let totalGeneral = 0;
+
+    // Generar las filas de la tabla
+    const filas = this.bicis
+      .map((bici) => {
+        const total = bici.cantidad * bici.precio;
+        totalGeneral += total; // Sumar al total general
+        return `
+      <tr>
+        <td>${bici.marcaModelo}</td>
+        <td>${bici.cantidad}</td>
+        <td>€${bici.precio.toFixed(2)}</td>
+        <td>€${total.toFixed(2)}</td>
+      </tr>
+    `;
+      })
+      .join('');
+
+    // Plantilla completa del correo con las filas generadas dinámicamente
+    const correoBody = `
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura Adjunta</title>
+  </head>
+  <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f4f4; padding: 20px;">
+      <tr>
+        <td align="center">
+          <table width="600px" cellpadding="0" cellspacing="0" border="0" style="background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <!-- Encabezado -->
+            <tr>
+              <td style="background-color: #007bff; color: #ffffff; text-align: center; padding: 20px;">
+                <h1 style="margin: 0; font-size: 24px;">Factura Adjunta</h1>
+              </td>
+            </tr>
+            <!-- Cuerpo del correo -->
+            <tr>
+              <td style="padding: 20px;">
+                <p style="font-size: 16px; color: #555;">Estimado/a <strong>Cliente</strong>,</p>
+                <p style="font-size: 16px; color: #555;">
+                  Adjuntamos a continuación el detalle de su factura. Si tiene alguna consulta, no dude en ponerse en contacto con nosotros.
+                </p>
+                <!-- Tabla de Factura -->
+                <table width="100%" cellpadding="10" cellspacing="0" border="1" style="border-collapse: collapse; font-size: 16px; color: #555; margin-top: 20px;">
+                  <tr style="background-color: #007bff; color: #ffffff;">
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                  </tr>
+                  ${filas}
+                  <tr>
+                    <td colspan="3" style="text-align: right; font-weight: bold;">Total</td>
+                    <td>€${totalGeneral.toFixed(2)}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Pie de página -->
+            <tr>
+              <td style="background-color: #f4f4f4; color: #777; text-align: center; padding: 20px; font-size: 14px;">
+                <p style="margin: 0;">Gracias por confiar en nosotros.</p>
+                <p style="margin: 0;">[Nombre de la Empresa]</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+  </html>
+`;
+    
+        const correofactura = {
+          to: 'hectordogarcia@gmail.com',
+          //to: this.otroservice.getEmailUserToken(),
+          subject: 'Compra ElectroSpeed',
+          body: correoBody,
+          isHtml: true,
+        };
+        this.blockchainservice.sendEmail(correofactura);
+        this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
+  }
+
+  async DevolverOrden(){
+    const request = await this.service.DevolverOrden(this.res)
+    request.data.forEach(e => {
+      this.datosBici(e.id)
     });
-    this.router.navigate(['/confirmacion'], { queryParams: { id: this.res } });
+  }
+
+  async datosBici(id: number){
+    const bicicleta = await this.catalogoService.showOneBike(id.toString());
+    console.log(bicicleta.cantidad)
+    this.bicis.push(bicicleta)
   }
 }
+    
