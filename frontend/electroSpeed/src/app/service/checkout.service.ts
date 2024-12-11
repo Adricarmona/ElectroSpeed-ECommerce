@@ -8,11 +8,12 @@ import { Bicicletas } from '../models/catalogo';
 import { CarritoEntero } from '../models/carrito-entero';
 import { OrdenTemporal } from '../models/orden-temporal';
 import { TemporalOrder } from '../models/temporalorder';
+import { BicisCantidad } from '../models/bicis-cantidad';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CheckoutService {
+export default class CheckoutService {
 
   constructor(private api: ApiService) { }
 
@@ -54,6 +55,6 @@ export class CheckoutService {
   }
 
   async DevolverOrden(res: string){
-    return await this.api.post<TemporalOrder>(`api/checkout/DevolverOrden/${res}`)
+    return await this.api.post<BicisCantidad[]>(`api/checkout/DevolverOrden/${res}`)
   }
 }

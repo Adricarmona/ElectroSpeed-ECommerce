@@ -253,12 +253,17 @@ namespace ElectroSpeed_server.Controllers
         }
 
         [HttpPost("DevolverOrden/{reserva}")]
-        public IList<BiciTemporal> DevolverOrden(string reserva)
+        public IList<Bicicletas> DevolverOrden(string reserva)
         {
             var id = Convert.ToInt32(reserva);
             var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
-            IList<Bicicletas> biciT = ;
-            return orden.Bicis;
+
+            IList<Bicicletas> bici = [];
+            foreach (var item in orden.Bicis)
+            {
+                bici.Add(_esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici));
+            }
+            return bici;
         }
 
     }
