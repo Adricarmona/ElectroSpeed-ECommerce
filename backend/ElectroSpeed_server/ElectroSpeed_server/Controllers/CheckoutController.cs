@@ -201,5 +201,65 @@ namespace ElectroSpeed_server.Controllers
 
             return Ok("Subida correctamente");
         }
+
+        [HttpPost("RestaurarStock/{reserva}")]
+        public ActionResult RestaurarStock(string reserva)
+        {
+            var id = Convert.ToInt32(reserva);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
+
+            foreach (var item in orden.Bicis)
+            {
+                var bici = _esContext.Bicicletas.FirstOrDefault(r => r.Id == item.IdBici);//buscamos la bici en la base de datos
+
+                bici.Stock = bici.Stock + item.cantidad;//añadimos el stock en funcion de la cantidad de bici seleccionadas
+                _esContext.SaveChanges();
+            }
+            return Ok("Subida correctamente");
+        }
+
+        [HttpPost("eliminarDelCarrito/{reserva}")]
+        public ActionResult EliminarDelCarrito(string reserva)
+        {
+            // Obtener el ID del usuario desde el token
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
+
+            // Obtener el carrito del usuario incluyendo las bicicletas
+            var carrito = _esContext.CarritoCompra.Include(c => c.BicisCantidad).FirstOrDefault(c => c.UsuarioId == idtoken);
+
+            // Obtener la orden temporal incluyendo las bicicletas
+            var id = Convert.ToInt32(reserva);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
+
+            if (carrito == null || orden == null)
+            {
+                return BadRequest("Carrito o orden no encontrados.");
+            }
+
+            // Iterar por las bicicletas de la orden y eliminarlas del carrito
+            foreach (var biciOrden in orden.Bicis)
+            {
+                var biciEnCarrito = carrito.BicisCantidad.FirstOrDefault(b => b.IdBici == biciOrden.IdBici);
+
+                if (biciEnCarrito != null)
+                {
+                    carrito.BicisCantidad.Remove(biciEnCarrito);
+                }
+            }
+
+            _esContext.SaveChanges();
+
+            return Ok("Bicicletas eliminadas del carrito correctamente.");
+        }
+
+        [HttpPost("DevolverOrden/{reserva}")]
+        public IList<BiciTemporal> DevolverOrden(string reserva)
+        {
+            var id = Convert.ToInt32(reserva);
+            var orden = _esContext.OrdenTemporal.Include(o => o.Bicis).FirstOrDefault(o => o.Id == id);
+            IList<Bicicletas> biciT = ;
+            return orden.Bicis;
+        }
+
     }
 }

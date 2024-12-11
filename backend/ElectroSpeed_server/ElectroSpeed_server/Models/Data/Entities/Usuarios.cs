@@ -16,5 +16,7 @@ namespace ElectroSpeed_server.Models.Data.Entities
         public ICollection<CarritoCompra> carritos { get; set; }
 
         public ICollection<OrdenTemporal> OrdenTemporal { get; set; }
+
+        public ICollection<Pedidos> Pedidos { get; set; }
     }
 }

@@ -7,6 +7,7 @@ import { Product } from '../models/product';
 import { Bicicletas } from '../models/catalogo';
 import { CarritoEntero } from '../models/carrito-entero';
 import { OrdenTemporal } from '../models/orden-temporal';
+import { TemporalOrder } from '../models/temporalorder';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,17 @@ export class CheckoutService {
 
   async postPedido(res: string){
     await this.api.post<number>(`api/checkout/guardarcomprar/${res}`)
+  }
+  
+  async restaurarStock(res: string){
+    await this.api.post<string>(`api/checkout/RestaurarStock/${res}`)
+  }
+
+  async elimiarCarrito(res: string){
+    await this.api.post<string>(`api/checkout/eliminarDelCarrito/${res}`)
+  }
+
+  async DevolverOrden(res: string){
+    return await this.api.post<TemporalOrder>(`api/checkout/DevolverOrden/${res}`)
   }
 }
