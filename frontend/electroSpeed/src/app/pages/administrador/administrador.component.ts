@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../footer/footer.component';
 import { Bicicletas } from '../../models/catalogo';
 import { Usuarios } from '../../models/usuarios';
 import { FormsModule } from '@angular/forms';
@@ -7,15 +6,18 @@ import { CatalogoService } from '../../service/catalogo.service';
 import { AuthService } from '../../service/auth.service';
 import { NavbarService } from '../../service/navbar.service';
 import { BicisFile } from '../../models/bicis-file';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrador',
   standalone: true,
-  imports: [FooterComponent,FormsModule],
+  imports: [FormsModule],
   templateUrl: './administrador.component.html',
   styleUrl: './administrador.component.css'
 })
 export class AdministradorComponent {
+
+  admin : boolean = false
 
   // bicicleta
   bicicletaSeleccionada: Bicicletas = {
@@ -60,6 +62,7 @@ export class AdministradorComponent {
   constructor(
     private catalogoService: CatalogoService,
     private authService: AuthService,
+    private router: Router,
     private navbarService: NavbarService
   ){}
 
@@ -68,6 +71,7 @@ export class AdministradorComponent {
 
     await this.ObtenerBicis()
     await this.ObtenerUsuarios()
+    this.admin = await this.authService.getAdminUserToken()
 
     this.sumarRestarEjecutar(0)
   }

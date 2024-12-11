@@ -117,7 +117,15 @@ namespace ElectroSpeed_server.Controllers
 
             return Unauthorized("Email o contraseña incorrecto");
         }
-        
+
+        [HttpGet("/listapedidos")]
+        public IList<Pedidos> listapedidos()
+        {
+            int idtoken = Int32.Parse(User.FindFirst("id").Value);
+
+            return _esContext.Pedido.Where(r => r.UsuarioId == idtoken).ToList();
+        }
+
     }
 
 }
