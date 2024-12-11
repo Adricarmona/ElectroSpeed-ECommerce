@@ -1,21 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { BlockchainService } from '../../service/blockchain.service';
 import { EthTransactionRequest } from '../../models/eth-transaction-request';
+import { CarritoService } from '../../service/carrito.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-ethereum',
   standalone: true,
   imports: [],
   templateUrl: './ethereum.component.html',
-  styleUrl: './ethereum.component.css'
 })
 export class EthereumComponent {
-  eurosToSend: number = 100;
+
+  constructor(
+    private carritoService: CarritoService,
+    private router: Router,
+    private otroservice: AuthService,
+    private http: HttpClient,
+    private service: BlockchainService
+
+  ) {}
+  eurosToSend: number ;
   addressToSend: string = "0xDBd229EBae72064CD86B213908fc4a7e0c12D65d";
-
-  constructor(private service: BlockchainService) {}
-
   async createTransaction() {
+
+    this.eurosToSend = this.carritoService.getTotal()
 
     // Si no está instalado Metamask se lanza un error y se corta la ejecución
     if (!window.ethereum) {
@@ -70,11 +81,24 @@ export class EthereumComponent {
     // Notificamos al usuario si la transacción ha sido exitosa o si ha fallado.
     if (checkTransactionResult.success && checkTransactionResult.data) {
       alert('Transacción realizada con éxito');
+      this.http.get('pages/correo/correo.component.html', { responseType: 'text' }).subscribe((htmlContent) => {
+        const correofactura = {
+          to: this.otroservice.getEmailUserToken(),
+          subject: "Compra ElectroSpeed",
+          body: htmlContent,
+          isHtml: true 
+        };
+      });
+      this.irConfirmacion()
       
     } else {
       alert('Transacción fallida');
     }
   }  
+
+  irConfirmacion(){
+    this.router.navigateByUrl("confirmacion")
+  }
 }
 
 declare global {
@@ -82,6 +106,8 @@ declare global {
     ethereum: any;
   }
 }  
+
+
 
 
 
