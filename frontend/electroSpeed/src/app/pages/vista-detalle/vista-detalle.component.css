@@ -1,106 +1,206 @@
+/* Fondo general */
 .fondo {
-    margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-    width: 100vw;
-    background-image: url(../../../../public/registroLogin/fondologinregistro.jpg);
-    background-size: cover;
-}
-
-#base {
-    background-color: white;
-    border-radius: 2vh;
-    padding: 5vh;
-    margin: 50vh;
-}
-
-/*   la imagen y la informacion de la derecha   */
-.grid {
-    display: grid;
-    grid-template-columns: 50vh 70vh;
-    margin-bottom: 5vh;
-}
-
-.fotos img {
-    width: 40vh;
-}
-
-.botones {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    padding: 30px;
+    font-family: 'Roboto', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+  
+  /* Base para el contenido */
+  #base {
     display: flex;
-}
-
-#resenias {
-    margin-left: 2vh;
-    background-color: orange;
-}
-
-/*-------------- el form de las reseñas -----------*/
-#escribirReseñaForm {
-
-    display: none;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la sección de fotos y datos */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .fotos img {
+    width: 100%;
+    max-width: 500px; /* Tamaño máximo de la imagen */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .datos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .datos h1 {
+    font-size: 2rem;
+    color: #343a40;
+    font-weight: 600;
+  }
+  
+  .datos h5, .datos p {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .datos h3 {
+    font-size: 1.5rem;
+    color: #6c757d; /* Verde para el precio */
+    font-weight: 600;
+  }
+  
+  .botones {
+    display: flex;
+    gap: 15px;
+  }
+  
+  #anadirCarrito, #resenias {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f88b30;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #anadirCarrito:hover, #resenias:hover {
+    background-color: #fca440;
+  }
+  
+  /* Estilos para escribir reseña */
+  #escribirReseña {
+    display: none; /* Inicialmente oculto */
+    margin-top: 30px;
+  }
+  
+  #escribirReseñaForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #escribirReseñaForm h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #343a40;
+  }
+  
+  #escribirReseñaForm input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  #escribirReseñaForm input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #escribirReseñaForm input[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  /* Estilo de las reseñas arriba */
+  .reseñasArriba {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .arribaIzquierda, .arribaDerecha {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #puntuacion img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  #cantidadReseñas {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40;
+  }
+  
+  /* Estilos para las reseñas abajo */
+  .reseñasAbajo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .tarjetasReseñas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tarjetaReseñaArriba {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-}
-
-#escribirReseña {
-    margin: 5vh;
-}
-
-#textoFormResenias {
-    margin: 0 2vh;
-}
-
-
-/* --------- Las reseñas --------- */
-
-.reseñasArriba {
+  }
+  
+  .puntuacionReseñas img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .tarjetaReseñaArriba span {
     display: flex;
-}
-
-.arribaIzquierda {
-    display: flex;
-}
-
-.arribaDerecha {
-    margin-left: auto;
-    justify-content: right;
-}
-
-/* donde estan las reseñas*/
-.reseñasAbajo {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-/* cada reseña */
-.tarjetasReseñas {
-    background-color: gray;
-    border-radius: 2vh;
-    margin: 1vh;
-    padding: 1vh;
-}
-
-.tarjetaReseñaArriba {
-    display: flex;
-}
-
-.tarjetaReseñaArriba span {
-    margin-left: auto;
-    justify-content: right;
-}
-
-.puntuacionReseñas img{
-    height: 2vh;
-}
-
-.tarjetaReseñaAbajo p{
-    text-align: center;
-    font-size: small;
-}
-
-#iconoUsuario {
-    width: 5vh;
-}
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #iconoUsuario {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+  
+  .tarjetaReseñaAbajo p {
+    font-size: 1rem;
+    color: #495057;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .botones {
+      flex-direction: column;
+    }
+  
+    .fotos img {
+      max-width: 100%;
+    }
+  
+    #escribirReseñaForm input[type="text"] {
+      font-size: 0.9rem;
+    }
+  
+    #escribirReseñaForm input[type="submit"] {
+      font-size: 1rem;
+    }
+  }
+  

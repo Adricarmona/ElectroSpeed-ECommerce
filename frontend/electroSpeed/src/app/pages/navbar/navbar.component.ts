@@ -4,11 +4,12 @@ import { Usuarios } from '../../models/usuarios';
 import { lastValueFrom } from 'rxjs';
 import { RedirectionService } from '../../service/redirection.service';
 import { NavbarService } from '../../service/navbar.service';
+import { RouterModule } from '@angular/router'; // Importa el RouterModule
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

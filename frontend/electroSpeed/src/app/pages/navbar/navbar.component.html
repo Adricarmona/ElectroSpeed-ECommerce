@@ -23,11 +23,11 @@
           </li>
 
           <li class="nav-item">
-            <a id="productos" class="nav-link mx-lg-2" href="/catalogo">Catálogo</a>
+            <a id="productos" class="nav-link mx-lg-2" [routerLink]="'/catalogo'" >Catálogo</a>
           </li>
 
           <li class="nav-item">
-            <a id="carrito" class="nav-link mx-lg-2" href="/carrito">Carrito
+            <a id="carrito" class="nav-link mx-lg-2" [routerLink]="'/carrito'">Carrito
               @if (productosCarrito) {
                 : {{productosCarritoNumero}}
               }
@@ -35,7 +35,7 @@
           </li>
 
           <li class="nav-item">
-            <a id="sobreNosotros" class="nav-link mx-lg-2" href="/sobreNosotros">Sobre Nosotros</a>
+            <a id="sobreNosotros" class="nav-link mx-lg-2" [routerLink]="'/sobreNosotros'">Sobre Nosotros</a>
           </li>
 
           <li class="nav-item">
@@ -52,7 +52,7 @@
 
         @if (admin) {
           <div class="administratorIcono nav-link">
-            <a href="/administrador">
+            <a [routerLink]="'/administrador'">
               <img src="./navbar/administrator.png" alt="">
             </a>
           </div>
@@ -65,9 +65,9 @@
 
 
     @if (!usuarioToken()) {
-      <a href="/log" class="login-button" >Iniciar Sesión</a>
+      <a [routerLink]="'/log'" class="login-button" >Iniciar Sesión</a>
     }@else{
-      <a href="#" class="login-button" (click)="vaciarToken()">Cerrar Sesión</a>
+      <a [routerLink]="''" class="login-button" (click)="vaciarToken()">Cerrar Sesión</a>
     }
   
     <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"

@@ -7,11 +7,13 @@ import { Product } from '../models/product';
 import { Bicicletas } from '../models/catalogo';
 import { CarritoEntero } from '../models/carrito-entero';
 import { OrdenTemporal } from '../models/orden-temporal';
+import { TemporalOrder } from '../models/temporalorder';
+import { BicisCantidad } from '../models/bicis-cantidad';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CheckoutService {
+export default class CheckoutService {
 
   constructor(private api: ApiService) { }
 
@@ -36,12 +38,23 @@ export class CheckoutService {
     await this.api.post<number>(`api/checkout/OrdenTAñadirUsuario/${reserva}`)
   }
 
-   eliminarOrden(){
-    console.log('4. Finalmente esto (cuando el componente sea destruido)');
-     this.api.delete<number>(`api/checkout/EliminarOrdenTemporal`)
+   eliminarOrden(res: string){
+     this.api.delete<number>(`api/checkout/EliminarOrdenTemporal/${res}`)
  }
 
-  postPedido(){
+  async postPedido(res: string){
+    await this.api.post<number>(`api/checkout/guardarcomprar/${res}`)
+  }
+  
+  async restaurarStock(res: string){
+    await this.api.post<string>(`api/checkout/RestaurarStock/${res}`)
+  }
 
+  async elimiarCarrito(res: string){
+    await this.api.post<string>(`api/checkout/eliminarDelCarrito/${res}`)
+  }
+
+  async DevolverOrden(res: string){
+    return await this.api.post<BicisCantidad[]>(`api/checkout/DevolverOrden/${res}`)
   }
 }
