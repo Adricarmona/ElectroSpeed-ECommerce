@@ -33,10 +33,8 @@
     <div class="grid">
         @for (producto of productos; track $index) {
             <div class="fotoBici"> <img [src]="producto.urlImg" alt=""> </div>
-            <div class="nombreBici"> {{producto.marcaModelo}} </div>
-            <div class="precioBici"> {{producto.precio}} </div>
-            <div class="cantidadBici"> {{producto.cantidad}} </div>
-            <div class="sumaPrecios"> {{producto.cantidad * producto.precio}} </div>
+            <div class="nombreBici"> Nombre: {{producto.marcaModelo}} </div>
+            <div class="precioBici"> Precio: {{producto.precio}}€  </div>
         }
     </div>
         
