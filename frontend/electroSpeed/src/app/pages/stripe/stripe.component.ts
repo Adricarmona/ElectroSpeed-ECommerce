@@ -214,6 +214,7 @@ export class StripeComponent implements OnInit, OnDestroy {
 
   async DevolverOrden() {
     const request = await this.service.DevolverOrden(this.res);
+    this.bicicantidad = request.data
 
     const promises = request.data.map((e) => this.datosBici(e.id));
     await Promise.all(promises);
