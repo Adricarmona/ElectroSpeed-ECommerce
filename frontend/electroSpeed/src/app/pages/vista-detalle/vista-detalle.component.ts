@@ -162,7 +162,7 @@ export class VistaDetalleComponent implements OnInit {
   *   RESEÑAS
   */
   verResenias() {
-    const ponerResenias = document.getElementById("escribirReseñaForm")
+    const ponerResenias = document.getElementById("escribirReseña")
     if (ponerResenias) {
       ponerResenias.style.display = "flex";
     }
