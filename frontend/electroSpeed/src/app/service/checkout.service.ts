@@ -13,7 +13,7 @@ import { BicisCantidad } from '../models/bicis-cantidad';
 @Injectable({
   providedIn: 'root'
 })
-export default class CheckoutService {
+export class CheckoutService {
 
   constructor(private api: ApiService) { }
 

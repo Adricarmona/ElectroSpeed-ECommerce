@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Bicicletas } from '../../models/catalogo';
 import { FooterComponent } from '../footer/footer.component';
-import CheckoutService from '../../service/checkout.service';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogoService } from '../../service/catalogo.service';
 import { BiciTemporal } from '../../models/bici-temporal';
+import { CheckoutService } from '../../service/checkout.service';
 
 
 @Component({

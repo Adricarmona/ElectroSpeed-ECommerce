@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { StripeService } from 'ngx-stripe';
 import { AuthService } from '../../service/auth.service';
-import CheckoutService from '../../service/checkout.service';
 import { Subscription } from 'rxjs';
 import { StripeComponent } from '../stripe/stripe.component';
 import { EthereumComponent } from '../ethereum/ethereum.component';
+import { CheckoutService } from '../../service/checkout.service';
 
 @Component({
   selector: 'app-checkout',
